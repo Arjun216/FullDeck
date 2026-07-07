@@ -83,6 +83,41 @@ Skip it for now; plain `xcodebuild` + `xcbeautify` works out of the box. Add it 
 | Tweaking a SwiftUI view against the live preview; fixing a compiler error in place | Xcode's built-in Claude agent |
 | Building/testing/screenshotting without opening Xcode | Claude Code via `xcodebuild` / `simctl` |
 
+## How to "vibe code" this: skills and prompts, phase by phase
+
+"Vibe coding" here doesn't mean dropping the discipline in `docs/build-plan.md` — it means you don't have to hand-hold the process. This session's harness has a rule (`using-superpowers`) that forces Claude to check for a matching skill before every response. You don't invoke skills yourself; you just paste the phase prompt and talk normally, and the right skill fires on its own. What you actually need to know is *which skill you should expect to see*, so you can tell when something's off.
+
+### The loop, once per phase
+
+1. Open a session in the project root (a fresh one is fine — `CLAUDE.md` loads automatically).
+2. **Paste that phase's prompt from `docs/build-plan.md` verbatim.** That file already *is* the plan; don't wrap it in extra framing.
+3. Skills fire automatically as the work proceeds (table below).
+4. Before the phase is called "done": a **self-review pass** (CLAUDE.md requires this after every phase) — ask for `/code-review` and, since this project runs Ponytail in full mode, a `/ponytail-review` pass too. Different targets: code-review hunts bugs, ponytail-review hunts over-engineering.
+5. **Actually see it work.** Use `/run` (or ask Claude to launch the simulator) before accepting a UI-facing phase — passing tests are not the same as a working screen.
+6. Commit. One phase = one (or a few) conventional commits, per CLAUDE.md.
+
+### Which skill should show up when
+
+| Phase(s) | What's happening | Skill that should fire |
+|---|---|---|
+| 1–3 (docs only) | requirements, architecture, schema | Nothing extra — these were already brainstormed; it's straight writing. If a real ambiguity surfaces, `brainstorming` re-opens for just that question. |
+| 4, 6, 7, 9, 10 | turning a written phase-prompt spec into working code | `writing-plans` first (breaks the prompt into concrete steps), then plain execution |
+| 5, and the test parts of 6/7/8 | scheduler, pipeline, persistence, ViewModels | `test-driven-development` — CLAUDE.md already mandates tests-before-code; this is what enforces it |
+| 11 (StoreKit) | money-handling code | `writing-plans`, then treat `/security-review` as non-optional before you trust it |
+| 12 (Hindi) | proving the "no code change" claim | `systematic-debugging` if the abstraction leaks somewhere |
+| 13–14 | QA, release | `verification-before-completion` — this is the whole point of these phases: evidence before "it's ready" |
+| any phase, any time | a red test, a crash, "why doesn't this work" | `systematic-debugging` — before any fix is proposed, not after |
+
+Ponytail (full) runs underneath all of this the whole time — it's what keeps Claude from adding config knobs, abstractions, or speculative flexibility you didn't ask for. If a phase's output looks suspiciously minimal, that's it working, not it skipping steps; the `ponytail:` comments mark anything it deliberately simplified. Run `/ponytail-debt` anytime to see the running list of what got deferred.
+
+### Best prompts
+
+- **The phase prompt, unmodified.** That's the entire design of `docs/build-plan.md` — it's already been through brainstorming once. Adding your own preamble usually just dilutes it.
+- **Plain English for anything the plan doesn't cover** — "explain what an ease factor is before we go further," "I don't like these completion-screen options, give me different ones." One sentence is enough; Claude pulls in whichever skill fits (usually `brainstorming` again for a design change).
+- **Two phrases worth knowing:**
+  - *"self-review this phase"* — triggers the CLAUDE.md-mandated tech-debt callout explicitly, if it didn't already happen.
+  - *"what did ponytail defer"* — surfaces every `ponytail:` shortcut left in the code so far (via `ponytail-debt`), so shortcuts don't quietly rot into permanent gaps.
+
 ## Sources
 
 - [Apple: Xcode 26.3 unlocks the power of agentic coding](https://www.apple.com/newsroom/2026/02/xcode-26-point-3-unlocks-the-power-of-agentic-coding/)
