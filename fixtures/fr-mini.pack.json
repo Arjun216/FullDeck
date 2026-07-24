@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "pack_version": "0.1.0",
+  "language_code": "fr",
+  "language_name": "Français",
+  "base_language": "en",
+  "word_count": 5,
+  "source": {
+    "name": "hand-authored test fixture",
+    "license": "CC0-1.0",
+    "attribution": "Hand-authored fixture for TopWords tests; not derived from wordfreq.",
+    "notes": "Ranks are illustrative, not real frequencies."
+  },
+  "words": [
+    {
+      "id": "fr:je:PRON",
+      "lemma": "je",
+      "display": "je",
+      "pos": "PRON",
+      "rank": 1,
+      "register": "neutral",
+      "is_function_word": true,
+      "gloss": "I",
+      "example": "Je suis Paul.",
+      "aliases": []
+    },
+    {
+      "id": "fr:être:AUX",
+      "lemma": "être",
+      "display": "être",
+      "pos": "AUX",
+      "rank": 2,
+      "register": "neutral",
+      "is_function_word": true,
+      "gloss": "to be",
+      "example": "C'est Paul.",
+      "aliases": []
+    },
+    {
+      "id": "fr:avoir:VERB",
+      "lemma": "avoir",
+      "display": "avoir",
+      "pos": "VERB",
+      "rank": 3,
+      "register": "neutral",
+      "is_function_word": false,
+      "gloss": "to have",
+      "example": "J'ai été.",
+      "aliases": []
+    },
+    {
+      "id": "fr:chat:NOUN",
+      "lemma": "chat",
+      "display": "le chat",
+      "pos": "NOUN",
+      "rank": 4,
+      "register": "neutral",
+      "is_function_word": false,
+      "gloss": "cat",
+      "example": "J'ai un chat.",
+      "aliases": []
+    },
+    {
+      "id": "fr:noir:ADJ",
+      "lemma": "noir",
+      "display": "noir",
+      "pos": "ADJ",
+      "rank": 5,
+      "register": "neutral",
+      "is_function_word": false,
+      "gloss": "black",
+      "example": "J'ai un chat noir.",
+      "aliases": []
+    }
+  ]
+}

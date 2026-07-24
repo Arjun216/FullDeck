@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "pack_version": "0.1.0",
+  "language_code": "fr",
+  "language_name": "Français",
+  "word_count": 3,
+  "source": {
+    "name": "hand-authored test fixture",
+    "license": "CC0-1.0",
+    "attribution": "Hand-authored fixture for TopWords tests; not derived from wordfreq.",
+    "notes": "Minimal valid base, mutated to break exactly one validation rule."
+  },
+  "words": [
+    {
+      "id": "fr:je:PRON",
+      "lemma": "je",
+      "display": "je",
+      "pos": "PRON",
+      "rank": 1,
+      "register": "neutral",
+      "is_function_word": true,
+      "example": "Je suis un chat."
+    },
+    {
+      "id": "fr:être:AUX",
+      "lemma": "être",
+      "display": "être",
+      "pos": "AUX",
+      "rank": 2,
+      "register": "neutral",
+      "is_function_word": true,
+      "example": "C'est Paul."
+    },
+    {
+      "id": "fr:avoir:VERB",
+      "lemma": "avoir",
+      "display": "avoir",
+      "pos": "VERB",
+      "rank": 3,
+      "register": "neutral",
+      "is_function_word": false,
+      "example": "J'ai été."
+    }
+  ]
+}

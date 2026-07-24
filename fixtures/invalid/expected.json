@@ -1,0 +1,50 @@
+{
+  "_comment": "Fixture -> the ONE validation rule it breaks (docs/language-pack-schema.md SS7). Every pack here is otherwise a valid Structural-profile pack, so a validator test may assert the exact rule, not merely that validation failed. Both the Python pipeline validator (Phase 6) and the Swift JSONPackStore (Phase 7) read this table. Positive control: fixtures/fr-mini.pack.json must still PASS Structural.",
+  "not_covered": {
+    "VR-13": "aliases uniqueness - every v1 pack ships empty aliases; add a fixture when one does not.",
+    "VR-16": "language_code vs. manifest - needs the pack manifest, which lands in Phase 4/7.",
+    "VR-17/VR-18": "shippable-profile 1000-word rules - waived for fixtures by SS7."
+  },
+  "fixtures": {
+    "dup-id.pack.json": {
+      "rule": "VR-3",
+      "why": "Two entries share the id fr:je:PRON."
+    },
+    "id-mismatch.pack.json": {
+      "rule": "VR-4",
+      "why": "id says NOUN, pos says VERB - id is not its derivation."
+    },
+    "dup-rank.pack.json": {
+      "rule": "VR-5",
+      "why": "Two entries share rank 2."
+    },
+    "function-word-flag.pack.json": {
+      "rule": "VR-7",
+      "why": "VERB entry flagged is_function_word: true."
+    },
+    "word-count-mismatch.pack.json": {
+      "rule": "VR-2",
+      "why": "word_count 4, three entries present."
+    },
+    "sentence-content-violation.pack.json": {
+      "rule": "VR-10",
+      "why": "Target je (rank 1) sentence uses the content word chat - the SS6 hard fail."
+    },
+    "sentence-missing-target.pack.json": {
+      "rule": "VR-10",
+      "why": "avoir's sentence contains no form of avoir."
+    },
+    "wordfreq-attribution.pack.json": {
+      "rule": "VR-14",
+      "why": "wordfreq-derived pack whose attribution omits the CC-BY-SA 4.0 credit."
+    },
+    "future-schema-version.pack.json": {
+      "rule": "VR-15",
+      "why": "schema_version 2 - newer than the loader supports; must fail closed as unsupportedSchemaVersion."
+    },
+    "unresolvable-audio.pack.json": {
+      "rule": "VR-12",
+      "why": "audio.word points at an asset that does not exist."
+    }
+  }
+}
