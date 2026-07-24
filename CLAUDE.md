@@ -1,6 +1,6 @@
-# Project: TopWords (working title) — Top 1000 Words
+# Project: Full Deck — Top 1000 Words
 
-**Naming:** "TopWords" is a placeholder. The real app name MUST be decided before Phase 4 (project scaffolding) — renaming before the Xcode project exists is free, after is not. Remind me if Phase 4 starts and this line is still here.
+**Naming:** Decided 2026-07-24 (Phase 4). User-facing app name is **Full Deck**. The Xcode project, app target, and Swift module are `FullDeck` (no space — keeps generated identifiers clean); the display name "Full Deck" is set via the target's Display Name. Bundle id: `arjunpathak.FullDeck`.
 
 ## Product in one sentence
 A SwiftUI iOS app that teaches the ~1000 highest-frequency words in a language using spaced repetition, and nothing else.
