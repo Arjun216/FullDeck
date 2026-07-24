@@ -1,0 +1,35 @@
+# SwiftLint configuration — https://github.com/realm/SwiftLint
+# Lean baseline: SwiftLint's default rules do most of the work; a few opt-ins are
+# added below. CI runs `swiftlint lint --strict`, so ANY violation fails the build.
+#
+# The rules that matter most here:
+#   - line_length: keeps lines readable (100 warn / 140 error), comments exempt.
+#   - empty_count: prefer `isEmpty` over `count == 0` (clearer, and O(1)).
+#   - The default force_try / implicitly_unwrapped_optional family aligns with the
+#     CLAUDE.md rule "never crash on bad data". (A dedicated force_unwrapping opt-in
+#     arrives with the Domain layer in Phase 5, once we own all the code it sees.)
+
+disabled_rules:
+  - todo            # TODO/ponytail: shortcuts are tracked via /ponytail-debt, not the linter
+
+opt_in_rules:
+  - empty_count
+  - closure_spacing
+  - explicit_init
+  - first_where
+  - contains_over_first_not_nil
+
+excluded:
+  - .build
+  - Packages/Domain/.build
+  - Packages/Data/.build
+
+line_length:
+  warning: 100
+  error: 140
+  ignores_comments: true
+  ignores_urls: true
+
+identifier_name:
+  min_length: 2                 # allow short, meaningful names
+  excluded: [id, x, y, n, i, g] # domain/math shorthands used deliberately
