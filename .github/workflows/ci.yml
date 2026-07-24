@@ -1,0 +1,77 @@
+name: CI
+
+# Runs on every push and every pull request (build + test + lint), per the plan.
+on:
+  push:
+  pull_request:
+
+# If you push again before a run finishes, cancel the older run for the same
+# branch. macOS runner minutes are the expensive ones on the free tier (billed
+# 10x), so don't pay for a run you've already superseded.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-test:
+    # iOS builds need Xcode, which only exists on macOS runner images.
+    runs-on: macos-15
+    steps:
+      # Pull the repo onto the runner.
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Diagnostic: record exactly which toolchain the runner handed us. If this
+      # prints a Swift older than 6.x, uncomment the "Select Xcode" step below.
+      - name: Toolchain versions
+        run: |
+          swift --version
+          xcodebuild -version
+
+      # If the default Xcode is too old for our Swift 6 packages, pin it here.
+      # (Left off by default to avoid a needless step — the diagnostic above tells
+      # us if we need it. The exact app path is visible in that step's log.)
+      # - name: Select Xcode
+      #   run: sudo xcode-select -s /Applications/Xcode_26.app
+
+      # ---- Domain package: pure Swift, no simulator, runs in seconds ----
+      # -Xswiftc -warnings-as-errors is what actually enforces the Swift 6
+      # strict-concurrency model from architecture.md §4: a warning fails the build.
+      - name: Domain — test with coverage (warnings as errors)
+        run: swift test --package-path Packages/Domain --enable-code-coverage -Xswiftc -warnings-as-errors
+      - name: Domain — coverage gate (>= 90%)
+        run: scripts/coverage-gate.sh Packages/Domain 90 DomainPackageTests
+
+      # ---- Data package: imports Domain, still no simulator ----
+      - name: Data — test with coverage (warnings as errors)
+        run: swift test --package-path Packages/Data --enable-code-coverage -Xswiftc -warnings-as-errors
+      - name: Data — coverage gate (>= 80%)
+        run: scripts/coverage-gate.sh Packages/Data 80 DataPackageTests
+
+      # ---- Cross-cutting gates (CLAUDE.md testing standards) ----
+      # Fails if any test reads wall-clock time or uses unseeded randomness.
+      - name: Determinism check
+        run: scripts/determinism-check.sh
+      # Reports which FR-/NFR- IDs still lack a naming test. Report only — never fails.
+      - name: Requirements traceability (report only)
+        run: scripts/trace-requirements.sh
+
+      # ---- Lint: SwiftLint in --strict mode (any violation fails) ----
+      # Use the runner's preinstalled swiftlint if present, else install it.
+      - name: SwiftLint
+        run: |
+          command -v swiftlint >/dev/null 2>&1 || brew install swiftlint
+          swiftlint lint --strict
+
+      # ---- App target: the thin SwiftUI shell. Needs Xcode + a simulator ----
+      # NOTE: requires the FullDeck Xcode project with a *shared* scheme named
+      # "FullDeck" (Phase 4 Xcode step). Until that exists, this step fails with
+      # "scheme not found" — the package gates above still run and pass.
+      # The simulator device name may need adjusting to one present on the runner;
+      # we finalize it on the first real CI run.
+      - name: App — build & test (iOS Simulator)
+        run: |
+          xcodebuild test \
+            -scheme FullDeck \
+            -destination 'platform=iOS Simulator,name=iPhone 16' \
+            CODE_SIGNING_ALLOWED=NO
