@@ -77,7 +77,7 @@ Produce:
 1. docs/language-pack-schema.md: the formal schema for a word entry (unique ID, lemma, display form, part of speech, frequency rank, register tag [casual/formal/neutral], content-vs-function-word flag, exactly one example sentence, and an OPTIONAL audio reference — v1 ships no audio files and speaks via on-device TTS; the field exists so future packs can add real recordings without a schema change) AND the pack-level metadata (language code, display name, schema version, word count, source/attribution, license note — must carry the wordfreq CC-BY-SA 4.0 attribution). Include a schema_version field and a short policy for how schema changes are versioned so old packs don't silently break.
 2. A machine-readable schema (JSON Schema) that a pack can be validated against.
 3. The validation rules a pack must pass to be considered valid: no missing required fields, unique IDs, exactly 1000 usable entries, every audio reference (if present) resolvable, AND the sentence-frequency constraint from the spec — every example sentence uses only words more frequent than its target word (define precisely how function words and proper nouns are treated). This constraint is a formal, machine-checked rule, not a guideline.
-4. A tiny hand-written example pack of ~5 entries that conforms, so we have a fixture for tests.
+4. A tiny hand-written example pack of ~5 entries that conforms, so we have a fixture for tests — plus a `fixtures/invalid/` set: one minimal pack per validation-rule class, each breaking exactly one rule and named for it (`dup-id`, `id-mismatch`, `dup-rank`, `function-word-flag`, `word-count-mismatch`, `sentence-content-violation`, `sentence-missing-target`, `wordfreq-attribution`, `future-schema-version`, `unresolvable-audio`), with an `expected.json` mapping each file to the rule it violates. These are the rejection fixtures the Phase 6 and Phase 7 validators must catch (a validator that rejects nothing passes an all-valid corpus). The valid pack is the positive control.
 
 Explain the tradeoffs of any modeling decisions that matter for morphologically rich languages (lemma vs. inflected forms) and for register, since those affect every future pack. Present for review before implementation.
 ```
@@ -99,7 +99,12 @@ Do the following:
 2. Add an appropriate Swift/Xcode .gitignore (git itself is already initialized) and set up a conventional-commits-friendly workflow.
 3. Add and configure static analysis / formatting (SwiftLint + a formatter). Give me a sensible baseline config and explain the few rules that matter most.
 4. Add a README.md with a project overview, the architecture summary, and how to build/test locally.
-5. Set up CI (GitHub Actions on a macOS runner) that on every push builds the project and runs the test suite and the linter. Keep it lean to stay within free runner minutes. Explain the workflow file line by line since CI for iOS will be new to me.
+5. Set up CI (GitHub Actions on a macOS runner) that on every push builds the project and runs the test suite and the linter. Keep it lean to stay within free runner minutes. Explain the workflow file line by line since CI for iOS will be new to me. The CI must **enforce the CLAUDE.md testing standards as hard gates**, not just run tests:
+   - **Coverage gate:** `swift test --enable-code-coverage` for the Domain and Data packages, then `xcrun llvm-cov export --summary-only` — fail if Domain line coverage < 90% or Data < 80%. Pin the exact `.build/.../*.profdata` path (it varies by toolchain) so the gate is stable. No coverage gate on the app target.
+   - **Warnings as errors:** build the packages and app with `-warnings-as-errors` (this is what actually enforces the Swift 6 strict-concurrency model from architecture.md §4).
+   - **Traceability report:** run `scripts/trace-requirements.sh` and print its output (report, does not fail the build).
+   - **Determinism grep:** fail if any test source under a `Tests` path references `Date()`, `Task.sleep`, or unseeded `random` (tests must use the injected `Clock`/seeds).
+   Before finishing the phase, **prove each gate actually bites**: once, deliberately break a test, add a compiler warning, and add a Domain source file with no test; confirm CI goes red on each; then revert. An unverified gate is not a gate.
 6. Fill in the "Build & test commands" section of CLAUDE.md with the exact working commands (templates in docs/claude-code-xcode-setup.md).
 
 Put only placeholder screens in the app for now (language selection, study, progress) — no real logic yet. Confirm the build is green and CI passes before we continue.
@@ -116,8 +121,8 @@ Build the spaced-repetition engine as a pure-Swift domain module with zero depen
 
 Process, in this order:
 1. First, describe the algorithm (a simplified SM-2-style scheduler tracking ease factor, interval, repetition count, and next-review date per word) and recommend whether the recall grade should be a 4-level scale (again/hard/good/easy) or a simpler correct/incorrect, with reasoning. I'll confirm before you write tests.
-2. Write the unit tests FIRST — before the implementation — covering normal scheduling progression, the reset-on-failure path, first-ever review, boundary values (minimum/maximum intervals), and any edge cases you can identify. Show me the failing tests.
-3. Then implement the engine to make the tests pass. Keep it a plain, injectable type (no singletons, no global state) so it can be driven deterministically in tests — including making "today's date" injectable rather than reading the system clock directly.
+2. Write the unit tests FIRST — before the implementation — covering normal scheduling progression, the reset-on-failure path, first-ever review, boundary values (minimum/maximum intervals), and any edge cases you can identify. **In addition to these example cases, add invariant/property tests** that drive a long seeded random walk of (state, grade) steps and assert the properties hold at every step: `next-review ≥ today` always (FR-8), ease and interval stay within their clamps (no drift over long sequences), a failing grade never lengthens an interval, and the engine is pure — same `(state, grade, today)` ⇒ same output. Example tests prove the listed cases; the invariants catch drift and off-by-ones at clamps only reached after many reps. Work the CLAUDE.md red-green-refactor cycle one behavior at a time — write a test, run it, and show me that it fails *because the scheduler doesn't exist yet* (not because it doesn't compile) before writing any engine code.
+3. Then implement the engine one behavior at a time — the minimal code to green each failing test, refactoring while green — never more than the current test demands. Keep it a plain, injectable type (no singletons, no global state) so it can be driven deterministically in tests — including making "today's date" injectable rather than reading the system clock directly.
 4. Explain the algorithm and the Swift specifics as you go; spaced-repetition implementations are new to me even though the concept makes sense.
 
 End with a coverage summary and note any behavior you deliberately left simple for v1.
@@ -139,7 +144,7 @@ The tool should:
 2. Generate exactly one example sentence per word via the Claude API, subject to the spec's hard constraint: each sentence uses only words more frequent than its target word (per the Phase 3 validation rules' treatment of function words / proper nouns). Enforce the constraint programmatically after generation — regenerate on violation, never just trust the prompt.
 3. Leave the audio-reference field empty by design (v1 is on-device TTS; the field is optional in the schema).
 4. Validate its own output against the JSON Schema and ALL Phase 3 validation rules (including the sentence constraint), failing loudly if the pack is non-conforming.
-5. Include its own tests (pytest) covering parsing, tagging, the sentence-constraint checker, and the schema-validation step, plus a lint/format setup for the Python side. Mock the Claude API in tests.
+5. **Build the validator and the sentence-constraint checker test-first** (they are pure logic): write the rejection tests before the checker exists — load every pack in `fixtures/invalid/` and assert each fails *for the specific rule it breaks* (per `fixtures/invalid/expected.json`), plus `fixtures/fr-mini.pack.json` passes as the positive control — run them, watch them fail because the checker isn't there yet, then implement to green them one rule at a time. The spaCy parsing/tagging and Claude-API generation are IO-heavy glue: test those alongside (mock the Claude API), not necessarily first. Add a lint/format setup for the Python side, and gate validator-module coverage with `--cov-fail-under` (validator module only, not the whole tool) so the checker itself can't rot untested.
 
 Explain the pipeline design and how it stays reusable across languages, since ease-of-adding-languages is a core goal. Flag anything about the French output that a human should review before it ships (the ~100-sentence spot-check happens at Phase 13).
 ```
@@ -156,7 +161,7 @@ Implement the data/persistence layer using the technology chosen in the Phase 2 
 Deliver:
 1. The concrete persistence implementation for: loading a language pack, and reading/writing per-word review state (ease factor, interval, next-review date, learned status) and per-language progress.
 2. An in-memory test double conforming to the same protocol, for use in higher-layer tests.
-3. Unit/integration tests for the real implementation: round-tripping review state, loading the Phase 3 fixture pack, handling a missing or corrupt pack gracefully (returns a typed error, does not crash), and a migration/versioning smoke test if the chosen store needs one.
+3. Tests for the real implementation. The SwiftData round-trip and fixture load are glue — test them alongside the store. But the **loader's error mapping is logic: write those tests first** (which malformed input maps to which typed error), watch them fail, then implement. Cover: round-tripping review state, loading the Phase 3 fixture pack, handling a missing or corrupt pack gracefully (returns a typed error, does not crash), and a migration/versioning smoke test if the chosen store needs one. For the pack loader, drive the `fixtures/invalid/` set the same way Phase 6 does: each malformed pack the loader is responsible for must surface a *typed* error (not just "some error"), and `future-schema-version.pack.json` in particular must return the `unsupportedSchemaVersion` fail-closed error from the schema doc §9. The valid `fr-mini` pack is the positive control.
 
 Explain the persistence API choices and any Swift concurrency considerations (e.g. actor isolation, main-thread rules) as they come up, since these are new to me.
 ```
@@ -170,7 +175,7 @@ Explain the persistence API choices and any Swift concurrency considerations (e.
 ```
 Build the presentation layer with MVVM (or the pattern chosen in Phase 2). Keep SwiftUI views thin; put logic in ViewModels that depend only on protocols (the repository and the domain engine), injected so they can be tested with fakes.
 
-Build these screens against the tested domain engine and the in-memory repository double from Phase 7:
+The ViewModels are logic, so build them **test-first** (CLAUDE.md): for each screen, write the ViewModel unit tests before the ViewModel exists, watch them fail, then implement to green them. The SwiftUI views themselves are thin glue and aren't unit-tested here. Build these screens against the tested domain engine and the in-memory repository double from Phase 7:
 1. Study/review session: presents a card, enforces active recall (recommend and implement either reveal-then-self-grade or a lightweight production/selection interaction, per our active-recall principle), speaks the word and example sentence through a speech protocol wrapping AVSpeechSynthesizer (spec D3) — the protocol is injectable and fake-able in tests, and callers must not know whether speech is TTS or a future audio file — shows the one example sentence, and feeds the grade back to the scheduler.
 2. Progress screen: words learned out of 1000 for the current language, and nothing else.
 3. Language selection: lists available packs; shows locked/unlocked state (purchase wiring comes in Phase 11 — stub the lock check behind a protocol now).
@@ -192,7 +197,7 @@ Explain SwiftUI state-management concepts (state, bindings, observation) the fir
 Wire the real layers together end-to-end (real persistence, real domain engine, real ViewModels) and add integration tests across the seams.
 
 Also implement the completion/"done" state properly:
-1. Define precisely what "learned" means for a single word (e.g. reaching N successful intervals) and surface it in progress.
+1. Define precisely what "learned" means for a single word (e.g. reaching N successful intervals) and surface it in progress. This rule is pure domain logic — **test it first** (a word at N-1 intervals is not learned; the Nth crosses it; a lapse un-learns it or not, whichever you decide) before implementing, same cycle as Phase 5. The end-to-end wiring below is glue, tested by the integration tests as written.
 2. When all 1000 words in a language reach that state, present a clear completion screen instead of continuing silently. Propose 2–3 options for what that screen offers (e.g. review-only mode, prompt to unlock another language) and let me choose.
 
 Integration tests to add:
@@ -212,8 +217,8 @@ Report anything that had to change in the layers to make integration work, and w
 ```
 Harden the cross-cutting concerns that a serious app needs. Address each and add tests where testable:
 
-1. Accessibility: VoiceOver labels for every interactive element and card, Dynamic Type support across all screens, and sufficient color contrast. Tell me how to verify each manually (VoiceOver walkthrough, largest Dynamic Type setting).
-2. Error handling & user-facing states: replace any silent failures or fatal errors with typed errors and real UI states (e.g. "couldn't load this language"). Add tests for the error paths.
+1. Accessibility: VoiceOver labels for every interactive element and card, Dynamic Type support across all screens, and sufficient color contrast. Tell me how to verify each manually (VoiceOver walkthrough, largest Dynamic Type setting). **Also add the automated net:** a XCUITest that calls `try app.performAccessibilityAudit()` on each core screen (Xcode's built-in audit — catches missing labels, low contrast, and clipping at large Dynamic Type, and fails the test on any issue; scope with `XCUIAccessibilityAuditType` and filter individual known-OK issues via the closure). This runs in CI so accessibility regressions are caught every push, not only at a manual pass. The manual VoiceOver walkthrough stays for what an audit can't judge — whether a label is *meaningful* — but the regression-catching half is automated.
+2. Error handling & user-facing states: replace any silent failures or fatal errors with typed errors and real UI states (e.g. "couldn't load this language"). The error→state mapping is logic — **test-first**: write the failing test that a given error surfaces a given UI state, then implement it.
 3. Offline-first verification: audit that every core feature works with no network and that nothing silently depends on a network call. Document the result.
 4. UI localization readiness: extract the app's own interface strings (buttons, labels, the completion screen) into a localization catalog so the UI itself can later be translated — separate from the learning-content packs. Localize into at least one second language to prove the setup works.
 5. Observability/analytics decision: consistent with the privacy stance, decide and document what (if anything) is collected. Default to little/none, local-only; no third-party trackers. Write down the decision and why.
@@ -233,7 +238,7 @@ Implement in-app purchases with StoreKit 2, plugged into the lock-check protocol
 Deliver:
 1. The purchase flow: fetch products, purchase, handle success/failure/cancellation with real UI states, and — importantly — restore purchases.
 2. Persist entitlement so unlocked languages stay unlocked across relaunch/reinstall, and verify entitlements against StoreKit rather than trusting a local flag alone.
-3. Automated tests using the StoreKit testing framework (a local .storekit configuration) covering purchase success, failure, cancellation, and restore.
+3. The purchase/entitlement state machine (success → unlocked, failure → stays locked with a message, cancellation → no change, restore → re-granted) is logic — build it **test-first** with the StoreKit testing framework (a local `.storekit` configuration): write each state-transition test first against StoreKitTest, watch it fail, then implement. The StoreKit *SDK calls* (fetch products, the purchase sheet) are glue tested alongside; the state machine reacting to their results is what gets tested first.
 4. A step-by-step guide for the App Store Connect setup I must do outside Xcode: creating the IAP products, enrolling in the Small Business Program (relevant to the fee split at $0.99), setting up a sandbox tester, and running through a sandbox purchase to confirm it works end-to-end.
 
 Confirm the StoreKit 2 APIs you're using are current before committing. Explain the purchase/entitlement concepts as we go — IAP is entirely new to me.
@@ -249,7 +254,7 @@ Confirm the StoreKit 2 APIs you're using are current before committing. Explain 
 Time to prove the central architectural claim: adding a language should require no app-code changes. Using the Phase 6 pipeline, generate a pack for Hindi (spec D5 — chosen deliberately because its weaker NLP tooling and richer morphology stress the pipeline). Help me integrate it.
 
 Then give me an honest verdict:
-1. Did any Swift/app code have to change to support this language, beyond adding the data pack and its assets? List exactly what, if anything.
+1. Did any Swift/app code have to change to support this language, beyond adding the data pack and its assets? List exactly what, if anything. **Make this mechanical, not self-reported:** the claim holds only if `git diff --name-only` for the integration commit touches nothing under `Packages/*/Sources` or the app target's source folders (data packs, assets, and the pack manifest are the only allowed additions). Show me that diff as the evidence. This is the project's central architectural claim (ADR-004) — it gets checked, not asserted.
 2. If code did change, that's a leak in the abstraction — identify the root cause and propose a refactor so the next language truly needs zero code changes.
 3. Add/extend tests so both languages are covered (pack loads, progress is tracked independently per language, switching languages preserves each one's state).
 
@@ -268,7 +273,7 @@ Pull the whole test strategy together and close the gaps. Produce docs/test-plan
 1. Coverage review: report unit-test coverage per layer, and flag any domain or ViewModel logic that isn't adequately covered. Fill the important gaps.
 2. UI tests: add automated UI tests for the critical flows (complete a study session, reach the completion state, unlock a second language) and, if the chosen tooling supports it and it's currently maintained, snapshot tests for the key screens.
 3. Edge-case matrix: enumerate and test the nasty cases — empty/corrupt pack, interrupted purchase, app backgrounded mid-session, device date changed (spaced-repetition depends on dates), very large Dynamic Type, VoiceOver navigation, TTS voice unavailable or uninstalled (the speech protocol must degrade gracefully, not crash), and rapid repeated input.
-4. Performance check: measure cold launch and card-advance latency against the Phase 1 NFR targets, and profile for any obvious main-thread jank or memory issues.
+4. Performance check: measure cold launch and card-advance latency against the Phase 1 NFR targets, and profile for any obvious main-thread jank or memory issues. Measure these **locally on the baseline device** (NFR-2/NFR-3) — deliberately **not** a CI gate: a shared GitHub macOS runner is too noisy for a reliable 100 ms / 2 s assertion, so gating there would only produce flakes. Record the measured numbers in `docs/test-plan.md` instead.
 5. Content QA (spec D4): draw ~100 random example sentences from the French pack for my human spot-check; give me a simple way to record verdicts and regenerate rejects through the pipeline.
 6. Manual QA checklist: a concrete, step-by-step checklist I can run on a physical device before any release, covering every functional requirement from Phase 1 and every flow above.
 7. TestFlight: walk me through setting up a TestFlight beta and what feedback to collect from a small group of real testers (I can recruit a few French/heritage-language learners) before public launch — including explicitly asking testers to flag any example sentence that sounds unnatural.

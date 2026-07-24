@@ -38,13 +38,24 @@ A SwiftUI iOS app that teaches the ~1000 highest-frequency words in a language u
 - First language free. Each additional language: $0.99 one-time unlock (StoreKit non-consumable). No subscriptions, no ads.
 
 ## Engineering standards — apply throughout
-- Test-first for domain logic: write failing tests, then implement to pass. Don't write the scheduler without tests.
+- Test-first for all **logic** — anything expressible as input→output: the domain engine, the pack validator, ViewModels, the "learned"/done-state rule, the purchase state machine. Write the failing test first, then implement to pass. Don't write the scheduler without tests. **Framework glue** (SwiftData round-trips, end-to-end wiring, the accessibility audit) is tested *alongside* the implementation, not necessarily before it — an integration test is the honest test there. When unsure which side a piece falls on, treat it as logic.
 - Every layer is testable in isolation via protocol boundaries and injected dependencies (dependency inversion). No singletons reaching into global state.
 - Keep views thin: logic lives in ViewModels, not in SwiftUI view bodies.
 - Handle errors explicitly with typed errors and real user-facing states — never crash on bad data or a missing file.
 - Accessibility is a requirement, not a nice-to-have: VoiceOver labels and Dynamic Type support from the start.
 - Conventional commits, small and focused. After each phase, do a self-review pass and tell me about any tech debt you're knowingly leaving.
 - Don't use deprecated or soon-to-be-deprecated APIs. When unsure whether an API/library is still current best practice, check before committing to it and tell me what you found.
+
+## Testing standards — apply throughout
+These make the standards above *enforceable*, not just aspirational. They are gated in CI from Phase 4 on.
+- **Red-green-refactor, one behavior at a time.** For each behavior: write one failing test → run it and confirm it fails *because the behavior is missing* (a compile error or typo is not a red — fix that and re-run until it fails for the right reason) → write the minimal code to green it → refactor while green. Not a batch of tests followed by a wall of code. This is what "test-first" means here; "wrote the tests first-ish" is not it.
+- **Requirement traceability:** every test's display name starts with the requirement ID it verifies — `@Test("FR-8 failing grade resets the interval")`. `scripts/trace-requirements.sh` reports which FR-/NFR- IDs still have no test (report only, never blocks — many are untestable until their phase lands).
+- **Coverage floors (hard CI fail):** Domain ≥ 90%, Data ≥ 80% line coverage. No floor on the app/UI targets — coverage % there is noise and invites tests written for the number.
+- **Warnings are errors:** builds compile with `-warnings-as-errors`. This is also what actually enforces the Swift 6 strict-concurrency model in `architecture.md` §4.
+- **Validators are tested for *rejection*, not just acceptance.** For every machine-checked rule (the pack VR-1…VR-18), there is a fixture that breaks exactly that rule, and the test asserts *which* rule fired. Fixtures live in `fixtures/invalid/` (`expected.json` maps each to its rule); `fixtures/fr-mini.pack.json` is the positive control. A validator that rejects nothing — or everything — must fail a test.
+- **The scheduler is tested by invariant, not only by example.** Assert its properties over a long seeded random walk of (state, grade) steps: `next-review ≥ today` always, ease/interval stay within their clamps, a failing grade never lengthens an interval, and `(state, grade, today)` is pure. Example cases prove the cases; invariants catch drift and off-by-ones at clamps reached only after many reps.
+- **Test determinism:** no test reads `Date()`, sleeps, or uses unseeded randomness. Domain injects `Clock`; use it. CI greps test sources for these. A flaky suite stops being believed.
+- **A bug fix starts with a failing regression test** that reproduces it, then the fix — the same test-first discipline as new domain logic.
 
 ## Build & test commands
 (To be filled in at Phase 4 once the project exists — use the command templates in `docs/claude-code-xcode-setup.md`.)
