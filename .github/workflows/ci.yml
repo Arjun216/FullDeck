@@ -74,6 +74,7 @@ jobs:
             | grep -oE 'iPhone [0-9]+' | sort -Vr | head -1)
           echo "Using simulator: $DEVICE"
           xcodebuild test \
+            -project FullDeck/FullDeck.xcodeproj \
             -scheme FullDeck \
             -destination "platform=iOS Simulator,name=$DEVICE" \
             CODE_SIGNING_ALLOWED=NO

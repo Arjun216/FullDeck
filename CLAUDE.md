@@ -58,7 +58,39 @@ These make the standards above *enforceable*, not just aspirational. They are ga
 - **A bug fix starts with a failing regression test** that reproduces it, then the fix — the same test-first discipline as new domain logic.
 
 ## Build & test commands
-(To be filled in at Phase 4 once the project exists — use the command templates in `docs/claude-code-xcode-setup.md`.)
+Run from the repo root. macOS + Xcode 26 (Swift 6 toolchain). CI (`.github/workflows/ci.yml`) runs the same gates.
+
+**Domain / Data packages** — pure Swift, seconds, no simulator. Nearly all logic tests live here; run these constantly:
+```sh
+swift test --package-path Packages/Domain
+swift test --package-path Packages/Data
+```
+
+**Coverage gates** — hard CI floors (Domain ≥ 90%, Data ≥ 80%). The gate script re-runs coverage export and fails below the floor:
+```sh
+swift test --package-path Packages/Domain --enable-code-coverage
+scripts/coverage-gate.sh Packages/Domain 90 DomainPackageTests
+swift test --package-path Packages/Data --enable-code-coverage
+scripts/coverage-gate.sh Packages/Data 80 DataPackageTests
+```
+
+**Full app** — SwiftUI shell + XCUITest; needs a booted iOS simulator. Use any iPhone your Xcode has (CI auto-picks the newest on the runner):
+```sh
+xcodebuild test -project FullDeck/FullDeck.xcodeproj -scheme FullDeck \
+  -destination 'platform=iOS Simulator,name=iPhone 17'
+```
+
+**Lint & format** — SwiftLint `--strict` is the gated lint; `swift format` is a local convenience (not gated), config in `.swift-format`:
+```sh
+swiftlint lint --strict                                   # brew install swiftlint
+swift format lint --strict --recursive Packages FullDeck  # add --in-place to fix
+```
+
+**Standalone gates** (also run in CI):
+```sh
+scripts/determinism-check.sh    # no Date()/sleep/unseeded-random in test sources
+scripts/trace-requirements.sh   # FR-/NFR- coverage report — informational, never fails
+```
 
 ## About me (the developer)
 Strong Python and general SWE fundamentals; zero prior Swift/SwiftUI/Xcode experience. The first time you introduce a new Swift/SwiftUI/Xcode concept, briefly explain what it does and why — like explaining to someone fluent in other languages but new to this one. Don't re-explain concepts already established earlier in the project. Prefer incremental steps I can run and understand over large drops of code.
