@@ -248,8 +248,14 @@ def cmd_pack(args) -> int:
         )
 
     if not report.ok:
-        _write_retry_prompts(lang, candidates, by_rank, generated, report)
-        print(f"{len(report.violations)} violations -- see work/{lang}/retry/", file=sys.stderr)
+        if _write_retry_prompts(lang, candidates, by_rank, generated, report):
+            print(f"{len(report.violations)} violations -- see work/{lang}/retry/", file=sys.stderr)
+        else:
+            print(
+                f"{len(report.violations)} violations that regenerating will not fix. "
+                f"Edit work/{lang}/responses/ by hand, or drop these words.",
+                file=sys.stderr,
+            )
         for v in report.violations[:20]:
             print(f"  {v}", file=sys.stderr)
         return 1
@@ -303,8 +309,16 @@ def _ingest(candidates: list[Candidate], batch: int, responses_dir: Path, retry_
     return list(deduped.values()), errors
 
 
-def _write_retry_prompts(lang: str, candidates: list[Candidate], by_rank: dict, generated, report):
-    """One prompt per failing word, quoting the rule that rejected it."""
+def _write_retry_prompts(
+    lang: str, candidates: list[Candidate], by_rank: dict, generated, report
+) -> bool:
+    """One prompt per failing word, quoting the rule that rejected it.
+
+    Returns False when there is nothing worth re-asking: the same words failed as
+    last round, or the failures are pack-level and belong to no single word. No
+    prompts are left behind in that case, so `generate --retry` finds nothing,
+    exits non-zero, and the regeneration loop stops instead of spinning.
+    """
     # Pack ranks are re-numbered AND the generator may have corrected the lemma, so
     # map back through the generated entries -- their rank is the candidate rank.
     to_candidate_rank = {(g.lemma, g.pos): g.rank for g in generated}
@@ -319,8 +333,12 @@ def _write_retry_prompts(lang: str, candidates: list[Candidate], by_rank: dict, 
 
     retry_dir = WORK / lang / "retry"
     retry_dir.mkdir(parents=True, exist_ok=True)
+    previous = {int(path.stem) for path in retry_dir.glob("*.md")}
     for path in retry_dir.glob("*.md"):
         path.unlink()
+    if not rejections or rejections.keys() == previous:
+        return False
+
     for rank, reason in sorted(rejections.items()):
         # A rank that still violates has a wrong answer on file. Clear it, or
         # `generate --retry` would skip the word as already answered.
@@ -335,6 +353,7 @@ def _write_retry_prompts(lang: str, candidates: list[Candidate], by_rank: dict, 
             ),
             encoding="utf-8",
         )
+    return True
 
 
 def _load_candidates(lang: str) -> list[Candidate]:

@@ -198,6 +198,27 @@ def test_generate_reports_a_failing_cli_without_dying(workspace, monkeypatch):
     assert (workspace / "work/fr/responses/002.json").exists()  # later batches still ran
 
 
+def test_a_word_that_fails_twice_stops_the_regeneration_loop(workspace, monkeypatch):
+    """NFR-10 an unsatisfiable word must not spin the retry loop forever."""
+    assert cli.main(["words", "fr", "--pool", "40", "--limit", "3"]) == 0
+
+    broken = [dict(e) for e in VALID_ENTRIES]
+    broken[2]["example"] = "Le chat et le chien."  # content words not in the pack
+    write_response(workspace, broken)
+    pack_args = ["pack", "fr", "--batch", "3", "--limit", "3", "--profile", "structural"]
+
+    assert cli.main(pack_args) == 1
+    assert (workspace / "work/fr/retry/0003.md").exists()
+
+    # The retry answered, but no better -- the same word fails again.
+    (workspace / "work/fr/retry/0003.json").write_text(json.dumps([broken[2]]), encoding="utf-8")
+    assert cli.main(pack_args) == 1
+    assert list((workspace / "work/fr/retry").glob("*.md")) == []
+
+    # With no prompt left, `generate --retry` exits non-zero and `|| break` fires.
+    assert cli.main(["generate", "fr", "--retry"]) == 1
+
+
 def test_a_retry_answer_overrides_the_batch_answer(workspace, monkeypatch):
     """FR-6 the regenerated word wins over the batch reply it is fixing."""
     assert cli.main(["words", "fr", "--pool", "40", "--limit", "3"]) == 0
