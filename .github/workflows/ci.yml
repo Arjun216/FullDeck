@@ -65,9 +65,11 @@ jobs:
 
       # ---- App target: the thin SwiftUI shell. Needs Xcode + a simulator ----
       # Requires the FullDeck Xcode project with a *shared* scheme named "FullDeck".
-      # The destination is resolved at runtime to the newest iPhone simulator the
-      # runner actually has, so this survives Xcode upgrades and the yearly device
-      # rename (iPhone 16 → 17 → …) without edits.
+      # Destination is resolved at runtime to the newest iPhone the ACTIVE Xcode can
+      # build for. We ask `xcodebuild -showdestinations` (not `simctl list devices`)
+      # because GitHub's image co-installs a newer iOS runtime whose devices show up
+      # in the global sim set but aren't usable by the default Xcode — showdestinations
+      # only lists what this Xcode can actually drive. Survives Xcode/device churn.
       #
       # IPHONEOS_DEPLOYMENT_TARGET override: the project was created by Xcode 26,
       # which defaults new apps to iOS 26.5 as the *minimum*. That can't build on
@@ -78,8 +80,15 @@ jobs:
       # setting to match so local dev and CI agree (currently local builds at 26.5).
       - name: App — build & test (iOS Simulator)
         run: |
-          DEVICE=$(xcrun simctl list devices available \
-            | grep -oE 'iPhone [0-9]+' | sort -Vr | head -1)
+          DEVICE=$(xcodebuild -showdestinations \
+            -project FullDeck/FullDeck.xcodeproj -scheme FullDeck 2>/dev/null \
+            | grep -oE 'name:iPhone [0-9]+' | grep -oE 'iPhone [0-9]+' \
+            | sort -Vr | head -1)
+          if [ -z "$DEVICE" ]; then
+            echo "No usable iOS Simulator destination found:"
+            xcodebuild -showdestinations -project FullDeck/FullDeck.xcodeproj -scheme FullDeck
+            exit 1
+          fi
           echo "Using simulator: $DEVICE"
           xcodebuild test \
             -project FullDeck/FullDeck.xcodeproj \
