@@ -56,8 +56,9 @@ swift test --package-path Packages/Data
 swift test --package-path Packages/Domain --enable-code-coverage
 scripts/coverage-gate.sh Packages/Domain 90 DomainPackageTests
 
-# The full app (needs the FullDeck Xcode project + a booted simulator):
-xcodebuild -scheme FullDeck -destination 'platform=iOS Simulator,name=iPhone 16' test | xcbeautify
+# The full app (needs the FullDeck Xcode project + a booted simulator).
+# Use any iPhone simulator your Xcode has installed:
+xcodebuild -scheme FullDeck -destination 'platform=iOS Simulator,name=iPhone 17' test | xcbeautify
 ```
 
 ## Lint & format

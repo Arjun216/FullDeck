@@ -64,14 +64,16 @@ jobs:
           swiftlint lint --strict
 
       # ---- App target: the thin SwiftUI shell. Needs Xcode + a simulator ----
-      # NOTE: requires the FullDeck Xcode project with a *shared* scheme named
-      # "FullDeck" (Phase 4 Xcode step). Until that exists, this step fails with
-      # "scheme not found" — the package gates above still run and pass.
-      # The simulator device name may need adjusting to one present on the runner;
-      # we finalize it on the first real CI run.
+      # Requires the FullDeck Xcode project with a *shared* scheme named "FullDeck".
+      # The destination is resolved at runtime to the newest iPhone simulator the
+      # runner actually has, so this survives Xcode upgrades and the yearly device
+      # rename (iPhone 16 → 17 → …) without edits.
       - name: App — build & test (iOS Simulator)
         run: |
+          DEVICE=$(xcrun simctl list devices available \
+            | grep -oE 'iPhone [0-9]+' | sort -Vr | head -1)
+          echo "Using simulator: $DEVICE"
           xcodebuild test \
             -scheme FullDeck \
-            -destination 'platform=iOS Simulator,name=iPhone 16' \
+            -destination "platform=iOS Simulator,name=$DEVICE" \
             CODE_SIGNING_ALLOWED=NO
