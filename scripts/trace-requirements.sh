@@ -9,8 +9,12 @@ cd "$(dirname "$0")/.."
 ids() { grep -rohE '(FR|NFR)-[0-9]+' "$@" 2>/dev/null | sort -u; }
 
 REQ=$(ids docs/requirements.md)
-# Test sources anywhere named *Tests* (SPM Tests/ dirs + app test targets). None yet = empty.
-TEST_FILES=$(find . -path ./.git -prune -o -name '*.swift' -path '*Tests*' -print 2>/dev/null)
+# Test sources: Swift under *Tests* dirs, plus the Python pipeline's test_*.py
+# (Phase 6 verifies FR-6/FR-16 from there, and an ID tested in Python is tested).
+TEST_FILES=$(
+  find . -path ./.git -prune -o -name '*.swift' -path '*Tests*' -print 2>/dev/null
+  find . -path '*/.venv/*' -prune -o -name 'test_*.py' -print 2>/dev/null
+)
 TESTS=$([ -n "$TEST_FILES" ] && ids $TEST_FILES || true)
 
 covered=0 total=0 missing=""

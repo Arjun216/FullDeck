@@ -13,6 +13,47 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  # ---- Python content pipeline (pipeline/) ----------------------------------
+  # Separate job, and deliberately on Linux: it needs no Xcode, and ubuntu runner
+  # minutes are billed at 1x against macOS's 10x. Runs in parallel with the app job.
+  pipeline:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: pipeline
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # uv installs the pinned interpreter (3.12) itself, so the runner's system
+      # Python is irrelevant. --frozen fails if uv.lock is stale rather than
+      # silently resolving something else.
+      - name: Install uv
+        uses: astral-sh/setup-uv@v9
+        with:
+          enable-cache: true
+          cache-dependency-glob: pipeline/uv.lock
+      - name: Sync dependencies (locked)
+        run: uv sync --frozen
+
+      # Same lint the developer runs. `format --check` fails on unformatted code
+      # rather than reformatting it.
+      - name: Ruff
+        run: |
+          uv run ruff format --check .
+          uv run ruff check .
+
+      # pytest's addopts carry the validator coverage floor (--cov-fail-under=95),
+      # so this step is the Python half of the coverage gate. The spaCy model is a
+      # pinned dependency, so the real-lemmatization tests run here too rather than
+      # skipping.
+      - name: Tests + validator coverage gate
+        run: uv run pytest
+
+      # The pack contract is only real if the fixtures still satisfy it.
+      - name: Validate the fixture pack
+        run: uv run packgen validate ../fixtures/fr-mini.pack.json
+
   build-and-test:
     # iOS builds need Xcode, which only exists on macOS runner images.
     runs-on: macos-15

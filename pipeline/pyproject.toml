@@ -1,0 +1,41 @@
+[project]
+name = "packgen"
+version = "0.1.0"
+description = "Full Deck language-pack pipeline: wordfreq -> ranked word list -> validated language pack"
+readme = "README.md"
+# spaCy wheels lag new CPython releases; pin the interpreter so `uv sync` is
+# reproducible regardless of whatever python3 the machine happens to have.
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "wordfreq>=3.1.1",
+    "spacy>=3.8.0",
+    "jsonschema>=4.23.0",
+    "fr-core-news-sm",
+    "click>=8.4.2",
+]
+
+[project.scripts]
+packgen = "packgen.cli:main"
+
+[dependency-groups]
+dev = ["pytest>=8.3", "pytest-cov>=6.0", "ruff>=0.9"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+# Coverage floor on the validator only (build-plan Phase 6.5): the checker is pure
+# logic and must not rot untested. No floor on the IO-heavy pipeline modules --
+# a % there would only invite tests written for the number.
+addopts = "--cov=packgen.validate --cov=packgen.rules --cov-report=term-missing --cov-fail-under=95"
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+
+[tool.uv.sources]
+fr-core-news-sm = { url = "https://github.com/explosion/spacy-models/releases/download/fr_core_news_sm-3.8.0/fr_core_news_sm-3.8.0-py3-none-any.whl" }

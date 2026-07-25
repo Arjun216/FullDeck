@@ -1,0 +1,1354 @@
+[
+  {
+    "form": "le",
+    "reason": "duplicate:le"
+  },
+  {
+    "form": "l",
+    "reason": "elision-fragment"
+  },
+  {
+    "form": "les",
+    "reason": "duplicate:le"
+  },
+  {
+    "form": "d",
+    "reason": "elision-fragment"
+  },
+  {
+    "form": "un",
+    "reason": "duplicate:un"
+  },
+  {
+    "form": "une",
+    "reason": "duplicate:un"
+  },
+  {
+    "form": "du",
+    "reason": "duplicate:de"
+  },
+  {
+    "form": "c",
+    "reason": "elision-fragment"
+  },
+  {
+    "form": "qu",
+    "reason": "elision-fragment"
+  },
+  {
+    "form": "j",
+    "reason": "elision-fragment"
+  },
+  {
+    "form": "n",
+    "reason": "elision-fragment"
+  },
+  {
+    "form": "s",
+    "reason": "elision-fragment"
+  },
+  {
+    "form": "ai",
+    "reason": "duplicate:avoir"
+  },
+  {
+    "form": "sont",
+    "reason": "duplicate:être"
+  },
+  {
+    "form": "être",
+    "reason": "duplicate:être"
+  },
+  {
+    "form": "ils",
+    "reason": "duplicate:il"
+  },
+  {
+    "form": "cette",
+    "reason": "duplicate:ce"
+  },
+  {
+    "form": "faire",
+    "reason": "duplicate:faire"
+  },
+  {
+    "form": "sa",
+    "reason": "duplicate:son"
+  },
+  {
+    "form": "aux",
+    "reason": "duplicate:à"
+  },
+  {
+    "form": "ont",
+    "reason": "duplicate:avoir"
+  },
+  {
+    "form": "t",
+    "reason": "elision-fragment"
+  },
+  {
+    "form": "m",
+    "reason": "elision-fragment"
+  },
+  {
+    "form": "était",
+    "reason": "duplicate:être"
+  },
+  {
+    "form": "été",
+    "reason": "duplicate:être"
+  },
+  {
+    "form": "ses",
+    "reason": "duplicate:son"
+  },
+  {
+    "form": "leur",
+    "reason": "duplicate:son"
+  },
+  {
+    "form": "ces",
+    "reason": "duplicate:ce"
+  },
+  {
+    "form": "suis",
+    "reason": "duplicate:être"
+  },
+  {
+    "form": "avait",
+    "reason": "duplicate:avoir"
+  },
+  {
+    "form": "ma",
+    "reason": "duplicate:mon"
+  },
+  {
+    "form": "autre",
+    "reason": "duplicate:autre"
+  },
+  {
+    "form": "france",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "1",
+    "reason": "non-alphabetic"
+  },
+  {
+    "form": "2",
+    "reason": "non-alphabetic"
+  },
+  {
+    "form": "dire",
+    "reason": "duplicate:dire"
+  },
+  {
+    "form": "3",
+    "reason": "non-alphabetic"
+  },
+  {
+    "form": "soit",
+    "reason": "duplicate:être"
+  },
+  {
+    "form": "mes",
+    "reason": "duplicate:mon"
+  },
+  {
+    "form": "sera",
+    "reason": "duplicate:être"
+  },
+  {
+    "form": "nos",
+    "reason": "duplicate:notre"
+  },
+  {
+    "form": "paris",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "toutes",
+    "reason": "duplicate:tout"
+  },
+  {
+    "form": "vu",
+    "reason": "duplicate:voir"
+  },
+  {
+    "form": "4",
+    "reason": "non-alphabetic"
+  },
+  {
+    "form": "eu",
+    "reason": "duplicate:avoir"
+  },
+  {
+    "form": "première",
+    "reason": "duplicate:premier"
+  },
+  {
+    "form": "5",
+    "reason": "non-alphabetic"
+  },
+  {
+    "form": "bonne",
+    "reason": "duplicate:bon"
+  },
+  {
+    "form": "cet",
+    "reason": "duplicate:ce"
+  },
+  {
+    "form": "elles",
+    "reason": "duplicate:lui"
+  },
+  {
+    "form": "jours",
+    "reason": "duplicate:jour"
+  },
+  {
+    "form": "années",
+    "reason": "duplicate:année"
+  },
+  {
+    "form": "nouvelle",
+    "reason": "duplicate:nouveau"
+  },
+  {
+    "form": "aller",
+    "reason": "duplicate:aller"
+  },
+  {
+    "form": "vos",
+    "reason": "duplicate:votre"
+  },
+  {
+    "form": "celui",
+    "reason": "duplicate:celui"
+  },
+  {
+    "form": "grande",
+    "reason": "duplicate:grand"
+  },
+  {
+    "form": "eux",
+    "reason": "duplicate:lui"
+  },
+  {
+    "form": "serait",
+    "reason": "duplicate:être"
+  },
+  {
+    "form": "quelque",
+    "reason": "duplicate:quelque"
+  },
+  {
+    "form": "avais",
+    "reason": "duplicate:avoir"
+  },
+  {
+    "form": "étaient",
+    "reason": "duplicate:être"
+  },
+  {
+    "form": "6",
+    "reason": "non-alphabetic"
+  },
+  {
+    "form": "aurait",
+    "reason": "duplicate:avoir"
+  },
+  {
+    "form": "avons",
+    "reason": "duplicate:avoir"
+  },
+  {
+    "form": "celle",
+    "reason": "duplicate:celui"
+  },
+  {
+    "form": "pouvoir",
+    "reason": "duplicate:pouvoir"
+  },
+  {
+    "form": "avez",
+    "reason": "duplicate:avoir"
+  },
+  {
+    "form": "jean",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "choses",
+    "reason": "duplicate:chose"
+  },
+  {
+    "form": "font",
+    "reason": "duplicate:faire"
+  },
+  {
+    "form": "hommes",
+    "reason": "duplicate:homme"
+  },
+  {
+    "form": "petite",
+    "reason": "duplicate:petit"
+  },
+  {
+    "form": "femmes",
+    "reason": "duplicate:femme"
+  },
+  {
+    "form": "passer",
+    "reason": "duplicate:passer"
+  },
+  {
+    "form": "pris",
+    "reason": "duplicate:prendre"
+  },
+  {
+    "form": "peuvent",
+    "reason": "duplicate:pouvoir"
+  },
+  {
+    "form": "pu",
+    "reason": "duplicate:pouvoir"
+  },
+  {
+    "form": "7",
+    "reason": "non-alphabetic"
+  },
+  {
+    "form": "fut",
+    "reason": "duplicate:être"
+  },
+  {
+    "form": "passé",
+    "reason": "duplicate:passer"
+  },
+  {
+    "form": "pourrait",
+    "reason": "duplicate:pouvoir"
+  },
+  {
+    "form": "seule",
+    "reason": "duplicate:seul"
+  },
+  {
+    "form": "mis",
+    "reason": "duplicate:mettre"
+  },
+  {
+    "form": "aucune",
+    "reason": "duplicate:aucun"
+  },
+  {
+    "form": "heures",
+    "reason": "duplicate:heure"
+  },
+  {
+    "form": "8",
+    "reason": "non-alphabetic"
+  },
+  {
+    "form": "dernière",
+    "reason": "duplicate:dernier"
+  },
+  {
+    "form": "vont",
+    "reason": "duplicate:aller"
+  },
+  {
+    "form": "êtes",
+    "reason": "duplicate:être"
+  },
+  {
+    "form": "an",
+    "reason": "duplicate:an"
+  },
+  {
+    "form": "aura",
+    "reason": "duplicate:avoir"
+  },
+  {
+    "form": "p",
+    "reason": "elision-fragment"
+  },
+  {
+    "form": "the",
+    "reason": "pos:X"
+  },
+  {
+    "form": "avaient",
+    "reason": "duplicate:avoir"
+  },
+  {
+    "form": "europe",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "i",
+    "reason": "elision-fragment"
+  },
+  {
+    "form": "ayant",
+    "reason": "duplicate:avoir"
+  },
+  {
+    "form": "°",
+    "reason": "non-alphabetic"
+  },
+  {
+    "form": "sait",
+    "reason": "duplicate:savoir"
+  },
+  {
+    "form": "française",
+    "reason": "duplicate:français"
+  },
+  {
+    "form": "h",
+    "reason": "elision-fragment"
+  },
+  {
+    "form": "devrait",
+    "reason": "duplicate:devoir"
+  },
+  {
+    "form": "donné",
+    "reason": "duplicate:donner"
+  },
+  {
+    "form": "e",
+    "reason": "elision-fragment"
+  },
+  {
+    "form": "prend",
+    "reason": "duplicate:prendre"
+  },
+  {
+    "form": "étant",
+    "reason": "duplicate:être"
+  },
+  {
+    "form": "enfant",
+    "reason": "duplicate:enfant"
+  },
+  {
+    "form": "nouvelles",
+    "reason": "duplicate:nouveau"
+  },
+  {
+    "form": "jeunes",
+    "reason": "duplicate:jeune"
+  },
+  {
+    "form": "in",
+    "reason": "pos:X"
+  },
+  {
+    "form": "9",
+    "reason": "non-alphabetic"
+  },
+  {
+    "form": "grands",
+    "reason": "duplicate:grand"
+  },
+  {
+    "form": "services",
+    "reason": "duplicate:service"
+  },
+  {
+    "form": "allez",
+    "reason": "duplicate:aller"
+  },
+  {
+    "form": "points",
+    "reason": "duplicate:point"
+  },
+  {
+    "form": "seront",
+    "reason": "duplicate:être"
+  },
+  {
+    "form": "trouvé",
+    "reason": "duplicate:trouver"
+  },
+  {
+    "form": "0",
+    "reason": "non-alphabetic"
+  },
+  {
+    "form": "affaire",
+    "reason": "duplicate:affaire"
+  },
+  {
+    "form": "nouveaux",
+    "reason": "duplicate:nouveau"
+  },
+  {
+    "form": "pouvez",
+    "reason": "duplicate:pouvoir"
+  },
+  {
+    "form": "ait",
+    "reason": "duplicate:avoir"
+  },
+  {
+    "form": "droits",
+    "reason": "duplicate:droit"
+  },
+  {
+    "form": "françois",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "jeux",
+    "reason": "duplicate:jeu"
+  },
+  {
+    "form": "questions",
+    "reason": "duplicate:question"
+  },
+  {
+    "form": "venir",
+    "reason": "duplicate:venir"
+  },
+  {
+    "form": "cœur",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "of",
+    "reason": "pos:X"
+  },
+  {
+    "form": "états",
+    "reason": "duplicate:état"
+  },
+  {
+    "form": "doivent",
+    "reason": "duplicate:devoir"
+  },
+  {
+    "form": "mots",
+    "reason": "duplicate:mot"
+  },
+  {
+    "form": "croire",
+    "reason": "duplicate:croire"
+  },
+  {
+    "form": "petits",
+    "reason": "duplicate:petit"
+  },
+  {
+    "form": "produits",
+    "reason": "duplicate:produit"
+  },
+  {
+    "form": "x",
+    "reason": "elision-fragment"
+  },
+  {
+    "form": "sortie",
+    "reason": "duplicate:sortir"
+  },
+  {
+    "form": "meilleure",
+    "reason": "duplicate:meilleur"
+  },
+  {
+    "form": "met",
+    "reason": "duplicate:mettre"
+  },
+  {
+    "form": "politiques",
+    "reason": "duplicate:politique"
+  },
+  {
+    "form": "r",
+    "reason": "elision-fragment"
+  },
+  {
+    "form": "entreprises",
+    "reason": "duplicate:entreprise"
+  },
+  {
+    "form": "grandes",
+    "reason": "duplicate:grand"
+  },
+  {
+    "form": "premiers",
+    "reason": "duplicate:premier"
+  },
+  {
+    "form": "semaines",
+    "reason": "duplicate:semaine"
+  },
+  {
+    "form": "photos",
+    "reason": "duplicate:photo"
+  },
+  {
+    "form": "ami",
+    "reason": "duplicate:ami"
+  },
+  {
+    "form": "b",
+    "reason": "elision-fragment"
+  },
+  {
+    "form": "faisait",
+    "reason": "duplicate:faire"
+  },
+  {
+    "form": "études",
+    "reason": "duplicate:étude"
+  },
+  {
+    "form": "lequel",
+    "reason": "duplicate:lequel"
+  },
+  {
+    "form": "national",
+    "reason": "duplicate:national"
+  },
+  {
+    "form": "publique",
+    "reason": "duplicate:public"
+  },
+  {
+    "form": "veulent",
+    "reason": "duplicate:vouloir"
+  },
+  {
+    "form": "dois",
+    "reason": "duplicate:devoir"
+  },
+  {
+    "form": "devenir",
+    "reason": "duplicate:devenir"
+  },
+  {
+    "form": "louis",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "mains",
+    "reason": "duplicate:main"
+  },
+  {
+    "form": "générale",
+    "reason": "duplicate:général"
+  },
+  {
+    "form": "regarder",
+    "reason": "duplicate:regarder"
+  },
+  {
+    "form": "soient",
+    "reason": "duplicate:être"
+  },
+  {
+    "form": "afrique",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "idées",
+    "reason": "duplicate:idée"
+  },
+  {
+    "form": "nombreuses",
+    "reason": "duplicate:nombreux"
+  },
+  {
+    "form": "o",
+    "reason": "elision-fragment"
+  },
+  {
+    "form": "demandé",
+    "reason": "duplicate:demander"
+  },
+  {
+    "form": "faisant",
+    "reason": "duplicate:faire"
+  },
+  {
+    "form": "permis",
+    "reason": "duplicate:permettre"
+  },
+  {
+    "form": "résultat",
+    "reason": "duplicate:résultat"
+  },
+  {
+    "form": "and",
+    "reason": "pos:X"
+  },
+  {
+    "form": "arriver",
+    "reason": "duplicate:arriver"
+  },
+  {
+    "form": "devoir",
+    "reason": "duplicate:devoir"
+  },
+  {
+    "form": "jusqu'au",
+    "reason": "duplicate:jusque"
+  },
+  {
+    "form": "pourra",
+    "reason": "duplicate:pouvoir"
+  },
+  {
+    "form": "rend",
+    "reason": "duplicate:rendre"
+  },
+  {
+    "form": "union",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "v",
+    "reason": "elision-fragment"
+  },
+  {
+    "form": "articles",
+    "reason": "duplicate:article"
+  },
+  {
+    "form": "derniers",
+    "reason": "duplicate:dernier"
+  },
+  {
+    "form": "devait",
+    "reason": "duplicate:devoir"
+  },
+  {
+    "form": "entendre",
+    "reason": "duplicate:entendre"
+  },
+  {
+    "form": "fera",
+    "reason": "duplicate:faire"
+  },
+  {
+    "form": "longue",
+    "reason": "duplicate:long"
+  },
+  {
+    "form": "paul",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "pouvait",
+    "reason": "duplicate:pouvoir"
+  },
+  {
+    "form": "second",
+    "reason": "duplicate:second"
+  },
+  {
+    "form": "villes",
+    "reason": "duplicate:ville"
+  },
+  {
+    "form": "1er",
+    "reason": "non-alphabetic"
+  },
+  {
+    "form": "g",
+    "reason": "elision-fragment"
+  },
+  {
+    "form": "livres",
+    "reason": "duplicate:livre"
+  },
+  {
+    "form": "puisse",
+    "reason": "duplicate:pouvoir"
+  },
+  {
+    "form": "comprend",
+    "reason": "duplicate:comprendre"
+  },
+  {
+    "form": "forces",
+    "reason": "duplicate:force"
+  },
+  {
+    "form": "groupes",
+    "reason": "duplicate:groupe"
+  },
+  {
+    "form": "morts",
+    "reason": "duplicate:mort"
+  },
+  {
+    "form": "voulu",
+    "reason": "duplicate:vouloir"
+  },
+  {
+    "form": "bons",
+    "reason": "duplicate:bon"
+  },
+  {
+    "form": "dernières",
+    "reason": "duplicate:dernier"
+  },
+  {
+    "form": "devenu",
+    "reason": "duplicate:devenir"
+  },
+  {
+    "form": "informations",
+    "reason": "duplicate:information"
+  },
+  {
+    "form": "joueurs",
+    "reason": "duplicate:joueur"
+  },
+  {
+    "form": "petites",
+    "reason": "duplicate:petit"
+  },
+  {
+    "form": "premières",
+    "reason": "duplicate:premier"
+  },
+  {
+    "form": "retrouve",
+    "reason": "duplicate:retrouver"
+  },
+  {
+    "form": "activités",
+    "reason": "duplicate:activité"
+  },
+  {
+    "form": "bonnes",
+    "reason": "duplicate:bon"
+  },
+  {
+    "form": "commencer",
+    "reason": "duplicate:commencer"
+  },
+  {
+    "form": "films",
+    "reason": "duplicate:film"
+  },
+  {
+    "form": "grosse",
+    "reason": "duplicate:gros"
+  },
+  {
+    "form": "michel",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "telle",
+    "reason": "duplicate:tel"
+  },
+  {
+    "form": "appelé",
+    "reason": "duplicate:appeler"
+  },
+  {
+    "form": "arrivé",
+    "reason": "duplicate:arriver"
+  },
+  {
+    "form": "connaître",
+    "reason": "duplicate:connaître"
+  },
+  {
+    "form": "f",
+    "reason": "elision-fragment"
+  },
+  {
+    "form": "lyon",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "prochain",
+    "reason": "duplicate:prochain"
+  },
+  {
+    "form": "projets",
+    "reason": "duplicate:projet"
+  },
+  {
+    "form": "arrêté",
+    "reason": "duplicate:arrêter"
+  },
+  {
+    "form": "chine",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "commun",
+    "reason": "duplicate:commun"
+  },
+  {
+    "form": "importante",
+    "reason": "duplicate:important"
+  },
+  {
+    "form": "mauvaise",
+    "reason": "duplicate:mauvais"
+  },
+  {
+    "form": "membre",
+    "reason": "duplicate:membre"
+  },
+  {
+    "form": "relation",
+    "reason": "duplicate:relation"
+  },
+  {
+    "form": "rendu",
+    "reason": "duplicate:rendre"
+  },
+  {
+    "form": "utilisé",
+    "reason": "duplicate:utiliser"
+  },
+  {
+    "form": "actions",
+    "reason": "duplicate:action"
+  },
+  {
+    "form": "allait",
+    "reason": "duplicate:aller"
+  },
+  {
+    "form": "mesures",
+    "reason": "duplicate:mesure"
+  },
+  {
+    "form": "sociaux",
+    "reason": "duplicate:social"
+  },
+  {
+    "form": "suivi",
+    "reason": "duplicate:suivre"
+  },
+  {
+    "form": "viennent",
+    "reason": "duplicate:venir"
+  },
+  {
+    "form": "voulait",
+    "reason": "duplicate:vouloir"
+  },
+  {
+    "form": "voulez",
+    "reason": "duplicate:vouloir"
+  },
+  {
+    "form": "continuer",
+    "reason": "duplicate:continuer"
+  },
+  {
+    "form": "dirait",
+    "reason": "duplicate:dire"
+  },
+  {
+    "form": "fallait",
+    "reason": "duplicate:falloir"
+  },
+  {
+    "form": "ancienne",
+    "reason": "duplicate:ancien"
+  },
+  {
+    "form": "attend",
+    "reason": "duplicate:attendre"
+  },
+  {
+    "form": "expliquer",
+    "reason": "duplicate:expliquer"
+  },
+  {
+    "form": "permettre",
+    "reason": "duplicate:permettre"
+  },
+  {
+    "form": "philippe",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "valeurs",
+    "reason": "duplicate:valeur"
+  },
+  {
+    "form": "vouloir",
+    "reason": "duplicate:vouloir"
+  },
+  {
+    "form": "final",
+    "reason": "duplicate:final"
+  },
+  {
+    "form": "internationale",
+    "reason": "duplicate:international"
+  },
+  {
+    "form": "raisons",
+    "reason": "duplicate:raison"
+  },
+  {
+    "form": "sorti",
+    "reason": "duplicate:sortir"
+  },
+  {
+    "form": "anciens",
+    "reason": "duplicate:ancien"
+  },
+  {
+    "form": "calme",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "images",
+    "reason": "duplicate:image"
+  },
+  {
+    "form": "ligue",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "seuls",
+    "reason": "duplicate:seul"
+  },
+  {
+    "form": "américains",
+    "reason": "duplicate:américain"
+  },
+  {
+    "form": "joué",
+    "reason": "duplicate:jouer"
+  },
+  {
+    "form": "etats",
+    "reason": "duplicate:etat"
+  },
+  {
+    "form": "john",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "propres",
+    "reason": "duplicate:propre"
+  },
+  {
+    "form": "revient",
+    "reason": "duplicate:revenir"
+  },
+  {
+    "form": "blanche",
+    "reason": "duplicate:blanc"
+  },
+  {
+    "form": "changé",
+    "reason": "duplicate:changer"
+  },
+  {
+    "form": "jacques",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "publics",
+    "reason": "duplicate:public"
+  },
+  {
+    "form": "royaume",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "sciences",
+    "reason": "duplicate:science"
+  },
+  {
+    "form": "auraient",
+    "reason": "duplicate:avoir"
+  },
+  {
+    "form": "beaux",
+    "reason": "duplicate:beau"
+  },
+  {
+    "form": "comptes",
+    "reason": "duplicate:compte"
+  },
+  {
+    "form": "concerne",
+    "reason": "duplicate:concerner"
+  },
+  {
+    "form": "créé",
+    "reason": "duplicate:créer"
+  },
+  {
+    "form": "effets",
+    "reason": "duplicate:effet"
+  },
+  {
+    "form": "lignes",
+    "reason": "duplicate:ligne"
+  },
+  {
+    "form": "nouvel",
+    "reason": "duplicate:nouveau"
+  },
+  {
+    "form": "parlé",
+    "reason": "duplicate:parler"
+  },
+  {
+    "form": "réseaux",
+    "reason": "duplicate:réseau"
+  },
+  {
+    "form": "vit",
+    "reason": "duplicate:voir"
+  },
+  {
+    "form": "familles",
+    "reason": "duplicate:famille"
+  },
+  {
+    "form": "finir",
+    "reason": "duplicate:finir"
+  },
+  {
+    "form": "lettres",
+    "reason": "duplicate:lettre"
+  },
+  {
+    "form": "oublié",
+    "reason": "duplicate:oublier"
+  },
+  {
+    "form": "tels",
+    "reason": "duplicate:tel"
+  },
+  {
+    "form": "venu",
+    "reason": "duplicate:venir"
+  },
+  {
+    "form": "écoles",
+    "reason": "duplicate:école"
+  },
+  {
+    "form": "élection",
+    "reason": "duplicate:élection"
+  },
+  {
+    "form": "équipes",
+    "reason": "duplicate:équipe"
+  },
+  {
+    "form": "appris",
+    "reason": "duplicate:apprendre"
+  },
+  {
+    "form": "certaine",
+    "reason": "duplicate:certain"
+  },
+  {
+    "form": "choisir",
+    "reason": "duplicate:choisir"
+  },
+  {
+    "form": "connaît",
+    "reason": "duplicate:connaître"
+  },
+  {
+    "form": "cru",
+    "reason": "duplicate:croire"
+  },
+  {
+    "form": "dedans",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "laissé",
+    "reason": "duplicate:laisser"
+  },
+  {
+    "form": "lu",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "ps",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "revenu",
+    "reason": "duplicate:revenir"
+  },
+  {
+    "form": "sources",
+    "reason": "duplicate:source"
+  },
+  {
+    "form": "u",
+    "reason": "elision-fragment"
+  },
+  {
+    "form": "chaud",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "disait",
+    "reason": "duplicate:dire"
+  },
+  {
+    "form": "faudra",
+    "reason": "duplicate:falloir"
+  },
+  {
+    "form": "nicolas",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "ouvre",
+    "reason": "duplicate:ouvrir"
+  },
+  {
+    "form": "pages",
+    "reason": "duplicate:page"
+  },
+  {
+    "form": "recevoir",
+    "reason": "duplicate:recevoir"
+  },
+  {
+    "form": "recherches",
+    "reason": "duplicate:recherche"
+  },
+  {
+    "form": "servir",
+    "reason": "duplicate:servir"
+  },
+  {
+    "form": "européen",
+    "reason": "duplicate:européen"
+  },
+  {
+    "form": "noms",
+    "reason": "duplicate:nom"
+  },
+  {
+    "form": "sites",
+    "reason": "duplicate:site"
+  },
+  {
+    "form": "sociétés",
+    "reason": "duplicate:société"
+  },
+  {
+    "form": "dites",
+    "reason": "duplicate:dire"
+  },
+  {
+    "form": "envoyé",
+    "reason": "duplicate:envoyer"
+  },
+  {
+    "form": "régions",
+    "reason": "duplicate:région"
+  },
+  {
+    "form": "sainte",
+    "reason": "duplicate:saint"
+  },
+  {
+    "form": "serais",
+    "reason": "duplicate:être"
+  },
+  {
+    "form": "termes",
+    "reason": "duplicate:terme"
+  },
+  {
+    "form": "belles",
+    "reason": "duplicate:bel"
+  },
+  {
+    "form": "couleurs",
+    "reason": "duplicate:couleur"
+  },
+  {
+    "form": "faudrait",
+    "reason": "duplicate:falloir"
+  },
+  {
+    "form": "partis",
+    "reason": "duplicate:parti"
+  },
+  {
+    "form": "somme",
+    "reason": "duplicate:somme"
+  },
+  {
+    "form": "sujets",
+    "reason": "duplicate:sujet"
+  },
+  {
+    "form": "titres",
+    "reason": "duplicate:titre"
+  },
+  {
+    "form": "vidéos",
+    "reason": "duplicate:vidéo"
+  },
+  {
+    "form": "appeler",
+    "reason": "duplicate:appeler"
+  },
+  {
+    "form": "côtés",
+    "reason": "duplicate:côté"
+  },
+  {
+    "form": "intérêts",
+    "reason": "duplicate:intérêt"
+  },
+  {
+    "form": "maisons",
+    "reason": "duplicate:maison"
+  },
+  {
+    "form": "places",
+    "reason": "duplicate:place"
+  },
+  {
+    "form": "savent",
+    "reason": "duplicate:savoir"
+  },
+  {
+    "form": "tenu",
+    "reason": "duplicate:tenir"
+  },
+  {
+    "form": "actuelle",
+    "reason": "duplicate:actuel"
+  },
+  {
+    "form": "avions",
+    "reason": "duplicate:avion"
+  },
+  {
+    "form": "maman",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "noire",
+    "reason": "duplicate:noir"
+  }
+]

@@ -14,6 +14,20 @@ build/
 .build/
 .swiftpm/
 
+# Python pipeline (pipeline/). uv.lock IS committed — it pins spaCy + the model wheel.
+.venv/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+.coverage
+
+# Pipeline working files. candidates.json, rejected.json and responses/ ARE committed:
+# the candidate ranks are what the pasted responses answer, and regenerating a reply
+# by hand is the expensive step. Everything below is derived from those in one command.
+pipeline/work/*/prompts/
+pipeline/work/*/retry/
+pipeline/work/*/drops.json
+
 # Tooling / build caches
 *.hmap
 *.ipa

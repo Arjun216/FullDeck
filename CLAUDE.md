@@ -86,6 +86,13 @@ swiftlint lint --strict                                   # brew install swiftli
 swift format lint --strict --recursive Packages FullDeck  # add --in-place to fix
 ```
 
+**Content pipeline** (`pipeline/`, Python + uv — see `pipeline/README.md`). Its own CI job, on Linux:
+```sh
+uv sync --project pipeline
+uv run --project pipeline pytest        # validator coverage floor is in pyproject addopts
+uv run --project pipeline ruff format --check . && uv run --project pipeline ruff check .
+```
+
 **Standalone gates** (also run in CI):
 ```sh
 scripts/determinism-check.sh    # no Date()/sleep/unseeded-random in test sources

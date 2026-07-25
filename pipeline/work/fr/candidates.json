@@ -1,0 +1,8402 @@
+[
+  {
+    "lemma": "de",
+    "pos": "ADP",
+    "rank": 1,
+    "is_function_word": true,
+    "source_form": "de"
+  },
+  {
+    "lemma": "le",
+    "pos": "DET",
+    "rank": 2,
+    "is_function_word": true,
+    "source_form": "la"
+  },
+  {
+    "lemma": "et",
+    "pos": "CCONJ",
+    "rank": 3,
+    "is_function_word": true,
+    "source_form": "et"
+  },
+  {
+    "lemma": "à",
+    "pos": "ADP",
+    "rank": 4,
+    "is_function_word": true,
+    "source_form": "à"
+  },
+  {
+    "lemma": "être",
+    "pos": "AUX",
+    "rank": 5,
+    "is_function_word": true,
+    "source_form": "est"
+  },
+  {
+    "lemma": "en",
+    "pos": "ADP",
+    "rank": 6,
+    "is_function_word": true,
+    "source_form": "en"
+  },
+  {
+    "lemma": "un",
+    "pos": "DET",
+    "rank": 7,
+    "is_function_word": true,
+    "source_form": "des"
+  },
+  {
+    "lemma": "que",
+    "pos": "SCONJ",
+    "rank": 8,
+    "is_function_word": true,
+    "source_form": "que"
+  },
+  {
+    "lemma": "avoir",
+    "pos": "AUX",
+    "rank": 9,
+    "is_function_word": true,
+    "source_form": "a"
+  },
+  {
+    "lemma": "pas",
+    "pos": "ADV",
+    "rank": 10,
+    "is_function_word": false,
+    "source_form": "pas"
+  },
+  {
+    "lemma": "il",
+    "pos": "PRON",
+    "rank": 11,
+    "is_function_word": true,
+    "source_form": "il"
+  },
+  {
+    "lemma": "pour",
+    "pos": "ADP",
+    "rank": 12,
+    "is_function_word": true,
+    "source_form": "pour"
+  },
+  {
+    "lemma": "dans",
+    "pos": "ADP",
+    "rank": 13,
+    "is_function_word": true,
+    "source_form": "dans"
+  },
+  {
+    "lemma": "je",
+    "pos": "PRON",
+    "rank": 14,
+    "is_function_word": true,
+    "source_form": "je"
+  },
+  {
+    "lemma": "qui",
+    "pos": "PRON",
+    "rank": 15,
+    "is_function_word": true,
+    "source_form": "qui"
+  },
+  {
+    "lemma": "au",
+    "pos": "ADP",
+    "rank": 16,
+    "is_function_word": true,
+    "source_form": "au"
+  },
+  {
+    "lemma": "ce",
+    "pos": "DET",
+    "rank": 17,
+    "is_function_word": true,
+    "source_form": "ce"
+  },
+  {
+    "lemma": "sur",
+    "pos": "ADP",
+    "rank": 18,
+    "is_function_word": true,
+    "source_form": "sur"
+  },
+  {
+    "lemma": "par",
+    "pos": "ADP",
+    "rank": 19,
+    "is_function_word": true,
+    "source_form": "par"
+  },
+  {
+    "lemma": "on",
+    "pos": "PRON",
+    "rank": 20,
+    "is_function_word": true,
+    "source_form": "on"
+  },
+  {
+    "lemma": "ne",
+    "pos": "ADV",
+    "rank": 21,
+    "is_function_word": false,
+    "source_form": "ne"
+  },
+  {
+    "lemma": "plus",
+    "pos": "ADV",
+    "rank": 22,
+    "is_function_word": false,
+    "source_form": "plus"
+  },
+  {
+    "lemma": "avec",
+    "pos": "ADP",
+    "rank": 23,
+    "is_function_word": true,
+    "source_form": "avec"
+  },
+  {
+    "lemma": "mais",
+    "pos": "CCONJ",
+    "rank": 24,
+    "is_function_word": true,
+    "source_form": "mais"
+  },
+  {
+    "lemma": "se",
+    "pos": "PRON",
+    "rank": 25,
+    "is_function_word": true,
+    "source_form": "se"
+  },
+  {
+    "lemma": "vous",
+    "pos": "PRON",
+    "rank": 26,
+    "is_function_word": true,
+    "source_form": "vous"
+  },
+  {
+    "lemma": "cela",
+    "pos": "PRON",
+    "rank": 27,
+    "is_function_word": true,
+    "source_form": "ça"
+  },
+  {
+    "lemma": "tu",
+    "pos": "ADP",
+    "rank": 28,
+    "is_function_word": true,
+    "source_form": "tu"
+  },
+  {
+    "lemma": "lui",
+    "pos": "PRON",
+    "rank": 29,
+    "is_function_word": true,
+    "source_form": "elle"
+  },
+  {
+    "lemma": "son",
+    "pos": "DET",
+    "rank": 30,
+    "is_function_word": true,
+    "source_form": "son"
+  },
+  {
+    "lemma": "y",
+    "pos": "PRON",
+    "rank": 31,
+    "is_function_word": true,
+    "source_form": "y"
+  },
+  {
+    "lemma": "ou",
+    "pos": "CCONJ",
+    "rank": 32,
+    "is_function_word": true,
+    "source_form": "ou"
+  },
+  {
+    "lemma": "si",
+    "pos": "SCONJ",
+    "rank": 33,
+    "is_function_word": true,
+    "source_form": "si"
+  },
+  {
+    "lemma": "tout",
+    "pos": "ADV",
+    "rank": 34,
+    "is_function_word": false,
+    "source_form": "tout"
+  },
+  {
+    "lemma": "faire",
+    "pos": "VERB",
+    "rank": 35,
+    "is_function_word": false,
+    "source_form": "fait"
+  },
+  {
+    "lemma": "nous",
+    "pos": "PRON",
+    "rank": 36,
+    "is_function_word": true,
+    "source_form": "nous"
+  },
+  {
+    "lemma": "comme",
+    "pos": "ADP",
+    "rank": 37,
+    "is_function_word": true,
+    "source_form": "comme"
+  },
+  {
+    "lemma": "bien",
+    "pos": "ADV",
+    "rank": 38,
+    "is_function_word": false,
+    "source_form": "bien"
+  },
+  {
+    "lemma": "même",
+    "pos": "ADV",
+    "rank": 39,
+    "is_function_word": false,
+    "source_form": "même"
+  },
+  {
+    "lemma": "me",
+    "pos": "PRON",
+    "rank": 40,
+    "is_function_word": true,
+    "source_form": "me"
+  },
+  {
+    "lemma": "mon",
+    "pos": "DET",
+    "rank": 41,
+    "is_function_word": true,
+    "source_form": "mon"
+  },
+  {
+    "lemma": "luire",
+    "pos": "PRON",
+    "rank": 42,
+    "is_function_word": true,
+    "source_form": "lui"
+  },
+  {
+    "lemma": "aussi",
+    "pos": "ADV",
+    "rank": 43,
+    "is_function_word": false,
+    "source_form": "aussi"
+  },
+  {
+    "lemma": "pouvoir",
+    "pos": "VERB",
+    "rank": 44,
+    "is_function_word": false,
+    "source_form": "peut"
+  },
+  {
+    "lemma": "deux",
+    "pos": "NUM",
+    "rank": 45,
+    "is_function_word": false,
+    "source_form": "deux"
+  },
+  {
+    "lemma": "moi",
+    "pos": "PRON",
+    "rank": 46,
+    "is_function_word": true,
+    "source_form": "moi"
+  },
+  {
+    "lemma": "quand",
+    "pos": "SCONJ",
+    "rank": 47,
+    "is_function_word": true,
+    "source_form": "quand"
+  },
+  {
+    "lemma": "après",
+    "pos": "ADP",
+    "rank": 48,
+    "is_function_word": true,
+    "source_form": "après"
+  },
+  {
+    "lemma": "très",
+    "pos": "ADV",
+    "rank": 49,
+    "is_function_word": false,
+    "source_form": "très"
+  },
+  {
+    "lemma": "tout",
+    "pos": "ADJ",
+    "rank": 50,
+    "is_function_word": false,
+    "source_form": "tous"
+  },
+  {
+    "lemma": "sans",
+    "pos": "ADP",
+    "rank": 51,
+    "is_function_word": true,
+    "source_form": "sans"
+  },
+  {
+    "lemma": "avoir",
+    "pos": "VERB",
+    "rank": 52,
+    "is_function_word": false,
+    "source_form": "avoir"
+  },
+  {
+    "lemma": "non",
+    "pos": "ADV",
+    "rank": 53,
+    "is_function_word": false,
+    "source_form": "non"
+  },
+  {
+    "lemma": "où",
+    "pos": "PRON",
+    "rank": 54,
+    "is_function_word": true,
+    "source_form": "où"
+  },
+  {
+    "lemma": "aller",
+    "pos": "VERB",
+    "rank": 55,
+    "is_function_word": false,
+    "source_form": "va"
+  },
+  {
+    "lemma": "encore",
+    "pos": "ADV",
+    "rank": 56,
+    "is_function_word": false,
+    "source_form": "encore"
+  },
+  {
+    "lemma": "alors",
+    "pos": "ADV",
+    "rank": 57,
+    "is_function_word": false,
+    "source_form": "alors"
+  },
+  {
+    "lemma": "entrer",
+    "pos": "ADP",
+    "rank": 58,
+    "is_function_word": true,
+    "source_form": "entre"
+  },
+  {
+    "lemma": "temps",
+    "pos": "NOUN",
+    "rank": 59,
+    "is_function_word": false,
+    "source_form": "temps"
+  },
+  {
+    "lemma": "an",
+    "pos": "NOUN",
+    "rank": 60,
+    "is_function_word": false,
+    "source_form": "ans"
+  },
+  {
+    "lemma": "autre",
+    "pos": "ADJ",
+    "rank": 61,
+    "is_function_word": false,
+    "source_form": "autres"
+  },
+  {
+    "lemma": "dire",
+    "pos": "VERB",
+    "rank": 62,
+    "is_function_word": false,
+    "source_form": "dit"
+  },
+  {
+    "lemma": "là",
+    "pos": "ADV",
+    "rank": 63,
+    "is_function_word": false,
+    "source_form": "là"
+  },
+  {
+    "lemma": "peu",
+    "pos": "ADV",
+    "rank": 64,
+    "is_function_word": false,
+    "source_form": "peu"
+  },
+  {
+    "lemma": "rien",
+    "pos": "PRON",
+    "rank": 65,
+    "is_function_word": true,
+    "source_form": "rien"
+  },
+  {
+    "lemma": "monde",
+    "pos": "NOUN",
+    "rank": 66,
+    "is_function_word": false,
+    "source_form": "monde"
+  },
+  {
+    "lemma": "te",
+    "pos": "PRON",
+    "rank": 67,
+    "is_function_word": true,
+    "source_form": "te"
+  },
+  {
+    "lemma": "fois",
+    "pos": "NOUN",
+    "rank": 68,
+    "is_function_word": false,
+    "source_form": "fois"
+  },
+  {
+    "lemma": "falloir",
+    "pos": "VERB",
+    "rank": 69,
+    "is_function_word": false,
+    "source_form": "faut"
+  },
+  {
+    "lemma": "toujours",
+    "pos": "ADV",
+    "rank": 70,
+    "is_function_word": false,
+    "source_form": "toujours"
+  },
+  {
+    "lemma": "voir",
+    "pos": "VERB",
+    "rank": 71,
+    "is_function_word": false,
+    "source_form": "voir"
+  },
+  {
+    "lemma": "bon",
+    "pos": "ADJ",
+    "rank": 72,
+    "is_function_word": false,
+    "source_form": "bon"
+  },
+  {
+    "lemma": "contre",
+    "pos": "ADP",
+    "rank": 73,
+    "is_function_word": true,
+    "source_form": "contre"
+  },
+  {
+    "lemma": "votre",
+    "pos": "DET",
+    "rank": 74,
+    "is_function_word": true,
+    "source_form": "votre"
+  },
+  {
+    "lemma": "avant",
+    "pos": "ADP",
+    "rank": 75,
+    "is_function_word": true,
+    "source_form": "avant"
+  },
+  {
+    "lemma": "depuis",
+    "pos": "ADP",
+    "rank": 76,
+    "is_function_word": true,
+    "source_form": "depuis"
+  },
+  {
+    "lemma": "donc",
+    "pos": "ADV",
+    "rank": 77,
+    "is_function_word": false,
+    "source_form": "donc"
+  },
+  {
+    "lemma": "notre",
+    "pos": "DET",
+    "rank": 78,
+    "is_function_word": true,
+    "source_form": "notre"
+  },
+  {
+    "lemma": "sou",
+    "pos": "ADP",
+    "rank": 79,
+    "is_function_word": true,
+    "source_form": "sous"
+  },
+  {
+    "lemma": "jamais",
+    "pos": "ADV",
+    "rank": 80,
+    "is_function_word": false,
+    "source_form": "jamais"
+  },
+  {
+    "lemma": "vie",
+    "pos": "NOUN",
+    "rank": 81,
+    "is_function_word": false,
+    "source_form": "vie"
+  },
+  {
+    "lemma": "moins",
+    "pos": "ADV",
+    "rank": 82,
+    "is_function_word": false,
+    "source_form": "moins"
+  },
+  {
+    "lemma": "dont",
+    "pos": "PRON",
+    "rank": 83,
+    "is_function_word": true,
+    "source_form": "dont"
+  },
+  {
+    "lemma": "toi",
+    "pos": "DET",
+    "rank": 84,
+    "is_function_word": true,
+    "source_form": "toi"
+  },
+  {
+    "lemma": "déjà",
+    "pos": "ADV",
+    "rank": 85,
+    "is_function_word": false,
+    "source_form": "déjà"
+  },
+  {
+    "lemma": "quoi",
+    "pos": "PRON",
+    "rank": 86,
+    "is_function_word": true,
+    "source_form": "quoi"
+  },
+  {
+    "lemma": "trop",
+    "pos": "ADV",
+    "rank": 87,
+    "is_function_word": false,
+    "source_form": "trop"
+  },
+  {
+    "lemma": "leur",
+    "pos": "DET",
+    "rank": 88,
+    "is_function_word": true,
+    "source_form": "leurs"
+  },
+  {
+    "lemma": "ton",
+    "pos": "NOUN",
+    "rank": 89,
+    "is_function_word": false,
+    "source_form": "ton"
+  },
+  {
+    "lemma": "tout",
+    "pos": "DET",
+    "rank": 90,
+    "is_function_word": true,
+    "source_form": "toute"
+  },
+  {
+    "lemma": "chez",
+    "pos": "ADP",
+    "rank": 91,
+    "is_function_word": true,
+    "source_form": "chez"
+  },
+  {
+    "lemma": "gens",
+    "pos": "NOUN",
+    "rank": 92,
+    "is_function_word": false,
+    "source_form": "gens"
+  },
+  {
+    "lemma": "juste",
+    "pos": "ADV",
+    "rank": 93,
+    "is_function_word": false,
+    "source_form": "juste"
+  },
+  {
+    "lemma": "oui",
+    "pos": "NOUN",
+    "rank": 94,
+    "is_function_word": false,
+    "source_form": "oui"
+  },
+  {
+    "lemma": "vraiment",
+    "pos": "ADV",
+    "rank": 95,
+    "is_function_word": false,
+    "source_form": "vraiment"
+  },
+  {
+    "lemma": "ainsi",
+    "pos": "ADV",
+    "rank": 96,
+    "is_function_word": false,
+    "source_form": "ainsi"
+  },
+  {
+    "lemma": "as",
+    "pos": "PRON",
+    "rank": 97,
+    "is_function_word": true,
+    "source_form": "as"
+  },
+  {
+    "lemma": "grand",
+    "pos": "ADJ",
+    "rank": 98,
+    "is_function_word": false,
+    "source_form": "grand"
+  },
+  {
+    "lemma": "pays",
+    "pos": "NOUN",
+    "rank": 99,
+    "is_function_word": false,
+    "source_form": "pays"
+  },
+  {
+    "lemma": "français",
+    "pos": "ADJ",
+    "rank": 100,
+    "is_function_word": false,
+    "source_form": "français"
+  },
+  {
+    "lemma": "beaucoup",
+    "pos": "ADV",
+    "rank": 101,
+    "is_function_word": false,
+    "source_form": "beaucoup"
+  },
+  {
+    "lemma": "jour",
+    "pos": "NOUN",
+    "rank": 102,
+    "is_function_word": false,
+    "source_form": "jour"
+  },
+  {
+    "lemma": "quelque",
+    "pos": "DET",
+    "rank": 103,
+    "is_function_word": true,
+    "source_form": "quelques"
+  },
+  {
+    "lemma": "comment",
+    "pos": "ADV",
+    "rank": 104,
+    "is_function_word": false,
+    "source_form": "comment"
+  },
+  {
+    "lemma": "être",
+    "pos": "ADP",
+    "rank": 105,
+    "is_function_word": true,
+    "source_form": "es"
+  },
+  {
+    "lemma": "premier",
+    "pos": "ADJ",
+    "rank": 106,
+    "is_function_word": false,
+    "source_form": "premier"
+  },
+  {
+    "lemma": "parce",
+    "pos": "SCONJ",
+    "rank": 107,
+    "is_function_word": true,
+    "source_form": "parce"
+  },
+  {
+    "lemma": "personn",
+    "pos": "ADJ",
+    "rank": 108,
+    "is_function_word": false,
+    "source_form": "personne"
+  },
+  {
+    "lemma": "celer",
+    "pos": "PRON",
+    "rank": 109,
+    "is_function_word": true,
+    "source_form": "cela"
+  },
+  {
+    "lemma": "trois",
+    "pos": "NUM",
+    "rank": 110,
+    "is_function_word": false,
+    "source_form": "trois"
+  },
+  {
+    "lemma": "homme",
+    "pos": "NOUN",
+    "rank": 111,
+    "is_function_word": false,
+    "source_form": "homme"
+  },
+  {
+    "lemma": "ici",
+    "pos": "ADV",
+    "rank": 112,
+    "is_function_word": false,
+    "source_form": "ici"
+  },
+  {
+    "lemma": "cas",
+    "pos": "NOUN",
+    "rank": 113,
+    "is_function_word": false,
+    "source_form": "cas"
+  },
+  {
+    "lemma": "chose",
+    "pos": "NOUN",
+    "rank": 114,
+    "is_function_word": false,
+    "source_form": "chose"
+  },
+  {
+    "lemma": "devoir",
+    "pos": "VERB",
+    "rank": 115,
+    "is_function_word": false,
+    "source_form": "doit"
+  },
+  {
+    "lemma": "partie",
+    "pos": "NOUN",
+    "rank": 116,
+    "is_function_word": false,
+    "source_form": "partie"
+  },
+  {
+    "lemma": "car",
+    "pos": "CCONJ",
+    "rank": 117,
+    "is_function_word": true,
+    "source_form": "car"
+  },
+  {
+    "lemma": "mal",
+    "pos": "ADV",
+    "rank": 118,
+    "is_function_word": false,
+    "source_form": "mal"
+  },
+  {
+    "lemma": "fin",
+    "pos": "NOUN",
+    "rank": 119,
+    "is_function_word": false,
+    "source_form": "fin"
+  },
+  {
+    "lemma": "mieux",
+    "pos": "ADV",
+    "rank": 120,
+    "is_function_word": false,
+    "source_form": "mieux"
+  },
+  {
+    "lemma": "pendant",
+    "pos": "ADP",
+    "rank": 121,
+    "is_function_word": true,
+    "source_form": "pendant"
+  },
+  {
+    "lemma": "petit",
+    "pos": "ADJ",
+    "rank": 122,
+    "is_function_word": false,
+    "source_form": "petit"
+  },
+  {
+    "lemma": "pouvoir",
+    "pos": "CCONJ",
+    "rank": 123,
+    "is_function_word": true,
+    "source_form": "puis"
+  },
+  {
+    "lemma": "année",
+    "pos": "NOUN",
+    "rank": 124,
+    "is_function_word": false,
+    "source_form": "année"
+  },
+  {
+    "lemma": "celui",
+    "pos": "PRON",
+    "rank": 125,
+    "is_function_word": true,
+    "source_form": "ceux"
+  },
+  {
+    "lemma": "moment",
+    "pos": "NOUN",
+    "rank": 126,
+    "is_function_word": false,
+    "source_form": "moment"
+  },
+  {
+    "lemma": "place",
+    "pos": "NOUN",
+    "rank": 127,
+    "is_function_word": false,
+    "source_form": "place"
+  },
+  {
+    "lemma": "plusieurs",
+    "pos": "DET",
+    "rank": 128,
+    "is_function_word": true,
+    "source_form": "plusieurs"
+  },
+  {
+    "lemma": "pourquoi",
+    "pos": "ADV",
+    "rank": 129,
+    "is_function_word": false,
+    "source_form": "pourquoi"
+  },
+  {
+    "lemma": "ton",
+    "pos": "PRON",
+    "rank": 130,
+    "is_function_word": true,
+    "source_form": "ta"
+  },
+  {
+    "lemma": "ville",
+    "pos": "NOUN",
+    "rank": 131,
+    "is_function_word": false,
+    "source_form": "ville"
+  },
+  {
+    "lemma": "mois",
+    "pos": "NOUN",
+    "rank": 132,
+    "is_function_word": false,
+    "source_form": "mois"
+  },
+  {
+    "lemma": "vers",
+    "pos": "ADP",
+    "rank": 133,
+    "is_function_word": true,
+    "source_form": "vers"
+  },
+  {
+    "lemma": "histoire",
+    "pos": "NOUN",
+    "rank": 134,
+    "is_function_word": false,
+    "source_form": "histoire"
+  },
+  {
+    "lemma": "mort",
+    "pos": "NOUN",
+    "rank": 135,
+    "is_function_word": false,
+    "source_form": "mort"
+  },
+  {
+    "lemma": "sai",
+    "pos": "ADJ",
+    "rank": 136,
+    "is_function_word": false,
+    "source_form": "sais"
+  },
+  {
+    "lemma": "fai",
+    "pos": "ADJ",
+    "rank": 137,
+    "is_function_word": false,
+    "source_form": "fais"
+  },
+  {
+    "lemma": "nouveau",
+    "pos": "ADJ",
+    "rank": 138,
+    "is_function_word": false,
+    "source_form": "nouveau"
+  },
+  {
+    "lemma": "part",
+    "pos": "NOUN",
+    "rank": 139,
+    "is_function_word": false,
+    "source_form": "part"
+  },
+  {
+    "lemma": "travail",
+    "pos": "NOUN",
+    "rank": 140,
+    "is_function_word": false,
+    "source_form": "travail"
+  },
+  {
+    "lemma": "aujourd'hui",
+    "pos": "ADV",
+    "rank": 141,
+    "is_function_word": false,
+    "source_form": "aujourd'hui"
+  },
+  {
+    "lemma": "compte",
+    "pos": "NOUN",
+    "rank": 142,
+    "is_function_word": false,
+    "source_form": "compte"
+  },
+  {
+    "lemma": "merci",
+    "pos": "NOUN",
+    "rank": 143,
+    "is_function_word": false,
+    "source_form": "merci"
+  },
+  {
+    "lemma": "prendre",
+    "pos": "VERB",
+    "rank": 144,
+    "is_function_word": false,
+    "source_form": "prendre"
+  },
+  {
+    "lemma": "vouloir",
+    "pos": "VERB",
+    "rank": 145,
+    "is_function_word": false,
+    "source_form": "veut"
+  },
+  {
+    "lemma": "état",
+    "pos": "NOUN",
+    "rank": 146,
+    "is_function_word": false,
+    "source_form": "état"
+  },
+  {
+    "lemma": "cours",
+    "pos": "NOUN",
+    "rank": 147,
+    "is_function_word": false,
+    "source_form": "cours"
+  },
+  {
+    "lemma": "peux",
+    "pos": "ADJ",
+    "rank": 148,
+    "is_function_word": false,
+    "source_form": "peux"
+  },
+  {
+    "lemma": "politique",
+    "pos": "ADJ",
+    "rank": 149,
+    "is_function_word": false,
+    "source_form": "politique"
+  },
+  {
+    "lemma": "reste",
+    "pos": "VERB",
+    "rank": 150,
+    "is_function_word": false,
+    "source_form": "reste"
+  },
+  {
+    "lemma": "veux",
+    "pos": "ADJ",
+    "rank": 151,
+    "is_function_word": false,
+    "source_form": "veux"
+  },
+  {
+    "lemma": "ca",
+    "pos": "DET",
+    "rank": 152,
+    "is_function_word": true,
+    "source_form": "ca"
+  },
+  {
+    "lemma": "chaque",
+    "pos": "DET",
+    "rank": 153,
+    "is_function_word": true,
+    "source_form": "chaque"
+  },
+  {
+    "lemma": "personne",
+    "pos": "NOUN",
+    "rank": 154,
+    "is_function_word": false,
+    "source_form": "personnes"
+  },
+  {
+    "lemma": "femme",
+    "pos": "NOUN",
+    "rank": 155,
+    "is_function_word": false,
+    "source_form": "femme"
+  },
+  {
+    "lemma": "nom",
+    "pos": "NOUN",
+    "rank": 156,
+    "is_function_word": false,
+    "source_form": "nom"
+  },
+  {
+    "lemma": "prix",
+    "pos": "NOUN",
+    "rank": 157,
+    "is_function_word": false,
+    "source_form": "prix"
+  },
+  {
+    "lemma": "également",
+    "pos": "ADV",
+    "rank": 158,
+    "is_function_word": false,
+    "source_form": "également"
+  },
+  {
+    "lemma": "point",
+    "pos": "NOUN",
+    "rank": 159,
+    "is_function_word": false,
+    "source_form": "point"
+  },
+  {
+    "lemma": "seul",
+    "pos": "ADJ",
+    "rank": 160,
+    "is_function_word": false,
+    "source_form": "seul"
+  },
+  {
+    "lemma": "vai",
+    "pos": "NOUN",
+    "rank": 161,
+    "is_function_word": false,
+    "source_form": "vais"
+  },
+  {
+    "lemma": "lieu",
+    "pos": "NOUN",
+    "rank": 162,
+    "is_function_word": false,
+    "source_form": "lieu"
+  },
+  {
+    "lemma": "lors",
+    "pos": "ADV",
+    "rank": 163,
+    "is_function_word": false,
+    "source_form": "lors"
+  },
+  {
+    "lemma": "vrai",
+    "pos": "NUM",
+    "rank": 164,
+    "is_function_word": false,
+    "source_form": "vrai"
+  },
+  {
+    "lemma": "droit",
+    "pos": "NOUN",
+    "rank": 165,
+    "is_function_word": false,
+    "source_form": "droit"
+  },
+  {
+    "lemma": "selon",
+    "pos": "ADP",
+    "rank": 166,
+    "is_function_word": true,
+    "source_form": "selon"
+  },
+  {
+    "lemma": "coup",
+    "pos": "VERB",
+    "rank": 167,
+    "is_function_word": false,
+    "source_form": "coup"
+  },
+  {
+    "lemma": "mettre",
+    "pos": "VERB",
+    "rank": 168,
+    "is_function_word": false,
+    "source_form": "mettre"
+  },
+  {
+    "lemma": "pense",
+    "pos": "NOUN",
+    "rank": 169,
+    "is_function_word": false,
+    "source_form": "pense"
+  },
+  {
+    "lemma": "tant",
+    "pos": "ADV",
+    "rank": 170,
+    "is_function_word": false,
+    "source_form": "tant"
+  },
+  {
+    "lemma": "groupe",
+    "pos": "NOUN",
+    "rank": 171,
+    "is_function_word": false,
+    "source_form": "groupe"
+  },
+  {
+    "lemma": "maintenant",
+    "pos": "ADV",
+    "rank": 172,
+    "is_function_word": false,
+    "source_form": "maintenant"
+  },
+  {
+    "lemma": "maison",
+    "pos": "NOUN",
+    "rank": 173,
+    "is_function_word": false,
+    "source_form": "maison"
+  },
+  {
+    "lemma": "saint",
+    "pos": "NOUN",
+    "rank": 174,
+    "is_function_word": false,
+    "source_form": "saint"
+  },
+  {
+    "lemma": "tête",
+    "pos": "NOUN",
+    "rank": 175,
+    "is_function_word": false,
+    "source_form": "tête"
+  },
+  {
+    "lemma": "aime",
+    "pos": "NOUN",
+    "rank": 176,
+    "is_function_word": false,
+    "source_form": "aime"
+  },
+  {
+    "lemma": "enfant",
+    "pos": "NOUN",
+    "rank": 177,
+    "is_function_word": false,
+    "source_form": "enfants"
+  },
+  {
+    "lemma": "famille",
+    "pos": "NOUN",
+    "rank": 178,
+    "is_function_word": false,
+    "source_form": "famille"
+  },
+  {
+    "lemma": "parler",
+    "pos": "VERB",
+    "rank": 179,
+    "is_function_word": false,
+    "source_form": "parler"
+  },
+  {
+    "lemma": "suite",
+    "pos": "NOUN",
+    "rank": 180,
+    "is_function_word": false,
+    "source_form": "suite"
+  },
+  {
+    "lemma": "assez",
+    "pos": "ADV",
+    "rank": 181,
+    "is_function_word": false,
+    "source_form": "assez"
+  },
+  {
+    "lemma": "besoin",
+    "pos": "NOUN",
+    "rank": 182,
+    "is_function_word": false,
+    "source_form": "besoin"
+  },
+  {
+    "lemma": "demande",
+    "pos": "VERB",
+    "rank": 183,
+    "is_function_word": false,
+    "source_form": "demande"
+  },
+  {
+    "lemma": "genr",
+    "pos": "ADJ",
+    "rank": 184,
+    "is_function_word": false,
+    "source_form": "genre"
+  },
+  {
+    "lemma": "savoir",
+    "pos": "VERB",
+    "rank": 185,
+    "is_function_word": false,
+    "source_form": "savoir"
+  },
+  {
+    "lemma": "société",
+    "pos": "NOUN",
+    "rank": 186,
+    "is_function_word": false,
+    "source_form": "société"
+  },
+  {
+    "lemma": "trouve",
+    "pos": "NOUN",
+    "rank": 187,
+    "is_function_word": false,
+    "source_form": "trouve"
+  },
+  {
+    "lemma": "côté",
+    "pos": "NOUN",
+    "rank": 188,
+    "is_function_word": false,
+    "source_form": "côté"
+  },
+  {
+    "lemma": "passer",
+    "pos": "VERB",
+    "rank": 189,
+    "is_function_word": false,
+    "source_form": "passe"
+  },
+  {
+    "lemma": "question",
+    "pos": "NOUN",
+    "rank": 190,
+    "is_function_word": false,
+    "source_form": "question"
+  },
+  {
+    "lemma": "raison",
+    "pos": "NOUN",
+    "rank": 191,
+    "is_function_word": false,
+    "source_form": "raison"
+  },
+  {
+    "lemma": "sens",
+    "pos": "NOUN",
+    "rank": 192,
+    "is_function_word": false,
+    "source_form": "sens"
+  },
+  {
+    "lemma": "ailleurs",
+    "pos": "ADV",
+    "rank": 193,
+    "is_function_word": false,
+    "source_form": "ailleurs"
+  },
+  {
+    "lemma": "certain",
+    "pos": "PRON",
+    "rank": 194,
+    "is_function_word": true,
+    "source_form": "certains"
+  },
+  {
+    "lemma": "ci",
+    "pos": "NOUN",
+    "rank": 195,
+    "is_function_word": false,
+    "source_form": "ci"
+  },
+  {
+    "lemma": "devant",
+    "pos": "ADP",
+    "rank": 196,
+    "is_function_word": true,
+    "source_form": "devant"
+  },
+  {
+    "lemma": "dire",
+    "pos": "ADP",
+    "rank": 197,
+    "is_function_word": true,
+    "source_form": "dis"
+  },
+  {
+    "lemma": "jeu",
+    "pos": "NOUN",
+    "rank": 198,
+    "is_function_word": false,
+    "source_form": "jeu"
+  },
+  {
+    "lemma": "soir",
+    "pos": "NOUN",
+    "rank": 199,
+    "is_function_word": false,
+    "source_form": "soir"
+  },
+  {
+    "lemma": "souvent",
+    "pos": "ADV",
+    "rank": 200,
+    "is_function_word": false,
+    "source_form": "souvent"
+  },
+  {
+    "lemma": "effet",
+    "pos": "NOUN",
+    "rank": 201,
+    "is_function_word": false,
+    "source_form": "effet"
+  },
+  {
+    "lemma": "général",
+    "pos": "ADJ",
+    "rank": 202,
+    "is_function_word": false,
+    "source_form": "général"
+  },
+  {
+    "lemma": "jusque",
+    "pos": "ADP",
+    "rank": 203,
+    "is_function_word": true,
+    "source_form": "jusqu'à"
+  },
+  {
+    "lemma": "ni",
+    "pos": "CCONJ",
+    "rank": 204,
+    "is_function_word": true,
+    "source_form": "ni"
+  },
+  {
+    "lemma": "partir",
+    "pos": "VERB",
+    "rank": 205,
+    "is_function_word": false,
+    "source_form": "partir"
+  },
+  {
+    "lemma": "surtout",
+    "pos": "ADV",
+    "rank": 206,
+    "is_function_word": false,
+    "source_form": "surtout"
+  },
+  {
+    "lemma": "équipe",
+    "pos": "NOUN",
+    "rank": 207,
+    "is_function_word": false,
+    "source_form": "équipe"
+  },
+  {
+    "lemma": "dernier",
+    "pos": "ADJ",
+    "rank": 208,
+    "is_function_word": false,
+    "source_form": "dernier"
+  },
+  {
+    "lemma": "enfin",
+    "pos": "ADV",
+    "rank": 209,
+    "is_function_word": false,
+    "source_form": "enfin"
+  },
+  {
+    "lemma": "nombre",
+    "pos": "NOUN",
+    "rank": 210,
+    "is_function_word": false,
+    "source_form": "nombre"
+  },
+  {
+    "lemma": "parl",
+    "pos": "ADJ",
+    "rank": 211,
+    "is_function_word": false,
+    "source_form": "parle"
+  },
+  {
+    "lemma": "porte",
+    "pos": "VERB",
+    "rank": 212,
+    "is_function_word": false,
+    "source_form": "porte"
+  },
+  {
+    "lemma": "seulement",
+    "pos": "ADV",
+    "rank": 213,
+    "is_function_word": false,
+    "source_form": "seulement"
+  },
+  {
+    "lemma": "site",
+    "pos": "NOUN",
+    "rank": 214,
+    "is_function_word": false,
+    "source_form": "site"
+  },
+  {
+    "lemma": "eau",
+    "pos": "NOUN",
+    "rank": 215,
+    "is_function_word": false,
+    "source_form": "eau"
+  },
+  {
+    "lemma": "ensemble",
+    "pos": "NOUN",
+    "rank": 216,
+    "is_function_word": false,
+    "source_form": "ensemble"
+  },
+  {
+    "lemma": "mère",
+    "pos": "NOUN",
+    "rank": 217,
+    "is_function_word": false,
+    "source_form": "mère"
+  },
+  {
+    "lemma": "près",
+    "pos": "ADV",
+    "rank": 218,
+    "is_function_word": false,
+    "source_form": "près"
+  },
+  {
+    "lemma": "quel",
+    "pos": "DET",
+    "rank": 219,
+    "is_function_word": true,
+    "source_form": "quel"
+  },
+  {
+    "lemma": "quelque",
+    "pos": "SCONJ",
+    "rank": 220,
+    "is_function_word": true,
+    "source_form": "quelqu'un"
+  },
+  {
+    "lemma": "te",
+    "pos": "NOUN",
+    "rank": 221,
+    "is_function_word": false,
+    "source_form": "tes"
+  },
+  {
+    "lemma": "voi",
+    "pos": "ADJ",
+    "rank": 222,
+    "is_function_word": false,
+    "source_form": "vois"
+  },
+  {
+    "lemma": "aucun",
+    "pos": "DET",
+    "rank": 223,
+    "is_function_word": true,
+    "source_form": "aucun"
+  },
+  {
+    "lemma": "loi",
+    "pos": "NOUN",
+    "rank": 224,
+    "is_function_word": false,
+    "source_form": "loi"
+  },
+  {
+    "lemma": "parti",
+    "pos": "NOUN",
+    "rank": 225,
+    "is_function_word": false,
+    "source_form": "parti"
+  },
+  {
+    "lemma": "pèr",
+    "pos": "ADJ",
+    "rank": 226,
+    "is_function_word": false,
+    "source_form": "père"
+  },
+  {
+    "lemma": "rapport",
+    "pos": "NOUN",
+    "rank": 227,
+    "is_function_word": false,
+    "source_form": "rapport"
+  },
+  {
+    "lemma": "dès",
+    "pos": "ADP",
+    "rank": 228,
+    "is_function_word": true,
+    "source_form": "dès"
+  },
+  {
+    "lemma": "trouver",
+    "pos": "VERB",
+    "rank": 229,
+    "is_function_word": false,
+    "source_form": "trouver"
+  },
+  {
+    "lemma": "autant",
+    "pos": "ADV",
+    "rank": 230,
+    "is_function_word": false,
+    "source_form": "autant"
+  },
+  {
+    "lemma": "face",
+    "pos": "NOUN",
+    "rank": 231,
+    "is_function_word": false,
+    "source_form": "face"
+  },
+  {
+    "lemma": "fille",
+    "pos": "NOUN",
+    "rank": 232,
+    "is_function_word": false,
+    "source_form": "fille"
+  },
+  {
+    "lemma": "gouvernement",
+    "pos": "NOUN",
+    "rank": 233,
+    "is_function_word": false,
+    "source_form": "gouvernement"
+  },
+  {
+    "lemma": "gros",
+    "pos": "ADJ",
+    "rank": 234,
+    "is_function_word": false,
+    "source_form": "gros"
+  },
+  {
+    "lemma": "guerre",
+    "pos": "NOUN",
+    "rank": 235,
+    "is_function_word": false,
+    "source_form": "guerre"
+  },
+  {
+    "lemma": "niveau",
+    "pos": "NOUN",
+    "rank": 236,
+    "is_function_word": false,
+    "source_form": "niveau"
+  },
+  {
+    "lemma": "quatre",
+    "pos": "NUM",
+    "rank": 237,
+    "is_function_word": false,
+    "source_form": "quatre"
+  },
+  {
+    "lemma": "semaine",
+    "pos": "NOUN",
+    "rank": 238,
+    "is_function_word": false,
+    "source_form": "semaine"
+  },
+  {
+    "lemma": "service",
+    "pos": "NOUN",
+    "rank": 239,
+    "is_function_word": false,
+    "source_form": "service"
+  },
+  {
+    "lemma": "accord",
+    "pos": "NOUN",
+    "rank": 240,
+    "is_function_word": false,
+    "source_form": "accord"
+  },
+  {
+    "lemma": "article",
+    "pos": "NOUN",
+    "rank": 241,
+    "is_function_word": false,
+    "source_form": "article"
+  },
+  {
+    "lemma": "donne",
+    "pos": "VERB",
+    "rank": 242,
+    "is_function_word": false,
+    "source_form": "donne"
+  },
+  {
+    "lemma": "donner",
+    "pos": "VERB",
+    "rank": 243,
+    "is_function_word": false,
+    "source_form": "donner"
+  },
+  {
+    "lemma": "ligne",
+    "pos": "NOUN",
+    "rank": 244,
+    "is_function_word": false,
+    "source_form": "ligne"
+  },
+  {
+    "lemma": "problème",
+    "pos": "VERB",
+    "rank": 245,
+    "is_function_word": false,
+    "source_form": "problème"
+  },
+  {
+    "lemma": "président",
+    "pos": "NOUN",
+    "rank": 246,
+    "is_function_word": false,
+    "source_form": "président"
+  },
+  {
+    "lemma": "venir",
+    "pos": "VERB",
+    "rank": 247,
+    "is_function_word": false,
+    "source_form": "vient"
+  },
+  {
+    "lemma": "cause",
+    "pos": "NOUN",
+    "rank": 248,
+    "is_function_word": false,
+    "source_form": "cause"
+  },
+  {
+    "lemma": "croire",
+    "pos": "VERB",
+    "rank": 249,
+    "is_function_word": false,
+    "source_form": "crois"
+  },
+  {
+    "lemma": "dieu",
+    "pos": "NOUN",
+    "rank": 250,
+    "is_function_word": false,
+    "source_form": "dieu"
+  },
+  {
+    "lemma": "début",
+    "pos": "NOUN",
+    "rank": 251,
+    "is_function_word": false,
+    "source_form": "début"
+  },
+  {
+    "lemma": "exemple",
+    "pos": "NOUN",
+    "rank": 252,
+    "is_function_word": false,
+    "source_form": "exemple"
+  },
+  {
+    "lemma": "fils",
+    "pos": "NOUN",
+    "rank": 253,
+    "is_function_word": false,
+    "source_form": "fils"
+  },
+  {
+    "lemma": "jeune",
+    "pos": "ADJ",
+    "rank": 254,
+    "is_function_word": false,
+    "source_form": "jeune"
+  },
+  {
+    "lemma": "système",
+    "pos": "NOUN",
+    "rank": 255,
+    "is_function_word": false,
+    "source_form": "système"
+  },
+  {
+    "lemma": "air",
+    "pos": "NOUN",
+    "rank": 256,
+    "is_function_word": false,
+    "source_form": "air"
+  },
+  {
+    "lemma": "bas",
+    "pos": "ADJ",
+    "rank": 257,
+    "is_function_word": false,
+    "source_form": "bas"
+  },
+  {
+    "lemma": "centre",
+    "pos": "NOUN",
+    "rank": 258,
+    "is_function_word": false,
+    "source_form": "centre"
+  },
+  {
+    "lemma": "façon",
+    "pos": "NOUN",
+    "rank": 259,
+    "is_function_word": false,
+    "source_form": "façon"
+  },
+  {
+    "lemma": "heure",
+    "pos": "NOUN",
+    "rank": 260,
+    "is_function_word": false,
+    "source_form": "heure"
+  },
+  {
+    "lemma": "loin",
+    "pos": "ADV",
+    "rank": 261,
+    "is_function_word": false,
+    "source_form": "loin"
+  },
+  {
+    "lemma": "possible",
+    "pos": "ADJ",
+    "rank": 262,
+    "is_function_word": false,
+    "source_form": "possible"
+  },
+  {
+    "lemma": "projet",
+    "pos": "NOUN",
+    "rank": 263,
+    "is_function_word": false,
+    "source_form": "projet"
+  },
+  {
+    "lemma": "conseil",
+    "pos": "NOUN",
+    "rank": 264,
+    "is_function_word": false,
+    "source_form": "conseil"
+  },
+  {
+    "lemma": "idée",
+    "pos": "NOUN",
+    "rank": 265,
+    "is_function_word": false,
+    "source_form": "idée"
+  },
+  {
+    "lemma": "notamment",
+    "pos": "ADV",
+    "rank": 266,
+    "is_function_word": false,
+    "source_form": "notamment"
+  },
+  {
+    "lemma": "nuit",
+    "pos": "NOUN",
+    "rank": 267,
+    "is_function_word": false,
+    "source_form": "nuit"
+  },
+  {
+    "lemma": "étai",
+    "pos": "ADJ",
+    "rank": 268,
+    "is_function_word": false,
+    "source_form": "étais"
+  },
+  {
+    "lemma": "argent",
+    "pos": "NOUN",
+    "rank": 269,
+    "is_function_word": false,
+    "source_form": "argent"
+  },
+  {
+    "lemma": "tour",
+    "pos": "NOUN",
+    "rank": 270,
+    "is_function_word": false,
+    "source_form": "tour"
+  },
+  {
+    "lemma": "vue",
+    "pos": "NOUN",
+    "rank": 271,
+    "is_function_word": false,
+    "source_form": "vue"
+  },
+  {
+    "lemma": "dessus",
+    "pos": "NOUN",
+    "rank": 272,
+    "is_function_word": false,
+    "source_form": "dessus"
+  },
+  {
+    "lemma": "film",
+    "pos": "NOUN",
+    "rank": 273,
+    "is_function_word": false,
+    "source_form": "film"
+  },
+  {
+    "lemma": "meilleur",
+    "pos": "ADJ",
+    "rank": 274,
+    "is_function_word": false,
+    "source_form": "meilleur"
+  },
+  {
+    "lemma": "corps",
+    "pos": "NOUN",
+    "rank": 275,
+    "is_function_word": false,
+    "source_form": "corps"
+  },
+  {
+    "lemma": "ensuite",
+    "pos": "ADV",
+    "rank": 276,
+    "is_function_word": false,
+    "source_form": "ensuite"
+  },
+  {
+    "lemma": "forme",
+    "pos": "NOUN",
+    "rank": 277,
+    "is_function_word": false,
+    "source_form": "forme"
+  },
+  {
+    "lemma": "haut",
+    "pos": "ADJ",
+    "rank": 278,
+    "is_function_word": false,
+    "source_form": "haut"
+  },
+  {
+    "lemma": "or",
+    "pos": "NOUN",
+    "rank": 279,
+    "is_function_word": false,
+    "source_form": "or"
+  },
+  {
+    "lemma": "plutôt",
+    "pos": "ADV",
+    "rank": 280,
+    "is_function_word": false,
+    "source_form": "plutôt"
+  },
+  {
+    "lemma": "arriver",
+    "pos": "VERB",
+    "rank": 281,
+    "is_function_word": false,
+    "source_form": "arrive"
+  },
+  {
+    "lemma": "chef",
+    "pos": "NOUN",
+    "rank": 282,
+    "is_function_word": false,
+    "source_form": "chef"
+  },
+  {
+    "lemma": "fort",
+    "pos": "ADV",
+    "rank": 283,
+    "is_function_word": false,
+    "source_form": "fort"
+  },
+  {
+    "lemma": "public",
+    "pos": "ADJ",
+    "rank": 284,
+    "is_function_word": false,
+    "source_form": "public"
+  },
+  {
+    "lemma": "tard",
+    "pos": "ADV",
+    "rank": 285,
+    "is_function_word": false,
+    "source_form": "tard"
+  },
+  {
+    "lemma": "main",
+    "pos": "NOUN",
+    "rank": 286,
+    "is_function_word": false,
+    "source_form": "main"
+  },
+  {
+    "lemma": "terre",
+    "pos": "NOUN",
+    "rank": 287,
+    "is_function_word": false,
+    "source_form": "terre"
+  },
+  {
+    "lemma": "titre",
+    "pos": "NOUN",
+    "rank": 288,
+    "is_function_word": false,
+    "source_form": "titre"
+  },
+  {
+    "lemma": "matin",
+    "pos": "NOUN",
+    "rank": 289,
+    "is_function_word": false,
+    "source_form": "matin"
+  },
+  {
+    "lemma": "mise",
+    "pos": "NOUN",
+    "rank": 290,
+    "is_function_word": false,
+    "source_form": "mise"
+  },
+  {
+    "lemma": "plan",
+    "pos": "NOUN",
+    "rank": 291,
+    "is_function_word": false,
+    "source_form": "plan"
+  },
+  {
+    "lemma": "saison",
+    "pos": "NOUN",
+    "rank": 292,
+    "is_function_word": false,
+    "source_form": "saison"
+  },
+  {
+    "lemma": "type",
+    "pos": "NOUN",
+    "rank": 293,
+    "is_function_word": false,
+    "source_form": "type"
+  },
+  {
+    "lemma": "afin",
+    "pos": "ADV",
+    "rank": 294,
+    "is_function_word": false,
+    "source_form": "afin"
+  },
+  {
+    "lemma": "ah",
+    "pos": "VERB",
+    "rank": 295,
+    "is_function_word": false,
+    "source_form": "ah"
+  },
+  {
+    "lemma": "aide",
+    "pos": "VERB",
+    "rank": 296,
+    "is_function_word": false,
+    "source_form": "aide"
+  },
+  {
+    "lemma": "bel",
+    "pos": "ADJ",
+    "rank": 297,
+    "is_function_word": false,
+    "source_form": "belle"
+  },
+  {
+    "lemma": "choix",
+    "pos": "NOUN",
+    "rank": 298,
+    "is_function_word": false,
+    "source_form": "choix"
+  },
+  {
+    "lemma": "long",
+    "pos": "ADJ",
+    "rank": 299,
+    "is_function_word": false,
+    "source_form": "long"
+  },
+  {
+    "lemma": "minute",
+    "pos": "NOUN",
+    "rank": 300,
+    "is_function_word": false,
+    "source_form": "minutes"
+  },
+  {
+    "lemma": "retour",
+    "pos": "NOUN",
+    "rank": 301,
+    "is_function_word": false,
+    "source_form": "retour"
+  },
+  {
+    "lemma": "situation",
+    "pos": "NOUN",
+    "rank": 302,
+    "is_function_word": false,
+    "source_form": "situation"
+  },
+  {
+    "lemma": "somme",
+    "pos": "NOUN",
+    "rank": 303,
+    "is_function_word": false,
+    "source_form": "sommes"
+  },
+  {
+    "lemma": "vite",
+    "pos": "ADV",
+    "rank": 304,
+    "is_function_word": false,
+    "source_form": "vite"
+  },
+  {
+    "lemma": "oeil",
+    "pos": "NOUN",
+    "rank": 305,
+    "is_function_word": false,
+    "source_form": "yeux"
+  },
+  {
+    "lemma": "amour",
+    "pos": "NOUN",
+    "rank": 306,
+    "is_function_word": false,
+    "source_form": "amour"
+  },
+  {
+    "lemma": "base",
+    "pos": "NOUN",
+    "rank": 307,
+    "is_function_word": false,
+    "source_form": "base"
+  },
+  {
+    "lemma": "journée",
+    "pos": "NOUN",
+    "rank": 308,
+    "is_function_word": false,
+    "source_form": "journée"
+  },
+  {
+    "lemma": "nord",
+    "pos": "NOUN",
+    "rank": 309,
+    "is_function_word": false,
+    "source_form": "nord"
+  },
+  {
+    "lemma": "etc",
+    "pos": "NOUN",
+    "rank": 310,
+    "is_function_word": false,
+    "source_form": "etc"
+  },
+  {
+    "lemma": "grâce",
+    "pos": "NOUN",
+    "rank": 311,
+    "is_function_word": false,
+    "source_form": "grâce"
+  },
+  {
+    "lemma": "moyen",
+    "pos": "ADJ",
+    "rank": 312,
+    "is_function_word": false,
+    "source_form": "moyen"
+  },
+  {
+    "lemma": "ordre",
+    "pos": "NOUN",
+    "rank": 313,
+    "is_function_word": false,
+    "source_form": "ordre"
+  },
+  {
+    "lemma": "école",
+    "pos": "NOUN",
+    "rank": 314,
+    "is_function_word": false,
+    "source_form": "école"
+  },
+  {
+    "lemma": "but",
+    "pos": "NOUN",
+    "rank": 315,
+    "is_function_word": false,
+    "source_form": "but"
+  },
+  {
+    "lemma": "cinq",
+    "pos": "NUM",
+    "rank": 316,
+    "is_function_word": false,
+    "source_form": "cinq"
+  },
+  {
+    "lemma": "manière",
+    "pos": "NOUN",
+    "rank": 317,
+    "is_function_word": false,
+    "source_form": "manière"
+  },
+  {
+    "lemma": "mars",
+    "pos": "NOUN",
+    "rank": 318,
+    "is_function_word": false,
+    "source_form": "mars"
+  },
+  {
+    "lemma": "pierre",
+    "pos": "NOUN",
+    "rank": 319,
+    "is_function_word": false,
+    "source_form": "pierre"
+  },
+  {
+    "lemma": "québec",
+    "pos": "ADJ",
+    "rank": 320,
+    "is_function_word": false,
+    "source_form": "québec"
+  },
+  {
+    "lemma": "sembler",
+    "pos": "VERB",
+    "rank": 321,
+    "is_function_word": false,
+    "source_form": "semble"
+  },
+  {
+    "lemma": "sujet",
+    "pos": "NOUN",
+    "rank": 322,
+    "is_function_word": false,
+    "source_form": "sujet"
+  },
+  {
+    "lemma": "truc",
+    "pos": "NOUN",
+    "rank": 323,
+    "is_function_word": false,
+    "source_form": "truc"
+  },
+  {
+    "lemma": "agir",
+    "pos": "VERB",
+    "rank": 324,
+    "is_function_word": false,
+    "source_form": "agit"
+  },
+  {
+    "lemma": "ministre",
+    "pos": "NOUN",
+    "rank": 325,
+    "is_function_word": false,
+    "source_form": "ministre"
+  },
+  {
+    "lemma": "parfois",
+    "pos": "ADV",
+    "rank": 326,
+    "is_function_word": false,
+    "source_form": "parfois"
+  },
+  {
+    "lemma": "quell",
+    "pos": "ADJ",
+    "rank": 327,
+    "is_function_word": false,
+    "source_form": "quelle"
+  },
+  {
+    "lemma": "rue",
+    "pos": "NOUN",
+    "rank": 328,
+    "is_function_word": false,
+    "source_form": "rue"
+  },
+  {
+    "lemma": "sud",
+    "pos": "NOUN",
+    "rank": 329,
+    "is_function_word": false,
+    "source_form": "sud"
+  },
+  {
+    "lemma": "super",
+    "pos": "VERB",
+    "rank": 330,
+    "is_function_word": false,
+    "source_form": "super"
+  },
+  {
+    "lemma": "sûr",
+    "pos": "ADJ",
+    "rank": 331,
+    "is_function_word": false,
+    "source_form": "sûr"
+  },
+  {
+    "lemma": "unir",
+    "pos": "ADV",
+    "rank": 332,
+    "is_function_word": false,
+    "source_form": "unis"
+  },
+  {
+    "lemma": "vidéo",
+    "pos": "NOUN",
+    "rank": 333,
+    "is_function_word": false,
+    "source_form": "vidéo"
+  },
+  {
+    "lemma": "ami",
+    "pos": "NOUN",
+    "rank": 334,
+    "is_function_word": false,
+    "source_form": "amis"
+  },
+  {
+    "lemma": "art",
+    "pos": "DET",
+    "rank": 335,
+    "is_function_word": true,
+    "source_form": "art"
+  },
+  {
+    "lemma": "beau",
+    "pos": "NOUN",
+    "rank": 336,
+    "is_function_word": false,
+    "source_form": "beau"
+  },
+  {
+    "lemma": "compris",
+    "pos": "ADJ",
+    "rank": 337,
+    "is_function_word": false,
+    "source_form": "compris"
+  },
+  {
+    "lemma": "gauche",
+    "pos": "NOUN",
+    "rank": 338,
+    "is_function_word": false,
+    "source_form": "gauche"
+  },
+  {
+    "lemma": "livre",
+    "pos": "NOUN",
+    "rank": 339,
+    "is_function_word": false,
+    "source_form": "livre"
+  },
+  {
+    "lemma": "musiqu",
+    "pos": "ADJ",
+    "rank": 340,
+    "is_function_word": false,
+    "source_form": "musique"
+  },
+  {
+    "lemma": "région",
+    "pos": "NOUN",
+    "rank": 341,
+    "is_function_word": false,
+    "source_form": "région"
+  },
+  {
+    "lemma": "entreprise",
+    "pos": "NOUN",
+    "rank": 342,
+    "is_function_word": false,
+    "source_form": "entreprise"
+  },
+  {
+    "lemma": "longtemps",
+    "pos": "ADV",
+    "rank": 343,
+    "is_function_word": false,
+    "source_form": "longtemps"
+  },
+  {
+    "lemma": "match",
+    "pos": "NOUN",
+    "rank": 344,
+    "is_function_word": false,
+    "source_form": "match"
+  },
+  {
+    "lemma": "permettre",
+    "pos": "VERB",
+    "rank": 345,
+    "is_function_word": false,
+    "source_form": "permet"
+  },
+  {
+    "lemma": "simple",
+    "pos": "ADJ",
+    "rank": 346,
+    "is_function_word": false,
+    "source_form": "simple"
+  },
+  {
+    "lemma": "voilà",
+    "pos": "VERB",
+    "rank": 347,
+    "is_function_word": false,
+    "source_form": "voilà"
+  },
+  {
+    "lemma": "voit",
+    "pos": "NOUN",
+    "rank": 348,
+    "is_function_word": false,
+    "source_form": "voit"
+  },
+  {
+    "lemma": "chambre",
+    "pos": "NOUN",
+    "rank": 349,
+    "is_function_word": false,
+    "source_form": "chambre"
+  },
+  {
+    "lemma": "deuxième",
+    "pos": "ADJ",
+    "rank": 350,
+    "is_function_word": false,
+    "source_form": "deuxième"
+  },
+  {
+    "lemma": "importer",
+    "pos": "VERB",
+    "rank": 351,
+    "is_function_word": false,
+    "source_form": "importe"
+  },
+  {
+    "lemma": "juin",
+    "pos": "NOUN",
+    "rank": 352,
+    "is_function_word": false,
+    "source_form": "juin"
+  },
+  {
+    "lemma": "lorsque",
+    "pos": "SCONJ",
+    "rank": 353,
+    "is_function_word": true,
+    "source_form": "lorsque"
+  },
+  {
+    "lemma": "mai",
+    "pos": "NOUN",
+    "rank": 354,
+    "is_function_word": false,
+    "source_form": "mai"
+  },
+  {
+    "lemma": "peur",
+    "pos": "NOUN",
+    "rank": 355,
+    "is_function_word": false,
+    "source_form": "peur"
+  },
+  {
+    "lemma": "plein",
+    "pos": "ADJ",
+    "rank": 356,
+    "is_function_word": false,
+    "source_form": "plein"
+  },
+  {
+    "lemma": "police",
+    "pos": "NOUN",
+    "rank": 357,
+    "is_function_word": false,
+    "source_form": "police"
+  },
+  {
+    "lemma": "septembre",
+    "pos": "NOUN",
+    "rank": 358,
+    "is_function_word": false,
+    "source_form": "septembre"
+  },
+  {
+    "lemma": "sécurité",
+    "pos": "NOUN",
+    "rank": 359,
+    "is_function_word": false,
+    "source_form": "sécurité"
+  },
+  {
+    "lemma": "série",
+    "pos": "NOUN",
+    "rank": 360,
+    "is_function_word": false,
+    "source_form": "série"
+  },
+  {
+    "lemma": "ancien",
+    "pos": "ADJ",
+    "rank": 361,
+    "is_function_word": false,
+    "source_form": "ancien"
+  },
+  {
+    "lemma": "anglais",
+    "pos": "ADJ",
+    "rank": 362,
+    "is_function_word": false,
+    "source_form": "anglais"
+  },
+  {
+    "lemma": "certain",
+    "pos": "DET",
+    "rank": 363,
+    "is_function_word": true,
+    "source_form": "certaines"
+  },
+  {
+    "lemma": "important",
+    "pos": "ADJ",
+    "rank": 364,
+    "is_function_word": false,
+    "source_form": "important"
+  },
+  {
+    "lemma": "jouer",
+    "pos": "VERB",
+    "rank": 365,
+    "is_function_word": false,
+    "source_form": "jouer"
+  },
+  {
+    "lemma": "membre",
+    "pos": "NOUN",
+    "rank": 366,
+    "is_function_word": false,
+    "source_form": "membres"
+  },
+  {
+    "lemma": "merde",
+    "pos": "NOUN",
+    "rank": 367,
+    "is_function_word": false,
+    "source_form": "merde"
+  },
+  {
+    "lemma": "parmi",
+    "pos": "ADP",
+    "rank": 368,
+    "is_function_word": true,
+    "source_form": "parmi"
+  },
+  {
+    "lemma": "peine",
+    "pos": "NOUN",
+    "rank": 369,
+    "is_function_word": false,
+    "source_form": "peine"
+  },
+  {
+    "lemma": "presque",
+    "pos": "ADV",
+    "rank": 370,
+    "is_function_word": false,
+    "source_form": "presque"
+  },
+  {
+    "lemma": "tellement",
+    "pos": "ADV",
+    "rank": 371,
+    "is_function_word": false,
+    "source_form": "tellement"
+  },
+  {
+    "lemma": "époque",
+    "pos": "NOUN",
+    "rank": 372,
+    "is_function_word": false,
+    "source_form": "époque"
+  },
+  {
+    "lemma": "doute",
+    "pos": "NOUN",
+    "rank": 373,
+    "is_function_word": false,
+    "source_form": "doute"
+  },
+  {
+    "lemma": "force",
+    "pos": "NOUN",
+    "rank": 374,
+    "is_function_word": false,
+    "source_form": "force"
+  },
+  {
+    "lemma": "lire",
+    "pos": "VERB",
+    "rank": 375,
+    "is_function_word": false,
+    "source_form": "lire"
+  },
+  {
+    "lemma": "marché",
+    "pos": "NOUN",
+    "rank": 376,
+    "is_function_word": false,
+    "source_form": "marché"
+  },
+  {
+    "lemma": "mot",
+    "pos": "NOUN",
+    "rank": 377,
+    "is_function_word": false,
+    "source_form": "mot"
+  },
+  {
+    "lemma": "recherche",
+    "pos": "NOUN",
+    "rank": 378,
+    "is_function_word": false,
+    "source_form": "recherche"
+  },
+  {
+    "lemma": "santé",
+    "pos": "NOUN",
+    "rank": 379,
+    "is_function_word": false,
+    "source_form": "santé"
+  },
+  {
+    "lemma": "train",
+    "pos": "NOUN",
+    "rank": 380,
+    "is_function_word": false,
+    "source_form": "train"
+  },
+  {
+    "lemma": "voix",
+    "pos": "NOUN",
+    "rank": 381,
+    "is_function_word": false,
+    "source_form": "voix"
+  },
+  {
+    "lemma": "écrire",
+    "pos": "VERB",
+    "rank": 382,
+    "is_function_word": false,
+    "source_form": "écrit"
+  },
+  {
+    "lemma": "affaire",
+    "pos": "NOUN",
+    "rank": 383,
+    "is_function_word": false,
+    "source_form": "affaires"
+  },
+  {
+    "lemma": "autour",
+    "pos": "ADV",
+    "rank": 384,
+    "is_function_word": false,
+    "source_form": "autour"
+  },
+  {
+    "lemma": "avis",
+    "pos": "NOUN",
+    "rank": 385,
+    "is_function_word": false,
+    "source_form": "avis"
+  },
+  {
+    "lemma": "cependant",
+    "pos": "ADV",
+    "rank": 386,
+    "is_function_word": false,
+    "source_form": "cependant"
+  },
+  {
+    "lemma": "développement",
+    "pos": "NOUN",
+    "rank": 387,
+    "is_function_word": false,
+    "source_form": "développement"
+  },
+  {
+    "lemma": "fait",
+    "pos": "ADJ",
+    "rank": 388,
+    "is_function_word": false,
+    "source_form": "faites"
+  },
+  {
+    "lemma": "hier",
+    "pos": "ADV",
+    "rank": 389,
+    "is_function_word": false,
+    "source_form": "hier"
+  },
+  {
+    "lemma": "juillet",
+    "pos": "NOUN",
+    "rank": 390,
+    "is_function_word": false,
+    "source_form": "juillet"
+  },
+  {
+    "lemma": "million",
+    "pos": "NOUN",
+    "rank": 391,
+    "is_function_word": false,
+    "source_form": "millions"
+  },
+  {
+    "lemma": "national",
+    "pos": "ADJ",
+    "rank": 392,
+    "is_function_word": false,
+    "source_form": "nationale"
+  },
+  {
+    "lemma": "nombreux",
+    "pos": "ADJ",
+    "rank": 393,
+    "is_function_word": false,
+    "source_form": "nombreux"
+  },
+  {
+    "lemma": "parent",
+    "pos": "NOUN",
+    "rank": 394,
+    "is_function_word": false,
+    "source_form": "parents"
+  },
+  {
+    "lemma": "propre",
+    "pos": "ADJ",
+    "rank": 395,
+    "is_function_word": false,
+    "source_form": "propre"
+  },
+  {
+    "lemma": "rendre",
+    "pos": "VERB",
+    "rank": 396,
+    "is_function_word": false,
+    "source_form": "rendre"
+  },
+  {
+    "lemma": "vivre",
+    "pos": "VERB",
+    "rank": 397,
+    "is_function_word": false,
+    "source_form": "vivre"
+  },
+  {
+    "lemma": "droite",
+    "pos": "NOUN",
+    "rank": 398,
+    "is_function_word": false,
+    "source_form": "droite"
+  },
+  {
+    "lemma": "environ",
+    "pos": "ADV",
+    "rank": 399,
+    "is_function_word": false,
+    "source_form": "environ"
+  },
+  {
+    "lemma": "fond",
+    "pos": "NOUN",
+    "rank": 400,
+    "is_function_word": false,
+    "source_form": "fond"
+  },
+  {
+    "lemma": "mec",
+    "pos": "NOUN",
+    "rank": 401,
+    "is_function_word": false,
+    "source_form": "mec"
+  },
+  {
+    "lemma": "mesure",
+    "pos": "NOUN",
+    "rank": 402,
+    "is_function_word": false,
+    "source_form": "mesure"
+  },
+  {
+    "lemma": "ouai",
+    "pos": "NOUN",
+    "rank": 403,
+    "is_function_word": false,
+    "source_form": "ouais"
+  },
+  {
+    "lemma": "pourtant",
+    "pos": "ADV",
+    "rank": 404,
+    "is_function_word": false,
+    "source_form": "pourtant"
+  },
+  {
+    "lemma": "abord",
+    "pos": "ADV",
+    "rank": 405,
+    "is_function_word": false,
+    "source_form": "abord"
+  },
+  {
+    "lemma": "envie",
+    "pos": "NOUN",
+    "rank": 406,
+    "is_function_word": false,
+    "source_form": "envie"
+  },
+  {
+    "lemma": "gars",
+    "pos": "NOUN",
+    "rank": 407,
+    "is_function_word": false,
+    "source_form": "gars"
+  },
+  {
+    "lemma": "lequel",
+    "pos": "PRON",
+    "rank": 408,
+    "is_function_word": true,
+    "source_form": "laquelle"
+  },
+  {
+    "lemma": "octobre",
+    "pos": "NOUN",
+    "rank": 409,
+    "is_function_word": false,
+    "source_form": "octobre"
+  },
+  {
+    "lemma": "siècle",
+    "pos": "NOUN",
+    "rank": 410,
+    "is_function_word": false,
+    "source_form": "siècle"
+  },
+  {
+    "lemma": "sortir",
+    "pos": "VERB",
+    "rank": 411,
+    "is_function_word": false,
+    "source_form": "sortir"
+  },
+  {
+    "lemma": "terme",
+    "pos": "NOUN",
+    "rank": 412,
+    "is_function_word": false,
+    "source_form": "terme"
+  },
+  {
+    "lemma": "vien",
+    "pos": "NOUN",
+    "rank": 413,
+    "is_function_word": false,
+    "source_form": "viens"
+  },
+  {
+    "lemma": "voiture",
+    "pos": "NOUN",
+    "rank": 414,
+    "is_function_word": false,
+    "source_form": "voiture"
+  },
+  {
+    "lemma": "avril",
+    "pos": "NOUN",
+    "rank": 415,
+    "is_function_word": false,
+    "source_form": "avril"
+  },
+  {
+    "lemma": "frère",
+    "pos": "ADJ",
+    "rank": 416,
+    "is_function_word": false,
+    "source_form": "frère"
+  },
+  {
+    "lemma": "janvier",
+    "pos": "NOUN",
+    "rank": 417,
+    "is_function_word": false,
+    "source_form": "janvier"
+  },
+  {
+    "lemma": "population",
+    "pos": "NOUN",
+    "rank": 418,
+    "is_function_word": false,
+    "source_form": "population"
+  },
+  {
+    "lemma": "roi",
+    "pos": "NOUN",
+    "rank": 419,
+    "is_function_word": false,
+    "source_form": "roi"
+  },
+  {
+    "lemma": "action",
+    "pos": "NOUN",
+    "rank": 420,
+    "is_function_word": false,
+    "source_form": "action"
+  },
+  {
+    "lemma": "club",
+    "pos": "NOUN",
+    "rank": 421,
+    "is_function_word": false,
+    "source_form": "club"
+  },
+  {
+    "lemma": "culture",
+    "pos": "NOUN",
+    "rank": 422,
+    "is_function_word": false,
+    "source_form": "culture"
+  },
+  {
+    "lemma": "difficile",
+    "pos": "ADJ",
+    "rank": 423,
+    "is_function_word": false,
+    "source_form": "difficile"
+  },
+  {
+    "lemma": "exister",
+    "pos": "VERB",
+    "rank": 424,
+    "is_function_word": false,
+    "source_form": "existe"
+  },
+  {
+    "lemma": "laisse",
+    "pos": "VERB",
+    "rank": 425,
+    "is_function_word": false,
+    "source_form": "laisse"
+  },
+  {
+    "lemma": "malgré",
+    "pos": "ADP",
+    "rank": 426,
+    "is_function_word": true,
+    "source_form": "malgré"
+  },
+  {
+    "lemma": "milieu",
+    "pos": "NOUN",
+    "rank": 427,
+    "is_function_word": false,
+    "source_form": "milieu"
+  },
+  {
+    "lemma": "produit",
+    "pos": "NOUN",
+    "rank": 428,
+    "is_function_word": false,
+    "source_form": "produit"
+  },
+  {
+    "lemma": "programme",
+    "pos": "NOUN",
+    "rank": 429,
+    "is_function_word": false,
+    "source_form": "programme"
+  },
+  {
+    "lemma": "propos",
+    "pos": "NOUN",
+    "rank": 430,
+    "is_function_word": false,
+    "source_form": "propos"
+  },
+  {
+    "lemma": "route",
+    "pos": "NOUN",
+    "rank": 431,
+    "is_function_word": false,
+    "source_form": "route"
+  },
+  {
+    "lemma": "derrière",
+    "pos": "ADP",
+    "rank": 432,
+    "is_function_word": true,
+    "source_form": "derrière"
+  },
+  {
+    "lemma": "direction",
+    "pos": "NOUN",
+    "rank": 433,
+    "is_function_word": false,
+    "source_form": "direction"
+  },
+  {
+    "lemma": "emploi",
+    "pos": "NOUN",
+    "rank": 434,
+    "is_function_word": false,
+    "source_form": "emploi"
+  },
+  {
+    "lemma": "feu",
+    "pos": "NOUN",
+    "rank": 435,
+    "is_function_word": false,
+    "source_form": "feu"
+  },
+  {
+    "lemma": "marche",
+    "pos": "NOUN",
+    "rank": 436,
+    "is_function_word": false,
+    "source_form": "marche"
+  },
+  {
+    "lemma": "même",
+    "pos": "ADJ",
+    "rank": 437,
+    "is_function_word": false,
+    "source_form": "mêmes"
+  },
+  {
+    "lemma": "période",
+    "pos": "NOUN",
+    "rank": 438,
+    "is_function_word": false,
+    "source_form": "période"
+  },
+  {
+    "lemma": "tel",
+    "pos": "ADJ",
+    "rank": 439,
+    "is_function_word": false,
+    "source_form": "tel"
+  },
+  {
+    "lemma": "âge",
+    "pos": "NOUN",
+    "rank": 440,
+    "is_function_word": false,
+    "source_form": "âge"
+  },
+  {
+    "lemma": "armé",
+    "pos": "ADJ",
+    "rank": 441,
+    "is_function_word": false,
+    "source_form": "armée"
+  },
+  {
+    "lemma": "bois",
+    "pos": "NOUN",
+    "rank": 442,
+    "is_function_word": false,
+    "source_form": "bois"
+  },
+  {
+    "lemma": "chance",
+    "pos": "NOUN",
+    "rank": 443,
+    "is_function_word": false,
+    "source_form": "chance"
+  },
+  {
+    "lemma": "confiance",
+    "pos": "NOUN",
+    "rank": 444,
+    "is_function_word": false,
+    "source_form": "confiance"
+  },
+  {
+    "lemma": "date",
+    "pos": "NOUN",
+    "rank": 445,
+    "is_function_word": false,
+    "source_form": "date"
+  },
+  {
+    "lemma": "dix",
+    "pos": "NUM",
+    "rank": 446,
+    "is_function_word": false,
+    "source_form": "dix"
+  },
+  {
+    "lemma": "décembre",
+    "pos": "NOUN",
+    "rank": 447,
+    "is_function_word": false,
+    "source_form": "décembre"
+  },
+  {
+    "lemma": "laisser",
+    "pos": "VERB",
+    "rank": 448,
+    "is_function_word": false,
+    "source_form": "laisser"
+  },
+  {
+    "lemma": "manqu",
+    "pos": "ADJ",
+    "rank": 449,
+    "is_function_word": false,
+    "source_form": "manque"
+  },
+  {
+    "lemma": "mode",
+    "pos": "NOUN",
+    "rank": 450,
+    "is_function_word": false,
+    "source_form": "mode"
+  },
+  {
+    "lemma": "novembre",
+    "pos": "NOUN",
+    "rank": 451,
+    "is_function_word": false,
+    "source_form": "novembre"
+  },
+  {
+    "lemma": "plaisir",
+    "pos": "NOUN",
+    "rank": 452,
+    "is_function_word": false,
+    "source_form": "plaisir"
+  },
+  {
+    "lemma": "rencontre",
+    "pos": "NOUN",
+    "rank": 453,
+    "is_function_word": false,
+    "source_form": "rencontre"
+  },
+  {
+    "lemma": "résultat",
+    "pos": "NOUN",
+    "rank": 454,
+    "is_function_word": false,
+    "source_form": "résultats"
+  },
+  {
+    "lemma": "six",
+    "pos": "NUM",
+    "rank": 455,
+    "is_function_word": false,
+    "source_form": "six"
+  },
+  {
+    "lemma": "aller",
+    "pos": "DET",
+    "rank": 456,
+    "is_function_word": true,
+    "source_form": "vas"
+  },
+  {
+    "lemma": "août",
+    "pos": "NOUN",
+    "rank": 457,
+    "is_function_word": false,
+    "source_form": "août"
+  },
+  {
+    "lemma": "aurai",
+    "pos": "ADJ",
+    "rank": 458,
+    "is_function_word": false,
+    "source_form": "aurais"
+  },
+  {
+    "lemma": "blanc",
+    "pos": "ADJ",
+    "rank": 459,
+    "is_function_word": false,
+    "source_form": "blanc"
+  },
+  {
+    "lemma": "canader",
+    "pos": "VERB",
+    "rank": 460,
+    "is_function_word": false,
+    "source_form": "canada"
+  },
+  {
+    "lemma": "classe",
+    "pos": "NOUN",
+    "rank": 461,
+    "is_function_word": false,
+    "source_form": "classe"
+  },
+  {
+    "lemma": "commence",
+    "pos": "NOUN",
+    "rank": 462,
+    "is_function_word": false,
+    "source_form": "commence"
+  },
+  {
+    "lemma": "comprendre",
+    "pos": "VERB",
+    "rank": 463,
+    "is_function_word": false,
+    "source_form": "comprendre"
+  },
+  {
+    "lemma": "demain",
+    "pos": "ADV",
+    "rank": 464,
+    "is_function_word": false,
+    "source_form": "demain"
+  },
+  {
+    "lemma": "demander",
+    "pos": "VERB",
+    "rank": 465,
+    "is_function_word": false,
+    "source_form": "demander"
+  },
+  {
+    "lemma": "formation",
+    "pos": "NOUN",
+    "rank": 466,
+    "is_function_word": false,
+    "source_form": "formation"
+  },
+  {
+    "lemma": "liste",
+    "pos": "NOUN",
+    "rank": 467,
+    "is_function_word": false,
+    "source_form": "liste"
+  },
+  {
+    "lemma": "photo",
+    "pos": "NOUN",
+    "rank": 468,
+    "is_function_word": false,
+    "source_form": "photo"
+  },
+  {
+    "lemma": "rôle",
+    "pos": "NOUN",
+    "rank": 469,
+    "is_function_word": false,
+    "source_form": "rôle"
+  },
+  {
+    "lemma": "attention",
+    "pos": "NOUN",
+    "rank": 470,
+    "is_function_word": false,
+    "source_form": "attention"
+  },
+  {
+    "lemma": "bout",
+    "pos": "ADV",
+    "rank": 471,
+    "is_function_word": false,
+    "source_form": "bout"
+  },
+  {
+    "lemma": "condition",
+    "pos": "NOUN",
+    "rank": 472,
+    "is_function_word": false,
+    "source_form": "conditions"
+  },
+  {
+    "lemma": "esprit",
+    "pos": "VERB",
+    "rank": 473,
+    "is_function_word": false,
+    "source_form": "esprit"
+  },
+  {
+    "lemma": "espèr",
+    "pos": "ADJ",
+    "rank": 474,
+    "is_function_word": false,
+    "source_form": "espère"
+  },
+  {
+    "lemma": "garde",
+    "pos": "NOUN",
+    "rank": 475,
+    "is_function_word": false,
+    "source_form": "garde"
+  },
+  {
+    "lemma": "internet",
+    "pos": "NOUN",
+    "rank": 476,
+    "is_function_word": false,
+    "source_form": "internet"
+  },
+  {
+    "lemma": "intérieur",
+    "pos": "NOUN",
+    "rank": 477,
+    "is_function_word": false,
+    "source_form": "intérieur"
+  },
+  {
+    "lemma": "intérêt",
+    "pos": "NOUN",
+    "rank": 478,
+    "is_function_word": false,
+    "source_form": "intérêt"
+  },
+  {
+    "lemma": "mouvement",
+    "pos": "NOUN",
+    "rank": 479,
+    "is_function_word": false,
+    "source_form": "mouvement"
+  },
+  {
+    "lemma": "noir",
+    "pos": "ADJ",
+    "rank": 480,
+    "is_function_word": false,
+    "source_form": "noir"
+  },
+  {
+    "lemma": "origine",
+    "pos": "NOUN",
+    "rank": 481,
+    "is_function_word": false,
+    "source_form": "origine"
+  },
+  {
+    "lemma": "présent",
+    "pos": "ADJ",
+    "rank": 482,
+    "is_function_word": false,
+    "source_form": "présente"
+  },
+  {
+    "lemma": "regarder",
+    "pos": "VERB",
+    "rank": 483,
+    "is_function_word": false,
+    "source_form": "regarde"
+  },
+  {
+    "lemma": "rouge",
+    "pos": "NOUN",
+    "rank": 484,
+    "is_function_word": false,
+    "source_form": "rouge"
+  },
+  {
+    "lemma": "auteur",
+    "pos": "NOUN",
+    "rank": 485,
+    "is_function_word": false,
+    "source_form": "auteur"
+  },
+  {
+    "lemma": "bonjour",
+    "pos": "ADV",
+    "rank": 486,
+    "is_function_word": false,
+    "source_form": "bonjour"
+  },
+  {
+    "lemma": "février",
+    "pos": "NOUN",
+    "rank": 487,
+    "is_function_word": false,
+    "source_form": "février"
+  },
+  {
+    "lemma": "ii",
+    "pos": "ADJ",
+    "rank": 488,
+    "is_function_word": false,
+    "source_form": "ii"
+  },
+  {
+    "lemma": "justice",
+    "pos": "NOUN",
+    "rank": 489,
+    "is_function_word": false,
+    "source_form": "justice"
+  },
+  {
+    "lemma": "langue",
+    "pos": "NOUN",
+    "rank": 490,
+    "is_function_word": false,
+    "source_form": "langue"
+  },
+  {
+    "lemma": "occasion",
+    "pos": "NOUN",
+    "rank": 491,
+    "is_function_word": false,
+    "source_form": "occasion"
+  },
+  {
+    "lemma": "offrir",
+    "pos": "VERB",
+    "rank": 492,
+    "is_function_word": false,
+    "source_form": "offre"
+  },
+  {
+    "lemma": "perdu",
+    "pos": "NOUN",
+    "rank": 493,
+    "is_function_word": false,
+    "source_form": "perdu"
+  },
+  {
+    "lemma": "qualité",
+    "pos": "NOUN",
+    "rank": 494,
+    "is_function_word": false,
+    "source_form": "qualité"
+  },
+  {
+    "lemma": "risque",
+    "pos": "NOUN",
+    "rank": 495,
+    "is_function_word": false,
+    "source_form": "risque"
+  },
+  {
+    "lemma": "scène",
+    "pos": "NOUN",
+    "rank": 496,
+    "is_function_word": false,
+    "source_form": "scène"
+  },
+  {
+    "lemma": "sinon",
+    "pos": "ADV",
+    "rank": 497,
+    "is_function_word": false,
+    "source_form": "sinon"
+  },
+  {
+    "lemma": "traval",
+    "pos": "ADJ",
+    "rank": 498,
+    "is_function_word": false,
+    "source_form": "travaux"
+  },
+  {
+    "lemma": "voici",
+    "pos": "VERB",
+    "rank": 499,
+    "is_function_word": false,
+    "source_form": "voici"
+  },
+  {
+    "lemma": "appeler",
+    "pos": "VERB",
+    "rank": 500,
+    "is_function_word": false,
+    "source_form": "appelle"
+  },
+  {
+    "lemma": "cadre",
+    "pos": "VERB",
+    "rank": 501,
+    "is_function_word": false,
+    "source_form": "cadre"
+  },
+  {
+    "lemma": "changer",
+    "pos": "VERB",
+    "rank": 502,
+    "is_function_word": false,
+    "source_form": "changer"
+  },
+  {
+    "lemma": "libre",
+    "pos": "ADJ",
+    "rank": 503,
+    "is_function_word": false,
+    "source_form": "libre"
+  },
+  {
+    "lemma": "production",
+    "pos": "NOUN",
+    "rank": 504,
+    "is_function_word": false,
+    "source_form": "production"
+  },
+  {
+    "lemma": "vieux",
+    "pos": "ADJ",
+    "rank": 505,
+    "is_function_word": false,
+    "source_form": "vieux"
+  },
+  {
+    "lemma": "connai",
+    "pos": "ADJ",
+    "rank": 506,
+    "is_function_word": false,
+    "source_form": "connais"
+  },
+  {
+    "lemma": "facile",
+    "pos": "PRON",
+    "rank": 507,
+    "is_function_word": true,
+    "source_form": "facile"
+  },
+  {
+    "lemma": "image",
+    "pos": "NOUN",
+    "rank": 508,
+    "is_function_word": false,
+    "source_form": "image"
+  },
+  {
+    "lemma": "lien",
+    "pos": "NOUN",
+    "rank": 509,
+    "is_function_word": false,
+    "source_form": "lien"
+  },
+  {
+    "lemma": "mer",
+    "pos": "VERB",
+    "rank": 510,
+    "is_function_word": false,
+    "source_form": "mer"
+  },
+  {
+    "lemma": "pire",
+    "pos": "ADJ",
+    "rank": 511,
+    "is_function_word": false,
+    "source_form": "pire"
+  },
+  {
+    "lemma": "rester",
+    "pos": "VERB",
+    "rank": 512,
+    "is_function_word": false,
+    "source_form": "rester"
+  },
+  {
+    "lemma": "sauf",
+    "pos": "ADP",
+    "rank": 513,
+    "is_function_word": true,
+    "source_form": "sauf"
+  },
+  {
+    "lemma": "source",
+    "pos": "NOUN",
+    "rank": 514,
+    "is_function_word": false,
+    "source_form": "source"
+  },
+  {
+    "lemma": "troisième",
+    "pos": "ADJ",
+    "rank": 515,
+    "is_function_word": false,
+    "source_form": "troisième"
+  },
+  {
+    "lemma": "aider",
+    "pos": "VERB",
+    "rank": 516,
+    "is_function_word": false,
+    "source_form": "aider"
+  },
+  {
+    "lemma": "campagne",
+    "pos": "NOUN",
+    "rank": 517,
+    "is_function_word": false,
+    "source_form": "campagne"
+  },
+  {
+    "lemma": "coupe",
+    "pos": "NOUN",
+    "rank": 518,
+    "is_function_word": false,
+    "source_form": "coupe"
+  },
+  {
+    "lemma": "cour",
+    "pos": "NOUN",
+    "rank": 519,
+    "is_function_word": false,
+    "source_form": "cour"
+  },
+  {
+    "lemma": "durer",
+    "pos": "ADP",
+    "rank": 520,
+    "is_function_word": true,
+    "source_form": "durant"
+  },
+  {
+    "lemma": "objet",
+    "pos": "ADJ",
+    "rank": 521,
+    "is_function_word": false,
+    "source_form": "objet"
+  },
+  {
+    "lemma": "oh",
+    "pos": "PRON",
+    "rank": 522,
+    "is_function_word": true,
+    "source_form": "oh"
+  },
+  {
+    "lemma": "partout",
+    "pos": "ADV",
+    "rank": 523,
+    "is_function_word": false,
+    "source_form": "partout"
+  },
+  {
+    "lemma": "plupart",
+    "pos": "NOUN",
+    "rank": 524,
+    "is_function_word": false,
+    "source_form": "plupart"
+  },
+  {
+    "lemma": "problème",
+    "pos": "NOUN",
+    "rank": 525,
+    "is_function_word": false,
+    "source_form": "problèmes"
+  },
+  {
+    "lemma": "second",
+    "pos": "ADJ",
+    "rank": 526,
+    "is_function_word": false,
+    "source_form": "seconde"
+  },
+  {
+    "lemma": "valeur",
+    "pos": "NOUN",
+    "rank": 527,
+    "is_function_word": false,
+    "source_form": "valeur"
+  },
+  {
+    "lemma": "étude",
+    "pos": "NOUN",
+    "rank": 528,
+    "is_function_word": false,
+    "source_form": "étude"
+  },
+  {
+    "lemma": "chacun",
+    "pos": "PRON",
+    "rank": 529,
+    "is_function_word": true,
+    "source_form": "chacun"
+  },
+  {
+    "lemma": "cher",
+    "pos": "ADJ",
+    "rank": 530,
+    "is_function_word": false,
+    "source_form": "cher"
+  },
+  {
+    "lemma": "devenir",
+    "pos": "VERB",
+    "rank": 531,
+    "is_function_word": false,
+    "source_form": "devient"
+  },
+  {
+    "lemma": "donnée",
+    "pos": "NOUN",
+    "rank": 532,
+    "is_function_word": false,
+    "source_form": "données"
+  },
+  {
+    "lemma": "devoir",
+    "pos": "ADJ",
+    "rank": 533,
+    "is_function_word": false,
+    "source_form": "dû"
+  },
+  {
+    "lemma": "etat",
+    "pos": "NOUN",
+    "rank": 534,
+    "is_function_word": false,
+    "source_form": "etat"
+  },
+  {
+    "lemma": "hein",
+    "pos": "NOUN",
+    "rank": 535,
+    "is_function_word": false,
+    "source_form": "hein"
+  },
+  {
+    "lemma": "hors",
+    "pos": "ADP",
+    "rank": 536,
+    "is_function_word": true,
+    "source_form": "hors"
+  },
+  {
+    "lemma": "joue",
+    "pos": "VERB",
+    "rank": 537,
+    "is_function_word": false,
+    "source_form": "joue"
+  },
+  {
+    "lemma": "montre",
+    "pos": "NOUN",
+    "rank": 538,
+    "is_function_word": false,
+    "source_form": "montre"
+  },
+  {
+    "lemma": "particulier",
+    "pos": "ADJ",
+    "rank": 539,
+    "is_function_word": false,
+    "source_form": "particulier"
+  },
+  {
+    "lemma": "penser",
+    "pos": "VERB",
+    "rank": 540,
+    "is_function_word": false,
+    "source_form": "penser"
+  },
+  {
+    "lemma": "poste",
+    "pos": "VERB",
+    "rank": 541,
+    "is_function_word": false,
+    "source_form": "poste"
+  },
+  {
+    "lemma": "présent",
+    "pos": "NOUN",
+    "rank": 542,
+    "is_function_word": false,
+    "source_form": "présent"
+  },
+  {
+    "lemma": "réponse",
+    "pos": "NOUN",
+    "rank": 543,
+    "is_function_word": false,
+    "source_form": "réponse"
+  },
+  {
+    "lemma": "réseau",
+    "pos": "NOUN",
+    "rank": 544,
+    "is_function_word": false,
+    "source_form": "réseau"
+  },
+  {
+    "lemma": "salle",
+    "pos": "NOUN",
+    "rank": 545,
+    "is_function_word": false,
+    "source_form": "salle"
+  },
+  {
+    "lemma": "texte",
+    "pos": "NOUN",
+    "rank": 546,
+    "is_function_word": false,
+    "source_form": "texte"
+  },
+  {
+    "lemma": "appel",
+    "pos": "NOUN",
+    "rank": 547,
+    "is_function_word": false,
+    "source_form": "appel"
+  },
+  {
+    "lemma": "celle",
+    "pos": "NOUN",
+    "rank": 548,
+    "is_function_word": false,
+    "source_form": "celles"
+  },
+  {
+    "lemma": "certain",
+    "pos": "ADJ",
+    "rank": 549,
+    "is_function_word": false,
+    "source_form": "certain"
+  },
+  {
+    "lemma": "contrôle",
+    "pos": "NOUN",
+    "rank": 550,
+    "is_function_word": false,
+    "source_form": "contrôle"
+  },
+  {
+    "lemma": "message",
+    "pos": "NOUN",
+    "rank": 551,
+    "is_function_word": false,
+    "source_form": "message"
+  },
+  {
+    "lemma": "position",
+    "pos": "NOUN",
+    "rank": 552,
+    "is_function_word": false,
+    "source_form": "position"
+  },
+  {
+    "lemma": "république",
+    "pos": "NOUN",
+    "rank": 553,
+    "is_function_word": false,
+    "source_form": "république"
+  },
+  {
+    "lemma": "succès",
+    "pos": "NOUN",
+    "rank": 554,
+    "is_function_word": false,
+    "source_form": "succès"
+  },
+  {
+    "lemma": "économique",
+    "pos": "ADJ",
+    "rank": 555,
+    "is_function_word": false,
+    "source_form": "économique"
+  },
+  {
+    "lemma": "activité",
+    "pos": "NOUN",
+    "rank": 556,
+    "is_function_word": false,
+    "source_form": "activité"
+  },
+  {
+    "lemma": "américain",
+    "pos": "ADJ",
+    "rank": 557,
+    "is_function_word": false,
+    "source_form": "américain"
+  },
+  {
+    "lemma": "association",
+    "pos": "NOUN",
+    "rank": 558,
+    "is_function_word": false,
+    "source_form": "association"
+  },
+  {
+    "lemma": "carte",
+    "pos": "NOUN",
+    "rank": 559,
+    "is_function_word": false,
+    "source_form": "carte"
+  },
+  {
+    "lemma": "chercher",
+    "pos": "VERB",
+    "rank": 560,
+    "is_function_word": false,
+    "source_form": "chercher"
+  },
+  {
+    "lemma": "connaître",
+    "pos": "VERB",
+    "rank": 561,
+    "is_function_word": false,
+    "source_form": "connu"
+  },
+  {
+    "lemma": "création",
+    "pos": "NOUN",
+    "rank": 562,
+    "is_function_word": false,
+    "source_form": "création"
+  },
+  {
+    "lemma": "euro",
+    "pos": "NOUN",
+    "rank": 563,
+    "is_function_word": false,
+    "source_form": "euros"
+  },
+  {
+    "lemma": "expérience",
+    "pos": "NOUN",
+    "rank": 564,
+    "is_function_word": false,
+    "source_form": "expérience"
+  },
+  {
+    "lemma": "fille",
+    "pos": "ADJ",
+    "rank": 565,
+    "is_function_word": false,
+    "source_form": "filles"
+  },
+  {
+    "lemma": "fonction",
+    "pos": "NOUN",
+    "rank": 566,
+    "is_function_word": false,
+    "source_form": "fonction"
+  },
+  {
+    "lemma": "impression",
+    "pos": "NOUN",
+    "rank": 567,
+    "is_function_word": false,
+    "source_form": "impression"
+  },
+  {
+    "lemma": "nature",
+    "pos": "NOUN",
+    "rank": 568,
+    "is_function_word": false,
+    "source_form": "nature"
+  },
+  {
+    "lemma": "putain",
+    "pos": "ADJ",
+    "rank": 569,
+    "is_function_word": false,
+    "source_form": "putain"
+  },
+  {
+    "lemma": "simplement",
+    "pos": "ADV",
+    "rank": 570,
+    "is_function_word": false,
+    "source_form": "simplement"
+  },
+  {
+    "lemma": "travers",
+    "pos": "NOUN",
+    "rank": 571,
+    "is_function_word": false,
+    "source_form": "travers"
+  },
+  {
+    "lemma": "allemagn",
+    "pos": "ADJ",
+    "rank": 572,
+    "is_function_word": false,
+    "source_form": "allemagne"
+  },
+  {
+    "lemma": "annonce",
+    "pos": "NOUN",
+    "rank": 573,
+    "is_function_word": false,
+    "source_form": "annonce"
+  },
+  {
+    "lemma": "arrêter",
+    "pos": "VERB",
+    "rank": 574,
+    "is_function_word": false,
+    "source_form": "arrêter"
+  },
+  {
+    "lemma": "bientôt",
+    "pos": "ADV",
+    "rank": 575,
+    "is_function_word": false,
+    "source_form": "bientôt"
+  },
+  {
+    "lemma": "chemin",
+    "pos": "NOUN",
+    "rank": 576,
+    "is_function_word": false,
+    "source_form": "chemin"
+  },
+  {
+    "lemma": "demi",
+    "pos": "NOUN",
+    "rank": 577,
+    "is_function_word": false,
+    "source_form": "demi"
+  },
+  {
+    "lemma": "différent",
+    "pos": "ADJ",
+    "rank": 578,
+    "is_function_word": false,
+    "source_form": "différents"
+  },
+  {
+    "lemma": "directeur",
+    "pos": "NOUN",
+    "rank": 579,
+    "is_function_word": false,
+    "source_form": "directeur"
+  },
+  {
+    "lemma": "espace",
+    "pos": "PRON",
+    "rank": 580,
+    "is_function_word": true,
+    "source_form": "espace"
+  },
+  {
+    "lemma": "liberté",
+    "pos": "NOUN",
+    "rank": 581,
+    "is_function_word": false,
+    "source_form": "liberté"
+  },
+  {
+    "lemma": "mariage",
+    "pos": "NOUN",
+    "rank": 582,
+    "is_function_word": false,
+    "source_form": "mariage"
+  },
+  {
+    "lemma": "new",
+    "pos": "SCONJ",
+    "rank": 583,
+    "is_function_word": true,
+    "source_form": "new"
+  },
+  {
+    "lemma": "organisation",
+    "pos": "NOUN",
+    "rank": 584,
+    "is_function_word": false,
+    "source_form": "organisation"
+  },
+  {
+    "lemma": "passage",
+    "pos": "NOUN",
+    "rank": 585,
+    "is_function_word": false,
+    "source_form": "passage"
+  },
+  {
+    "lemma": "présence",
+    "pos": "NOUN",
+    "rank": 586,
+    "is_function_word": false,
+    "source_form": "présence"
+  },
+  {
+    "lemma": "sein",
+    "pos": "NOUN",
+    "rank": 587,
+    "is_function_word": false,
+    "source_form": "sein"
+  },
+  {
+    "lemma": "sort",
+    "pos": "NOUN",
+    "rank": 588,
+    "is_function_word": false,
+    "source_form": "sort"
+  },
+  {
+    "lemma": "zone",
+    "pos": "NOUN",
+    "rank": 589,
+    "is_function_word": false,
+    "source_form": "zone"
+  },
+  {
+    "lemma": "économie",
+    "pos": "NOUN",
+    "rank": 590,
+    "is_function_word": false,
+    "source_form": "économie"
+  },
+  {
+    "lemma": "bureau",
+    "pos": "NOUN",
+    "rank": 591,
+    "is_function_word": false,
+    "source_form": "bureau"
+  },
+  {
+    "lemma": "compagnie",
+    "pos": "NOUN",
+    "rank": 592,
+    "is_function_word": false,
+    "source_form": "compagnie"
+  },
+  {
+    "lemma": "entrée",
+    "pos": "NOUN",
+    "rank": 593,
+    "is_function_word": false,
+    "source_form": "entrée"
+  },
+  {
+    "lemma": "moyenne",
+    "pos": "NOUN",
+    "rank": 594,
+    "is_function_word": false,
+    "source_form": "moyenne"
+  },
+  {
+    "lemma": "ok",
+    "pos": "NOUN",
+    "rank": 595,
+    "is_function_word": false,
+    "source_form": "ok"
+  },
+  {
+    "lemma": "pied",
+    "pos": "ADJ",
+    "rank": 596,
+    "is_function_word": false,
+    "source_form": "pied"
+  },
+  {
+    "lemma": "presse",
+    "pos": "NOUN",
+    "rank": 597,
+    "is_function_word": false,
+    "source_form": "presse"
+  },
+  {
+    "lemma": "prise",
+    "pos": "NOUN",
+    "rank": 598,
+    "is_function_word": false,
+    "source_form": "prise"
+  },
+  {
+    "lemma": "réalité",
+    "pos": "NOUN",
+    "rank": 599,
+    "is_function_word": false,
+    "source_form": "réalité"
+  },
+  {
+    "lemma": "social",
+    "pos": "NOUN",
+    "rank": 600,
+    "is_function_word": false,
+    "source_form": "social"
+  },
+  {
+    "lemma": "sort",
+    "pos": "ADJ",
+    "rank": 601,
+    "is_function_word": false,
+    "source_form": "sorte"
+  },
+  {
+    "lemma": "université",
+    "pos": "NOUN",
+    "rank": 602,
+    "is_function_word": false,
+    "source_form": "université"
+  },
+  {
+    "lemma": "utiliser",
+    "pos": "VERB",
+    "rank": 603,
+    "is_function_word": false,
+    "source_form": "utiliser"
+  },
+  {
+    "lemma": "œuvre",
+    "pos": "VERB",
+    "rank": 604,
+    "is_function_word": false,
+    "source_form": "œuvre"
+  },
+  {
+    "lemma": "accès",
+    "pos": "NOUN",
+    "rank": 605,
+    "is_function_word": false,
+    "source_form": "accès"
+  },
+  {
+    "lemma": "commission",
+    "pos": "NOUN",
+    "rank": 606,
+    "is_function_word": false,
+    "source_form": "commission"
+  },
+  {
+    "lemma": "différents",
+    "pos": "DET",
+    "rank": 607,
+    "is_function_word": true,
+    "source_form": "différentes"
+  },
+  {
+    "lemma": "dimanche",
+    "pos": "NOUN",
+    "rank": 608,
+    "is_function_word": false,
+    "source_form": "dimanche"
+  },
+  {
+    "lemma": "départ",
+    "pos": "NOUN",
+    "rank": 609,
+    "is_function_word": false,
+    "source_form": "départ"
+  },
+  {
+    "lemma": "lit",
+    "pos": "NOUN",
+    "rank": 610,
+    "is_function_word": false,
+    "source_form": "lit"
+  },
+  {
+    "lemma": "marie",
+    "pos": "NOUN",
+    "rank": 611,
+    "is_function_word": false,
+    "source_form": "marie"
+  },
+  {
+    "lemma": "mauvais",
+    "pos": "ADJ",
+    "rank": 612,
+    "is_function_word": false,
+    "source_form": "mauvais"
+  },
+  {
+    "lemma": "numéro",
+    "pos": "NOUN",
+    "rank": 613,
+    "is_function_word": false,
+    "source_form": "numéro"
+  },
+  {
+    "lemma": "puisque",
+    "pos": "SCONJ",
+    "rank": 614,
+    "is_function_word": true,
+    "source_form": "puisque"
+  },
+  {
+    "lemma": "soleil",
+    "pos": "NOUN",
+    "rank": 615,
+    "is_function_word": false,
+    "source_form": "soleil"
+  },
+  {
+    "lemma": "taux",
+    "pos": "NOUN",
+    "rank": 616,
+    "is_function_word": false,
+    "source_form": "taux"
+  },
+  {
+    "lemma": "travailler",
+    "pos": "VERB",
+    "rank": 617,
+    "is_function_word": false,
+    "source_form": "travailler"
+  },
+  {
+    "lemma": "voie",
+    "pos": "NOUN",
+    "rank": 618,
+    "is_function_word": false,
+    "source_form": "voie"
+  },
+  {
+    "lemma": "acheter",
+    "pos": "VERB",
+    "rank": 619,
+    "is_function_word": false,
+    "source_form": "acheter"
+  },
+  {
+    "lemma": "attendre",
+    "pos": "VERB",
+    "rank": 620,
+    "is_function_word": false,
+    "source_form": "attendre"
+  },
+  {
+    "lemma": "bras",
+    "pos": "NOUN",
+    "rank": 621,
+    "is_function_word": false,
+    "source_form": "bras"
+  },
+  {
+    "lemma": "charge",
+    "pos": "NOUN",
+    "rank": 622,
+    "is_function_word": false,
+    "source_form": "charge"
+  },
+  {
+    "lemma": "ex",
+    "pos": "ADV",
+    "rank": 623,
+    "is_function_word": false,
+    "source_form": "ex"
+  },
+  {
+    "lemma": "finalement",
+    "pos": "ADV",
+    "rank": 624,
+    "is_function_word": false,
+    "source_form": "finalement"
+  },
+  {
+    "lemma": "finir",
+    "pos": "VERB",
+    "rank": 625,
+    "is_function_word": false,
+    "source_form": "fini"
+  },
+  {
+    "lemma": "haute",
+    "pos": "NOUN",
+    "rank": 626,
+    "is_function_word": false,
+    "source_form": "haute"
+  },
+  {
+    "lemma": "manger",
+    "pos": "VERB",
+    "rank": 627,
+    "is_function_word": false,
+    "source_form": "manger"
+  },
+  {
+    "lemma": "marqu",
+    "pos": "ADJ",
+    "rank": 628,
+    "is_function_word": false,
+    "source_form": "marque"
+  },
+  {
+    "lemma": "moyen",
+    "pos": "NOUN",
+    "rank": 629,
+    "is_function_word": false,
+    "source_form": "moyens"
+  },
+  {
+    "lemma": "perdre",
+    "pos": "VERB",
+    "rank": 630,
+    "is_function_word": false,
+    "source_form": "perdre"
+  },
+  {
+    "lemma": "pièce",
+    "pos": "ADJ",
+    "rank": 631,
+    "is_function_word": false,
+    "source_form": "pièces"
+  },
+  {
+    "lemma": "pratique",
+    "pos": "NOUN",
+    "rank": 632,
+    "is_function_word": false,
+    "source_form": "pratique"
+  },
+  {
+    "lemma": "social",
+    "pos": "ADJ",
+    "rank": 633,
+    "is_function_word": false,
+    "source_form": "sociale"
+  },
+  {
+    "lemma": "victoire",
+    "pos": "NOUN",
+    "rank": 634,
+    "is_function_word": false,
+    "source_form": "victoire"
+  },
+  {
+    "lemma": "vérité",
+    "pos": "NOUN",
+    "rank": 635,
+    "is_function_word": false,
+    "source_form": "vérité"
+  },
+  {
+    "lemma": "ben",
+    "pos": "ADV",
+    "rank": 636,
+    "is_function_word": false,
+    "source_form": "ben"
+  },
+  {
+    "lemma": "cherche",
+    "pos": "NOUN",
+    "rank": 637,
+    "is_function_word": false,
+    "source_form": "cherche"
+  },
+  {
+    "lemma": "communauté",
+    "pos": "NOUN",
+    "rank": 638,
+    "is_function_word": false,
+    "source_form": "communauté"
+  },
+  {
+    "lemma": "domaine",
+    "pos": "NOUN",
+    "rank": 639,
+    "is_function_word": false,
+    "source_form": "domaine"
+  },
+  {
+    "lemma": "Monsieur",
+    "pos": "NOUN",
+    "rank": 640,
+    "is_function_word": false,
+    "source_form": "monsieur"
+  },
+  {
+    "lemma": "payer",
+    "pos": "VERB",
+    "rank": 641,
+    "is_function_word": false,
+    "source_form": "payer"
+  },
+  {
+    "lemma": "peuple",
+    "pos": "NOUN",
+    "rank": 642,
+    "is_function_word": false,
+    "source_form": "peuple"
+  },
+  {
+    "lemma": "proche",
+    "pos": "ADJ",
+    "rank": 643,
+    "is_function_word": false,
+    "source_form": "proche"
+  },
+  {
+    "lemma": "publier",
+    "pos": "VERB",
+    "rank": 644,
+    "is_function_word": false,
+    "source_form": "publié"
+  },
+  {
+    "lemma": "quant",
+    "pos": "ADV",
+    "rank": 645,
+    "is_function_word": false,
+    "source_form": "quant"
+  },
+  {
+    "lemma": "recevoir",
+    "pos": "VERB",
+    "rank": 646,
+    "is_function_word": false,
+    "source_form": "reçu"
+  },
+  {
+    "lemma": "répondre",
+    "pos": "VERB",
+    "rank": 647,
+    "is_function_word": false,
+    "source_form": "répondre"
+  },
+  {
+    "lemma": "suivre",
+    "pos": "VERB",
+    "rank": 648,
+    "is_function_word": false,
+    "source_form": "suivre"
+  },
+  {
+    "lemma": "administration",
+    "pos": "NOUN",
+    "rank": 649,
+    "is_function_word": false,
+    "source_form": "administration"
+  },
+  {
+    "lemma": "auprès",
+    "pos": "ADV",
+    "rank": 650,
+    "is_function_word": false,
+    "source_form": "auprès"
+  },
+  {
+    "lemma": "code",
+    "pos": "NOUN",
+    "rank": 651,
+    "is_function_word": false,
+    "source_form": "code"
+  },
+  {
+    "lemma": "entendre",
+    "pos": "VERB",
+    "rank": 652,
+    "is_function_word": false,
+    "source_form": "entendu"
+  },
+  {
+    "lemma": "gagner",
+    "pos": "VERB",
+    "rank": 653,
+    "is_function_word": false,
+    "source_form": "gagner"
+  },
+  {
+    "lemma": "honneur",
+    "pos": "NOUN",
+    "rank": 654,
+    "is_function_word": false,
+    "source_form": "honneur"
+  },
+  {
+    "lemma": "journal",
+    "pos": "NOUN",
+    "rank": 655,
+    "is_function_word": false,
+    "source_form": "journal"
+  },
+  {
+    "lemma": "matière",
+    "pos": "NOUN",
+    "rank": 656,
+    "is_function_word": false,
+    "source_form": "matière"
+  },
+  {
+    "lemma": "ouest",
+    "pos": "ADJ",
+    "rank": 657,
+    "is_function_word": false,
+    "source_form": "ouest"
+  },
+  {
+    "lemma": "rapidement",
+    "pos": "ADV",
+    "rank": 658,
+    "is_function_word": false,
+    "source_form": "rapidement"
+  },
+  {
+    "lemma": "retrouver",
+    "pos": "VERB",
+    "rank": 659,
+    "is_function_word": false,
+    "source_form": "retrouver"
+  },
+  {
+    "lemma": "sept",
+    "pos": "NUM",
+    "rank": 660,
+    "is_function_word": false,
+    "source_form": "sept"
+  },
+  {
+    "lemma": "soirée",
+    "pos": "NOUN",
+    "rank": 661,
+    "is_function_word": false,
+    "source_form": "soirée"
+  },
+  {
+    "lemma": "sol",
+    "pos": "DET",
+    "rank": 662,
+    "is_function_word": true,
+    "source_form": "sol"
+  },
+  {
+    "lemma": "sport",
+    "pos": "NOUN",
+    "rank": 663,
+    "is_function_word": false,
+    "source_form": "sport"
+  },
+  {
+    "lemma": "téléphone",
+    "pos": "NOUN",
+    "rank": 664,
+    "is_function_word": false,
+    "source_form": "téléphone"
+  },
+  {
+    "lemma": "version",
+    "pos": "NOUN",
+    "rank": 665,
+    "is_function_word": false,
+    "source_form": "version"
+  },
+  {
+    "lemma": "arme",
+    "pos": "NOUN",
+    "rank": 666,
+    "is_function_word": false,
+    "source_form": "armes"
+  },
+  {
+    "lemma": "arrivée",
+    "pos": "NOUN",
+    "rank": 667,
+    "is_function_word": false,
+    "source_form": "arrivée"
+  },
+  {
+    "lemma": "coeur",
+    "pos": "NOUN",
+    "rank": 668,
+    "is_function_word": false,
+    "source_form": "coeur"
+  },
+  {
+    "lemma": "construction",
+    "pos": "NOUN",
+    "rank": 669,
+    "is_function_word": false,
+    "source_form": "construction"
+  },
+  {
+    "lemma": "double",
+    "pos": "ADJ",
+    "rank": 670,
+    "is_function_word": false,
+    "source_form": "double"
+  },
+  {
+    "lemma": "information",
+    "pos": "NOUN",
+    "rank": 671,
+    "is_function_word": false,
+    "source_form": "information"
+  },
+  {
+    "lemma": "midi",
+    "pos": "VERB",
+    "rank": 672,
+    "is_function_word": false,
+    "source_form": "midi"
+  },
+  {
+    "lemma": "mission",
+    "pos": "NOUN",
+    "rank": 673,
+    "is_function_word": false,
+    "source_form": "mission"
+  },
+  {
+    "lemma": "moitié",
+    "pos": "NOUN",
+    "rank": 674,
+    "is_function_word": false,
+    "source_form": "moitié"
+  },
+  {
+    "lemma": "page",
+    "pos": "NOUN",
+    "rank": 675,
+    "is_function_word": false,
+    "source_form": "page"
+  },
+  {
+    "lemma": "particulièrement",
+    "pos": "ADV",
+    "rank": 676,
+    "is_function_word": false,
+    "source_form": "particulièrement"
+  },
+  {
+    "lemma": "pièce",
+    "pos": "NOUN",
+    "rank": 677,
+    "is_function_word": false,
+    "source_form": "pièce"
+  },
+  {
+    "lemma": "prochain",
+    "pos": "ADJ",
+    "rank": 678,
+    "is_function_word": false,
+    "source_form": "prochaine"
+  },
+  {
+    "lemma": "prêt",
+    "pos": "NOUN",
+    "rank": 679,
+    "is_function_word": false,
+    "source_form": "prêt"
+  },
+  {
+    "lemma": "technique",
+    "pos": "ADJ",
+    "rank": 680,
+    "is_function_word": false,
+    "source_form": "technique"
+  },
+  {
+    "lemma": "voyage",
+    "pos": "NOUN",
+    "rank": 681,
+    "is_function_word": false,
+    "source_form": "voyage"
+  },
+  {
+    "lemma": "énergie",
+    "pos": "NOUN",
+    "rank": 682,
+    "is_function_word": false,
+    "source_form": "énergie"
+  },
+  {
+    "lemma": "éviter",
+    "pos": "VERB",
+    "rank": 683,
+    "is_function_word": false,
+    "source_form": "éviter"
+  },
+  {
+    "lemma": "arrête",
+    "pos": "NOUN",
+    "rank": 684,
+    "is_function_word": false,
+    "source_form": "arrête"
+  },
+  {
+    "lemma": "bord",
+    "pos": "NOUN",
+    "rank": 685,
+    "is_function_word": false,
+    "source_form": "bord"
+  },
+  {
+    "lemma": "combien",
+    "pos": "ADV",
+    "rank": 686,
+    "is_function_word": false,
+    "source_form": "combien"
+  },
+  {
+    "lemma": "continuer",
+    "pos": "VERB",
+    "rank": 687,
+    "is_function_word": false,
+    "source_form": "continue"
+  },
+  {
+    "lemma": "contraire",
+    "pos": "ADJ",
+    "rank": 688,
+    "is_function_word": false,
+    "source_form": "contraire"
+  },
+  {
+    "lemma": "courir",
+    "pos": "VERB",
+    "rank": 689,
+    "is_function_word": false,
+    "source_form": "courant"
+  },
+  {
+    "lemma": "fait",
+    "pos": "NOUN",
+    "rank": 690,
+    "is_function_word": false,
+    "source_form": "faits"
+  },
+  {
+    "lemma": "faute",
+    "pos": "NOUN",
+    "rank": 691,
+    "is_function_word": false,
+    "source_form": "faute"
+  },
+  {
+    "lemma": "final",
+    "pos": "ADJ",
+    "rank": 692,
+    "is_function_word": false,
+    "source_form": "finale"
+  },
+  {
+    "lemma": "heureux",
+    "pos": "ADJ",
+    "rank": 693,
+    "is_function_word": false,
+    "source_form": "heureux"
+  },
+  {
+    "lemma": "impossible",
+    "pos": "ADJ",
+    "rank": 694,
+    "is_function_word": false,
+    "source_form": "impossible"
+  },
+  {
+    "lemma": "joueur",
+    "pos": "NOUN",
+    "rank": 695,
+    "is_function_word": false,
+    "source_form": "joueur"
+  },
+  {
+    "lemma": "nécessaire",
+    "pos": "ADJ",
+    "rank": 696,
+    "is_function_word": false,
+    "source_form": "nécessaire"
+  },
+  {
+    "lemma": "porter",
+    "pos": "VERB",
+    "rank": 697,
+    "is_function_word": false,
+    "source_form": "porter"
+  },
+  {
+    "lemma": "samedi",
+    "pos": "NOUN",
+    "rank": 698,
+    "is_function_word": false,
+    "source_form": "samedi"
+  },
+  {
+    "lemma": "sang",
+    "pos": "ADJ",
+    "rank": 699,
+    "is_function_word": false,
+    "source_form": "sang"
+  },
+  {
+    "lemma": "style",
+    "pos": "NOUN",
+    "rank": 700,
+    "is_function_word": false,
+    "source_form": "style"
+  },
+  {
+    "lemma": "sérieux",
+    "pos": "ADJ",
+    "rank": 701,
+    "is_function_word": false,
+    "source_form": "sérieux"
+  },
+  {
+    "lemma": "terrain",
+    "pos": "NOUN",
+    "rank": 702,
+    "is_function_word": false,
+    "source_form": "terrain"
+  },
+  {
+    "lemma": "église",
+    "pos": "NOUN",
+    "rank": 703,
+    "is_function_word": false,
+    "source_form": "église"
+  },
+  {
+    "lemma": "comprend",
+    "pos": "NOUN",
+    "rank": 704,
+    "is_function_word": false,
+    "source_form": "comprends"
+  },
+  {
+    "lemma": "créer",
+    "pos": "VERB",
+    "rank": 705,
+    "is_function_word": false,
+    "source_form": "créer"
+  },
+  {
+    "lemma": "décision",
+    "pos": "NOUN",
+    "rank": 706,
+    "is_function_word": false,
+    "source_form": "décision"
+  },
+  {
+    "lemma": "défense",
+    "pos": "NOUN",
+    "rank": 707,
+    "is_function_word": false,
+    "source_form": "défense"
+  },
+  {
+    "lemma": "désormais",
+    "pos": "ADV",
+    "rank": 708,
+    "is_function_word": false,
+    "source_form": "désormais"
+  },
+  {
+    "lemma": "frais",
+    "pos": "NOUN",
+    "rank": 709,
+    "is_function_word": false,
+    "source_form": "frais"
+  },
+  {
+    "lemma": "hôtel",
+    "pos": "ADJ",
+    "rank": 710,
+    "is_function_word": false,
+    "source_form": "hôtel"
+  },
+  {
+    "lemma": "instant",
+    "pos": "NOUN",
+    "rank": 711,
+    "is_function_word": false,
+    "source_form": "instant"
+  },
+  {
+    "lemma": "majorité",
+    "pos": "NOUN",
+    "rank": 712,
+    "is_function_word": false,
+    "source_form": "majorité"
+  },
+  {
+    "lemma": "modèle",
+    "pos": "NOUN",
+    "rank": 713,
+    "is_function_word": false,
+    "source_form": "modèle"
+  },
+  {
+    "lemma": "obtenir",
+    "pos": "VERB",
+    "rank": 714,
+    "is_function_word": false,
+    "source_form": "obtenir"
+  },
+  {
+    "lemma": "outre",
+    "pos": "ADP",
+    "rank": 715,
+    "is_function_word": true,
+    "source_form": "outre"
+  },
+  {
+    "lemma": "paix",
+    "pos": "NOUN",
+    "rank": 716,
+    "is_function_word": false,
+    "source_form": "paix"
+  },
+  {
+    "lemma": "rappell",
+    "pos": "ADJ",
+    "rank": 717,
+    "is_function_word": false,
+    "source_form": "rappelle"
+  },
+  {
+    "lemma": "solution",
+    "pos": "NOUN",
+    "rank": 718,
+    "is_function_word": false,
+    "source_form": "solution"
+  },
+  {
+    "lemma": "tandis",
+    "pos": "ADV",
+    "rank": 719,
+    "is_function_word": false,
+    "source_form": "tandis"
+  },
+  {
+    "lemma": "actuellement",
+    "pos": "ADV",
+    "rank": 720,
+    "is_function_word": false,
+    "source_form": "actuellement"
+  },
+  {
+    "lemma": "assemblée",
+    "pos": "NOUN",
+    "rank": 721,
+    "is_function_word": false,
+    "source_form": "assemblée"
+  },
+  {
+    "lemma": "band",
+    "pos": "ADJ",
+    "rank": 722,
+    "is_function_word": false,
+    "source_form": "bande"
+  },
+  {
+    "lemma": "commencer",
+    "pos": "VERB",
+    "rank": 723,
+    "is_function_word": false,
+    "source_form": "commencé"
+  },
+  {
+    "lemma": "commun",
+    "pos": "ADJ",
+    "rank": 724,
+    "is_function_word": false,
+    "source_form": "commune"
+  },
+  {
+    "lemma": "contrat",
+    "pos": "NOUN",
+    "rank": 725,
+    "is_function_word": false,
+    "source_form": "contrat"
+  },
+  {
+    "lemma": "faux",
+    "pos": "ADJ",
+    "rank": 726,
+    "is_function_word": false,
+    "source_form": "faux"
+  },
+  {
+    "lemma": "international",
+    "pos": "ADJ",
+    "rank": 727,
+    "is_function_word": false,
+    "source_form": "international"
+  },
+  {
+    "lemma": "note",
+    "pos": "NOUN",
+    "rank": 728,
+    "is_function_word": false,
+    "source_form": "note"
+  },
+  {
+    "lemma": "suffire",
+    "pos": "VERB",
+    "rank": 729,
+    "is_function_word": false,
+    "source_form": "suffit"
+  },
+  {
+    "lemma": "total",
+    "pos": "NOUN",
+    "rank": 730,
+    "is_function_word": false,
+    "source_form": "total"
+  },
+  {
+    "lemma": "tôt",
+    "pos": "ADV",
+    "rank": 731,
+    "is_function_word": false,
+    "source_form": "tôt"
+  },
+  {
+    "lemma": "vol",
+    "pos": "NOUN",
+    "rank": 732,
+    "is_function_word": false,
+    "source_form": "vol"
+  },
+  {
+    "lemma": "élément",
+    "pos": "NOUN",
+    "rank": 733,
+    "is_function_word": false,
+    "source_form": "éléments"
+  },
+  {
+    "lemma": "avenir",
+    "pos": "NOUN",
+    "rank": 734,
+    "is_function_word": false,
+    "source_form": "avenir"
+  },
+  {
+    "lemma": "critique",
+    "pos": "ADJ",
+    "rank": 735,
+    "is_function_word": false,
+    "source_form": "critique"
+  },
+  {
+    "lemma": "dehors",
+    "pos": "ADP",
+    "rank": 736,
+    "is_function_word": true,
+    "source_form": "dehors"
+  },
+  {
+    "lemma": "directement",
+    "pos": "ADV",
+    "rank": 737,
+    "is_function_word": false,
+    "source_form": "directement"
+  },
+  {
+    "lemma": "discours",
+    "pos": "NOUN",
+    "rank": 738,
+    "is_function_word": false,
+    "source_form": "discours"
+  },
+  {
+    "lemma": "dur",
+    "pos": "ADJ",
+    "rank": 739,
+    "is_function_word": false,
+    "source_form": "dur"
+  },
+  {
+    "lemma": "expliquer",
+    "pos": "VERB",
+    "rank": 740,
+    "is_function_word": false,
+    "source_form": "explique"
+  },
+  {
+    "lemma": "fort",
+    "pos": "ADJ",
+    "rank": 741,
+    "is_function_word": false,
+    "source_form": "forte"
+  },
+  {
+    "lemma": "fête",
+    "pos": "NOUN",
+    "rank": 742,
+    "is_function_word": false,
+    "source_form": "fête"
+  },
+  {
+    "lemma": "maître",
+    "pos": "NOUN",
+    "rank": 743,
+    "is_function_word": false,
+    "source_form": "maître"
+  },
+  {
+    "lemma": "personnel",
+    "pos": "ADJ",
+    "rank": 744,
+    "is_function_word": false,
+    "source_form": "personnel"
+  },
+  {
+    "lemma": "preuve",
+    "pos": "NOUN",
+    "rank": 745,
+    "is_function_word": false,
+    "source_form": "preuve"
+  },
+  {
+    "lemma": "prison",
+    "pos": "NOUN",
+    "rank": 746,
+    "is_function_word": false,
+    "source_form": "prison"
+  },
+  {
+    "lemma": "proposer",
+    "pos": "VERB",
+    "rank": 747,
+    "is_function_word": false,
+    "source_form": "propose"
+  },
+  {
+    "lemma": "vendredi",
+    "pos": "NOUN",
+    "rank": 748,
+    "is_function_word": false,
+    "source_form": "vendredi"
+  },
+  {
+    "lemma": "éducation",
+    "pos": "NOUN",
+    "rank": 749,
+    "is_function_word": false,
+    "source_form": "éducation"
+  },
+  {
+    "lemma": "adresse",
+    "pos": "VERB",
+    "rank": 750,
+    "is_function_word": false,
+    "source_form": "adresse"
+  },
+  {
+    "lemma": "apprendre",
+    "pos": "VERB",
+    "rank": 751,
+    "is_function_word": false,
+    "source_form": "apprendre"
+  },
+  {
+    "lemma": "attaque",
+    "pos": "NOUN",
+    "rank": 752,
+    "is_function_word": false,
+    "source_form": "attaque"
+  },
+  {
+    "lemma": "avance",
+    "pos": "NOUN",
+    "rank": 753,
+    "is_function_word": false,
+    "source_form": "avance"
+  },
+  {
+    "lemma": "ceci",
+    "pos": "PRON",
+    "rank": 754,
+    "is_function_word": true,
+    "source_form": "ceci"
+  },
+  {
+    "lemma": "court",
+    "pos": "ADJ",
+    "rank": 755,
+    "is_function_word": false,
+    "source_form": "court"
+  },
+  {
+    "lemma": "dos",
+    "pos": "NOUN",
+    "rank": 756,
+    "is_function_word": false,
+    "source_form": "dos"
+  },
+  {
+    "lemma": "endroit",
+    "pos": "VERB",
+    "rank": 757,
+    "is_function_word": false,
+    "source_form": "endroit"
+  },
+  {
+    "lemma": "essayer",
+    "pos": "VERB",
+    "rank": 758,
+    "is_function_word": false,
+    "source_form": "essayer"
+  },
+  {
+    "lemma": "exactement",
+    "pos": "ADV",
+    "rank": 759,
+    "is_function_word": false,
+    "source_form": "exactement"
+  },
+  {
+    "lemma": "grave",
+    "pos": "ADJ",
+    "rank": 760,
+    "is_function_word": false,
+    "source_form": "grave"
+  },
+  {
+    "lemma": "huit",
+    "pos": "NUM",
+    "rank": 761,
+    "is_function_word": false,
+    "source_form": "huit"
+  },
+  {
+    "lemma": "lumière",
+    "pos": "NOUN",
+    "rank": 762,
+    "is_function_word": false,
+    "source_form": "lumière"
+  },
+  {
+    "lemma": "meilleur",
+    "pos": "NOUN",
+    "rank": 763,
+    "is_function_word": false,
+    "source_form": "meilleurs"
+  },
+  {
+    "lemma": "média",
+    "pos": "NOUN",
+    "rank": 764,
+    "is_function_word": false,
+    "source_form": "médias"
+  },
+  {
+    "lemma": "régime",
+    "pos": "NOUN",
+    "rank": 765,
+    "is_function_word": false,
+    "source_form": "régime"
+  },
+  {
+    "lemma": "toutefois",
+    "pos": "ADV",
+    "rank": 766,
+    "is_function_word": false,
+    "source_form": "toutefois"
+  },
+  {
+    "lemma": "arrière",
+    "pos": "NOUN",
+    "rank": 767,
+    "is_function_word": false,
+    "source_form": "arrière"
+  },
+  {
+    "lemma": "commerce",
+    "pos": "NOUN",
+    "rank": 768,
+    "is_function_word": false,
+    "source_form": "commerce"
+  },
+  {
+    "lemma": "complètement",
+    "pos": "ADV",
+    "rank": 769,
+    "is_function_word": false,
+    "source_form": "complètement"
+  },
+  {
+    "lemma": "faite",
+    "pos": "NOUN",
+    "rank": 770,
+    "is_function_word": false,
+    "source_form": "faite"
+  },
+  {
+    "lemma": "habitant",
+    "pos": "NOUN",
+    "rank": 771,
+    "is_function_word": false,
+    "source_form": "habitants"
+  },
+  {
+    "lemma": "montrer",
+    "pos": "VERB",
+    "rank": 772,
+    "is_function_word": false,
+    "source_form": "montrer"
+  },
+  {
+    "lemma": "physique",
+    "pos": "ADJ",
+    "rank": 773,
+    "is_function_word": false,
+    "source_form": "physique"
+  },
+  {
+    "lemma": "quartier",
+    "pos": "ADV",
+    "rank": 774,
+    "is_function_word": false,
+    "source_form": "quartier"
+  },
+  {
+    "lemma": "rendez",
+    "pos": "NOUN",
+    "rank": 775,
+    "is_function_word": false,
+    "source_form": "rendez"
+  },
+  {
+    "lemma": "territoire",
+    "pos": "VERB",
+    "rank": 776,
+    "is_function_word": false,
+    "source_form": "territoire"
+  },
+  {
+    "lemma": "unique",
+    "pos": "ADJ",
+    "rank": 777,
+    "is_function_word": false,
+    "source_form": "unique"
+  },
+  {
+    "lemma": "vent",
+    "pos": "ADJ",
+    "rank": 778,
+    "is_function_word": false,
+    "source_form": "vente"
+  },
+  {
+    "lemma": "via",
+    "pos": "ADP",
+    "rank": 779,
+    "is_function_word": true,
+    "source_form": "via"
+  },
+  {
+    "lemma": "vis",
+    "pos": "NOUN",
+    "rank": 780,
+    "is_function_word": false,
+    "source_form": "vis"
+  },
+  {
+    "lemma": "changement",
+    "pos": "NOUN",
+    "rank": 781,
+    "is_function_word": false,
+    "source_form": "changement"
+  },
+  {
+    "lemma": "concerner",
+    "pos": "VERB",
+    "rank": 782,
+    "is_function_word": false,
+    "source_form": "concernant"
+  },
+  {
+    "lemma": "cul",
+    "pos": "PRON",
+    "rank": 783,
+    "is_function_word": true,
+    "source_form": "cul"
+  },
+  {
+    "lemma": "européen",
+    "pos": "ADJ",
+    "rank": 784,
+    "is_function_word": false,
+    "source_form": "européenne"
+  },
+  {
+    "lemma": "lettre",
+    "pos": "NOUN",
+    "rank": 785,
+    "is_function_word": false,
+    "source_form": "lettre"
+  },
+  {
+    "lemma": "lieux",
+    "pos": "ADJ",
+    "rank": 786,
+    "is_function_word": false,
+    "source_form": "lieux"
+  },
+  {
+    "lemma": "parole",
+    "pos": "NOUN",
+    "rank": 787,
+    "is_function_word": false,
+    "source_form": "parole"
+  },
+  {
+    "lemma": "pied",
+    "pos": "NOUN",
+    "rank": 788,
+    "is_function_word": false,
+    "source_form": "pieds"
+  },
+  {
+    "lemma": "principe",
+    "pos": "NOUN",
+    "rank": 789,
+    "is_function_word": false,
+    "source_form": "principe"
+  },
+  {
+    "lemma": "radio",
+    "pos": "NOUN",
+    "rank": 790,
+    "is_function_word": false,
+    "source_form": "radio"
+  },
+  {
+    "lemma": "relation",
+    "pos": "NOUN",
+    "rank": 791,
+    "is_function_word": false,
+    "source_form": "relations"
+  },
+  {
+    "lemma": "règle",
+    "pos": "NOUN",
+    "rank": 792,
+    "is_function_word": false,
+    "source_form": "règles"
+  },
+  {
+    "lemma": "table",
+    "pos": "NOUN",
+    "rank": 793,
+    "is_function_word": false,
+    "source_form": "table"
+  },
+  {
+    "lemma": "vaut",
+    "pos": "NOUN",
+    "rank": 794,
+    "is_function_word": false,
+    "source_form": "vaut"
+  },
+  {
+    "lemma": "édition",
+    "pos": "NOUN",
+    "rank": 795,
+    "is_function_word": false,
+    "source_form": "édition"
+  },
+  {
+    "lemma": "élection",
+    "pos": "NOUN",
+    "rank": 796,
+    "is_function_word": false,
+    "source_form": "élections"
+  },
+  {
+    "lemma": "analyse",
+    "pos": "NOUN",
+    "rank": 797,
+    "is_function_word": false,
+    "source_form": "analyse"
+  },
+  {
+    "lemma": "assurer",
+    "pos": "VERB",
+    "rank": 798,
+    "is_function_word": false,
+    "source_form": "assurer"
+  },
+  {
+    "lemma": "carrière",
+    "pos": "NOUN",
+    "rank": 799,
+    "is_function_word": false,
+    "source_form": "carrière"
+  },
+  {
+    "lemma": "couleur",
+    "pos": "NOUN",
+    "rank": 800,
+    "is_function_word": false,
+    "source_form": "couleur"
+  },
+  {
+    "lemma": "dire",
+    "pos": "ADV",
+    "rank": 801,
+    "is_function_word": false,
+    "source_form": "disent"
+  },
+  {
+    "lemma": "durée",
+    "pos": "NOUN",
+    "rank": 802,
+    "is_function_word": false,
+    "source_form": "durée"
+  },
+  {
+    "lemma": "erreur",
+    "pos": "NOUN",
+    "rank": 803,
+    "is_function_word": false,
+    "source_form": "erreur"
+  },
+  {
+    "lemma": "espèce",
+    "pos": "VERB",
+    "rank": 804,
+    "is_function_word": false,
+    "source_form": "espèce"
+  },
+  {
+    "lemma": "faible",
+    "pos": "ADJ",
+    "rank": 805,
+    "is_function_word": false,
+    "source_form": "faible"
+  },
+  {
+    "lemma": "kilomètre",
+    "pos": "NOUN",
+    "rank": 806,
+    "is_function_word": false,
+    "source_form": "km"
+  },
+  {
+    "lemma": "large",
+    "pos": "ADJ",
+    "rank": 807,
+    "is_function_word": false,
+    "source_form": "large"
+  },
+  {
+    "lemma": "lundi",
+    "pos": "NOUN",
+    "rank": 808,
+    "is_function_word": false,
+    "source_form": "lundi"
+  },
+  {
+    "lemma": "ministère",
+    "pos": "NOUN",
+    "rank": 809,
+    "is_function_word": false,
+    "source_form": "ministère"
+  },
+  {
+    "lemma": "montréal",
+    "pos": "NOUN",
+    "rank": 810,
+    "is_function_word": false,
+    "source_form": "montréal"
+  },
+  {
+    "lemma": "neuf",
+    "pos": "ADJ",
+    "rank": 811,
+    "is_function_word": false,
+    "source_form": "neuf"
+  },
+  {
+    "lemma": "objectif",
+    "pos": "NOUN",
+    "rank": 812,
+    "is_function_word": false,
+    "source_form": "objectif"
+  },
+  {
+    "lemma": "pro",
+    "pos": "NOUN",
+    "rank": 813,
+    "is_function_word": false,
+    "source_form": "pro"
+  },
+  {
+    "lemma": "probablement",
+    "pos": "ADV",
+    "rank": 814,
+    "is_function_word": false,
+    "source_form": "probablement"
+  },
+  {
+    "lemma": "respect",
+    "pos": "NOUN",
+    "rank": 815,
+    "is_function_word": false,
+    "source_form": "respect"
+  },
+  {
+    "lemma": "responsable",
+    "pos": "NOUN",
+    "rank": 816,
+    "is_function_word": false,
+    "source_form": "responsable"
+  },
+  {
+    "lemma": "secteur",
+    "pos": "NOUN",
+    "rank": 817,
+    "is_function_word": false,
+    "source_form": "secteur"
+  },
+  {
+    "lemma": "soutien",
+    "pos": "NOUN",
+    "rank": 818,
+    "is_function_word": false,
+    "source_form": "soutien"
+  },
+  {
+    "lemma": "to",
+    "pos": "DET",
+    "rank": 819,
+    "is_function_word": true,
+    "source_form": "to"
+  },
+  {
+    "lemma": "tomber",
+    "pos": "VERB",
+    "rank": 820,
+    "is_function_word": false,
+    "source_form": "tomber"
+  },
+  {
+    "lemma": "vacance",
+    "pos": "NOUN",
+    "rank": 821,
+    "is_function_word": false,
+    "source_form": "vacances"
+  },
+  {
+    "lemma": "al",
+    "pos": "PRON",
+    "rank": 822,
+    "is_function_word": true,
+    "source_form": "al"
+  },
+  {
+    "lemma": "américaine",
+    "pos": "NOUN",
+    "rank": 823,
+    "is_function_word": false,
+    "source_form": "américaine"
+  },
+  {
+    "lemma": "change",
+    "pos": "NOUN",
+    "rank": 824,
+    "is_function_word": false,
+    "source_form": "change"
+  },
+  {
+    "lemma": "con",
+    "pos": "DET",
+    "rank": 825,
+    "is_function_word": true,
+    "source_form": "con"
+  },
+  {
+    "lemma": "concours",
+    "pos": "NOUN",
+    "rank": 826,
+    "is_function_word": false,
+    "source_form": "concours"
+  },
+  {
+    "lemma": "couple",
+    "pos": "NOUN",
+    "rank": 827,
+    "is_function_word": false,
+    "source_form": "couple"
+  },
+  {
+    "lemma": "course",
+    "pos": "NOUN",
+    "rank": 828,
+    "is_function_word": false,
+    "source_form": "course"
+  },
+  {
+    "lemma": "différence",
+    "pos": "NOUN",
+    "rank": 829,
+    "is_function_word": false,
+    "source_form": "différence"
+  },
+  {
+    "lemma": "décider",
+    "pos": "VERB",
+    "rank": 830,
+    "is_function_word": false,
+    "source_form": "décidé"
+  },
+  {
+    "lemma": "fonds",
+    "pos": "NOUN",
+    "rank": 831,
+    "is_function_word": false,
+    "source_form": "fonds"
+  },
+  {
+    "lemma": "fou",
+    "pos": "VERB",
+    "rank": 832,
+    "is_function_word": false,
+    "source_form": "fou"
+  },
+  {
+    "lemma": "gestion",
+    "pos": "NOUN",
+    "rank": 833,
+    "is_function_word": false,
+    "source_form": "gestion"
+  },
+  {
+    "lemma": "juge",
+    "pos": "NOUN",
+    "rank": 834,
+    "is_function_word": false,
+    "source_form": "juge"
+  },
+  {
+    "lemma": "mme",
+    "pos": "NOUN",
+    "rank": 835,
+    "is_function_word": false,
+    "source_form": "mme"
+  },
+  {
+    "lemma": "mètre",
+    "pos": "NOUN",
+    "rank": 836,
+    "is_function_word": false,
+    "source_form": "mètres"
+  },
+  {
+    "lemma": "normal",
+    "pos": "ADJ",
+    "rank": 837,
+    "is_function_word": false,
+    "source_form": "normal"
+  },
+  {
+    "lemma": "ouverture",
+    "pos": "NOUN",
+    "rank": 838,
+    "is_function_word": false,
+    "source_form": "ouverture"
+  },
+  {
+    "lemma": "poids",
+    "pos": "NOUN",
+    "rank": 839,
+    "is_function_word": false,
+    "source_form": "poids"
+  },
+  {
+    "lemma": "réussir",
+    "pos": "ADV",
+    "rank": 840,
+    "is_function_word": false,
+    "source_form": "réussi"
+  },
+  {
+    "lemma": "servir",
+    "pos": "VERB",
+    "rank": 841,
+    "is_function_word": false,
+    "source_form": "sert"
+  },
+  {
+    "lemma": "suivant",
+    "pos": "ADJ",
+    "rank": 842,
+    "is_function_word": false,
+    "source_form": "suivant"
+  },
+  {
+    "lemma": "taille",
+    "pos": "NOUN",
+    "rank": 843,
+    "is_function_word": false,
+    "source_form": "taille"
+  },
+  {
+    "lemma": "village",
+    "pos": "NOUN",
+    "rank": 844,
+    "is_function_word": false,
+    "source_form": "village"
+  },
+  {
+    "lemma": "visite",
+    "pos": "NOUN",
+    "rank": 845,
+    "is_function_word": false,
+    "source_form": "visite"
+  },
+  {
+    "lemma": "absolument",
+    "pos": "ADV",
+    "rank": 846,
+    "is_function_word": false,
+    "source_form": "absolument"
+  },
+  {
+    "lemma": "bref",
+    "pos": "ADV",
+    "rank": 847,
+    "is_function_word": false,
+    "source_form": "bref"
+  },
+  {
+    "lemma": "ciel",
+    "pos": "NOUN",
+    "rank": 848,
+    "is_function_word": false,
+    "source_form": "ciel"
+  },
+  {
+    "lemma": "clair",
+    "pos": "ADJ",
+    "rank": 849,
+    "is_function_word": false,
+    "source_form": "clair"
+  },
+  {
+    "lemma": "combat",
+    "pos": "NOUN",
+    "rank": 850,
+    "is_function_word": false,
+    "source_form": "combat"
+  },
+  {
+    "lemma": "comité",
+    "pos": "NOUN",
+    "rank": 851,
+    "is_function_word": false,
+    "source_form": "comité"
+  },
+  {
+    "lemma": "millimètre",
+    "pos": "NOUN",
+    "rank": 852,
+    "is_function_word": false,
+    "source_form": "mm"
+  },
+  {
+    "lemma": "mémoire",
+    "pos": "NOUN",
+    "rank": 853,
+    "is_function_word": false,
+    "source_form": "mémoire"
+  },
+  {
+    "lemma": "ouvert",
+    "pos": "ADJ",
+    "rank": 854,
+    "is_function_word": false,
+    "source_form": "ouvert"
+  },
+  {
+    "lemma": "protection",
+    "pos": "NOUN",
+    "rank": 855,
+    "is_function_word": false,
+    "source_form": "protection"
+  },
+  {
+    "lemma": "revenir",
+    "pos": "VERB",
+    "rank": 856,
+    "is_function_word": false,
+    "source_form": "revenir"
+  },
+  {
+    "lemma": "signe",
+    "pos": "NOUN",
+    "rank": 857,
+    "is_function_word": false,
+    "source_form": "signe"
+  },
+  {
+    "lemma": "suisse",
+    "pos": "ADJ",
+    "rank": 858,
+    "is_function_word": false,
+    "source_form": "suisse"
+  },
+  {
+    "lemma": "tenir",
+    "pos": "VERB",
+    "rank": 859,
+    "is_function_word": false,
+    "source_form": "tenir"
+  },
+  {
+    "lemma": "tenir",
+    "pos": "ADV",
+    "rank": 860,
+    "is_function_word": false,
+    "source_form": "tient"
+  },
+  {
+    "lemma": "truc",
+    "pos": "ADJ",
+    "rank": 861,
+    "is_function_word": false,
+    "source_form": "trucs"
+  },
+  {
+    "lemma": "york",
+    "pos": "ADJ",
+    "rank": 862,
+    "is_function_word": false,
+    "source_form": "york"
+  },
+  {
+    "lemma": "album",
+    "pos": "ADV",
+    "rank": 863,
+    "is_function_word": false,
+    "source_form": "album"
+  },
+  {
+    "lemma": "anti",
+    "pos": "ADJ",
+    "rank": 864,
+    "is_function_word": false,
+    "source_form": "anti"
+  },
+  {
+    "lemma": "bah",
+    "pos": "PRON",
+    "rank": 865,
+    "is_function_word": true,
+    "source_form": "bah"
+  },
+  {
+    "lemma": "cinéma",
+    "pos": "NOUN",
+    "rank": 866,
+    "is_function_word": false,
+    "source_form": "cinéma"
+  },
+  {
+    "lemma": "crise",
+    "pos": "NOUN",
+    "rank": 867,
+    "is_function_word": false,
+    "source_form": "crise"
+  },
+  {
+    "lemma": "david",
+    "pos": "VERB",
+    "rank": 868,
+    "is_function_word": false,
+    "source_form": "david"
+  },
+  {
+    "lemma": "espagne",
+    "pos": "VERB",
+    "rank": 869,
+    "is_function_word": false,
+    "source_form": "espagne"
+  },
+  {
+    "lemma": "garder",
+    "pos": "VERB",
+    "rank": 870,
+    "is_function_word": false,
+    "source_form": "garder"
+  },
+  {
+    "lemma": "généralement",
+    "pos": "ADV",
+    "rank": 871,
+    "is_function_word": false,
+    "source_form": "généralement"
+  },
+  {
+    "lemma": "historique",
+    "pos": "ADJ",
+    "rank": 872,
+    "is_function_word": false,
+    "source_form": "historique"
+  },
+  {
+    "lemma": "industrie",
+    "pos": "NOUN",
+    "rank": 873,
+    "is_function_word": false,
+    "source_form": "industrie"
+  },
+  {
+    "lemma": "maladie",
+    "pos": "NOUN",
+    "rank": 874,
+    "is_function_word": false,
+    "source_form": "maladie"
+  },
+  {
+    "lemma": "militaire",
+    "pos": "ADJ",
+    "rank": 875,
+    "is_function_word": false,
+    "source_form": "militaire"
+  },
+  {
+    "lemma": "mondial",
+    "pos": "ADJ",
+    "rank": 876,
+    "is_function_word": false,
+    "source_form": "mondiale"
+  },
+  {
+    "lemma": "médecin",
+    "pos": "NOUN",
+    "rank": 877,
+    "is_function_word": false,
+    "source_form": "médecin"
+  },
+  {
+    "lemma": "prend",
+    "pos": "NOUN",
+    "rank": 878,
+    "is_function_word": false,
+    "source_form": "prends"
+  },
+  {
+    "lemma": "russie",
+    "pos": "VERB",
+    "rank": 879,
+    "is_function_word": false,
+    "source_form": "russie"
+  },
+  {
+    "lemma": "soi",
+    "pos": "DET",
+    "rank": 880,
+    "is_function_word": true,
+    "source_form": "soi"
+  },
+  {
+    "lemma": "tien",
+    "pos": "NOUN",
+    "rank": 881,
+    "is_function_word": false,
+    "source_form": "tiens"
+  },
+  {
+    "lemma": "vote",
+    "pos": "NOUN",
+    "rank": 882,
+    "is_function_word": false,
+    "source_form": "vote"
+  },
+  {
+    "lemma": "écoute",
+    "pos": "NOUN",
+    "rank": 883,
+    "is_function_word": false,
+    "source_form": "écoute"
+  },
+  {
+    "lemma": "île",
+    "pos": "ADV",
+    "rank": 884,
+    "is_function_word": false,
+    "source_form": "île"
+  },
+  {
+    "lemma": "animal",
+    "pos": "NOUN",
+    "rank": 885,
+    "is_function_word": false,
+    "source_form": "animaux"
+  },
+  {
+    "lemma": "application",
+    "pos": "NOUN",
+    "rank": 886,
+    "is_function_word": false,
+    "source_form": "application"
+  },
+  {
+    "lemma": "banque",
+    "pos": "NOUN",
+    "rank": 887,
+    "is_function_word": false,
+    "source_form": "banque"
+  },
+  {
+    "lemma": "chanson",
+    "pos": "NOUN",
+    "rank": 888,
+    "is_function_word": false,
+    "source_form": "chanson"
+  },
+  {
+    "lemma": "départemer",
+    "pos": "VERB",
+    "rank": 889,
+    "is_function_word": false,
+    "source_form": "département"
+  },
+  {
+    "lemma": "environnement",
+    "pos": "NOUN",
+    "rank": 890,
+    "is_function_word": false,
+    "source_form": "environnement"
+  },
+  {
+    "lemma": "ferme",
+    "pos": "ADJ",
+    "rank": 891,
+    "is_function_word": false,
+    "source_form": "ferme"
+  },
+  {
+    "lemma": "macron",
+    "pos": "ADV",
+    "rank": 892,
+    "is_function_word": false,
+    "source_form": "macron"
+  },
+  {
+    "lemma": "maire",
+    "pos": "NOUN",
+    "rank": 893,
+    "is_function_word": false,
+    "source_form": "maire"
+  },
+  {
+    "lemma": "opération",
+    "pos": "NOUN",
+    "rank": 894,
+    "is_function_word": false,
+    "source_form": "opération"
+  },
+  {
+    "lemma": "parc",
+    "pos": "NOUN",
+    "rank": 895,
+    "is_function_word": false,
+    "source_form": "parc"
+  },
+  {
+    "lemma": "party",
+    "pos": "NOUN",
+    "rank": 896,
+    "is_function_word": false,
+    "source_form": "parties"
+  },
+  {
+    "lemma": "pleine",
+    "pos": "NOUN",
+    "rank": 897,
+    "is_function_word": false,
+    "source_form": "pleine"
+  },
+  {
+    "lemma": "pose",
+    "pos": "NOUN",
+    "rank": 898,
+    "is_function_word": false,
+    "source_form": "pose"
+  },
+  {
+    "lemma": "seigneur",
+    "pos": "NOUN",
+    "rank": 899,
+    "is_function_word": false,
+    "source_form": "seigneur"
+  },
+  {
+    "lemma": "traitement",
+    "pos": "NOUN",
+    "rank": 900,
+    "is_function_word": false,
+    "source_form": "traitement"
+  },
+  {
+    "lemma": "visage",
+    "pos": "NOUN",
+    "rank": 901,
+    "is_function_word": false,
+    "source_form": "visage"
+  },
+  {
+    "lemma": "véritable",
+    "pos": "ADJ",
+    "rank": 902,
+    "is_function_word": false,
+    "source_form": "véritable"
+  },
+  {
+    "lemma": "écrir",
+    "pos": "ADJ",
+    "rank": 903,
+    "is_function_word": false,
+    "source_form": "écrire"
+  },
+  {
+    "lemma": "avion",
+    "pos": "NOUN",
+    "rank": 904,
+    "is_function_word": false,
+    "source_form": "avion"
+  },
+  {
+    "lemma": "chien",
+    "pos": "NOUN",
+    "rank": 905,
+    "is_function_word": false,
+    "source_form": "chien"
+  },
+  {
+    "lemma": "cool",
+    "pos": "ADV",
+    "rank": 906,
+    "is_function_word": false,
+    "source_form": "cool"
+  },
+  {
+    "lemma": "eh",
+    "pos": "INTJ",
+    "rank": 907,
+    "is_function_word": false,
+    "source_form": "eh"
+  },
+  {
+    "lemma": "enquête",
+    "pos": "NOUN",
+    "rank": 908,
+    "is_function_word": false,
+    "source_form": "enquête"
+  },
+  {
+    "lemma": "envoyer",
+    "pos": "VERB",
+    "rank": 909,
+    "is_function_word": false,
+    "source_form": "envoyer"
+  },
+  {
+    "lemma": "facebook",
+    "pos": "NOUN",
+    "rank": 910,
+    "is_function_word": false,
+    "source_form": "facebook"
+  },
+  {
+    "lemma": "italie",
+    "pos": "NOUN",
+    "rank": 911,
+    "is_function_word": false,
+    "source_form": "italie"
+  },
+  {
+    "lemma": "limite",
+    "pos": "NOUN",
+    "rank": 912,
+    "is_function_word": false,
+    "source_form": "limite"
+  },
+  {
+    "lemma": "parfaire",
+    "pos": "VERB",
+    "rank": 913,
+    "is_function_word": false,
+    "source_form": "parfait"
+  },
+  {
+    "lemma": "port",
+    "pos": "NOUN",
+    "rank": 914,
+    "is_function_word": false,
+    "source_form": "port"
+  },
+  {
+    "lemma": "professeur",
+    "pos": "NOUN",
+    "rank": 915,
+    "is_function_word": false,
+    "source_form": "professeur"
+  },
+  {
+    "lemma": "transport",
+    "pos": "NOUN",
+    "rank": 916,
+    "is_function_word": false,
+    "source_form": "transport"
+  },
+  {
+    "lemma": "vitesse",
+    "pos": "NOUN",
+    "rank": 917,
+    "is_function_word": false,
+    "source_form": "vitesse"
+  },
+  {
+    "lemma": "étranger",
+    "pos": "VERB",
+    "rank": 918,
+    "is_function_word": false,
+    "source_form": "étranger"
+  },
+  {
+    "lemma": "charle",
+    "pos": "ADJ",
+    "rank": 919,
+    "is_function_word": false,
+    "source_form": "charles"
+  },
+  {
+    "lemma": "cheveux",
+    "pos": "ADJ",
+    "rank": 920,
+    "is_function_word": false,
+    "source_form": "cheveux"
+  },
+  {
+    "lemma": "dollar",
+    "pos": "NOUN",
+    "rank": 921,
+    "is_function_word": false,
+    "source_form": "dollars"
+  },
+  {
+    "lemma": "dossier",
+    "pos": "NOUN",
+    "rank": 922,
+    "is_function_word": false,
+    "source_form": "dossier"
+  },
+  {
+    "lemma": "hiver",
+    "pos": "VERB",
+    "rank": 923,
+    "is_function_word": false,
+    "source_form": "hiver"
+  },
+  {
+    "lemma": "hôpital",
+    "pos": "NOUN",
+    "rank": 924,
+    "is_function_word": false,
+    "source_form": "hôpital"
+  },
+  {
+    "lemma": "importance",
+    "pos": "NOUN",
+    "rank": 925,
+    "is_function_word": false,
+    "source_form": "importance"
+  },
+  {
+    "lemma": "lutte",
+    "pos": "DET",
+    "rank": 926,
+    "is_function_word": true,
+    "source_form": "lutte"
+  },
+  {
+    "lemma": "marine",
+    "pos": "NOUN",
+    "rank": 927,
+    "is_function_word": false,
+    "source_form": "marine"
+  },
+  {
+    "lemma": "ouvrir",
+    "pos": "VERB",
+    "rank": 928,
+    "is_function_word": false,
+    "source_form": "ouvrir"
+  },
+  {
+    "lemma": "pression",
+    "pos": "NOUN",
+    "rank": 929,
+    "is_function_word": false,
+    "source_form": "pression"
+  },
+  {
+    "lemma": "puissance",
+    "pos": "NOUN",
+    "rank": 930,
+    "is_function_word": false,
+    "source_form": "puissance"
+  },
+  {
+    "lemma": "religion",
+    "pos": "NOUN",
+    "rank": 931,
+    "is_function_word": false,
+    "source_form": "religion"
+  },
+  {
+    "lemma": "st",
+    "pos": "VERB",
+    "rank": 932,
+    "is_function_word": false,
+    "source_form": "st"
+  },
+  {
+    "lemma": "stade",
+    "pos": "NOUN",
+    "rank": 933,
+    "is_function_word": false,
+    "source_form": "stade"
+  },
+  {
+    "lemma": "théâtre",
+    "pos": "NOUN",
+    "rank": 934,
+    "is_function_word": false,
+    "source_form": "théâtre"
+  },
+  {
+    "lemma": "volonter",
+    "pos": "VERB",
+    "rank": 935,
+    "is_function_word": false,
+    "source_form": "volonté"
+  },
+  {
+    "lemma": "vrai",
+    "pos": "VERB",
+    "rank": 936,
+    "is_function_word": false,
+    "source_form": "vraie"
+  },
+  {
+    "lemma": "élève",
+    "pos": "NOUN",
+    "rank": 937,
+    "is_function_word": false,
+    "source_form": "élèves"
+  },
+  {
+    "lemma": "évolution",
+    "pos": "NOUN",
+    "rank": 938,
+    "is_function_word": false,
+    "source_form": "évolution"
+  },
+  {
+    "lemma": "ador",
+    "pos": "ADJ",
+    "rank": 939,
+    "is_function_word": false,
+    "source_form": "adore"
+  },
+  {
+    "lemma": "belgiqu",
+    "pos": "ADJ",
+    "rank": 940,
+    "is_function_word": false,
+    "source_form": "belgique"
+  },
+  {
+    "lemma": "camp",
+    "pos": "VERB",
+    "rank": 941,
+    "is_function_word": false,
+    "source_form": "camp"
+  },
+  {
+    "lemma": "drôle",
+    "pos": "NOUN",
+    "rank": 942,
+    "is_function_word": false,
+    "source_form": "drôle"
+  },
+  {
+    "lemma": "débat",
+    "pos": "NOUN",
+    "rank": 943,
+    "is_function_word": false,
+    "source_form": "débat"
+  },
+  {
+    "lemma": "oublier",
+    "pos": "VERB",
+    "rank": 944,
+    "is_function_word": false,
+    "source_form": "oublier"
+  },
+  {
+    "lemma": "pauvre",
+    "pos": "NOUN",
+    "rank": 945,
+    "is_function_word": false,
+    "source_form": "pauvre"
+  },
+  {
+    "lemma": "regard",
+    "pos": "NOUN",
+    "rank": 946,
+    "is_function_word": false,
+    "source_form": "regard"
+  },
+  {
+    "lemma": "représenter",
+    "pos": "VERB",
+    "rank": 947,
+    "is_function_word": false,
+    "source_form": "représente"
+  },
+  {
+    "lemma": "rêve",
+    "pos": "NOUN",
+    "rank": 948,
+    "is_function_word": false,
+    "source_form": "rêve"
+  },
+  {
+    "lemma": "science",
+    "pos": "NOUN",
+    "rank": 949,
+    "is_function_word": false,
+    "source_form": "science"
+  },
+  {
+    "lemma": "souhaiter",
+    "pos": "VERB",
+    "rank": 950,
+    "is_function_word": false,
+    "source_form": "souhaite"
+  },
+  {
+    "lemma": "touch",
+    "pos": "ADJ",
+    "rank": 951,
+    "is_function_word": false,
+    "source_form": "touche"
+  },
+  {
+    "lemma": "travaill",
+    "pos": "ADJ",
+    "rank": 952,
+    "is_function_word": false,
+    "source_form": "travaille"
+  },
+  {
+    "lemma": "utilisation",
+    "pos": "NOUN",
+    "rank": 953,
+    "is_function_word": false,
+    "source_form": "utilisation"
+  },
+  {
+    "lemma": "voulai",
+    "pos": "NOUN",
+    "rank": 954,
+    "is_function_word": false,
+    "source_form": "voulais"
+  },
+  {
+    "lemma": "étudiant",
+    "pos": "NOUN",
+    "rank": 955,
+    "is_function_word": false,
+    "source_form": "étudiants"
+  },
+  {
+    "lemma": "absence",
+    "pos": "NOUN",
+    "rank": 956,
+    "is_function_word": false,
+    "source_form": "absence"
+  },
+  {
+    "lemma": "amériqu",
+    "pos": "ADJ",
+    "rank": 957,
+    "is_function_word": false,
+    "source_form": "amérique"
+  },
+  {
+    "lemma": "angleterre",
+    "pos": "NOUN",
+    "rank": 958,
+    "is_function_word": false,
+    "source_form": "angleterre"
+  },
+  {
+    "lemma": "capable",
+    "pos": "ADJ",
+    "rank": 959,
+    "is_function_word": false,
+    "source_form": "capable"
+  },
+  {
+    "lemma": "cité",
+    "pos": "NOUN",
+    "rank": 960,
+    "is_function_word": false,
+    "source_form": "cité"
+  },
+  {
+    "lemma": "client",
+    "pos": "NOUN",
+    "rank": 961,
+    "is_function_word": false,
+    "source_form": "clients"
+  },
+  {
+    "lemma": "connaissance",
+    "pos": "NOUN",
+    "rank": 962,
+    "is_function_word": false,
+    "source_form": "connaissance"
+  },
+  {
+    "lemma": "coup",
+    "pos": "NOUN",
+    "rank": 963,
+    "is_function_word": false,
+    "source_form": "coups"
+  },
+  {
+    "lemma": "delà",
+    "pos": "ADV",
+    "rank": 964,
+    "is_function_word": false,
+    "source_form": "delà"
+  },
+  {
+    "lemma": "end",
+    "pos": "NOUN",
+    "rank": 965,
+    "is_function_word": false,
+    "source_form": "end"
+  },
+  {
+    "lemma": "habitude",
+    "pos": "NOUN",
+    "rank": 966,
+    "is_function_word": false,
+    "source_form": "habitude"
+  },
+  {
+    "lemma": "poser",
+    "pos": "VERB",
+    "rank": 967,
+    "is_function_word": false,
+    "source_form": "poser"
+  },
+  {
+    "lemma": "principal",
+    "pos": "ADJ",
+    "rank": 968,
+    "is_function_word": false,
+    "source_form": "principal"
+  },
+  {
+    "lemma": "russe",
+    "pos": "ADJ",
+    "rank": 969,
+    "is_function_word": false,
+    "source_form": "russe"
+  },
+  {
+    "lemma": "référence",
+    "pos": "NOUN",
+    "rank": 970,
+    "is_function_word": false,
+    "source_form": "référence"
+  },
+  {
+    "lemma": "secret",
+    "pos": "NOUN",
+    "rank": 971,
+    "is_function_word": false,
+    "source_form": "secret"
+  },
+  {
+    "lemma": "tombe",
+    "pos": "NOUN",
+    "rank": 972,
+    "is_function_word": false,
+    "source_form": "tombe"
+  },
+  {
+    "lemma": "top",
+    "pos": "PRON",
+    "rank": 973,
+    "is_function_word": true,
+    "source_form": "top"
+  },
+  {
+    "lemma": "totalement",
+    "pos": "ADV",
+    "rank": 974,
+    "is_function_word": false,
+    "source_form": "totalement"
+  },
+  {
+    "lemma": "usage",
+    "pos": "NOUN",
+    "rank": 975,
+    "is_function_word": false,
+    "source_form": "usage"
+  },
+  {
+    "lemma": "week",
+    "pos": "NOUN",
+    "rank": 976,
+    "is_function_word": false,
+    "source_form": "week"
+  },
+  {
+    "lemma": "émission",
+    "pos": "NOUN",
+    "rank": 977,
+    "is_function_word": false,
+    "source_form": "émission"
+  },
+  {
+    "lemma": "chaîne",
+    "pos": "NOUN",
+    "rank": 978,
+    "is_function_word": false,
+    "source_form": "chaîne"
+  },
+  {
+    "lemma": "chinois",
+    "pos": "ADJ",
+    "rank": 979,
+    "is_function_word": false,
+    "source_form": "chinois"
+  },
+  {
+    "lemma": "classique",
+    "pos": "ADJ",
+    "rank": 980,
+    "is_function_word": false,
+    "source_form": "classique"
+  },
+  {
+    "lemma": "contact",
+    "pos": "NOUN",
+    "rank": 981,
+    "is_function_word": false,
+    "source_form": "contact"
+  },
+  {
+    "lemma": "dame",
+    "pos": "NOUN",
+    "rank": 982,
+    "is_function_word": false,
+    "source_form": "dame"
+  },
+  {
+    "lemma": "direct",
+    "pos": "ADJ",
+    "rank": 983,
+    "is_function_word": false,
+    "source_form": "direct"
+  },
+  {
+    "lemma": "divers",
+    "pos": "ADJ",
+    "rank": 984,
+    "is_function_word": false,
+    "source_form": "divers"
+  },
+  {
+    "lemma": "envers",
+    "pos": "NOUN",
+    "rank": 985,
+    "is_function_word": false,
+    "source_form": "envers"
+  },
+  {
+    "lemma": "expression",
+    "pos": "NOUN",
+    "rank": 986,
+    "is_function_word": false,
+    "source_form": "expression"
+  },
+  {
+    "lemma": "facilement",
+    "pos": "ADV",
+    "rank": 987,
+    "is_function_word": false,
+    "source_form": "facilement"
+  },
+  {
+    "lemma": "fer",
+    "pos": "NOUN",
+    "rank": 988,
+    "is_function_word": false,
+    "source_form": "fer"
+  },
+  {
+    "lemma": "fil",
+    "pos": "ADJ",
+    "rank": 989,
+    "is_function_word": false,
+    "source_form": "fil"
+  },
+  {
+    "lemma": "froid",
+    "pos": "ADJ",
+    "rank": 990,
+    "is_function_word": false,
+    "source_form": "froid"
+  },
+  {
+    "lemma": "frère",
+    "pos": "NOUN",
+    "rank": 991,
+    "is_function_word": false,
+    "source_form": "frères"
+  },
+  {
+    "lemma": "futur",
+    "pos": "ADJ",
+    "rank": 992,
+    "is_function_word": false,
+    "source_form": "futur"
+  },
+  {
+    "lemma": "gaz",
+    "pos": "NOUN",
+    "rank": 993,
+    "is_function_word": false,
+    "source_form": "gaz"
+  },
+  {
+    "lemma": "malade",
+    "pos": "ADJ",
+    "rank": 994,
+    "is_function_word": false,
+    "source_form": "malade"
+  },
+  {
+    "lemma": "pareil",
+    "pos": "ADJ",
+    "rank": 995,
+    "is_function_word": false,
+    "source_form": "pareil"
+  },
+  {
+    "lemma": "priver",
+    "pos": "ADJ",
+    "rank": 996,
+    "is_function_word": false,
+    "source_form": "privé"
+  },
+  {
+    "lemma": "procès",
+    "pos": "NOUN",
+    "rank": 997,
+    "is_function_word": false,
+    "source_form": "procès"
+  },
+  {
+    "lemma": "rapide",
+    "pos": "ADJ",
+    "rank": 998,
+    "is_function_word": false,
+    "source_form": "rapide"
+  },
+  {
+    "lemma": "réunion",
+    "pos": "NOUN",
+    "rank": 999,
+    "is_function_word": false,
+    "source_form": "réunion"
+  },
+  {
+    "lemma": "révolution",
+    "pos": "NOUN",
+    "rank": 1000,
+    "is_function_word": false,
+    "source_form": "révolution"
+  },
+  {
+    "lemma": "tableau",
+    "pos": "NOUN",
+    "rank": 1001,
+    "is_function_word": false,
+    "source_form": "tableau"
+  },
+  {
+    "lemma": "tendance",
+    "pos": "NOUN",
+    "rank": 1002,
+    "is_function_word": false,
+    "source_form": "tendance"
+  },
+  {
+    "lemma": "vingt",
+    "pos": "NUM",
+    "rank": 1003,
+    "is_function_word": false,
+    "source_form": "vingt"
+  },
+  {
+    "lemma": "atteindre",
+    "pos": "VERB",
+    "rank": 1004,
+    "is_function_word": false,
+    "source_form": "atteint"
+  },
+  {
+    "lemma": "boulot",
+    "pos": "NOUN",
+    "rank": 1005,
+    "is_function_word": false,
+    "source_form": "boulot"
+  },
+  {
+    "lemma": "bébé",
+    "pos": "NOUN",
+    "rank": 1006,
+    "is_function_word": false,
+    "source_form": "bébé"
+  },
+  {
+    "lemma": "choisir",
+    "pos": "VERB",
+    "rank": 1007,
+    "is_function_word": false,
+    "source_form": "choisi"
+  },
+  {
+    "lemma": "communication",
+    "pos": "NOUN",
+    "rank": 1008,
+    "is_function_word": false,
+    "source_form": "communication"
+  },
+  {
+    "lemma": "côte",
+    "pos": "NOUN",
+    "rank": 1009,
+    "is_function_word": false,
+    "source_form": "côte"
+  },
+  {
+    "lemma": "fasse",
+    "pos": "NOUN",
+    "rank": 1010,
+    "is_function_word": false,
+    "source_form": "fasse"
+  },
+  {
+    "lemma": "gagner",
+    "pos": "ADJ",
+    "rank": 1011,
+    "is_function_word": false,
+    "source_form": "gagné"
+  },
+  {
+    "lemma": "goût",
+    "pos": "NOUN",
+    "rank": 1012,
+    "is_function_word": false,
+    "source_form": "goût"
+  },
+  {
+    "lemma": "humain",
+    "pos": "ADJ",
+    "rank": 1013,
+    "is_function_word": false,
+    "source_form": "humain"
+  },
+  {
+    "lemma": "loi",
+    "pos": "ADJ",
+    "rank": 1014,
+    "is_function_word": false,
+    "source_form": "lois"
+  },
+  {
+    "lemma": "londre",
+    "pos": "ADJ",
+    "rank": 1015,
+    "is_function_word": false,
+    "source_form": "londres"
+  },
+  {
+    "lemma": "monsieur",
+    "pos": "NOUN",
+    "rank": 1016,
+    "is_function_word": false,
+    "source_form": "madame"
+  },
+  {
+    "lemma": "parlement",
+    "pos": "NOUN",
+    "rank": 1017,
+    "is_function_word": false,
+    "source_form": "parlement"
+  },
+  {
+    "lemma": "peau",
+    "pos": "NOUN",
+    "rank": 1018,
+    "is_function_word": false,
+    "source_form": "peau"
+  },
+  {
+    "lemma": "surface",
+    "pos": "NOUN",
+    "rank": 1019,
+    "is_function_word": false,
+    "source_form": "surface"
+  },
+  {
+    "lemma": "uniquement",
+    "pos": "ADV",
+    "rank": 1020,
+    "is_function_word": false,
+    "source_form": "uniquement"
+  },
+  {
+    "lemma": "vendre",
+    "pos": "VERB",
+    "rank": 1021,
+    "is_function_word": false,
+    "source_form": "vendre"
+  },
+  {
+    "lemma": "victime",
+    "pos": "ADJ",
+    "rank": 1022,
+    "is_function_word": false,
+    "source_form": "victime"
+  },
+  {
+    "lemma": "épisode",
+    "pos": "NOUN",
+    "rank": 1023,
+    "is_function_word": false,
+    "source_form": "épisode"
+  },
+  {
+    "lemma": "évidemment",
+    "pos": "ADV",
+    "rank": 1024,
+    "is_function_word": false,
+    "source_form": "évidemment"
+  },
+  {
+    "lemma": "aimerai",
+    "pos": "ADJ",
+    "rank": 1025,
+    "is_function_word": false,
+    "source_form": "aimerais"
+  },
+  {
+    "lemma": "allemand",
+    "pos": "ADJ",
+    "rank": 1026,
+    "is_function_word": false,
+    "source_form": "allemand"
+  },
+  {
+    "lemma": "arrêt",
+    "pos": "NOUN",
+    "rank": 1027,
+    "is_function_word": false,
+    "source_form": "arrêt"
+  },
+  {
+    "lemma": "avocat",
+    "pos": "NOUN",
+    "rank": 1028,
+    "is_function_word": false,
+    "source_form": "avocat"
+  },
+  {
+    "lemma": "bonheur",
+    "pos": "NOUN",
+    "rank": 1029,
+    "is_function_word": false,
+    "source_form": "bonheur"
+  },
+  {
+    "lemma": "budget",
+    "pos": "NOUN",
+    "rank": 1030,
+    "is_function_word": false,
+    "source_form": "budget"
+  },
+  {
+    "lemma": "caractère",
+    "pos": "NOUN",
+    "rank": 1031,
+    "is_function_word": false,
+    "source_form": "caractère"
+  },
+  {
+    "lemma": "compter",
+    "pos": "VERB",
+    "rank": 1032,
+    "is_function_word": false,
+    "source_form": "compter"
+  },
+  {
+    "lemma": "consommation",
+    "pos": "NOUN",
+    "rank": 1033,
+    "is_function_word": false,
+    "source_form": "consommation"
+  },
+  {
+    "lemma": "découvrir",
+    "pos": "VERB",
+    "rank": 1034,
+    "is_function_word": false,
+    "source_form": "découvrir"
+  },
+  {
+    "lemma": "enseignement",
+    "pos": "ADV",
+    "rank": 1035,
+    "is_function_word": false,
+    "source_form": "enseignement"
+  },
+  {
+    "lemma": "hollande",
+    "pos": "NOUN",
+    "rank": 1036,
+    "is_function_word": false,
+    "source_form": "hollande"
+  },
+  {
+    "lemma": "lendemain",
+    "pos": "ADV",
+    "rank": 1037,
+    "is_function_word": false,
+    "source_form": "lendemain"
+  },
+  {
+    "lemma": "magnifique",
+    "pos": "ADJ",
+    "rank": 1038,
+    "is_function_word": false,
+    "source_form": "magnifique"
+  },
+  {
+    "lemma": "mari",
+    "pos": "NOUN",
+    "rank": 1039,
+    "is_function_word": false,
+    "source_form": "mari"
+  },
+  {
+    "lemma": "muser",
+    "pos": "VERB",
+    "rank": 1040,
+    "is_function_word": false,
+    "source_form": "musée"
+  },
+  {
+    "lemma": "populaire",
+    "pos": "ADJ",
+    "rank": 1041,
+    "is_function_word": false,
+    "source_form": "populaire"
+  },
+  {
+    "lemma": "prince",
+    "pos": "NOUN",
+    "rank": 1042,
+    "is_function_word": false,
+    "source_form": "prince"
+  },
+  {
+    "lemma": "province",
+    "pos": "NOUN",
+    "rank": 1043,
+    "is_function_word": false,
+    "source_form": "province"
+  },
+  {
+    "lemma": "rentrer",
+    "pos": "VERB",
+    "rank": 1044,
+    "is_function_word": false,
+    "source_form": "rentrer"
+  },
+  {
+    "lemma": "ressource",
+    "pos": "NOUN",
+    "rank": 1045,
+    "is_function_word": false,
+    "source_form": "ressources"
+  },
+  {
+    "lemma": "retraite",
+    "pos": "NOUN",
+    "rank": 1046,
+    "is_function_word": false,
+    "source_form": "retraite"
+  },
+  {
+    "lemma": "sac",
+    "pos": "NOUN",
+    "rank": 1047,
+    "is_function_word": false,
+    "source_form": "sac"
+  },
+  {
+    "lemma": "secrétaire",
+    "pos": "NOUN",
+    "rank": 1048,
+    "is_function_word": false,
+    "source_form": "secrétaire"
+  },
+  {
+    "lemma": "siège",
+    "pos": "NOUN",
+    "rank": 1049,
+    "is_function_word": false,
+    "source_form": "siège"
+  },
+  {
+    "lemma": "supérieur",
+    "pos": "NOUN",
+    "rank": 1050,
+    "is_function_word": false,
+    "source_form": "supérieur"
+  },
+  {
+    "lemma": "surprise",
+    "pos": "NOUN",
+    "rank": 1051,
+    "is_function_word": false,
+    "source_form": "surprise"
+  },
+  {
+    "lemma": "vent",
+    "pos": "ADV",
+    "rank": 1052,
+    "is_function_word": false,
+    "source_form": "vent"
+  },
+  {
+    "lemma": "acte",
+    "pos": "NOUN",
+    "rank": 1053,
+    "is_function_word": false,
+    "source_form": "acte"
+  },
+  {
+    "lemma": "bouche",
+    "pos": "NOUN",
+    "rank": 1054,
+    "is_function_word": false,
+    "source_form": "bouche"
+  },
+  {
+    "lemma": "capacité",
+    "pos": "NOUN",
+    "rank": 1055,
+    "is_function_word": false,
+    "source_form": "capacité"
+  },
+  {
+    "lemma": "centrale",
+    "pos": "NOUN",
+    "rank": 1056,
+    "is_function_word": false,
+    "source_form": "centrale"
+  },
+  {
+    "lemma": "contexte",
+    "pos": "NOUN",
+    "rank": 1057,
+    "is_function_word": false,
+    "source_form": "contexte"
+  },
+  {
+    "lemma": "dessous",
+    "pos": "NOUN",
+    "rank": 1058,
+    "is_function_word": false,
+    "source_form": "dessous"
+  },
+  {
+    "lemma": "extérieur",
+    "pos": "NOUN",
+    "rank": 1059,
+    "is_function_word": false,
+    "source_form": "extérieur"
+  },
+  {
+    "lemma": "gueul",
+    "pos": "ADJ",
+    "rank": 1060,
+    "is_function_word": false,
+    "source_form": "gueule"
+  },
+  {
+    "lemma": "hauteur",
+    "pos": "NOUN",
+    "rank": 1061,
+    "is_function_word": false,
+    "source_form": "hauteur"
+  },
+  {
+    "lemma": "naissance",
+    "pos": "NOUN",
+    "rank": 1062,
+    "is_function_word": false,
+    "source_form": "naissance"
+  },
+  {
+    "lemma": "naître",
+    "pos": "VERB",
+    "rank": 1063,
+    "is_function_word": false,
+    "source_form": "né"
+  },
+  {
+    "lemma": "opposition",
+    "pos": "NOUN",
+    "rank": 1064,
+    "is_function_word": false,
+    "source_form": "opposition"
+  },
+  {
+    "lemma": "processus",
+    "pos": "NOUN",
+    "rank": 1065,
+    "is_function_word": false,
+    "source_form": "processus"
+  },
+  {
+    "lemma": "rencontrer",
+    "pos": "VERB",
+    "rank": 1066,
+    "is_function_word": false,
+    "source_form": "rencontrer"
+  },
+  {
+    "lemma": "rir",
+    "pos": "ADJ",
+    "rank": 1067,
+    "is_function_word": false,
+    "source_form": "rire"
+  },
+  {
+    "lemma": "réaliser",
+    "pos": "VERB",
+    "rank": 1068,
+    "is_function_word": false,
+    "source_form": "réalisé"
+  },
+  {
+    "lemma": "salut",
+    "pos": "VERB",
+    "rank": 1069,
+    "is_function_word": false,
+    "source_form": "salut"
+  },
+  {
+    "lemma": "seconde",
+    "pos": "NOUN",
+    "rank": 1070,
+    "is_function_word": false,
+    "source_form": "secondes"
+  },
+  {
+    "lemma": "sœur",
+    "pos": "VERB",
+    "rank": 1071,
+    "is_function_word": false,
+    "source_form": "sœur"
+  },
+  {
+    "lemma": "utilis",
+    "pos": "ADJ",
+    "rank": 1072,
+    "is_function_word": false,
+    "source_form": "utilise"
+  },
+  {
+    "lemma": "victime",
+    "pos": "NOUN",
+    "rank": 1073,
+    "is_function_word": false,
+    "source_form": "victimes"
+  },
+  {
+    "lemma": "vin",
+    "pos": "ADV",
+    "rank": 1074,
+    "is_function_word": false,
+    "source_form": "vin"
+  },
+  {
+    "lemma": "actuel",
+    "pos": "ADJ",
+    "rank": 1075,
+    "is_function_word": false,
+    "source_form": "actuel"
+  },
+  {
+    "lemma": "approche",
+    "pos": "NOUN",
+    "rank": 1076,
+    "is_function_word": false,
+    "source_form": "approche"
+  },
+  {
+    "lemma": "candidat",
+    "pos": "NOUN",
+    "rank": 1077,
+    "is_function_word": false,
+    "source_form": "candidat"
+  },
+  {
+    "lemma": "capitaine",
+    "pos": "NOUN",
+    "rank": 1078,
+    "is_function_word": false,
+    "source_form": "capitaine"
+  },
+  {
+    "lemma": "capital",
+    "pos": "ADJ",
+    "rank": 1079,
+    "is_function_word": false,
+    "source_form": "capitale"
+  },
+  {
+    "lemma": "croit",
+    "pos": "NOUN",
+    "rank": 1080,
+    "is_function_word": false,
+    "source_form": "croit"
+  },
+  {
+    "lemma": "désolé",
+    "pos": "NOUN",
+    "rank": 1081,
+    "is_function_word": false,
+    "source_form": "désolé"
+  },
+  {
+    "lemma": "faveur",
+    "pos": "NOUN",
+    "rank": 1082,
+    "is_function_word": false,
+    "source_form": "faveur"
+  },
+  {
+    "lemma": "front",
+    "pos": "VERB",
+    "rank": 1083,
+    "is_function_word": false,
+    "source_form": "front"
+  },
+  {
+    "lemma": "marseill",
+    "pos": "ADJ",
+    "rank": 1084,
+    "is_function_word": false,
+    "source_form": "marseille"
+  },
+  {
+    "lemma": "mérite",
+    "pos": "NOUN",
+    "rank": 1085,
+    "is_function_word": false,
+    "source_form": "mérite"
+  },
+  {
+    "lemma": "noël",
+    "pos": "ADV",
+    "rank": 1086,
+    "is_function_word": false,
+    "source_form": "noël"
+  },
+  {
+    "lemma": "papier",
+    "pos": "NOUN",
+    "rank": 1087,
+    "is_function_word": false,
+    "source_form": "papier"
+  },
+  {
+    "lemma": "porte",
+    "pos": "NOUN",
+    "rank": 1088,
+    "is_function_word": false,
+    "source_form": "portes"
+  },
+  {
+    "lemma": "présenter",
+    "pos": "VERB",
+    "rank": 1089,
+    "is_function_word": false,
+    "source_form": "présenter"
+  },
+  {
+    "lemma": "prévoir",
+    "pos": "VERB",
+    "rank": 1090,
+    "is_function_word": false,
+    "source_form": "prévu"
+  },
+  {
+    "lemma": "regarder",
+    "pos": "DET",
+    "rank": 1091,
+    "is_function_word": true,
+    "source_form": "regardez"
+  },
+  {
+    "lemma": "tribunal",
+    "pos": "NOUN",
+    "rank": 1092,
+    "is_function_word": false,
+    "source_form": "tribunal"
+  },
+  {
+    "lemma": "téler",
+    "pos": "VERB",
+    "rank": 1093,
+    "is_function_word": false,
+    "source_form": "télé"
+  },
+  {
+    "lemma": "accident",
+    "pos": "NOUN",
+    "rank": 1094,
+    "is_function_word": false,
+    "source_form": "accident"
+  },
+  {
+    "lemma": "courage",
+    "pos": "NOUN",
+    "rank": 1095,
+    "is_function_word": false,
+    "source_form": "courage"
+  },
+  {
+    "lemma": "entrer",
+    "pos": "VERB",
+    "rank": 1096,
+    "is_function_word": false,
+    "source_form": "entrer"
+  },
+  {
+    "lemma": "etre",
+    "pos": "NOUN",
+    "rank": 1097,
+    "is_function_word": false,
+    "source_form": "etre"
+  },
+  {
+    "lemma": "festival",
+    "pos": "NOUN",
+    "rank": 1098,
+    "is_function_word": false,
+    "source_form": "festival"
+  },
+  {
+    "lemma": "jeudi",
+    "pos": "NOUN",
+    "rank": 1099,
+    "is_function_word": false,
+    "source_form": "jeudi"
+  },
+  {
+    "lemma": "journaliste",
+    "pos": "NOUN",
+    "rank": 1100,
+    "is_function_word": false,
+    "source_form": "journaliste"
+  },
+  {
+    "lemma": "meme",
+    "pos": "NOUN",
+    "rank": 1101,
+    "is_function_word": false,
+    "source_form": "meme"
+  },
+  {
+    "lemma": "nul",
+    "pos": "ADJ",
+    "rank": 1102,
+    "is_function_word": false,
+    "source_form": "nul"
+  },
+  {
+    "lemma": "perte",
+    "pos": "NOUN",
+    "rank": 1103,
+    "is_function_word": false,
+    "source_form": "perte"
+  },
+  {
+    "lemma": "possibilité",
+    "pos": "NOUN",
+    "rank": 1104,
+    "is_function_word": false,
+    "source_form": "possibilité"
+  },
+  {
+    "lemma": "riche",
+    "pos": "ADJ",
+    "rank": 1105,
+    "is_function_word": false,
+    "source_form": "riche"
+  },
+  {
+    "lemma": "être",
+    "pos": "ADV",
+    "rank": 1106,
+    "is_function_word": false,
+    "source_form": "seraient"
+  },
+  {
+    "lemma": "tuer",
+    "pos": "VERB",
+    "rank": 1107,
+    "is_function_word": false,
+    "source_form": "tuer"
+  },
+  {
+    "lemma": "unité",
+    "pos": "NOUN",
+    "rank": 1108,
+    "is_function_word": false,
+    "source_form": "unité"
+  },
+  {
+    "lemma": "établissement",
+    "pos": "NOUN",
+    "rank": 1109,
+    "is_function_word": false,
+    "source_form": "établissement"
+  },
+  {
+    "lemma": "anniversaire",
+    "pos": "NOUN",
+    "rank": 1110,
+    "is_function_word": false,
+    "source_form": "anniversaire"
+  },
+  {
+    "lemma": "bruxelle",
+    "pos": "ADJ",
+    "rank": 1111,
+    "is_function_word": false,
+    "source_form": "bruxelles"
+  },
+  {
+    "lemma": "café",
+    "pos": "NOUN",
+    "rank": 1112,
+    "is_function_word": false,
+    "source_form": "café"
+  },
+  {
+    "lemma": "chat",
+    "pos": "NOUN",
+    "rank": 1113,
+    "is_function_word": false,
+    "source_form": "chat"
+  },
+  {
+    "lemma": "chiffre",
+    "pos": "NOUN",
+    "rank": 1114,
+    "is_function_word": false,
+    "source_form": "chiffres"
+  },
+  {
+    "lemma": "coin",
+    "pos": "NOUN",
+    "rank": 1115,
+    "is_function_word": false,
+    "source_form": "coin"
+  },
+  {
+    "lemma": "el",
+    "pos": "ADV",
+    "rank": 1116,
+    "is_function_word": false,
+    "source_form": "el"
+  },
+  {
+    "lemma": "identité",
+    "pos": "NOUN",
+    "rank": 1117,
+    "is_function_word": false,
+    "source_form": "identité"
+  },
+  {
+    "lemma": "intéressant",
+    "pos": "ADJ",
+    "rank": 1118,
+    "is_function_word": false,
+    "source_form": "intéressant"
+  },
+  {
+    "lemma": "lance",
+    "pos": "NOUN",
+    "rank": 1119,
+    "is_function_word": false,
+    "source_form": "lance"
+  },
+  {
+    "lemma": "largement",
+    "pos": "ADV",
+    "rank": 1120,
+    "is_function_word": false,
+    "source_form": "largement"
+  },
+  {
+    "lemma": "martin",
+    "pos": "ADJ",
+    "rank": 1121,
+    "is_function_word": false,
+    "source_form": "martin"
+  },
+  {
+    "lemma": "mets",
+    "pos": "NOUN",
+    "rank": 1122,
+    "is_function_word": false,
+    "source_form": "mets"
+  },
+  {
+    "lemma": "mi",
+    "pos": "ADJ",
+    "rank": 1123,
+    "is_function_word": false,
+    "source_form": "mi"
+  },
+  {
+    "lemma": "moindre",
+    "pos": "ADJ",
+    "rank": 1124,
+    "is_function_word": false,
+    "source_form": "moindre"
+  },
+  {
+    "lemma": "no",
+    "pos": "NOUN",
+    "rank": 1125,
+    "is_function_word": false,
+    "source_form": "no"
+  },
+  {
+    "lemma": "parcours",
+    "pos": "NOUN",
+    "rank": 1126,
+    "is_function_word": false,
+    "source_form": "parcours"
+  },
+  {
+    "lemma": "parfaitement",
+    "pos": "ADV",
+    "rank": 1127,
+    "is_function_word": false,
+    "source_form": "parfaitement"
+  },
+  {
+    "lemma": "partage",
+    "pos": "NOUN",
+    "rank": 1128,
+    "is_function_word": false,
+    "source_form": "partage"
+  },
+  {
+    "lemma": "pont",
+    "pos": "NOUN",
+    "rank": 1129,
+    "is_function_word": false,
+    "source_form": "pont"
+  },
+  {
+    "lemma": "protéger",
+    "pos": "VERB",
+    "rank": 1130,
+    "is_function_word": false,
+    "source_form": "protéger"
+  },
+  {
+    "lemma": "préférer",
+    "pos": "VERB",
+    "rank": 1131,
+    "is_function_word": false,
+    "source_form": "préfère"
+  },
+  {
+    "lemma": "remettre",
+    "pos": "VERB",
+    "rank": 1132,
+    "is_function_word": false,
+    "source_form": "remettre"
+  },
+  {
+    "lemma": "responsabiliter",
+    "pos": "VERB",
+    "rank": 1133,
+    "is_function_word": false,
+    "source_form": "responsabilité"
+  },
+  {
+    "lemma": "scientifique",
+    "pos": "ADJ",
+    "rank": 1134,
+    "is_function_word": false,
+    "source_form": "scientifique"
+  },
+  {
+    "lemma": "tirer",
+    "pos": "VERB",
+    "rank": 1135,
+    "is_function_word": false,
+    "source_form": "tirer"
+  },
+  {
+    "lemma": "violence",
+    "pos": "NOUN",
+    "rank": 1136,
+    "is_function_word": false,
+    "source_form": "violence"
+  },
+  {
+    "lemma": "voire",
+    "pos": "CCONJ",
+    "rank": 1137,
+    "is_function_word": true,
+    "source_form": "voire"
+  },
+  {
+    "lemma": "élevé",
+    "pos": "ADJ",
+    "rank": 1138,
+    "is_function_word": false,
+    "source_form": "élevé"
+  },
+  {
+    "lemma": "aimer",
+    "pos": "VERB",
+    "rank": 1139,
+    "is_function_word": false,
+    "source_form": "aimé"
+  },
+  {
+    "lemma": "attend",
+    "pos": "NOUN",
+    "rank": 1140,
+    "is_function_word": false,
+    "source_form": "attends"
+  },
+  {
+    "lemma": "beauté",
+    "pos": "NOUN",
+    "rank": 1141,
+    "is_function_word": false,
+    "source_form": "beauté"
+  },
+  {
+    "lemma": "bleu",
+    "pos": "VERB",
+    "rank": 1142,
+    "is_function_word": false,
+    "source_form": "bleu"
+  },
+  {
+    "lemma": "but",
+    "pos": "ADJ",
+    "rank": 1143,
+    "is_function_word": false,
+    "source_form": "buts"
+  },
+  {
+    "lemma": "champ",
+    "pos": "ADJ",
+    "rank": 1144,
+    "is_function_word": false,
+    "source_form": "champ"
+  },
+  {
+    "lemma": "conférence",
+    "pos": "NOUN",
+    "rank": 1145,
+    "is_function_word": false,
+    "source_form": "conférence"
+  },
+  {
+    "lemma": "cuisine",
+    "pos": "NOUN",
+    "rank": 1146,
+    "is_function_word": false,
+    "source_form": "cuisine"
+  },
+  {
+    "lemma": "danger",
+    "pos": "VERB",
+    "rank": 1147,
+    "is_function_word": false,
+    "source_form": "danger"
+  },
+  {
+    "lemma": "député",
+    "pos": "NOUN",
+    "rank": 1148,
+    "is_function_word": false,
+    "source_form": "député"
+  },
+  {
+    "lemma": "foi",
+    "pos": "NOUN",
+    "rank": 1149,
+    "is_function_word": false,
+    "source_form": "foi"
+  },
+  {
+    "lemma": "football",
+    "pos": "NOUN",
+    "rank": 1150,
+    "is_function_word": false,
+    "source_form": "football"
+  },
+  {
+    "lemma": "googl",
+    "pos": "ADJ",
+    "rank": 1151,
+    "is_function_word": false,
+    "source_form": "google"
+  },
+  {
+    "lemma": "lycer",
+    "pos": "VERB",
+    "rank": 1152,
+    "is_function_word": false,
+    "source_form": "lycée"
+  },
+  {
+    "lemma": "mercredi",
+    "pos": "NOUN",
+    "rank": 1153,
+    "is_function_word": false,
+    "source_form": "mercredi"
+  },
+  {
+    "lemma": "milliard",
+    "pos": "NOUN",
+    "rank": 1154,
+    "is_function_word": false,
+    "source_form": "milliards"
+  },
+  {
+    "lemma": "mourir",
+    "pos": "VERB",
+    "rank": 1155,
+    "is_function_word": false,
+    "source_form": "mourir"
+  },
+  {
+    "lemma": "objet",
+    "pos": "NOUN",
+    "rank": 1156,
+    "is_function_word": false,
+    "source_form": "objets"
+  },
+  {
+    "lemma": "opinion",
+    "pos": "NOUN",
+    "rank": 1157,
+    "is_function_word": false,
+    "source_form": "opinion"
+  },
+  {
+    "lemma": "participer",
+    "pos": "VERB",
+    "rank": 1158,
+    "is_function_word": false,
+    "source_form": "participer"
+  },
+  {
+    "lemma": "personnage",
+    "pos": "NOUN",
+    "rank": 1159,
+    "is_function_word": false,
+    "source_form": "personnage"
+  },
+  {
+    "lemma": "planèt",
+    "pos": "ADJ",
+    "rank": 1160,
+    "is_function_word": false,
+    "source_form": "planète"
+  },
+  {
+    "lemma": "québécois",
+    "pos": "NUM",
+    "rank": 1161,
+    "is_function_word": false,
+    "source_form": "québécois"
+  },
+  {
+    "lemma": "retard",
+    "pos": "NOUN",
+    "rank": 1162,
+    "is_function_word": false,
+    "source_form": "retard"
+  },
+  {
+    "lemma": "sexe",
+    "pos": "NOUN",
+    "rank": 1163,
+    "is_function_word": false,
+    "source_form": "sexe"
+  },
+  {
+    "lemma": "situer",
+    "pos": "VERB",
+    "rank": 1164,
+    "is_function_word": false,
+    "source_form": "situé"
+  },
+  {
+    "lemma": "théorie",
+    "pos": "NOUN",
+    "rank": 1165,
+    "is_function_word": false,
+    "source_form": "théorie"
+  },
+  {
+    "lemma": "verre",
+    "pos": "NOUN",
+    "rank": 1166,
+    "is_function_word": false,
+    "source_form": "verre"
+  },
+  {
+    "lemma": "agence",
+    "pos": "NOUN",
+    "rank": 1167,
+    "is_function_word": false,
+    "source_form": "agence"
+  },
+  {
+    "lemma": "artiste",
+    "pos": "VERB",
+    "rank": 1168,
+    "is_function_word": false,
+    "source_form": "artiste"
+  },
+  {
+    "lemma": "artiste",
+    "pos": "ADJ",
+    "rank": 1169,
+    "is_function_word": false,
+    "source_form": "artistes"
+  },
+  {
+    "lemma": "assurance",
+    "pos": "NOUN",
+    "rank": 1170,
+    "is_function_word": false,
+    "source_form": "assurance"
+  },
+  {
+    "lemma": "autorité",
+    "pos": "NOUN",
+    "rank": 1171,
+    "is_function_word": false,
+    "source_form": "autorité"
+  },
+  {
+    "lemma": "bus",
+    "pos": "NOUN",
+    "rank": 1172,
+    "is_function_word": false,
+    "source_form": "bus"
+  },
+  {
+    "lemma": "certainement",
+    "pos": "ADV",
+    "rank": 1173,
+    "is_function_word": false,
+    "source_form": "certainement"
+  },
+  {
+    "lemma": "citoyen",
+    "pos": "NOUN",
+    "rank": 1174,
+    "is_function_word": false,
+    "source_form": "citoyens"
+  },
+  {
+    "lemma": "clairement",
+    "pos": "ADV",
+    "rank": 1175,
+    "is_function_word": false,
+    "source_form": "clairement"
+  },
+  {
+    "lemma": "collection",
+    "pos": "NOUN",
+    "rank": 1176,
+    "is_function_word": false,
+    "source_form": "collection"
+  },
+  {
+    "lemma": "conscience",
+    "pos": "NOUN",
+    "rank": 1177,
+    "is_function_word": false,
+    "source_form": "conscience"
+  },
+  {
+    "lemma": "content",
+    "pos": "ADV",
+    "rank": 1178,
+    "is_function_word": false,
+    "source_form": "content"
+  },
+  {
+    "lemma": "croissance",
+    "pos": "NOUN",
+    "rank": 1179,
+    "is_function_word": false,
+    "source_form": "croissance"
+  },
+  {
+    "lemma": "célèbre",
+    "pos": "ADJ",
+    "rank": 1180,
+    "is_function_word": false,
+    "source_form": "célèbre"
+  },
+  {
+    "lemma": "davantage",
+    "pos": "ADV",
+    "rank": 1181,
+    "is_function_word": false,
+    "source_form": "davantage"
+  },
+  {
+    "lemma": "distance",
+    "pos": "NOUN",
+    "rank": 1182,
+    "is_function_word": false,
+    "source_form": "distance"
+  },
+  {
+    "lemma": "détail",
+    "pos": "NOUN",
+    "rank": 1183,
+    "is_function_word": false,
+    "source_form": "détails"
+  },
+  {
+    "lemma": "entier",
+    "pos": "ADJ",
+    "rank": 1184,
+    "is_function_word": false,
+    "source_form": "entier"
+  },
+  {
+    "lemma": "exposition",
+    "pos": "NOUN",
+    "rank": 1185,
+    "is_function_word": false,
+    "source_form": "exposition"
+  },
+  {
+    "lemma": "extrême",
+    "pos": "ADJ",
+    "rank": 1186,
+    "is_function_word": false,
+    "source_form": "extrême"
+  },
+  {
+    "lemma": "figurer",
+    "pos": "VERB",
+    "rank": 1187,
+    "is_function_word": false,
+    "source_form": "figure"
+  },
+  {
+    "lemma": "imagine",
+    "pos": "NOUN",
+    "rank": 1188,
+    "is_function_word": false,
+    "source_form": "imagine"
+  },
+  {
+    "lemma": "influence",
+    "pos": "NOUN",
+    "rank": 1189,
+    "is_function_word": false,
+    "source_form": "influence"
+  },
+  {
+    "lemma": "lecture",
+    "pos": "NOUN",
+    "rank": 1190,
+    "is_function_word": false,
+    "source_form": "lecture"
+  },
+  {
+    "lemma": "masse",
+    "pos": "NOUN",
+    "rank": 1191,
+    "is_function_word": false,
+    "source_form": "masse"
+  },
+  {
+    "lemma": "match",
+    "pos": "CCONJ",
+    "rank": 1192,
+    "is_function_word": true,
+    "source_form": "matchs"
+  },
+  {
+    "lemma": "moderne",
+    "pos": "ADJ",
+    "rank": 1193,
+    "is_function_word": false,
+    "source_form": "moderne"
+  },
+  {
+    "lemma": "mur",
+    "pos": "NOUN",
+    "rank": 1194,
+    "is_function_word": false,
+    "source_form": "mur"
+  },
+  {
+    "lemma": "néanmoins",
+    "pos": "ADV",
+    "rank": 1195,
+    "is_function_word": false,
+    "source_form": "néanmoins"
+  },
+  {
+    "lemma": "penser",
+    "pos": "ADJ",
+    "rank": 1196,
+    "is_function_word": false,
+    "source_form": "pensée"
+  },
+  {
+    "lemma": "priver",
+    "pos": "VERB",
+    "rank": 1197,
+    "is_function_word": false,
+    "source_form": "privée"
+  },
+  {
+    "lemma": "propriétaire",
+    "pos": "NOUN",
+    "rank": 1198,
+    "is_function_word": false,
+    "source_form": "propriétaire"
+  },
+  {
+    "lemma": "propriété",
+    "pos": "ADJ",
+    "rank": 1199,
+    "is_function_word": false,
+    "source_form": "propriété"
+  },
+  {
+    "lemma": "quitter",
+    "pos": "VERB",
+    "rank": 1200,
+    "is_function_word": false,
+    "source_form": "quitter"
+  }
+]
