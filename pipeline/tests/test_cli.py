@@ -112,3 +112,13 @@ def test_validate_command_accepts_the_fixture_pack(capsys):
 
     assert cli.main(["validate", str(FIXTURES / "fr-mini.pack.json")]) == 0
     assert cli.main(["validate", str(FIXTURES / "invalid" / "dup-id.pack.json")]) == 1
+
+
+def test_prompts_clears_stale_batches(workspace):
+    """NFR-10 re-running with a different --batch does not leave mis-aligned prompts."""
+    assert cli.main(["words", "fr", "--pool", "40", "--limit", "3"]) == 0
+    assert cli.main(["prompts", "fr", "--batch", "1"]) == 0
+    assert len(list((workspace / "work/fr/prompts").glob("*.md"))) == 3
+
+    assert cli.main(["prompts", "fr", "--batch", "3"]) == 0
+    assert [p.name for p in (workspace / "work/fr/prompts").glob("*.md")] == ["001.md"]

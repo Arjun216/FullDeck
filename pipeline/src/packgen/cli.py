@@ -94,6 +94,10 @@ def cmd_prompts(args) -> int:
     candidates = _load_candidates(lang)
     prompts_dir = WORK / lang / "prompts"
     prompts_dir.mkdir(parents=True, exist_ok=True)
+    # Clear first: `pack` derives each batch's rank range from --batch, so a stale
+    # prompt from a different batch size would silently mis-align the ranks.
+    for stale in prompts_dir.glob("*.md"):
+        stale.unlink()
 
     for n, start in enumerate(range(0, len(candidates), args.batch), start=1):
         batch = candidates[start : start + args.batch]
