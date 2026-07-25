@@ -1,0 +1,89 @@
+name: CI
+
+# Runs on every push and every pull request (build + test + lint), per the plan.
+on:
+  push:
+  pull_request:
+
+# If you push again before a run finishes, cancel the older run for the same
+# branch. macOS runner minutes are the expensive ones on the free tier (billed
+# 10x), so don't pay for a run you've already superseded.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-test:
+    # iOS builds need Xcode, which only exists on macOS runner images.
+    runs-on: macos-15
+    steps:
+      # Pull the repo onto the runner.
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Toolchain: use the runner's DEFAULT Xcode. Counterintuitively that's the right
+      # one here — its iOS simulator runtime is the one actually installed on this
+      # image. The newer co-installed Xcode ships the iOS SDK but NO iOS *simulator*
+      # runtime, so selecting it leaves the UI test nowhere to run. The app's iOS 17
+      # minimum keeps those installed sims eligible.
+      - name: Toolchain versions
+        run: |
+          swift --version
+          xcodebuild -version
+
+      # ---- Domain package: pure Swift, no simulator, runs in seconds ----
+      # -Xswiftc -warnings-as-errors is what actually enforces the Swift 6
+      # strict-concurrency model from architecture.md §4: a warning fails the build.
+      - name: Domain — test with coverage (warnings as errors)
+        run: swift test --package-path Packages/Domain --enable-code-coverage -Xswiftc -warnings-as-errors
+      - name: Domain — coverage gate (>= 90%)
+        run: scripts/coverage-gate.sh Packages/Domain 90 DomainPackageTests
+
+      # ---- Data package: imports Domain, still no simulator ----
+      - name: Data — test with coverage (warnings as errors)
+        run: swift test --package-path Packages/Data --enable-code-coverage -Xswiftc -warnings-as-errors
+      - name: Data — coverage gate (>= 80%)
+        run: scripts/coverage-gate.sh Packages/Data 80 DataPackageTests
+
+      # ---- Cross-cutting gates (CLAUDE.md testing standards) ----
+      # Fails if any test reads wall-clock time or uses unseeded randomness.
+      - name: Determinism check
+        run: scripts/determinism-check.sh
+      # Reports which FR-/NFR- IDs still lack a naming test. Report only — never fails.
+      - name: Requirements traceability (report only)
+        run: scripts/trace-requirements.sh
+
+      # ---- Lint: SwiftLint in --strict mode (any violation fails) ----
+      # Use the runner's preinstalled swiftlint if present, else install it.
+      - name: SwiftLint
+        run: |
+          command -v swiftlint >/dev/null 2>&1 || brew install swiftlint
+          swiftlint lint --strict
+
+      # ---- App target: the thin SwiftUI shell. Needs Xcode + a simulator ----
+      # Requires the FullDeck Xcode project with a *shared* scheme named "FullDeck".
+      # Resolve the destination at runtime to the newest iPhone the ACTIVE Xcode can
+      # drive: `xcodebuild -showdestinations` (not `simctl list devices`) lists only
+      # devices this Xcode can actually run that also meet the app's iOS 17 minimum.
+      # GitHub's image co-installs newer iOS runtimes the default Xcode can't drive;
+      # showdestinations filters those out. Survives Xcode/device churn. Diagnostics
+      # dump on failure so any future runner change is debuggable from one log.
+      - name: App — build & test (iOS Simulator)
+        run: |
+          DEVICE=$(xcodebuild -showdestinations \
+            -project FullDeck/FullDeck.xcodeproj -scheme FullDeck 2>/dev/null \
+            | grep -oE 'name:iPhone [0-9]+' | grep -oE 'iPhone [0-9]+' \
+            | sort -Vr | head -1)
+          if [ -z "$DEVICE" ]; then
+            echo "No usable iPhone simulator. Diagnostics:"
+            xcrun simctl list runtimes
+            xcrun simctl list devices available
+            xcodebuild -showdestinations -project FullDeck/FullDeck.xcodeproj -scheme FullDeck
+            exit 1
+          fi
+          echo "Using simulator: $DEVICE"
+          xcodebuild test \
+            -project FullDeck/FullDeck.xcodeproj \
+            -scheme FullDeck \
+            -destination "platform=iOS Simulator,name=$DEVICE" \
+            CODE_SIGNING_ALLOWED=NO

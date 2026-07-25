@@ -1,0 +1,22 @@
+# macOS
+.DS_Store
+
+# Xcode — user-specific state only. The project files themselves ARE committed:
+# Xcode 16 synchronized folder groups keep project.pbxproj stable and mergeable.
+xcuserdata/
+*.xcuserstate
+*.xcscmblueprint
+*.xccheckout
+DerivedData/
+build/
+
+# Swift Package Manager build products & per-user package state
+.build/
+.swiftpm/
+
+# Tooling / build caches
+*.hmap
+*.ipa
+*.dSYM
+*.dSYM.zip
+timeline.xctimeline

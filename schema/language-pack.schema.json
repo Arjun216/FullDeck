@@ -1,0 +1,133 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://topwords.app/schema/language-pack.schema.json",
+  "title": "TopWords language pack (schema_version 1)",
+  "description": "Structural contract for a TopWords language pack. This schema enforces the type/enum/shape layer of docs/language-pack-schema.md (VR-1, VR-6, VR-7, and the non-empty/format parts of VR-5/VR-8/VR-9). Rules that JSON Schema cannot express are enforced by the Phase 6 pipeline validator, NOT here: VR-2 (word_count == entry count), VR-3 (id unique across entries), VR-4 (id == {language_code}:{lemma}:{pos}), VR-5 (rank unique), VR-10 (the example-sentence frequency constraint), VR-11 (base_language required when a gloss exists), VR-12 (audio refs resolve), VR-13 (aliases globally unique), VR-16 (language_code matches manifest + id prefixes), VR-17/VR-18 (shippable-profile 1000-word rules). A pack passing this schema is well-formed, not necessarily shippable.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "pack_version",
+    "language_code",
+    "language_name",
+    "word_count",
+    "source",
+    "words"
+  ],
+  "properties": {
+    "schema_version": {
+      "description": "Major version of this contract. This schema file validates version 1 only.",
+      "type": "integer",
+      "const": 1
+    },
+    "pack_version": {
+      "description": "Semver of this pack's content, independent of schema_version.",
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "language_code": {
+      "description": "BCP-47 language tag, e.g. 'fr', 'hi', 'pt-BR'.",
+      "type": "string",
+      "pattern": "^[a-z]{2,3}(-[A-Za-z0-9]+)*$"
+    },
+    "language_name": { "type": "string", "minLength": 1 },
+    "base_language": {
+      "description": "Language the gloss values are written in. Required (by the pipeline validator, VR-11) when any entry has a gloss.",
+      "type": "string",
+      "pattern": "^[a-z]{2,3}(-[A-Za-z0-9]+)*$"
+    },
+    "word_count": {
+      "description": "Number of entries. Pipeline enforces == entry count (VR-2) and == 1000 for shippable packs (VR-17).",
+      "type": "integer",
+      "minimum": 0
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "license", "attribution"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "url": { "type": "string", "format": "uri" },
+        "license": { "type": "string", "minLength": 1 },
+        "attribution": { "type": "string", "minLength": 1 },
+        "notes": { "type": "string" }
+      }
+    },
+    "generator": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "tool": { "type": "string" },
+        "model": { "type": "string" },
+        "created": { "type": "string" }
+      }
+    },
+    "words": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/entry" }
+    }
+  },
+  "$defs": {
+    "entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "lemma",
+        "display",
+        "pos",
+        "rank",
+        "register",
+        "is_function_word",
+        "example"
+      ],
+      "properties": {
+        "id": {
+          "description": "{language_code}:{lemma}:{pos}. Exact derivation is checked by the pipeline (VR-4); this is a shape check only.",
+          "type": "string",
+          "pattern": "^[a-z]{2,3}(-[A-Za-z0-9]+)*:.+:[A-Z]+$"
+        },
+        "lemma": { "type": "string", "minLength": 1 },
+        "display": { "type": "string", "minLength": 1 },
+        "pos": {
+          "description": "Universal POS tag. Entry-valid set only: no PROPN/PUNCT/SYM/X/SPACE (VR-6).",
+          "enum": [
+            "NOUN", "VERB", "ADJ", "ADV", "NUM", "INTJ",
+            "DET", "ADP", "PRON", "AUX", "CCONJ", "SCONJ", "PART"
+          ]
+        },
+        "rank": { "type": "integer", "minimum": 1 },
+        "register": { "enum": ["casual", "neutral", "formal"] },
+        "is_function_word": { "type": "boolean" },
+        "gloss": { "type": "string", "minLength": 1 },
+        "example": { "type": "string", "minLength": 1 },
+        "audio": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "word": { "type": "string", "minLength": 1 },
+            "sentence": { "type": "string", "minLength": 1 }
+          }
+        },
+        "aliases": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "uniqueItems": true
+        }
+      },
+      "allOf": [
+        {
+          "$comment": "VR-7: is_function_word must equal (pos in CLOSED_CLASS).",
+          "if": {
+            "properties": {
+              "pos": { "enum": ["DET", "ADP", "PRON", "AUX", "CCONJ", "SCONJ", "PART"] }
+            }
+          },
+          "then": { "properties": { "is_function_word": { "const": true } } },
+          "else": { "properties": { "is_function_word": { "const": false } } }
+        }
+      ]
+    }
+  }
+}
