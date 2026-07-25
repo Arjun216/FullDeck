@@ -11,6 +11,9 @@
 
 disabled_rules:
   - todo            # TODO/ponytail: shortcuts are tracked via /ponytail-debt, not the linter
+  - trailing_comma  # swift format owns comma style — it MANDATES trailing commas in
+                    # multi-line collections (modern Swift, cleaner diffs). SwiftLint's
+                    # default forbids them, so the two fight. One authority: swift format.
 
 opt_in_rules:
   - empty_count
