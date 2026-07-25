@@ -21,18 +21,22 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # Diagnostic: record exactly which toolchain the runner handed us. If this
-      # prints a Swift older than 6.x, uncomment the "Select Xcode" step below.
+      # Select the newest Xcode on the runner. GitHub's macOS image co-installs
+      # several Xcodes; the default (16.4) is older than what created the project
+      # (Xcode 26) and, on this image, has no usable iOS Simulator runtime — only
+      # the newest Xcode has the iOS SDK + iPhone sims we need. Picking it also
+      # gives parity with local dev. Robust to the exact version in the app name.
+      - name: Select newest Xcode
+        run: |
+          LATEST=$(ls -d /Applications/Xcode_*.app | sort -V | tail -1)
+          echo "Selecting $LATEST"
+          sudo xcode-select -s "$LATEST/Contents/Developer"
+
+      # Diagnostic: record exactly which toolchain we're building with.
       - name: Toolchain versions
         run: |
           swift --version
           xcodebuild -version
-
-      # If the default Xcode is too old for our Swift 6 packages, pin it here.
-      # (Left off by default to avoid a needless step — the diagnostic above tells
-      # us if we need it. The exact app path is visible in that step's log.)
-      # - name: Select Xcode
-      #   run: sudo xcode-select -s /Applications/Xcode_26.app
 
       # ---- Domain package: pure Swift, no simulator, runs in seconds ----
       # -Xswiftc -warnings-as-errors is what actually enforces the Swift 6
@@ -71,13 +75,13 @@ jobs:
       # in the global sim set but aren't usable by the default Xcode — showdestinations
       # only lists what this Xcode can actually drive. Survives Xcode/device churn.
       #
-      # IPHONEOS_DEPLOYMENT_TARGET override: the project was created by Xcode 26,
-      # which defaults new apps to iOS 26.5 as the *minimum*. That can't build on
-      # this runner's iOS 18 SDK, and 26.5 is the wrong floor for a shippable app
-      # anyway. We override to 17.0 — the real minimum this app supports (lowest iOS
-      # with ContentUnavailableView + the Observation framework). Deployment target
-      # 17 builds fine against the 18 SDK. TODO(release): lower the project's own
-      # setting to match so local dev and CI agree (currently local builds at 26.5).
+      # IPHONEOS_DEPLOYMENT_TARGET override: Xcode 26 defaults new apps to iOS 26.5
+      # as the *minimum* — the wrong floor for a shippable app (only the very newest
+      # devices could install it). Override to 17.0, the real minimum this app
+      # supports (lowest iOS with ContentUnavailableView + the Observation framework),
+      # so CI enforces that floor. Builds fine against the newer SDK. TODO(release):
+      # lower the project's own setting to 17.0 so local dev and CI agree (local
+      # currently builds at 26.5).
       - name: App — build & test (iOS Simulator)
         run: |
           DEVICE=$(xcodebuild -showdestinations \
