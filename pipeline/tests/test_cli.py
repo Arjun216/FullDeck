@@ -122,3 +122,94 @@ def test_prompts_clears_stale_batches(workspace):
 
     assert cli.main(["prompts", "fr", "--batch", "3"]) == 0
     assert [p.name for p in (workspace / "work/fr/prompts").glob("*.md")] == ["001.md"]
+
+
+# --- automated generation via the Claude Code CLI ---------------------------
+
+
+def fake_claude(monkeypatch, replies):
+    """Stand in for `claude --print`. `replies` is a list consumed per invocation."""
+    calls = []
+
+    def run(argv, **kwargs):
+        calls.append(argv[-1])  # the prompt is the last argv element
+        import subprocess
+
+        return subprocess.CompletedProcess(argv, 0, replies.pop(0), "")
+
+    monkeypatch.setattr("subprocess.run", run)
+    return calls
+
+
+def test_generate_writes_replies_where_pack_reads_them(workspace, monkeypatch):
+    """FR-6 `generate` answers each prompt and drops it in responses/, like a paste would."""
+    assert cli.main(["words", "fr", "--pool", "40", "--limit", "3"]) == 0
+    assert cli.main(["prompts", "fr", "--batch", "3"]) == 0
+
+    calls = fake_claude(monkeypatch, [json.dumps(VALID_ENTRIES)])
+    assert cli.main(["generate", "fr", "--batch", "3"]) == 0
+
+    assert len(calls) == 1 and "de" in calls[0]  # the prompt text was passed through
+    assert (workspace / "work/fr/responses/001.json").exists()
+    assert cli.main(["pack", "fr", "--batch", "3", "--limit", "3", "--profile", "structural"]) == 0
+
+
+def test_generate_skips_prompts_already_answered(workspace, monkeypatch):
+    """FR-6 a re-run resumes instead of re-asking -- 24 batches must survive an interruption."""
+    assert cli.main(["words", "fr", "--pool", "40", "--limit", "3"]) == 0
+    assert cli.main(["prompts", "fr", "--batch", "3"]) == 0
+    write_response(workspace, VALID_ENTRIES)
+
+    calls = fake_claude(monkeypatch, [])
+    assert cli.main(["generate", "fr", "--batch", "3"]) == 0
+    assert calls == []
+
+
+def test_generate_keeps_only_replies_that_parse(workspace, monkeypatch):
+    """NFR-10 a truncated reply is quarantined, not saved as if it were an answer."""
+    assert cli.main(["words", "fr", "--pool", "40", "--limit", "3"]) == 0
+    assert cli.main(["prompts", "fr", "--batch", "3"]) == 0
+
+    fake_claude(monkeypatch, ["I'm afraid I can't do that."])
+    assert cli.main(["generate", "fr", "--batch", "3"]) == 1
+
+    assert not (workspace / "work/fr/responses/001.json").exists()
+    assert (workspace / "work/fr/responses/001.json.bad").exists()
+
+
+def test_generate_reports_a_failing_cli_without_dying(workspace, monkeypatch):
+    """NFR-10 a `claude` failure on one batch does not abort the other 23."""
+    assert cli.main(["words", "fr", "--pool", "40", "--limit", "3"]) == 0
+    assert cli.main(["prompts", "fr", "--batch", "1"]) == 0
+
+    import subprocess
+
+    def run(argv, **kwargs):
+        # "- rank 1:" appears only in the first prompt's target list; every prompt
+        # mentions `de`, since it heads the shared vocabulary list.
+        if "- rank 1:" in argv[-1]:
+            return subprocess.CompletedProcess(argv, 1, "", "Not logged in")
+        return subprocess.CompletedProcess(argv, 0, json.dumps([VALID_ENTRIES[1]]), "")
+
+    monkeypatch.setattr("subprocess.run", run)
+    assert cli.main(["generate", "fr", "--batch", "1"]) == 1
+
+    assert not (workspace / "work/fr/responses/001.json").exists()
+    assert (workspace / "work/fr/responses/002.json").exists()  # later batches still ran
+
+
+def test_a_retry_answer_overrides_the_batch_answer(workspace, monkeypatch):
+    """FR-6 the regenerated word wins over the batch reply it is fixing."""
+    assert cli.main(["words", "fr", "--pool", "40", "--limit", "3"]) == 0
+
+    broken = [dict(e) for e in VALID_ENTRIES]
+    broken[2]["example"] = "Le chat et le chien."  # content words not in the pack
+    write_response(workspace, broken)
+    assert cli.main(["pack", "fr", "--batch", "3", "--limit", "3", "--profile", "structural"]) == 1
+
+    fixed = json.dumps([VALID_ENTRIES[2]])
+    (workspace / "work/fr/retry/0003.json").write_text(fixed, encoding="utf-8")
+    assert cli.main(["pack", "fr", "--batch", "3", "--limit", "3", "--profile", "structural"]) == 0
+
+    pack = json.loads((workspace / "packs/fr.pack.json").read_text(encoding="utf-8"))
+    assert pack["words"][2]["example"] == "C'est Paul et Paul."

@@ -1,12 +1,20 @@
-"""packgen CLI -- four stages, with the copy-paste to claude.ai between 2 and 3.
+"""packgen CLI.
 
-    packgen words fr        # wordfreq + spaCy  -> work/fr/candidates.json
-    packgen prompts fr      # candidates        -> work/fr/prompts/NNN.md   [paste these]
-    packgen pack fr         # responses/NNN.json-> packs/fr.pack.json + validation report
+    packgen words fr        # wordfreq + spaCy   -> work/fr/candidates.json
+    packgen prompts fr      # candidates         -> work/fr/prompts/NNN.md
+    packgen generate fr     # prompts            -> work/fr/responses/NNN.json
+    packgen pack fr         # responses          -> packs/fr.pack.json + validation report
     packgen validate <path> # re-check any pack against the §7 rules
 
+`generate` answers the prompts through the Claude Code CLI (`claude --print`),
+which runs on an existing Claude subscription -- there is no API key anywhere in
+this repo. Pasting the prompts into claude.ai by hand produces the same files, so
+the two are interchangeable.
+
 `pack` is re-runnable: it validates what it built and writes retry prompts for
-exactly the words that failed, so the regeneration loop is paste -> pack -> paste.
+exactly the words that failed. `generate --retry` answers those, and a retry
+answer supersedes the batch answer for its word. The loop converges without
+regenerating anything that already passed.
 """
 
 from __future__ import annotations
@@ -45,6 +53,15 @@ def main(argv: list[str] | None = None) -> int:
     p_prompts.add_argument("language")
     p_prompts.add_argument("--batch", type=int, default=50, help="target words per prompt")
 
+    p_generate = sub.add_parser("generate", help="answer the prompts via the Claude Code CLI")
+    p_generate.add_argument("language")
+    p_generate.add_argument("--model", default="sonnet")
+    p_generate.add_argument("--batch", type=int, default=50, help="must match `prompts --batch`")
+    p_generate.add_argument("--timeout", type=int, default=900, help="seconds per prompt")
+    p_generate.add_argument(
+        "--retry", action="store_true", help="answer work/<lang>/retry/*.md instead"
+    )
+
     p_pack = sub.add_parser("pack", help="assemble + validate the pack from pasted responses")
     p_pack.add_argument("language")
     p_pack.add_argument("--limit", type=int, default=1000)
@@ -63,6 +80,7 @@ def main(argv: list[str] | None = None) -> int:
     return {
         "words": cmd_words,
         "prompts": cmd_prompts,
+        "generate": cmd_generate,
         "pack": cmd_pack,
         "validate": cmd_validate,
     }[args.command](args)
@@ -115,19 +133,85 @@ def cmd_prompts(args) -> int:
     return 0
 
 
+def cmd_generate(args) -> int:
+    """Answer every unanswered prompt by shelling out to the Claude Code CLI.
+
+    `claude --print` runs on your existing Claude subscription -- no API key. It is
+    the same mechanism as ~/Projects/resume_pipeline/run.sh.
+    """
+    lang = args.language
+    candidates = _load_candidates(lang)
+    source = WORK / lang / ("retry" if args.retry else "prompts")
+    # Retries answer in place; batch answers go where the manual paste workflow
+    # puts them, so the two are interchangeable.
+    destination = source if args.retry else WORK / lang / "responses"
+    prompts = sorted(source.glob("*.md"))
+    if not prompts:
+        print(f"no prompts in {source}", file=sys.stderr)
+        return 1
+
+    destination.mkdir(parents=True, exist_ok=True)
+    todo = [p for p in prompts if not (destination / f"{p.stem}.json").exists()]
+    print(f"{len(todo)} of {len(prompts)} prompts to answer ({args.model})")
+
+    failed = []
+    for i, prompt_path in enumerate(todo, start=1):
+        n = int(prompt_path.stem)
+        out_path = destination / f"{prompt_path.stem}.json"
+        expected = (
+            {n}
+            if args.retry
+            else {c.rank for c in candidates[(n - 1) * args.batch : n * args.batch]}
+        )
+        print(f"  [{i}/{len(todo)}] {prompt_path.name} ... ", end="", flush=True)
+
+        try:
+            reply = _run_claude(prompt_path.read_text(encoding="utf-8"), args.model, args.timeout)
+        except Exception as exc:  # noqa: BLE001 -- surface any CLI failure, keep going
+            print(f"FAILED ({exc})")
+            failed.append(prompt_path.name)
+            continue
+
+        # Only a reply that parses is kept, so re-running retries exactly the bad ones.
+        entries, problems = parse_response(reply, expected)
+        if problems:
+            out_path.with_suffix(".json.bad").write_text(reply, encoding="utf-8")
+            print(f"UNUSABLE ({problems[0]})")
+            failed.append(prompt_path.name)
+            continue
+
+        out_path.write_text(reply, encoding="utf-8")
+        print(f"ok ({len(entries)} words)")
+
+    if failed:
+        print(f"\n{len(failed)} unanswered: {', '.join(failed)}", file=sys.stderr)
+        print("re-run this command to retry only those", file=sys.stderr)
+        return 1
+    return 0
+
+
+def _run_claude(prompt: str, model: str, timeout: int) -> str:
+    import subprocess
+
+    result = subprocess.run(
+        ["claude", "--print", "--model", model, prompt],
+        capture_output=True,
+        text=True,
+        timeout=timeout,
+        check=False,
+    )
+    if result.returncode != 0:
+        raise RuntimeError((result.stderr or result.stdout).strip()[:200] or "claude failed")
+    return result.stdout
+
+
 def cmd_pack(args) -> int:
     lang = args.language
     candidates = _load_candidates(lang)
     responses_dir = WORK / lang / "responses"
 
-    generated, errors = [], []
     by_rank = {c.rank: c for c in candidates}
-    for path in sorted(responses_dir.glob("*.json")) if responses_dir.is_dir() else []:
-        n = int(path.stem)
-        expected = {c.rank for c in candidates[(n - 1) * args.batch : n * args.batch]}
-        entries, batch_errors = parse_response(path.read_text(encoding="utf-8"), expected)
-        generated.extend(entries)
-        errors.extend(f"{path.name}: {e}" for e in batch_errors)
+    generated, errors = _ingest(candidates, args.batch, responses_dir, WORK / lang / "retry")
 
     if errors:
         print(f"{len(errors)} response problems -- fix and re-run:", file=sys.stderr)
@@ -194,6 +278,31 @@ def cmd_validate(args) -> int:
 # --- helpers ----------------------------------------------------------------
 
 
+def _ingest(candidates: list[Candidate], batch: int, responses_dir: Path, retry_dir: Path):
+    """Batch replies, then per-word retries layered on top (a retry wins by rank)."""
+    generated: list = []
+    errors: list[str] = []
+
+    def read(path: Path, expected: set[int]) -> None:
+        entries, problems = parse_response(path.read_text(encoding="utf-8"), expected)
+        generated.extend(entries)
+        errors.extend(f"{path.name}: {e}" for e in problems)
+
+    if responses_dir.is_dir():
+        for path in sorted(responses_dir.glob("*.json")):
+            n = int(path.stem)
+            read(path, {c.rank for c in candidates[(n - 1) * batch : n * batch]})
+
+    # Retry files are named for the single candidate rank they regenerate.
+    if retry_dir.is_dir():
+        for path in sorted(retry_dir.glob("*.json")):
+            read(path, {int(path.stem)})
+
+    # Last write wins, so a retry supersedes the batch answer for that rank.
+    deduped = {g.rank: g for g in generated}
+    return list(deduped.values()), errors
+
+
 def _write_retry_prompts(lang: str, candidates: list[Candidate], by_rank: dict, generated, report):
     """One prompt per failing word, quoting the rule that rejected it."""
     # Pack ranks are re-numbered AND the generator may have corrected the lemma, so
@@ -213,6 +322,10 @@ def _write_retry_prompts(lang: str, candidates: list[Candidate], by_rank: dict, 
     for path in retry_dir.glob("*.md"):
         path.unlink()
     for rank, reason in sorted(rejections.items()):
+        # A rank that still violates has a wrong answer on file. Clear it, or
+        # `generate --retry` would skip the word as already answered.
+        for stale in retry_dir.glob(f"{rank:04d}.json*"):
+            stale.unlink()
         (retry_dir / f"{rank:04d}.md").write_text(
             render_prompt(
                 language_name=LANGUAGE_NAMES.get(lang, lang),

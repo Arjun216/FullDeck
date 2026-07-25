@@ -20,18 +20,33 @@ uv sync --project pipeline
 French model — the model is a pinned wheel URL in `pyproject.toml`, so CI and your machine get the
 same one.
 
-## The four stages
+## The stages
 
-Sentences are generated **by hand on claude.ai**, not through the API — so stages 2 and 3 are a
-copy-paste, and no API key exists anywhere in this repo.
+No API key, anywhere. Sentences come from Claude either through the **Claude Code CLI**
+(`claude --print`, running on your existing subscription — the same mechanism as
+`~/Projects/resume_pipeline/run.sh`) or by **pasting the prompts into claude.ai** by hand. Both
+produce the same files, so you can mix them freely.
 
 ```sh
 uv run packgen words fr      # wordfreq + spaCy   -> work/fr/candidates.json  (+ rejected.json)
-uv run packgen prompts fr    # candidates         -> work/fr/prompts/NNN.md   <- paste each of these
-                             #                       save each reply as work/fr/responses/NNN.json
+uv run packgen prompts fr    # candidates         -> work/fr/prompts/NNN.md
+uv run packgen generate fr   # prompts            -> work/fr/responses/NNN.json   [or paste by hand]
 uv run packgen pack fr       # responses          -> packs/fr.pack.json       (validated)
 uv run packgen validate <path>   # re-check any pack on demand
 ```
+
+The whole thing, including the regeneration loop:
+
+```sh
+uv run packgen words fr && uv run packgen prompts fr && uv run packgen generate fr
+until uv run packgen pack fr; do uv run packgen generate fr --retry || break; done
+```
+
+`generate` requires a logged-in `claude` CLI (`claude` → `/login` once). It is **resumable**: a
+reply is only saved if it parses, and prompts that already have an answer are skipped — so an
+interrupted run picks up where it stopped, and a re-run retries exactly the failures. Unusable
+replies are kept as `NNN.json.bad` for inspection. Default model is `sonnet`; override with
+`--model opus`.
 
 **`words`** pulls ~3000 raw tokens for a 1200-lemma buffer above the 1000 the pack needs. wordfreq
 returns *surface forms*, so this stage drops elision fragments (`l`, `d`, `qu`), non-alphabetic
@@ -43,8 +58,10 @@ words, the exact JSON return format, and the vocabulary the learner has already 
 ranks at or above the batch, because offering a rarer word would be offering a §6 violation.
 
 **`pack`** parses the replies (all-or-nothing per batch — a half-ingested batch is worse than a
-re-paste), assembles the pack, and validates it. On failure it writes `work/fr/retry/NNNN.md`:
-one prompt per failing word, quoting the rule that rejected it. The loop is paste → pack → paste.
+re-ask), assembles the pack, and validates it. On failure it writes `work/fr/retry/NNNN.md`: one
+prompt per failing word, quoting the rule that rejected it. `generate --retry` answers those, and
+a retry answer supersedes the batch answer for its word — so the loop converges without
+regenerating anything that already passed.
 
 The prompts also ask Claude to **correct** the lemma and POS, because tagging a bare word out of
 context is unreliable — spaCy proposes `traval`/ADJ for *travaux* and `priver`/ADJ for *privé*.
