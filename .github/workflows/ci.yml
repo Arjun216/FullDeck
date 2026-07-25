@@ -68,6 +68,14 @@ jobs:
       # The destination is resolved at runtime to the newest iPhone simulator the
       # runner actually has, so this survives Xcode upgrades and the yearly device
       # rename (iPhone 16 → 17 → …) without edits.
+      #
+      # IPHONEOS_DEPLOYMENT_TARGET override: the project was created by Xcode 26,
+      # which defaults new apps to iOS 26.5 as the *minimum*. That can't build on
+      # this runner's iOS 18 SDK, and 26.5 is the wrong floor for a shippable app
+      # anyway. We override to 17.0 — the real minimum this app supports (lowest iOS
+      # with ContentUnavailableView + the Observation framework). Deployment target
+      # 17 builds fine against the 18 SDK. TODO(release): lower the project's own
+      # setting to match so local dev and CI agree (currently local builds at 26.5).
       - name: App — build & test (iOS Simulator)
         run: |
           DEVICE=$(xcrun simctl list devices available \
@@ -77,4 +85,5 @@ jobs:
             -project FullDeck/FullDeck.xcodeproj \
             -scheme FullDeck \
             -destination "platform=iOS Simulator,name=$DEVICE" \
+            IPHONEOS_DEPLOYMENT_TARGET=17.0 \
             CODE_SIGNING_ALLOWED=NO
