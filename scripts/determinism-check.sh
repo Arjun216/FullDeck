@@ -24,9 +24,10 @@ fi
 status=0
 
 # Wall-clock "now", sleeps, and unseeded system RNG are never allowed in tests.
-# (Date(timeIntervalSince1970:) is fine — only the no-arg Date() "now" is caught.)
+# Both spellings of Date-now are caught: Date() and Date.now. (Date(timeIntervalSince1970:)
+# is fine — it's a fixed instant, not the clock.)
 # shellcheck disable=SC2086
-if grep -nE 'Date\(\)|Task\.sleep|Thread\.sleep|arc4random|SystemRandomNumberGenerator' $files; then
+if grep -nE 'Date\(\)|Date\.now|Task\.sleep|Thread\.sleep|arc4random|SystemRandomNumberGenerator' $files; then
   status=1
 fi
 
