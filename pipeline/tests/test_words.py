@@ -88,3 +88,17 @@ def test_ranks_are_contiguous_from_one_and_stop_at_the_limit(monkeypatch):
     candidates, _ = build(monkeypatch, forms, {"de": ("de", "ADP")}, limit=3)
     assert [c.rank for c in candidates] == [1, 2, 3]
     assert [c.lemma for c in candidates] == ["de", "chat", "chien"]
+
+
+def test_invented_lemmas_are_flagged_for_review():
+    """FR-6 a lemma the corpus has never seen is reported -- no §7 rule can catch it."""
+    from packgen.words import suspicious_lemmas
+
+    pack = {
+        "language_code": "fr",
+        "words": [
+            {"id": "fr:travail:NOUN", "lemma": "travail"},
+            {"id": "fr:traval:ADJ", "lemma": "traval"},  # the lemmatizer's invention
+        ],
+    }
+    assert suspicious_lemmas(pack) == ["fr:traval:ADJ"]

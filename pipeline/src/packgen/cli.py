@@ -21,7 +21,7 @@ from pathlib import Path
 from packgen.analyze import SpacyAnalyzer
 from packgen.generate import assemble_pack, parse_response, render_prompt
 from packgen.validate import Profile, validate_pack
-from packgen.words import Candidate, build_candidates
+from packgen.words import Candidate, build_candidates, suspicious_lemmas
 
 ROOT = Path(__file__).resolve().parents[2]  # pipeline/
 WORK = ROOT / "work"
@@ -151,6 +151,13 @@ def cmd_pack(args) -> int:
 
     print(f"{pack['word_count']} words, {len(drops)} candidates dropped")
     print(f"sentence tiers: {report.relaxed_fraction:.0%} RELAXED, rest STRICT")
+
+    suspects = suspicious_lemmas(pack)
+    if suspects:
+        _write_json(WORK / lang / "suspect-lemmas.json", suspects)
+        print(
+            f"{len(suspects)} lemmas the corpus has never seen -> work/{lang}/suspect-lemmas.json"
+        )
 
     if not report.ok:
         _write_retry_prompts(lang, candidates, by_rank, generated, report)

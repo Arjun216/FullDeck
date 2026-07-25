@@ -108,6 +108,29 @@ def build_candidates(
     return candidates, rejections
 
 
+# A word in a top-1000 pack whose lemma is rarer than this is a contradiction in
+# terms -- in practice it means the lemmatizer invented the form. Measured on French:
+# 40 of 1200 candidates fall below it, and they are all real errors (`musiqu`,
+# `écrir`, `traval` -- spaCy dropping a final `e`). Testing for *zero* frequency
+# would catch only 11 of them, because the inventions turn up as corpus typos too.
+SUSPECT_FREQUENCY_FLOOR = 1e-6
+
+
+def suspicious_lemmas(pack: dict) -> list[str]:
+    """Entry ids whose lemma is too rare to plausibly be one of a language's top words.
+
+    Nothing in §7 can catch an invented lemma -- it is still non-empty, trimmed and
+    NFC. So this is a *report*, run after assembly, to aim the human review (D4) at
+    the entries most likely to be wrong.
+    """
+    from wordfreq import word_frequency
+
+    code = pack["language_code"]
+    return [
+        w["id"] for w in pack["words"] if word_frequency(w["lemma"], code) < SUSPECT_FREQUENCY_FLOOR
+    ]
+
+
 def _reject_reason(form: str, rules: LanguageRules) -> str | None:
     # Non-alphabetic first, so a stray digit is labelled for what it is rather
     # than swept up by the one-letter rule.
