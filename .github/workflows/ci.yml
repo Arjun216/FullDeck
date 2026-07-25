@@ -24,8 +24,8 @@ jobs:
       # Toolchain: use the runner's DEFAULT Xcode. Counterintuitively that's the right
       # one here — its iOS simulator runtime is the one actually installed on this
       # image. The newer co-installed Xcode ships the iOS SDK but NO iOS *simulator*
-      # runtime, so selecting it leaves the UI test nowhere to run. We build the app
-      # down to iOS 17 (see the app step), which keeps the installed sims eligible.
+      # runtime, so selecting it leaves the UI test nowhere to run. The app's iOS 17
+      # minimum keeps those installed sims eligible.
       - name: Toolchain versions
         run: |
           swift --version
@@ -62,35 +62,23 @@ jobs:
 
       # ---- App target: the thin SwiftUI shell. Needs Xcode + a simulator ----
       # Requires the FullDeck Xcode project with a *shared* scheme named "FullDeck".
-      # Destination is resolved at runtime to the newest iPhone the ACTIVE Xcode can
-      # build for. We ask `xcodebuild -showdestinations` (not `simctl list devices`)
-      # because GitHub's image co-installs a newer iOS runtime whose devices show up
-      # in the global sim set but aren't usable by the default Xcode — showdestinations
-      # only lists what this Xcode can actually drive. Survives Xcode/device churn.
-      #
-      # IPHONEOS_DEPLOYMENT_TARGET override: Xcode 26 defaults new apps to iOS 26.5
-      # as the *minimum* — the wrong floor for a shippable app (only the very newest
-      # devices could install it). Override to 17.0, the real minimum this app
-      # supports (lowest iOS with ContentUnavailableView + the Observation framework),
-      # so CI enforces that floor. Builds fine against the newer SDK. TODO(release):
-      # lower the project's own setting to 17.0 so local dev and CI agree (local
-      # currently builds at 26.5).
+      # Resolve the destination at runtime to the newest iPhone the ACTIVE Xcode can
+      # drive: `xcodebuild -showdestinations` (not `simctl list devices`) lists only
+      # devices this Xcode can actually run that also meet the app's iOS 17 minimum.
+      # GitHub's image co-installs newer iOS runtimes the default Xcode can't drive;
+      # showdestinations filters those out. Survives Xcode/device churn. Diagnostics
+      # dump on failure so any future runner change is debuggable from one log.
       - name: App — build & test (iOS Simulator)
         run: |
-          # Query destinations at the SAME 17.0 floor we build with — otherwise
-          # xcodebuild judges the installed iOS 18 sims ineligible for the project's
-          # 26.5 default and returns nothing. Pick the newest eligible iPhone.
           DEVICE=$(xcodebuild -showdestinations \
-            -project FullDeck/FullDeck.xcodeproj -scheme FullDeck \
-            IPHONEOS_DEPLOYMENT_TARGET=17.0 2>/dev/null \
+            -project FullDeck/FullDeck.xcodeproj -scheme FullDeck 2>/dev/null \
             | grep -oE 'name:iPhone [0-9]+' | grep -oE 'iPhone [0-9]+' \
             | sort -Vr | head -1)
           if [ -z "$DEVICE" ]; then
             echo "No usable iPhone simulator. Diagnostics:"
             xcrun simctl list runtimes
             xcrun simctl list devices available
-            xcodebuild -showdestinations -project FullDeck/FullDeck.xcodeproj \
-              -scheme FullDeck IPHONEOS_DEPLOYMENT_TARGET=17.0
+            xcodebuild -showdestinations -project FullDeck/FullDeck.xcodeproj -scheme FullDeck
             exit 1
           fi
           echo "Using simulator: $DEVICE"
@@ -98,5 +86,4 @@ jobs:
             -project FullDeck/FullDeck.xcodeproj \
             -scheme FullDeck \
             -destination "platform=iOS Simulator,name=$DEVICE" \
-            IPHONEOS_DEPLOYMENT_TARGET=17.0 \
             CODE_SIGNING_ALLOWED=NO
