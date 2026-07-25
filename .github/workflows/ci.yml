@@ -70,15 +70,33 @@ jobs:
       # dump on failure so any future runner change is debuggable from one log.
       - name: App — build & test (iOS Simulator)
         run: |
-          DEVICE=$(xcodebuild -showdestinations \
-            -project FullDeck/FullDeck.xcodeproj -scheme FullDeck 2>/dev/null \
+          # Warm CoreSimulator FIRST. On a cold runner `xcodebuild -showdestinations`
+          # exits 0 having listed only the three placeholder destinations (My Mac,
+          # Any iOS Device, Any iOS Simulator Device) — no concrete simulators at
+          # all, and no error explaining their absence. Touching simctl initializes
+          # CoreSimulator, after which the same command lists every device.
+          xcrun simctl list devices available >/dev/null 2>&1 || true
+
+          # Capture both streams and the exit status, and dump them if selection
+          # fails. The original version piped stdout and sent stderr to /dev/null,
+          # so the step meant to diagnose a missing simulator discarded the only
+          # evidence of why it was missing.
+          out=$(mktemp); err=$(mktemp); status=0
+          xcodebuild -showdestinations \
+            -project FullDeck/FullDeck.xcodeproj -scheme FullDeck \
+            >"$out" 2>"$err" || status=$?
+          echo "showdestinations: exit=$status stdout=$(wc -l <"$out") lines stderr=$(wc -l <"$err") lines"
+          # Read from both streams: which one carries the list has varied by Xcode
+          # version, and this step is not worth another red build.
+          DEVICE=$(cat "$out" "$err" \
             | grep -oE 'name:iPhone [0-9]+' | grep -oE 'iPhone [0-9]+' \
             | sort -Vr | head -1)
           if [ -z "$DEVICE" ]; then
             echo "No usable iPhone simulator. Diagnostics:"
+            echo "--- showdestinations stdout ---"; cat "$out"
+            echo "--- showdestinations stderr ---"; cat "$err"
             xcrun simctl list runtimes
             xcrun simctl list devices available
-            xcodebuild -showdestinations -project FullDeck/FullDeck.xcodeproj -scheme FullDeck
             exit 1
           fi
           echo "Using simulator: $DEVICE"

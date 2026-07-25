@@ -9,6 +9,6 @@ public enum DataScaffold {
     /// Proves the Data layer can see and call into Domain at compile time —
     /// i.e. the inward Domain→Data dependency is wired correctly.
     public static func scaffoldMarker() -> String {
-        "data-sees-\(DomainScaffold.scaffoldMarker())"
+        "data-sees-\(Grade.allCases.count)-grades"
     }
 }

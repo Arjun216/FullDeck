@@ -25,12 +25,22 @@ if [[ ! -f "$prof" || ! -x "$bin" ]]; then
   exit 2
 fi
 
-# Source-only coverage: exclude the test sources and SPM-generated .build files,
-# otherwise uncovered test-runner lines dilute the number.
+# Measure ONLY this package's own Sources. A test binary statically links its
+# dependencies, so Data's binary also carries Domain's coverage mapping — grading
+# the totals would score Data on how well it happens to exercise Domain. Selecting
+# by path also excludes test sources and .build without needing a regex for them.
 pct=$(xcrun llvm-cov export -summary-only \
         -instr-profile "$prof" "$bin" \
-        -ignore-filename-regex='Tests|\.build' \
-      | jq '.data[0].totals.lines.percent')
+      | jq --arg sources "$PWD/$pkg/Sources/" '
+          [.data[0].files[] | select(.filename | startswith($sources)) | .summary.lines]
+          | if length == 0 then null
+            else (map(.covered) | add) * 100 / (map(.count) | add)
+            end')
+
+if [[ "$pct" == "null" ]]; then
+  echo "coverage-gate: no source files matched $pkg/Sources — wrong package or stale build?" >&2
+  exit 2
+fi
 
 awk -v p="$pct" -v m="$min" -v pkg="$pkg" 'BEGIN {
   printf "%s source line coverage: %.2f%% (floor %d%%)\n", pkg, p, m

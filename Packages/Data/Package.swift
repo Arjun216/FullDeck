@@ -7,6 +7,9 @@ import PackageDescription
 // what wires that dependency; Domain has no idea Data exists.
 let package = Package(
     name: "Data",
+    // Must match Domain's floor — SPM rejects a package that depends on one
+    // with a higher deployment target.
+    platforms: [.iOS(.v17), .macOS(.v14)],
     products: [
         .library(name: "Data", targets: ["Data"])
     ],
