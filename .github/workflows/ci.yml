@@ -70,15 +70,26 @@ jobs:
       # dump on failure so any future runner change is debuggable from one log.
       - name: App — build & test (iOS Simulator)
         run: |
-          DEVICE=$(xcodebuild -showdestinations \
-            -project FullDeck/FullDeck.xcodeproj -scheme FullDeck 2>/dev/null \
+          # Capture both streams and the exit status. The previous version piped
+          # stdout and sent stderr to /dev/null, so when this step broke there was
+          # no evidence left of *why* — only "no usable simulator". Never discard
+          # the diagnosis of the thing you're diagnosing.
+          out=$(mktemp); err=$(mktemp); status=0
+          xcodebuild -showdestinations \
+            -project FullDeck/FullDeck.xcodeproj -scheme FullDeck \
+            >"$out" 2>"$err" || status=$?
+          echo "showdestinations: exit=$status stdout=$(wc -l <"$out") lines stderr=$(wc -l <"$err") lines"
+          echo "--- stdout ---"; head -40 "$out"
+          echo "--- stderr ---"; head -40 "$err"
+          # Read from both streams: which one carries the destination list has
+          # varied by Xcode version, and this step is not worth another red build.
+          DEVICE=$(cat "$out" "$err" \
             | grep -oE 'name:iPhone [0-9]+' | grep -oE 'iPhone [0-9]+' \
             | sort -Vr | head -1)
           if [ -z "$DEVICE" ]; then
             echo "No usable iPhone simulator. Diagnostics:"
             xcrun simctl list runtimes
             xcrun simctl list devices available
-            xcodebuild -showdestinations -project FullDeck/FullDeck.xcodeproj -scheme FullDeck
             exit 1
           fi
           echo "Using simulator: $DEVICE"
