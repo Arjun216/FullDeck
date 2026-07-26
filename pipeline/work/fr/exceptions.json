@@ -1,0 +1,3 @@
+{
+  "fr:se:PRON": "§6 is unsatisfiable here. `se` is rank 25, and every verb ranked above it is an auxiliary (être 5, avoir 9) -- a French reflexive requires a lexical verb, and the most frequent one is faire at 35. 'Ça se fait.' misses by ten ranks; no valid sentence exists. Accepted 2026-07-26, pending the Phase 13 human review."
+}

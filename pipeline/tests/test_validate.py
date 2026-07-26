@@ -383,3 +383,55 @@ def test_an_already_met_word_survives_a_mangled_lemma():
     }
     report = validate_pack(pack, analyzer=ScriptedAnalyzer(said))
     assert report.ok, [str(v) for v in report.violations]
+
+
+# --- documented §6 exceptions -----------------------------------------------
+#
+# At the very top of a frequency list the constraint can be genuinely
+# unsatisfiable: `se` is the 25th most common French word, and every verb ranked
+# above it is an auxiliary, so no reflexive sentence can be built. A human may
+# waive §6 for a named entry; nothing else is waivable.
+
+
+def test_an_exception_waives_the_sentence_rule_for_its_entry():
+    """FR-6 a documented §6 exception lets a named entry through."""
+    pack = one_word_pack("se", "PRON", "Ça se fait.")
+    said = {
+        "Ça se fait.": [("Ça", "cela", "PRON"), ("se", "se", "PRON"), ("fait", "faire", "VERB")]
+    }
+    analyzer = ScriptedAnalyzer(said)
+    assert "VR-10" in validate_pack(pack, analyzer=analyzer).rules
+
+    report = validate_pack(pack, analyzer=analyzer, exceptions={"fr:se:PRON": "no lexical verb"})
+    assert report.ok, [str(v) for v in report.violations]
+
+
+def test_a_waived_violation_is_still_reported():
+    """NFR-10 an exception is a record, not a silence -- the waived rule stays visible."""
+    pack = one_word_pack("se", "PRON", "Ça se fait.")
+    said = {
+        "Ça se fait.": [("Ça", "cela", "PRON"), ("se", "se", "PRON"), ("fait", "faire", "VERB")]
+    }
+    report = validate_pack(
+        pack, analyzer=ScriptedAnalyzer(said), exceptions={"fr:se:PRON": "no lexical verb"}
+    )
+    assert [v.rule for v in report.waived] == ["VR-10"]
+    assert report.waived[0].entry_id == "fr:se:PRON"
+
+
+def test_an_exception_waives_nothing_but_the_sentence_rule(valid_pack, analyzer):
+    """NFR-10 §6 is a judgment call; ids, ranks and attribution are not."""
+    pack = copy.deepcopy(valid_pack)
+    pack["words"][3]["display"] = " le chat "  # VR-9, on the same entry
+    report = validate_pack(
+        pack, analyzer=analyzer, exceptions={"fr:chat:NOUN": "waive the sentence rule only"}
+    )
+    assert "VR-9" in report.rules
+
+
+def test_an_exception_does_not_cover_a_different_entry(valid_pack, analyzer):
+    """NFR-10 an exception names one entry and excuses only that one."""
+    pack = copy.deepcopy(valid_pack)
+    pack["words"][0]["example"] = "Je suis un chat."  # target je(1) fails on chat(4)
+    report = validate_pack(pack, analyzer=analyzer, exceptions={"fr:chat:NOUN": "unrelated"})
+    assert "VR-10" in report.rules

@@ -342,3 +342,23 @@ def test_a_retry_targets_the_rank_the_pack_actually_kept(workspace):
     assert cli.main(["pack", "fr", "--batch", "3", "--limit", "3", "--profile", "structural"]) == 1
     manifest = json.loads((workspace / "work/fr/retry/targets.json").read_text(encoding="utf-8"))
     assert manifest == {"001": [2]}, "must retry the kept rank 2, not the merged rank 3"
+
+
+def test_pack_applies_a_documented_exception(workspace):
+    """FR-6 an exceptions file lets a word through and says so on every run."""
+    assert cli.main(["words", "fr", "--pool", "40", "--limit", "3"]) == 0
+
+    broken = [dict(e) for e in VALID_ENTRIES]
+    broken[2]["example"] = "Le chat et le chien."
+    write_response(workspace, broken)
+    pack_args = ["pack", "fr", "--batch", "3", "--limit", "3", "--profile", "structural"]
+    assert cli.main(pack_args) == 1
+
+    (workspace / "work/fr/exceptions.json").write_text(
+        json.dumps({"fr:et:CCONJ": "no vocabulary above rank 3 to build a sentence from"}),
+        encoding="utf-8",
+    )
+    assert cli.main(pack_args) == 0
+    assert (workspace / "packs/fr.pack.json").exists()
+    # And it must not quietly become the loop's problem to fix.
+    assert not list((workspace / "work/fr/retry").glob("*.md"))

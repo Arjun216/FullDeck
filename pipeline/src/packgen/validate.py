@@ -62,6 +62,8 @@ class SentenceTier:
 class Report:
     violations: list[Violation] = field(default_factory=list)
     tiers: list[SentenceTier] = field(default_factory=list)
+    # §6 violations a human has waived: not blocking, but never silent.
+    waived: list[Violation] = field(default_factory=list)
 
     @property
     def ok(self) -> bool:
@@ -88,8 +90,16 @@ def validate_pack(
     profile: Profile = Profile.STRUCTURAL,
     assets_root: Path | None = None,
     schema_path: Path = SCHEMA_PATH,
+    exceptions: dict[str, str] | None = None,
 ) -> Report:
-    """Check `pack` against every rule in §7 for the given profile."""
+    """Check `pack` against every rule in §7 for the given profile.
+
+    `exceptions` maps an entry id to why §6 is waived for it. Only VR-10 can be
+    waived: at the top of a frequency list the constraint is sometimes genuinely
+    unsatisfiable -- `se` is the 25th most common French word and every verb above
+    it is an auxiliary, so no reflexive sentence exists. Every other rule is
+    mechanical, and a pack that breaks one is wrong rather than awkward.
+    """
     report = Report()
 
     # VR-15 first, and alone: a pack from a newer contract must not be read with
@@ -113,6 +123,12 @@ def validate_pack(
 
     if profile is Profile.SHIPPABLE:
         _check_shippable(pack, words, report)
+
+    waivable = exceptions or {}
+    report.waived = [v for v in report.violations if v.rule == "VR-10" and v.entry_id in waivable]
+    if report.waived:
+        blocking = set(map(id, report.waived))
+        report.violations = [v for v in report.violations if id(v) not in blocking]
 
     return report
 

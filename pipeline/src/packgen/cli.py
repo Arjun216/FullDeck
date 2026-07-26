@@ -77,6 +77,9 @@ def main(argv: list[str] | None = None) -> int:
     p_validate.add_argument(
         "--profile", choices=[p.value for p in Profile], default=Profile.STRUCTURAL.value
     )
+    p_validate.add_argument(
+        "--exceptions", type=Path, help=f"a {EXCEPTIONS} of documented §6 waivers"
+    )
 
     args = parser.parse_args(argv)
     return {
@@ -248,11 +251,20 @@ def cmd_pack(args) -> int:
         model="claude.ai (manual)",
     )
 
-    report = validate_pack(pack, analyzer=SpacyAnalyzer(lang), profile=Profile(args.profile))
+    exceptions = _load_exceptions(WORK / lang / EXCEPTIONS)
+    report = validate_pack(
+        pack,
+        analyzer=SpacyAnalyzer(lang),
+        profile=Profile(args.profile),
+        exceptions=exceptions,
+    )
     _write_json(WORK / lang / "drops.json", drops)
 
     print(f"{pack['word_count']} words, {len(drops)} candidates dropped")
     print(f"sentence tiers: {report.relaxed_fraction:.0%} RELAXED, rest STRICT")
+    for v in report.waived:
+        print(f"§6 WAIVED {v.entry_id}: {exceptions[v.entry_id]}")
+        print(f"          {v.message}")
 
     suspects = suspicious_lemmas(pack)
     if suspects:
@@ -274,6 +286,14 @@ def cmd_pack(args) -> int:
             print(f"  {v}", file=sys.stderr)
         return 1
 
+    # Nothing is outstanding any more. Leaving the prompts would have
+    # `generate --retry` re-answer words that already pass; the answers stay,
+    # since those are content.
+    retry_dir = WORK / lang / "retry"
+    for stale in retry_dir.glob("*.md"):
+        stale.unlink()
+    (retry_dir / RETRY_MANIFEST).unlink(missing_ok=True)
+
     PACKS.mkdir(parents=True, exist_ok=True)
     _write_json(PACKS / f"{lang}.pack.json", pack)
     print(f"valid -> {PACKS / f'{lang}.pack.json'}")
@@ -286,7 +306,10 @@ def cmd_validate(args) -> int:
         pack,
         analyzer=SpacyAnalyzer(pack.get("language_code", "")),
         profile=Profile(args.profile),
+        exceptions=_load_exceptions(args.exceptions) if args.exceptions else None,
     )
+    for v in report.waived:
+        print(f"§6 waived: {v}")
     for v in report.violations:
         print(v, file=sys.stderr)
     print(
@@ -409,6 +432,20 @@ RETRY_MANIFEST = "targets.json"
 def _retry_targets(retry_dir: Path) -> dict[str, list[int]]:
     """Which candidate ranks each retry prompt covers."""
     path = retry_dir / RETRY_MANIFEST
+    if not path.is_file():
+        return {}
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+EXCEPTIONS = "exceptions.json"
+
+
+def _load_exceptions(path: Path) -> dict[str, str]:
+    """Entry ids whose §6 violation a human has accepted, and why.
+
+    Hand-authored and committed: an exemption is a decision worth a record and a
+    reviewer, not a flag someone passes to make the build go green.
+    """
     if not path.is_file():
         return {}
     return json.loads(path.read_text(encoding="utf-8"))

@@ -72,6 +72,24 @@ offer *those* as the learned vocabulary rather than the tagger's originals: `can
 still says `luire` where the word is `lui`, and offering that invites a sentence the pack cannot
 satisfy.
 
+## Documented §6 exceptions
+
+At the very top of a frequency list the constraint can be genuinely unsatisfiable. `se` is the
+25th most common French word, and every verb ranked above it is an auxiliary (`être` 5, `avoir` 9)
+— a French reflexive needs a lexical verb, and the first is `faire` at 35. No valid sentence
+exists, at any level of effort.
+
+`work/<lang>/exceptions.json` maps an entry id to why §6 is waived for it:
+
+```json
+{ "fr:se:PRON": "no lexical verb ranked above it; 'Ça se fait.' misses by ten ranks" }
+```
+
+It is hand-authored and committed, because an exemption deserves a record and a reviewer. Only
+**VR-10** can be waived — ids, ranks, duplicate detection and attribution are mechanical, and a
+pack that breaks one of those is wrong rather than awkward. A waived violation is printed on every
+`pack` run and listed by `validate --exceptions`, so it never goes quiet.
+
 ## Prompt size
 
 The vocabulary list is most of a prompt, so it is split by how much the reader has to know about
