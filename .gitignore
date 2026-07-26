@@ -25,8 +25,11 @@ __pycache__/
 # the candidate ranks are what the pasted responses answer, and regenerating a reply
 # by hand is the expensive step. Everything below is derived from those in one command.
 pipeline/work/*/prompts/
-pipeline/work/*/retry/
+pipeline/work/*/retry/*.md
+pipeline/work/*/retry/targets.json
 pipeline/work/*/drops.json
+# ...but retry/answers/ is generated content, not a regenerable prompt: keep it.
+!pipeline/work/*/retry/answers/
 
 # Tooling / build caches
 *.hmap

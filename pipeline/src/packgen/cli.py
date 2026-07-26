@@ -345,7 +345,13 @@ def _write_retry_prompts(
     """
     # Pack ranks are re-numbered AND the generator may have corrected the lemma, so
     # map back through the generated entries -- their rank is the candidate rank.
-    to_candidate_rank = {(g.lemma, g.pos): g.rank for g in generated}
+    # Keep the *lowest* rank per (lemma, POS): assemble_pack keeps the first
+    # candidate and merges the rest, so a retry sent to a merged rank would be
+    # ingested and then dropped again, leaving the sentence unchanged forever.
+    to_candidate_rank: dict[tuple[str, str], int] = {}
+    for g in generated:
+        key = (g.lemma, g.pos)
+        to_candidate_rank[key] = min(to_candidate_rank.get(key, g.rank), g.rank)
     rejections: dict[int, str] = {}
     for v in report.violations:
         if not v.entry_id:

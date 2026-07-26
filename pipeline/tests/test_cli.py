@@ -323,3 +323,22 @@ def test_retry_prompts_offer_the_corrected_lemmas(workspace):
     retry = (workspace / "work/fr/retry/001.md").read_text(encoding="utf-8")
     safe = retry.split("## Words already learned")[1]
     assert "les" in safe.split()
+
+
+def test_a_retry_targets_the_rank_the_pack_actually_kept(workspace):
+    """NFR-10 when two candidates share a lemma, the retry must address the surviving one.
+
+    assemble_pack keeps the first candidate for a (lemma, POS) and merges the rest.
+    A retry addressed to a merged rank is written, ingested, and then dropped again
+    -- the sentence never changes and the loop cannot converge.
+    """
+    assert cli.main(["words", "fr", "--pool", "40", "--limit", "3"]) == 0
+
+    entries = [dict(e) for e in VALID_ENTRIES]
+    entries[1]["example"] = "Le chat."  # rank 2 fails
+    entries[2].update(lemma="le", pos="DET", display="le")  # rank 3 merges into rank 2
+    write_response(workspace, entries)
+
+    assert cli.main(["pack", "fr", "--batch", "3", "--limit", "3", "--profile", "structural"]) == 1
+    manifest = json.loads((workspace / "work/fr/retry/targets.json").read_text(encoding="utf-8"))
+    assert manifest == {"001": [2]}, "must retry the kept rank 2, not the merged rank 3"
