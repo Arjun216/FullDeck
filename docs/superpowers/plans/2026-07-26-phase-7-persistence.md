@@ -15,7 +15,7 @@
 - `-warnings-as-errors` — code must compile clean, no warnings.
 - Coverage floors: Domain ≥ 90%, Data ≥ 80% line coverage (`scripts/coverage-gate.sh`).
 - Test determinism: no `Date()`, no sleeps, no unseeded randomness in test sources (`scripts/determinism-check.sh`) — use fixed `Date(timeIntervalSince1970:)` literals or `.distantPast`, matching `SchedulerTests.swift`'s existing convention.
-- Test display names start with the requirement ID they verify (`@Test("FR-8 ...")`) where one applies; plain descriptive names are fine for structural/scaffolding tests that verify no single acceptance criterion (matches the existing `DataScaffoldTests.swift` precedent).
+- Test display names start with the requirement ID they verify (`@Test("FR-8 ...")`) wherever a genuine FR-/NFR- requirement applies to that behavior. Reserve a plain descriptive name for purely mechanical checks with no requirement behind them (`Equatable` derivation, enum-classification math, path arithmetic) — never as a blanket exemption for a whole test file.
 - Conventional commits, small and focused, one per task (or per sub-cycle where a task's steps note it).
 
 ---
@@ -41,7 +41,7 @@ import Testing
 
 @testable import Domain
 
-@Test("a fresh ReviewState has no milestone dates")
+@Test("FR-17 a fresh ReviewState has no milestone dates")
 func freshReviewStateHasNoMilestones() {
     let state = ReviewState(wordID: WordID("fr:chat:NOUN"))
 
@@ -49,7 +49,7 @@ func freshReviewStateHasNoMilestones() {
     #expect(state.learnedDate == nil)
 }
 
-@Test("milestone dates round-trip through ReviewState's initializer")
+@Test("FR-17 milestone dates round-trip through ReviewState's initializer")
 func milestoneDatesRoundTrip() {
     let reviewed = Date(timeIntervalSince1970: 1_000)
     let learned = Date(timeIntervalSince1970: 2_000)
@@ -361,7 +361,7 @@ private func makePack() -> LanguagePack {
         source: PackSource(name: "test", license: "CC0-1.0", attribution: "test"), words: [])
 }
 
-@Test("InMemoryPackStore returns the descriptors it was seeded with")
+@Test("FR-1 InMemoryPackStore returns the descriptors it was seeded with")
 func availablePacksReturnsSeededDescriptors() async throws {
     let descriptor = PackDescriptor(
         languageCode: fr, displayName: "Français", filename: "fr.pack.json",
@@ -373,7 +373,7 @@ func availablePacksReturnsSeededDescriptors() async throws {
     #expect(packs == [descriptor])
 }
 
-@Test("InMemoryPackStore loads a seeded pack by language code")
+@Test("FR-1 InMemoryPackStore loads a seeded pack by language code")
 func loadPackReturnsSeededPack() async throws {
     let pack = makePack()
     let store = InMemoryPackStore(packs: [fr: pack])
@@ -383,7 +383,7 @@ func loadPackReturnsSeededPack() async throws {
     #expect(loaded == pack)
 }
 
-@Test("InMemoryPackStore throws fileNotFound for an unseeded language")
+@Test("NFR-10 InMemoryPackStore throws fileNotFound for an unseeded language")
 func loadPackThrowsForMissingLanguage() async throws {
     let store = InMemoryPackStore()
 
@@ -470,7 +470,7 @@ private let fr = LanguageCode("fr")
 private let chat = WordID("fr:chat:NOUN")
 private let noir = WordID("fr:noir:ADJ")
 
-@Test("InMemoryReviewStore returns nil for a word with no saved state")
+@Test("FR-9 InMemoryReviewStore returns nil for a word with no saved state")
 func reviewStateReturnsNilWhenUnsaved() async throws {
     let store = InMemoryReviewStore()
 
@@ -479,7 +479,7 @@ func reviewStateReturnsNilWhenUnsaved() async throws {
     #expect(state == nil)
 }
 
-@Test("InMemoryReviewStore round-trips a saved state")
+@Test("FR-9 InMemoryReviewStore round-trips a saved state")
 func saveThenReviewStateRoundTrips() async throws {
     let store = InMemoryReviewStore()
     let state = ReviewState(wordID: chat, easeFactor: 2.3, intervalDays: 6)
@@ -490,7 +490,7 @@ func saveThenReviewStateRoundTrips() async throws {
     #expect(loaded == state)
 }
 
-@Test("InMemoryReviewStore allStates filters by language code")
+@Test("FR-10 InMemoryReviewStore allStates filters by language code")
 func allStatesFiltersByLanguage() async throws {
     let store = InMemoryReviewStore()
     try await store.save(ReviewState(wordID: chat))
@@ -501,7 +501,7 @@ func allStatesFiltersByLanguage() async throws {
     #expect(states.map(\.wordID) == [chat])
 }
 
-@Test("InMemoryReviewStore progress counts learned, in-progress and total")
+@Test("FR-10 InMemoryReviewStore progress counts learned, in-progress and total")
 func progressComputesFromMilestoneDates() async throws {
     let store = InMemoryReviewStore()
     let learned = ReviewState(
