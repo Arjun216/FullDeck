@@ -45,6 +45,36 @@ def test_prompt_lists_its_targets_and_their_allowed_vocabulary():
     assert "maison" not in prompt
 
 
+def test_vocabulary_above_the_batch_is_listed_without_ranks_or_pos():
+    """FR-6 words safe for every target need no rank to compare against, so they carry none.
+
+    The vocabulary list is ~80% of a prompt's tokens. Everything ranked above the
+    batch's first target is usable by every word in the batch, so numbering it is
+    pure cost; only the batch's own range has to be compared rank by rank.
+    """
+    prompt = render_prompt(
+        language_name="Français",
+        targets=CANDIDATES[3:5],  # chat(4), chien(5) -- so ranks 1-3 are safe
+        vocabulary=CANDIDATES,
+    )
+    safe = prompt.split("## Words already learned")[1]
+    assert "le" in safe and "être" in safe and "avoir" in safe
+    assert "1." not in safe and "(DET)" not in safe and "(AUX)" not in safe
+
+
+def test_words_inside_the_batch_keep_their_rank():
+    """FR-6 a word in the batch is usable only by targets ranked after it, so it stays numbered."""
+    prompt = render_prompt(
+        language_name="Français",
+        targets=CANDIDATES[3:5],  # chat(4), chien(5)
+        vocabulary=CANDIDATES,
+    )
+    in_batch = prompt.split("## Words introduced in this batch")[1]
+    assert "4. chat" in in_batch
+    # chien is the last target: no other target in this batch could use it.
+    assert "5. chien" not in in_batch
+
+
 def test_retry_prompt_states_why_the_previous_sentence_was_rejected():
     """FR-6 a regeneration prompt names the offending token, not just 'try again'."""
     prompt = render_prompt(

@@ -58,14 +58,27 @@ words, the exact JSON return format, and the vocabulary the learner has already 
 ranks at or above the batch, because offering a rarer word would be offering a §6 violation.
 
 **`pack`** parses the replies (all-or-nothing per batch — a half-ingested batch is worse than a
-re-ask), assembles the pack, and validates it. On failure it writes `work/fr/retry/NNNN.md`: one
-prompt per failing word, quoting the rule that rejected it. `generate --retry` answers those, and
-a retry answer supersedes the batch answer for its word — so the loop converges without
-regenerating anything that already passed.
+re-ask), assembles the pack, and validates it. On failure it writes `work/fr/retry/NNN.md`,
+batched like the first pass and quoting the rule that rejected each word, plus `targets.json`
+recording which ranks each prompt covers. `generate --retry` answers those and splits the reply
+into `work/fr/retry/answers/RRRR.json`, one file per rank — so an answer outlives the next round's
+re-batching, and supersedes the batch answer for its word. The loop converges without regenerating
+anything that already passed, and stops on its own once a round changes nothing.
 
 The prompts also ask Claude to **correct** the lemma and POS, because tagging a bare word out of
 context is unreliable — spaCy proposes `traval`/ADJ for *travaux* and `priver`/ADJ for *privé*.
-The corrected values are what derive the entry `id` and `is_function_word`.
+The corrected values are what derive the entry `id` and `is_function_word`, and retry prompts
+offer *those* as the learned vocabulary rather than the tagger's originals: `candidates.json`
+still says `luire` where the word is `lui`, and offering that invites a sentence the pack cannot
+satisfy.
+
+## Prompt size
+
+The vocabulary list is most of a prompt, so it is split by how much the reader has to know about
+each word. Everything ranked above the batch's first target is usable by every target in it, so
+it is listed bare — no rank, no POS. Only the batch's own range is numbered, because there a word
+is usable by some targets and not others. Retries are batched for the same reason: one prompt per
+failing word re-sent the whole vocabulary 26 times over.
 
 ## Tests
 

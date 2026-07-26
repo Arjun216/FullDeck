@@ -11,10 +11,12 @@ which runs on an existing Claude subscription -- there is no API key anywhere in
 this repo. Pasting the prompts into claude.ai by hand produces the same files, so
 the two are interchangeable.
 
-`pack` is re-runnable: it validates what it built and writes retry prompts for
-exactly the words that failed. `generate --retry` answers those, and a retry
-answer supersedes the batch answer for its word. The loop converges without
-regenerating anything that already passed.
+`pack` is re-runnable: it validates what it built and writes batched retry
+prompts for exactly the words that failed, with `retry/targets.json` recording
+which ranks each covers. `generate --retry` answers those and stores one answer
+per rank under `retry/answers/`, so an answer outlives the next round's
+re-batching and supersedes the batch answer for its word. The loop converges
+without regenerating anything that already passed.
 """
 
 from __future__ import annotations
@@ -142,27 +144,35 @@ def cmd_generate(args) -> int:
     lang = args.language
     candidates = _load_candidates(lang)
     source = WORK / lang / ("retry" if args.retry else "prompts")
-    # Retries answer in place; batch answers go where the manual paste workflow
-    # puts them, so the two are interchangeable.
-    destination = source if args.retry else WORK / lang / "responses"
+    # A retry prompt covers whichever ranks still fail, so its answers are split
+    # one file per rank -- an answer then outlives the next round's re-batching.
+    # Batch answers land where a manual paste would put them.
+    destination = source / "answers" if args.retry else WORK / lang / "responses"
     prompts = sorted(source.glob("*.md"))
     if not prompts:
         print(f"no prompts in {source}", file=sys.stderr)
         return 1
 
     destination.mkdir(parents=True, exist_ok=True)
-    todo = [p for p in prompts if not (destination / f"{p.stem}.json").exists()]
+    manifest = _retry_targets(source) if args.retry else {}
+
+    def wanted(stem: str) -> set[int]:
+        if args.retry:
+            return set(manifest.get(stem, [int(stem)]))
+        n = int(stem)
+        return {c.rank for c in candidates[(n - 1) * args.batch : n * args.batch]}
+
+    def answered(stem: str) -> bool:
+        if args.retry:
+            return all((destination / f"{r:04d}.json").exists() for r in wanted(stem))
+        return (destination / f"{stem}.json").exists()
+
+    todo = [p for p in prompts if not answered(p.stem)]
     print(f"{len(todo)} of {len(prompts)} prompts to answer ({args.model})")
 
     failed = []
     for i, prompt_path in enumerate(todo, start=1):
-        n = int(prompt_path.stem)
-        out_path = destination / f"{prompt_path.stem}.json"
-        expected = (
-            {n}
-            if args.retry
-            else {c.rank for c in candidates[(n - 1) * args.batch : n * args.batch]}
-        )
+        expected = wanted(prompt_path.stem)
         print(f"  [{i}/{len(todo)}] {prompt_path.name} ... ", end="", flush=True)
 
         try:
@@ -175,12 +185,16 @@ def cmd_generate(args) -> int:
         # Only a reply that parses is kept, so re-running retries exactly the bad ones.
         entries, problems = parse_response(reply, expected)
         if problems:
-            out_path.with_suffix(".json.bad").write_text(reply, encoding="utf-8")
+            (destination / f"{prompt_path.stem}.json.bad").write_text(reply, encoding="utf-8")
             print(f"UNUSABLE ({problems[0]})")
             failed.append(prompt_path.name)
             continue
 
-        out_path.write_text(reply, encoding="utf-8")
+        if args.retry:
+            for entry in entries:
+                _write_json(destination / f"{entry.rank:04d}.json", [dataclasses.asdict(entry)])
+        else:
+            (destination / f"{prompt_path.stem}.json").write_text(reply, encoding="utf-8")
         print(f"ok ({len(entries)} words)")
 
     if failed:
@@ -248,7 +262,7 @@ def cmd_pack(args) -> int:
         )
 
     if not report.ok:
-        if _write_retry_prompts(lang, candidates, by_rank, generated, report):
+        if _write_retry_prompts(lang, candidates, by_rank, generated, report, args.batch):
             print(f"{len(report.violations)} violations -- see work/{lang}/retry/", file=sys.stderr)
         else:
             print(
@@ -299,9 +313,11 @@ def _ingest(candidates: list[Candidate], batch: int, responses_dir: Path, retry_
             n = int(path.stem)
             read(path, {c.rank for c in candidates[(n - 1) * batch : n * batch]})
 
-    # Retry files are named for the single candidate rank they regenerate.
-    if retry_dir.is_dir():
-        for path in sorted(retry_dir.glob("*.json")):
+    # Retry answers are stored one per candidate rank, whatever prompt produced
+    # them, so an answer outlives the next round's re-batching of the prompts.
+    answers_dir = retry_dir / "answers"
+    if answers_dir.is_dir():
+        for path in sorted(answers_dir.glob("*.json")):
             read(path, {int(path.stem)})
 
     # Last write wins, so a retry supersedes the batch answer for that rank.
@@ -310,9 +326,13 @@ def _ingest(candidates: list[Candidate], batch: int, responses_dir: Path, retry_
 
 
 def _write_retry_prompts(
-    lang: str, candidates: list[Candidate], by_rank: dict, generated, report
+    lang: str, candidates: list[Candidate], by_rank: dict, generated, report, batch: int = 50
 ) -> bool:
-    """One prompt per failing word, quoting the rule that rejected it.
+    """Prompts for the failing words, each quoting the rule that rejected it.
+
+    Batched like the first pass: one prompt per word meant re-sending the whole
+    vocabulary list for every single sentence. `targets.json` records which ranks
+    each prompt covers, since the file name no longer says.
 
     Returns False when there is nothing worth re-asking: every failing word was
     already regenerated once and still fails, or the failures are pack-level and
@@ -336,29 +356,56 @@ def _write_retry_prompts(
             rejections[rank] = v.message
 
     retry_dir = WORK / lang / "retry"
+    answers_dir = retry_dir / "answers"
     retry_dir.mkdir(parents=True, exist_ok=True)
-    previous = {int(path.stem) for path in retry_dir.glob("*.md")}
-    answered = {int(path.stem) for path in retry_dir.glob("*.json")}
+    previous = {rank for ranks in _retry_targets(retry_dir).values() for rank in ranks}
+    answered = (
+        {int(path.stem) for path in answers_dir.glob("*.json")} if answers_dir.is_dir() else set()
+    )
     for path in retry_dir.glob("*.md"):
         path.unlink()
     if not rejections or (rejections.keys() == previous and rejections.keys() <= answered):
+        (retry_dir / RETRY_MANIFEST).unlink(missing_ok=True)
         return False
 
-    for rank, reason in sorted(rejections.items()):
-        # A rank that still violates has a wrong answer on file. Clear it, or
-        # `generate --retry` would skip the word as already answered.
-        for stale in retry_dir.glob(f"{rank:04d}.json*"):
-            stale.unlink()
-        (retry_dir / f"{rank:04d}.md").write_text(
+    # candidates.json carries spaCy's raw lemmas, and on French those include real
+    # errors (`lui` -> `luire`, `ça` -> `cela`). By now the generator has confirmed
+    # the right lemma for every rank, so offer those instead: a word the learner
+    # "has met" must be the word the pack actually contains.
+    corrected = {g.rank: g.lemma for g in generated}
+    vocabulary = [dataclasses.replace(c, lemma=corrected.get(c.rank, c.lemma)) for c in candidates]
+
+    ranks = sorted(rejections)
+    manifest: dict[str, list[int]] = {}
+    for n, start in enumerate(range(0, len(ranks), batch), start=1):
+        chunk = ranks[start : start + batch]
+        manifest[f"{n:03d}"] = chunk
+        for rank in chunk:
+            # A rank that still violates has a wrong answer on file. Clear it, or
+            # `generate --retry` would skip the word as already answered.
+            (answers_dir / f"{rank:04d}.json").unlink(missing_ok=True)
+        (retry_dir / f"{n:03d}.md").write_text(
             render_prompt(
                 language_name=LANGUAGE_NAMES.get(lang, lang),
-                targets=[by_rank[rank]],
-                vocabulary=candidates,
-                rejections={rank: reason},
+                targets=[by_rank[rank] for rank in chunk],
+                vocabulary=vocabulary,
+                rejections={rank: rejections[rank] for rank in chunk},
             ),
             encoding="utf-8",
         )
+    _write_json(retry_dir / RETRY_MANIFEST, manifest)
     return True
+
+
+RETRY_MANIFEST = "targets.json"
+
+
+def _retry_targets(retry_dir: Path) -> dict[str, list[int]]:
+    """Which candidate ranks each retry prompt covers."""
+    path = retry_dir / RETRY_MANIFEST
+    if not path.is_file():
+        return {}
+    return json.loads(path.read_text(encoding="utf-8"))
 
 
 def _load_candidates(lang: str) -> list[Candidate]:

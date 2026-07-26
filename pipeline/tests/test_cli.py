@@ -93,7 +93,7 @@ def test_pack_writes_a_retry_prompt_for_the_word_that_failed(workspace, capsys):
     assert cli.main(["pack", "fr", "--batch", "3", "--limit", "3", "--profile", "structural"]) == 1
     assert not (workspace / "packs/fr.pack.json").exists()
 
-    retry = (workspace / "work/fr/retry/0003.md").read_text(encoding="utf-8")
+    retry = (workspace / "work/fr/retry/001.md").read_text(encoding="utf-8")
     assert "PREVIOUS ATTEMPT REJECTED" in retry
     assert "chat" in retry
 
@@ -208,10 +208,13 @@ def test_a_word_that_fails_twice_stops_the_regeneration_loop(workspace, monkeypa
     pack_args = ["pack", "fr", "--batch", "3", "--limit", "3", "--profile", "structural"]
 
     assert cli.main(pack_args) == 1
-    assert (workspace / "work/fr/retry/0003.md").exists()
+    assert (workspace / "work/fr/retry/001.md").exists()
 
     # The retry answered, but no better -- the same word fails again.
-    (workspace / "work/fr/retry/0003.json").write_text(json.dumps([broken[2]]), encoding="utf-8")
+    (workspace / "work/fr/retry/answers").mkdir(parents=True, exist_ok=True)
+    (workspace / "work/fr/retry/answers/0003.json").write_text(
+        json.dumps([broken[2]]), encoding="utf-8"
+    )
     assert cli.main(pack_args) == 1
     assert list((workspace / "work/fr/retry").glob("*.md")) == []
 
@@ -229,7 +232,8 @@ def test_a_retry_answer_overrides_the_batch_answer(workspace, monkeypatch):
     assert cli.main(["pack", "fr", "--batch", "3", "--limit", "3", "--profile", "structural"]) == 1
 
     fixed = json.dumps([VALID_ENTRIES[2]])
-    (workspace / "work/fr/retry/0003.json").write_text(fixed, encoding="utf-8")
+    (workspace / "work/fr/retry/answers").mkdir(parents=True, exist_ok=True)
+    (workspace / "work/fr/retry/answers/0003.json").write_text(fixed, encoding="utf-8")
     assert cli.main(["pack", "fr", "--batch", "3", "--limit", "3", "--profile", "structural"]) == 0
 
     pack = json.loads((workspace / "packs/fr.pack.json").read_text(encoding="utf-8"))
@@ -246,8 +250,76 @@ def test_running_pack_twice_is_not_mistaken_for_a_stuck_loop(workspace, monkeypa
     pack_args = ["pack", "fr", "--batch", "3", "--limit", "3", "--profile", "structural"]
 
     assert cli.main(pack_args) == 1
-    assert (workspace / "work/fr/retry/0003.md").exists()
+    assert (workspace / "work/fr/retry/001.md").exists()
 
     # Nothing was regenerated in between, so the prompt must survive a second look.
     assert cli.main(pack_args) == 1
-    assert (workspace / "work/fr/retry/0003.md").exists()
+    assert (workspace / "work/fr/retry/001.md").exists()
+
+
+def test_failing_words_share_one_retry_prompt(workspace):
+    """FR-6 retries are batched: the vocabulary list is sent once, not once per word.
+
+    One prompt per failing word re-sent the whole vocabulary each time -- 84k
+    tokens to fix 26 sentences on the first real run.
+    """
+    assert cli.main(["words", "fr", "--pool", "40", "--limit", "3"]) == 0
+
+    broken = [dict(e) for e in VALID_ENTRIES]
+    broken[1]["example"] = "Le chat."  # chat: content word, not in the pack
+    broken[2]["example"] = "Le chien."  # chien too, and no form of `et`
+    write_response(workspace, broken)
+
+    assert cli.main(["pack", "fr", "--batch", "3", "--limit", "3", "--profile", "structural"]) == 1
+
+    prompts = sorted((workspace / "work/fr/retry").glob("*.md"))
+    assert [p.name for p in prompts] == ["001.md"]
+    manifest = json.loads((workspace / "work/fr/retry/targets.json").read_text(encoding="utf-8"))
+    assert manifest == {"001": [2, 3]}
+
+
+def test_a_batched_retry_reply_is_split_into_per_rank_answers(workspace, monkeypatch):
+    """FR-6 one prompt may fix several words; each answer is stored under its own rank.
+
+    Prompts are re-batched every round, so an answer keyed to a prompt would be
+    orphaned as soon as the failing set changed. Keyed to its rank, it survives.
+    """
+    assert cli.main(["words", "fr", "--pool", "40", "--limit", "3"]) == 0
+
+    broken = [dict(e) for e in VALID_ENTRIES]
+    broken[1]["example"] = "Le chat."
+    broken[2]["example"] = "Le chien."
+    write_response(workspace, broken)
+    pack_args = ["pack", "fr", "--batch", "3", "--limit", "3", "--profile", "structural"]
+    assert cli.main(pack_args) == 1
+
+    fake_claude(monkeypatch, [json.dumps([VALID_ENTRIES[1], VALID_ENTRIES[2]])])
+    assert cli.main(["generate", "fr", "--retry"]) == 0
+
+    answers = workspace / "work/fr/retry/answers"
+    assert sorted(p.name for p in answers.glob("*.json")) == ["0002.json", "0003.json"]
+
+    # And those answers are what `pack` picks up.
+    assert cli.main(pack_args) == 0
+    pack = json.loads((workspace / "packs/fr.pack.json").read_text(encoding="utf-8"))
+    assert pack["words"][2]["example"] == "C'est Paul et Paul."
+
+
+def test_retry_prompts_offer_the_corrected_lemmas(workspace):
+    """FR-6 the retry vocabulary uses the lemmas the generator confirmed, not the tagger's.
+
+    candidates.json holds spaCy's raw lemmas, and on French those include real
+    errors -- `lui` arrives as `luire`, `ça` as `cela`. Offering those as "words
+    already learned" invites a sentence the pack cannot satisfy.
+    """
+    assert cli.main(["words", "fr", "--pool", "40", "--limit", "3"]) == 0
+
+    entries = [dict(e) for e in VALID_ENTRIES]
+    entries[1]["lemma"] = "les"  # the generator corrects rank 2's lemma
+    entries[2]["example"] = "Le chien."  # and rank 3 fails, so it gets a retry prompt
+    write_response(workspace, entries)
+
+    assert cli.main(["pack", "fr", "--batch", "3", "--limit", "3", "--profile", "structural"]) == 1
+    retry = (workspace / "work/fr/retry/001.md").read_text(encoding="utf-8")
+    safe = retry.split("## Words already learned")[1]
+    assert "les" in safe.split()

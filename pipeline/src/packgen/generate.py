@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import json
 from dataclasses import dataclass
+from textwrap import fill
 from typing import Any
 
 from packgen.rules import CLOSED_CLASS, ENTRY_POS, MAX_SCHEMA_VERSION, derive_id
@@ -33,25 +34,33 @@ def render_prompt(
     vocabulary: list[Candidate],
     rejections: dict[int, str] | None = None,
 ) -> str:
-    """A self-contained prompt for one batch, ready to paste into claude.ai."""
+    """A self-contained prompt for one batch, ready to paste into claude.ai.
+
+    The vocabulary list is ~80% of a prompt's tokens, so it is split by how much
+    the reader actually has to know about each word. Everything ranked above the
+    batch's *first* target is usable by every target in the batch, so it needs no
+    rank and no POS -- just the word. Only the batch's own range has to be
+    compared rank by rank, and that is at most one batch long.
+    """
     rejections = rejections or {}
-    horizon = max(t.rank for t in targets)
-    # Offering a word ranked below the batch would be offering a §6 violation.
-    offered = [c for c in vocabulary if c.rank <= horizon]
+    first, last = min(t.rank for t in targets), max(t.rank for t in targets)
+    # Nothing at or past the last target could be used by any target in the batch.
+    safe = [c for c in vocabulary if c.rank < first]
+    in_batch = [c for c in vocabulary if first <= c.rank < last]
 
     target_lines = "\n".join(
         f"- rank {t.rank}: `{t.source_form}` (proposed lemma `{t.lemma}`, POS `{t.pos}`)"
         + (f"\n  PREVIOUS ATTEMPT REJECTED: {rejections[t.rank]}" if t.rank in rejections else "")
         for t in targets
     )
-    vocab_lines = "\n".join(f"{c.rank}. {c.lemma} ({c.pos})" for c in offered)
 
     return PROMPT_TEMPLATE.format(
         language_name=language_name,
         count=len(targets),
         target_lines=target_lines,
-        vocab_lines=vocab_lines,
-        horizon=horizon,
+        safe_words=fill(" ".join(c.lemma for c in safe), width=96) or "(none yet)",
+        in_batch_lines="\n".join(f"{c.rank}. {c.lemma}" for c in in_batch) or "(none)",
+        met=first - 1,
         retry_note=RETRY_NOTE if rejections else "",
     )
 
@@ -71,8 +80,10 @@ vocabulary app that teaches the 1000 most frequent words in frequency order.
 ## The hard rule
 
 Each example sentence may use ONLY:
-- words from the numbered vocabulary list below whose number is **strictly smaller** than the \
-target word's own rank (the learner has already met those), plus
+- any word from "Words already learned" below — every one of them is safe for every word in \
+this batch, so you do not need to check ranks against that list;
+- a word from "Words introduced in this batch", but only if its number is **strictly smaller** \
+than the target word's own rank;
 - function words (determiners, prepositions, pronouns, auxiliaries, conjunctions, particles) and \
 proper nouns, which are exempt.
 
@@ -106,9 +117,13 @@ Return ONLY a JSON array, one object per word above, no commentary:
 ]
 ```
 
-## Vocabulary the learner has met (ranks 1–{horizon})
+## Words already learned (ranks 1–{met}, safe for every word in this batch)
 
-{vocab_lines}
+{safe_words}
+
+## Words introduced in this batch
+
+{in_batch_lines}
 """
 
 REQUIRED_KEYS = ("rank", "lemma", "pos", "display", "gloss", "register", "example")
