@@ -174,15 +174,30 @@ public struct JSONPackStore: PackStore, Sendable {
 
 - `availablePacks()` — reads `manifest.json` in `packsDirectory`, decodes to `[PackDescriptor]`.
 - `loadPack(_:)` — resolves the filename via the manifest, reads + decodes the JSON, runs the
-  **Structural-profile validator** (`language-pack-schema.md` §7, VR-1 through VR-16 — VR-17/18
-  are shippable-only and stay out of scope here, same as the fixtures themselves waive them), then
-  maps the validated DTO to `LanguagePack`. `schema_version > maxSupportedSchemaVersion` is checked
-  first and maps to `.unsupportedSchemaVersion` — the dedicated fail-closed case from schema §9 —
-  before any other validation runs.
+  **Structural-profile validator** (`language-pack-schema.md` §7: VR-2 through VR-9, VR-11 through
+  VR-16 — the mechanical, non-linguistic rules), then maps the validated DTO to `LanguagePack`.
+  `schema_version > maxSupportedSchemaVersion` is checked first and maps to
+  `.unsupportedSchemaVersion` — the dedicated fail-closed case from schema §9 — before any other
+  validation runs. VR-17/18 are shippable-only and stay out of scope, same as the fixtures
+  themselves waive them.
 
-The validator reuses the same rejection fixtures the Python pipeline validates against
+  **VR-10 (the example-sentence frequency constraint) is deliberately excluded.** It requires
+  tokenization/lemmatization/POS-tagging equivalent to the pipeline's spaCy-based analyzer — this
+  project's own history (`fix(pipeline): stop VR-10 rejecting correct sentences the tagger
+  misreads`) shows how easy that is to get subtly wrong even with a mature NLP library. The
+  pipeline already enforces VR-10 before a pack ships; the loader trusts that and does not
+  re-derive linguistic correctness with a second, independently-tuned tagger (Apple's
+  `NaturalLanguage` framework would disagree with spaCy often enough to matter). Consequently the
+  two VR-10 fixtures (`sentence-content-violation.pack.json`, `sentence-missing-target.pack.json`)
+  are excluded from the Swift rejection-test set — noted explicitly as pipeline-only, not silently
+  dropped.
+
+The validator otherwise reuses the same rejection fixtures the Python pipeline validates against
 (`fixtures/invalid/*`, cross-referenced by `fixtures/invalid/expected.json`) — both validators
-now consume the same corpus, per `language-pack-schema.md` §12's stated intent. Test fixture
+now consume the same corpus (minus VR-10), per `language-pack-schema.md` §12's stated intent.
+VR-16's manifest-matching half has no existing fixture (Python's validator only checks the
+id-prefix half; the manifest half was explicitly left for "the Swift loader in Phase 7" per its
+own comment) — this phase adds one. Test fixture
 access: a small `#filePath`-relative helper in `DataTests` walks up from the test file to the
 repo-root `/fixtures` directory. No SPM resource bundling or symlinks — this is test-only file
 I/O on the host machine, not a shipped resource.
@@ -255,12 +270,15 @@ framework weight, keeps ViewModel tests linking only Domain (no SwiftData).
 - **Domain:** new port types + fakes, covered by conformance/round-trip tests. Folds into the
   existing ≥90% floor.
 - **Data:** `JSONPackStore` rejection-fixture tests are written first (build-plan is explicit: the
-  loader's error mapping is logic) — one test per `fixtures/invalid/*` entry asserting the exact
-  `PackLoadError` case/rule, `fr-mini.pack.json` as the positive control throughout. Watch each
-  fail because the validator doesn't exist yet, implement one VR at a time to green.
-  `SwiftDataReviewStore` round-trip/error/migration-smoke tests are glue — tested alongside the
-  implementation, not necessarily first. Existing ≥80% floor and `scripts/coverage-gate.sh` are
-  unchanged.
+  loader's error mapping is logic) — one test per `fixtures/invalid/expected.json` entry
+  *excluding* the two VR-10 (sentence-constraint) fixtures, asserting the exact `PackLoadError`
+  case/rule, `fr-mini.pack.json` as the positive control throughout. Watch each fail because the
+  validator doesn't exist yet, implement one VR at a time to green. The manifest-half of VR-16 (no
+  shared fixture exists — Python's own validator only checks the id-prefix half) is covered by a
+  test-constructed temp directory rather than a new file in the shared `fixtures/invalid/`, so
+  Phase 6's pipeline contract (`expected.json`) stays untouched. `SwiftDataReviewStore`
+  round-trip/error/migration-smoke tests are glue — tested alongside the implementation, not
+  necessarily first. Existing ≥80% floor and `scripts/coverage-gate.sh` are unchanged.
 
 ---
 
