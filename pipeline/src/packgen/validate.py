@@ -218,28 +218,107 @@ def _check_entries(
             seen_aliases.add(alias)
 
 
+def _deinflect(word: str) -> str:
+    """Drop one plural/feminine ending so a surface form meets its own lemma.
+
+    French marks these with -s, -e or -x (`cheveu`/`cheveux`, `demi`/`demie`).
+    Short words are left alone: at three letters or fewer the ending usually *is*
+    the word.
+    """
+    return word[:-1] if len(word) > 3 and word[-1] in "sex" else word
+
+
+def _is_target(token, lemma: str) -> bool:
+    """Is this token an occurrence of the entry's own word?
+
+    Lemma equality alone is not enough. spaCy reports a *contextual* lemma while
+    the pack carries the *dictionary* lemma Claude confirmed, and on French they
+    disagree constantly -- `ça`->`cela`, `lui`->`luire`, `sous`->`sou`. Believing
+    only the tagger rejected 48 of 1000 correct sentences on the first real run.
+
+    So the target is matched on any cheap agreement between the two. This is
+    deliberately generous: it decides both "does the sentence use its word" and
+    "which token is the target and therefore exempt", and those must stay the
+    same predicate or a word gets flagged as its own foreign content word.
+    """
+    text, lem, target = token.text.casefold(), token.lemma.casefold(), lemma.casefold()
+    if target in (text, lem):
+        return True
+    # spaCy routinely drops a French infinitive's final -r: `rester` -> `reste`.
+    if target.endswith("r") and lem == target[:-1]:
+        return True
+    if _deinflect(text) == _deinflect(target) or _deinflect(lem) == _deinflect(target):
+        return True
+    # Hyphenated and multiword lemmas tokenize either way: `week-end` arrives as
+    # `week` + `end`, while `delà` arrives inside `au-delà`.
+    return text in target.replace("-", " ").split() or target in text.replace("-", " ").split()
+
+
+def _spellings(lemma: str) -> set[str]:
+    """A pack lemma plus the spellings a tagger is apt to return instead of it."""
+    lemma = lemma.casefold()
+    keys = {lemma, _deinflect(lemma)}
+    if lemma.endswith("r"):
+        keys.add(lemma[:-1])
+    return keys
+
+
+def _met_rank(token, index: dict[str, int]) -> float:
+    """The best pack rank this token could be, or infinity if it is not in the pack.
+
+    The mirror of _is_target: the tagger that mangles a target's lemma mangles
+    every other word in the sentence too, so a word the learner has already met
+    must not be counted as unmet because spaCy returned `reste` where the pack
+    says `rester`. Matching on both the lemma and the surface form, each also
+    de-inflected, is what keeps the two halves of this rule consistent.
+    """
+    keys = {token.lemma.casefold(), token.text.casefold()}
+    keys |= {_deinflect(k) for k in keys} | {k + "r" for k in keys}
+    return min((index[k] for k in keys if k in index), default=_RANK_INFINITY)
+
+
 def _check_sentences(words: list[dict], report: Report, analyzer: Analyzer) -> None:
     """VR-10 -- the §6 example-sentence frequency constraint."""
     best_rank: dict[str, int] = {}
+    function_words: set[str] = set()
     for w in words:
-        best_rank[w["lemma"]] = min(best_rank.get(w["lemma"], w["rank"]), w["rank"])
+        for key in _spellings(w["lemma"]):
+            best_rank[key] = min(best_rank.get(key, w["rank"]), w["rank"])
+        if w.get("is_function_word"):
+            function_words.add(w["lemma"].casefold())
 
     for w in words:
-        tokens = [t for t in analyzer.analyze(w["example"]) if t.pos not in IGNORED_IN_SENTENCES]
-        if not any(t.lemma == w["lemma"] for t in tokens):
+        tokens = [
+            t
+            for t in analyzer.analyze(w["example"])
+            # A token with no letters is not a word: spaCy tags the hyphen in
+            # `es-tu` as a NOUN, which no amount of rephrasing would fix.
+            if t.pos not in IGNORED_IN_SENTENCES and any(ch.isalpha() for ch in t.text)
+        ]
+        lemma = w["lemma"]
+        present = any(_is_target(t, lemma) for t in tokens) or (
+            lemma.casefold() in w["example"].casefold()
+        )
+        if not present:
             report.violations.append(
-                Violation("VR-10", f"sentence contains no form of {w['lemma']!r}", w["id"])
+                Violation("VR-10", f"sentence contains no form of {lemma!r}", w["id"])
             )
             continue
 
         exempted: list[str] = []
         failed = False
         for t in tokens:
-            if t.lemma == w["lemma"]:
+            if _is_target(t, lemma):
                 continue  # the target itself
-            if best_rank.get(t.lemma, _RANK_INFINITY) < w["rank"]:
+            if _met_rank(t, best_rank) < w["rank"]:
                 continue  # strict pass: in-pack and more frequent
             if t.pos in CLOSED_CLASS or t.pos == PROPER_NOUN:
+                exempted.append(t.text)
+                continue
+            # The pack's POS was corrected by the generator and is reviewed; the
+            # tagger's in-sentence POS is the unreliable one. Where they differ on
+            # a word the pack already calls a function word, the pack wins.
+            if t.lemma.casefold() in function_words or t.text.casefold() in function_words:
                 exempted.append(t.text)
                 continue
             report.violations.append(

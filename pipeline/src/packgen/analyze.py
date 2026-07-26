@@ -26,9 +26,12 @@ class Analyzer(Protocol):
 class SpacyAnalyzer:
     """The real one. Loads a spaCy pipeline lazily so importing this module is cheap."""
 
-    # Model per language. sm is enough for lemma+POS on high-frequency vocabulary;
-    # ponytail: bump to _md only if Phase 13's spot-check blames the tagger.
-    MODELS = {"fr": "fr_core_news_sm", "hi": "xx_sent_ud_sm"}
+    # Model per language. French uses _md because _sm measurably is not good enough:
+    # on the first real 1000-word run it lemmatized the infinitive `vivre` to `vivr`
+    # and tagged `hiver` as a VERB. Swapping _sm -> _md cut VR-10 failures from 15 to
+    # 11 with the sentence rule already fixed, and removes the truncated-lemma class
+    # (`parl`, `arriv`, `personn`) entirely.
+    MODELS = {"fr": "fr_core_news_md", "hi": "xx_sent_ud_sm"}
 
     def __init__(self, language_code: str) -> None:
         self.language_code = language_code

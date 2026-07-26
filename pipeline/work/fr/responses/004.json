@@ -1,0 +1,67 @@
+I don't have write permission for that path — same as the previous batch (003.json). Here's the batch for you to save as `work/fr/responses/004.json` (ranks 151–200):
+
+```json
+[
+  {"rank": 151, "lemma": "vouloir", "pos": "VERB", "display": "vouloir", "gloss": "to want", "register": "neutral", "example": "Je ne veux pas cela."},
+  {"rank": 152, "lemma": "ça", "pos": "PRON", "display": "ça", "gloss": "that, it (informal)", "register": "casual", "example": "Ça va bien."},
+  {"rank": 153, "lemma": "chaque", "pos": "DET", "display": "chaque", "gloss": "each, every", "register": "neutral", "example": "Chaque jour est bon."},
+  {"rank": 154, "lemma": "personne", "pos": "NOUN", "display": "la personne", "gloss": "person", "register": "neutral", "example": "Cette personne est bonne."},
+  {"rank": 155, "lemma": "femme", "pos": "NOUN", "display": "la femme", "gloss": "woman, wife", "register": "neutral", "example": "Cette femme est grande."},
+  {"rank": 156, "lemma": "nom", "pos": "NOUN", "display": "le nom", "gloss": "name", "register": "neutral", "example": "C'est mon nom."},
+  {"rank": 157, "lemma": "prix", "pos": "NOUN", "display": "le prix", "gloss": "price, prize", "register": "neutral", "example": "Le prix est bon."},
+  {"rank": 158, "lemma": "également", "pos": "ADV", "display": "également", "gloss": "also, equally", "register": "neutral", "example": "Je le veux également."},
+  {"rank": 159, "lemma": "point", "pos": "NOUN", "display": "le point", "gloss": "point", "register": "neutral", "example": "C'est un bon point."},
+  {"rank": 160, "lemma": "seul", "pos": "ADJ", "display": "seul", "gloss": "alone, only", "register": "neutral", "example": "Il est seul ici."},
+  {"rank": 161, "lemma": "aller", "pos": "VERB", "display": "aller", "gloss": "to go", "register": "neutral", "example": "Je vais bien."},
+  {"rank": 162, "lemma": "lieu", "pos": "NOUN", "display": "le lieu", "gloss": "place, location", "register": "neutral", "example": "Ce lieu est grand."},
+  {"rank": 163, "lemma": "lors", "pos": "ADV", "display": "lors", "gloss": "at that time (depuis lors: since then)", "register": "formal", "example": "Depuis lors, il va bien."},
+  {"rank": 164, "lemma": "vrai", "pos": "ADJ", "display": "vrai", "gloss": "true", "register": "neutral", "example": "C'est vrai."},
+  {"rank": 165, "lemma": "droit", "pos": "NOUN", "display": "le droit", "gloss": "right, law", "register": "neutral", "example": "C'est mon droit."},
+  {"rank": 166, "lemma": "selon", "pos": "ADP", "display": "selon", "gloss": "according to", "register": "neutral", "example": "Selon lui, c'est vrai."},
+  {"rank": 167, "lemma": "coup", "pos": "NOUN", "display": "le coup", "gloss": "blow, hit; a shot", "register": "neutral", "example": "C'est un bon coup."},
+  {"rank": 168, "lemma": "mettre", "pos": "VERB", "display": "mettre", "gloss": "to put, to place", "register": "neutral", "example": "Je vais mettre cela ici."},
+  {"rank": 169, "lemma": "penser", "pos": "VERB", "display": "penser", "gloss": "to think", "register": "neutral", "example": "Je pense que c'est vrai."},
+  {"rank": 170, "lemma": "tant", "pos": "ADV", "display": "tant", "gloss": "so much, so many", "register": "neutral", "example": "J'ai tant à faire."},
+  {"rank": 171, "lemma": "groupe", "pos": "NOUN", "display": "le groupe", "gloss": "group", "register": "neutral", "example": "C'est un grand groupe."},
+  {"rank": 172, "lemma": "maintenant", "pos": "ADV", "display": "maintenant", "gloss": "now", "register": "neutral", "example": "Je vais bien maintenant."},
+  {"rank": 173, "lemma": "maison", "pos": "NOUN", "display": "la maison", "gloss": "house, home", "register": "neutral", "example": "C'est une grande maison."},
+  {"rank": 174, "lemma": "saint", "pos": "NOUN", "display": "le saint", "gloss": "saint (holy person)", "register": "neutral", "example": "Il est comme un saint."},
+  {"rank": 175, "lemma": "tête", "pos": "NOUN", "display": "la tête", "gloss": "head", "register": "neutral", "example": "Il a mal à la tête."},
+  {"rank": 176, "lemma": "aimer", "pos": "VERB", "display": "aimer", "gloss": "to like, to love", "register": "neutral", "example": "J'aime cette maison."},
+  {"rank": 177, "lemma": "enfant", "pos": "NOUN", "display": "l'enfant", "gloss": "child", "register": "neutral", "example": "Cet enfant est petit."},
+  {"rank": 178, "lemma": "famille", "pos": "NOUN", "display": "la famille", "gloss": "family", "register": "neutral", "example": "J'aime ma famille."},
+  {"rank": 179, "lemma": "parler", "pos": "VERB", "display": "parler", "gloss": "to speak, to talk", "register": "neutral", "example": "Il aime parler de sa famille."},
+  {"rank": 180, "lemma": "suite", "pos": "NOUN", "display": "la suite", "gloss": "the following, sequel", "register": "neutral", "example": "Je veux voir la suite."},
+  {"rank": 181, "lemma": "assez", "pos": "ADV", "display": "assez", "gloss": "enough, quite", "register": "neutral", "example": "C'est assez grand."},
+  {"rank": 182, "lemma": "besoin", "pos": "NOUN", "display": "le besoin", "gloss": "need", "register": "neutral", "example": "J'ai besoin de temps."},
+  {"rank": 183, "lemma": "demander", "pos": "VERB", "display": "demander", "gloss": "to ask, to request", "register": "neutral", "example": "Il demande pourquoi."},
+  {"rank": 184, "lemma": "genre", "pos": "NOUN", "display": "le genre", "gloss": "kind, type; genre", "register": "neutral", "example": "Ce genre de chose est bon."},
+  {"rank": 185, "lemma": "savoir", "pos": "VERB", "display": "savoir", "gloss": "to know", "register": "neutral", "example": "Je veux savoir cela."},
+  {"rank": 186, "lemma": "société", "pos": "NOUN", "display": "la société", "gloss": "society, company", "register": "neutral", "example": "C'est une grande société."},
+  {"rank": 187, "lemma": "trouver", "pos": "VERB", "display": "trouver", "gloss": "to find", "register": "neutral", "example": "Je trouve cela bon."},
+  {"rank": 188, "lemma": "côté", "pos": "NOUN", "display": "le côté", "gloss": "side", "register": "neutral", "example": "Il est de mon côté."},
+  {"rank": 189, "lemma": "passer", "pos": "VERB", "display": "passer", "gloss": "to pass, to happen, to spend (time)", "register": "neutral", "example": "Le temps passe."},
+  {"rank": 190, "lemma": "question", "pos": "NOUN", "display": "la question", "gloss": "question", "register": "neutral", "example": "C'est une bonne question."},
+  {"rank": 191, "lemma": "raison", "pos": "NOUN", "display": "la raison", "gloss": "reason", "register": "neutral", "example": "Tu as raison."},
+  {"rank": 192, "lemma": "sens", "pos": "NOUN", "display": "le sens", "gloss": "sense, meaning; direction", "register": "neutral", "example": "Cela a du sens."},
+  {"rank": 193, "lemma": "ailleurs", "pos": "ADV", "display": "ailleurs", "gloss": "elsewhere", "register": "neutral", "example": "Il est ailleurs maintenant."},
+  {"rank": 194, "lemma": "certain", "pos": "DET", "display": "certain", "gloss": "certain, some", "register": "neutral", "example": "Certains jours sont bons."},
+  {"rank": 195, "lemma": "ci", "pos": "ADV", "display": "ci", "gloss": "here (in celui-ci, cette maison-ci)", "register": "neutral", "example": "Cette maison-ci est grande."},
+  {"rank": 196, "lemma": "devant", "pos": "ADP", "display": "devant", "gloss": "in front of", "register": "neutral", "example": "Il est devant la maison."},
+  {"rank": 197, "lemma": "dire", "pos": "VERB", "display": "dire", "gloss": "to say, to tell", "register": "neutral", "example": "Je te dis cela."},
+  {"rank": 198, "lemma": "jeu", "pos": "NOUN", "display": "le jeu", "gloss": "game", "register": "neutral", "example": "C'est un bon jeu."},
+  {"rank": 199, "lemma": "soir", "pos": "NOUN", "display": "le soir", "gloss": "evening", "register": "neutral", "example": "Ce soir, je reste ici."},
+  {"rank": 200, "lemma": "souvent", "pos": "ADV", "display": "souvent", "gloss": "often", "register": "neutral", "example": "Il est souvent ici."}
+]
+```
+
+Tagger corrections worth flagging:
+- `veux`(151), `vais`(161), `dis`(197): each mistagged as NOUN/ADP with a bogus lemma — corrected to their real infinitives `vouloir`, `aller`, `dire`. Note these duplicate lemmas already introduced at ranks 145, 55, 62 respectively (same pattern as `sais`/`peux` in the prior batch) — that's expected, a highly-frequent inflected form of an already-met verb.
+- `ca`(152) → `ça` (PRON, not DET).
+- `coup`(167) VERB→NOUN.
+- `pense`(169), `trouve`(187) NOUN→VERB (`penser`, `trouver`).
+- `genre`(184): tagger's lemma `genr` → correct lemma `genre`, NOUN.
+- `lors`(163) and `ci`(195) are archaic/bound forms (mainly `depuis lors`, `celui-ci`) — flagged as formal/neutral respectively since they rarely stand fully alone; kept rather than dropped since they're genuinely teachable in those fixed phrases.
+- `saint`(174): could plausibly be PROPN-heavy in the source corpus (place names, `Toussaint`), but I kept it as a common NOUN ("a saint") since that's a legitimate standalone teachable sense — flag if you'd rather drop it.
+
+Want me to retry the write, or would granting file-write permission for `work/fr/responses/` unblock this going forward?

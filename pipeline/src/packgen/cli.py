@@ -314,10 +314,14 @@ def _write_retry_prompts(
 ) -> bool:
     """One prompt per failing word, quoting the rule that rejected it.
 
-    Returns False when there is nothing worth re-asking: the same words failed as
-    last round, or the failures are pack-level and belong to no single word. No
-    prompts are left behind in that case, so `generate --retry` finds nothing,
-    exits non-zero, and the regeneration loop stops instead of spinning.
+    Returns False when there is nothing worth re-asking: every failing word was
+    already regenerated once and still fails, or the failures are pack-level and
+    belong to no single word. No prompts are left behind in that case, so
+    `generate --retry` finds nothing, exits non-zero, and the loop stops instead
+    of spinning.
+
+    "Already regenerated" means an answer is on disk for that rank -- running
+    `pack` twice with no regeneration in between is not a stuck loop.
     """
     # Pack ranks are re-numbered AND the generator may have corrected the lemma, so
     # map back through the generated entries -- their rank is the candidate rank.
@@ -334,9 +338,10 @@ def _write_retry_prompts(
     retry_dir = WORK / lang / "retry"
     retry_dir.mkdir(parents=True, exist_ok=True)
     previous = {int(path.stem) for path in retry_dir.glob("*.md")}
+    answered = {int(path.stem) for path in retry_dir.glob("*.json")}
     for path in retry_dir.glob("*.md"):
         path.unlink()
-    if not rejections or rejections.keys() == previous:
+    if not rejections or (rejections.keys() == previous and rejections.keys() <= answered):
         return False
 
     for rank, reason in sorted(rejections.items()):

@@ -234,3 +234,20 @@ def test_a_retry_answer_overrides_the_batch_answer(workspace, monkeypatch):
 
     pack = json.loads((workspace / "packs/fr.pack.json").read_text(encoding="utf-8"))
     assert pack["words"][2]["example"] == "C'est Paul et Paul."
+
+
+def test_running_pack_twice_is_not_mistaken_for_a_stuck_loop(workspace, monkeypatch):
+    """NFR-10 only a word that was regenerated and still fails counts as stuck."""
+    assert cli.main(["words", "fr", "--pool", "40", "--limit", "3"]) == 0
+
+    broken = [dict(e) for e in VALID_ENTRIES]
+    broken[2]["example"] = "Le chat et le chien."
+    write_response(workspace, broken)
+    pack_args = ["pack", "fr", "--batch", "3", "--limit", "3", "--profile", "structural"]
+
+    assert cli.main(pack_args) == 1
+    assert (workspace / "work/fr/retry/0003.md").exists()
+
+    # Nothing was regenerated in between, so the prompt must survive a second look.
+    assert cli.main(pack_args) == 1
+    assert (workspace / "work/fr/retry/0003.md").exists()

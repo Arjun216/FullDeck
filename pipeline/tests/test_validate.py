@@ -172,3 +172,214 @@ def test_shippable_profile_requires_1000_contiguous_ranks(valid_pack, analyzer):
     """NFR-10 VR-17/VR-18 apply to launch packs only; fixtures pass Structural."""
     report = validate_pack(valid_pack, analyzer=analyzer, profile=Profile.SHIPPABLE)
     assert report.rules == {"VR-17", "VR-18"}
+
+
+# --- VR-10 vs. the tagger ---------------------------------------------------
+#
+# Regression tests for the false positives that stalled the real French run: 63
+# of 1000 sentences were rejected and all but ~4 were correct French. The cause
+# is that spaCy's *contextual* lemma and the pack's *dictionary* lemma are
+# different authorities. Each case below is a real (sentence, spaCy output) pair
+# taken from that run, so the scripted analyzer is not a hypothetical.
+
+
+class ScriptedAnalyzer:
+    """Replays exactly what spaCy said about each sentence, mistakes included.
+
+    Keyed by sentence so a multi-entry pack does not get one entry's tokens for
+    every card; unscripted sentences fall back to the shared fixture lexicon.
+    """
+
+    def __init__(self, script: dict[str, list[tuple[str, str, str]]]) -> None:
+        self.script = script
+
+    def analyze(self, sentence: str) -> list:
+        from packgen.analyze import Token
+
+        from .conftest import FakeAnalyzer
+
+        if sentence not in self.script:
+            return FakeAnalyzer().analyze(sentence)
+        return [Token(*t) for t in self.script[sentence]]
+
+
+def one_word_pack(lemma: str, pos: str, example: str, **over) -> dict:
+    """A single-entry pack whose only job is to carry one sentence to VR-10."""
+    return {
+        "schema_version": 1,
+        "pack_version": "0.1.0",
+        "language_code": "fr",
+        "language_name": "Français",
+        "base_language": "en",
+        "word_count": 1,
+        "source": {
+            "name": "hand-authored test fixture",
+            "license": "CC0-1.0",
+            "attribution": "Hand-authored fixture for TopWords tests; not derived from wordfreq.",
+        },
+        "words": [
+            {
+                "id": f"fr:{lemma}:{pos}",
+                "lemma": lemma,
+                "display": lemma,
+                "pos": pos,
+                "rank": 1,
+                "register": "neutral",
+                "is_function_word": pos in {"DET", "ADP", "PRON", "AUX", "CCONJ", "SCONJ", "PART"},
+                "example": example,
+                "aliases": [],
+                **over,
+            }
+        ],
+    }
+
+
+def test_target_found_when_spacy_lemmatizes_it_to_another_word():
+    """FR-6 'C'est ça.' contains ça even though spaCy lemmatizes it to 'cela'."""
+    pack = one_word_pack("ça", "PRON", "C'est ça.")
+    said = {"C'est ça.": [("C", "ce", "PRON"), ("est", "être", "AUX"), ("ça", "cela", "PRON")]}
+    report = validate_pack(pack, analyzer=ScriptedAnalyzer(said))
+    assert report.ok, [str(v) for v in report.violations]
+
+
+def test_target_found_through_case_and_a_dropped_infinitive_r():
+    """FR-6 'Écoute, ...' is a form of écouter -- spaCy returns 'Écoute', capital and all."""
+    pack = one_word_pack("écouter", "VERB", "Écoute, Paul.")
+    said = {"Écoute, Paul.": [("Écoute", "Écoute", "VERB"), ("Paul", "Paul", "PROPN")]}
+    report = validate_pack(pack, analyzer=ScriptedAnalyzer(said))
+    assert report.ok, [str(v) for v in report.violations]
+
+
+def test_target_found_in_its_own_inflected_form():
+    """FR-6 'Il a les cheveux longs.' is the example for cheveu -- plural is still the word."""
+    pack = one_word_pack("cheveu", "NOUN", "Paul a les cheveux.")
+    said = {
+        "Paul a les cheveux.": [
+            ("Paul", "Paul", "PROPN"),
+            ("a", "avoir", "AUX"),
+            ("les", "le", "DET"),
+            ("cheveux", "cheveux", "ADJ"),
+        ]
+    }
+    report = validate_pack(pack, analyzer=ScriptedAnalyzer(said))
+    assert report.ok, [str(v) for v in report.violations]
+
+
+def test_the_target_is_never_its_own_foreign_content_word():
+    """FR-6 a target matched by surface form must be skipped, not flagged as an offender."""
+    pack = one_word_pack("monsieur", "NOUN", "C'est monsieur.")
+    # spaCy agrees on the surface but gives no lemma the pack would recognise.
+    # Every other token is closed-class, so the target is the only thing that
+    # could be flagged -- which is exactly what this test forbids.
+    said = {
+        "C'est monsieur.": [
+            ("C", "ce", "PRON"),
+            ("est", "être", "AUX"),
+            ("monsieur", "Monsieur", "NOUN"),
+        ]
+    }
+    report = validate_pack(pack, analyzer=ScriptedAnalyzer(said))
+    assert report.ok, [str(v) for v in report.violations]
+
+
+def test_punctuation_tagged_as_a_content_word_is_ignored():
+    """FR-6 the hyphen in 'es-tu' is tagged NOUN by spaCy; a token with no letters is not a word."""
+    pack = one_word_pack("où", "ADV", "Où es-tu ?")
+    said = {
+        "Où es-tu ?": [
+            ("Où", "où", "ADV"),
+            ("es", "être", "AUX"),
+            ("-", "-", "NOUN"),
+            ("tu", "tu", "PRON"),
+        ]
+    }
+    report = validate_pack(pack, analyzer=ScriptedAnalyzer(said))
+    assert report.ok, [str(v) for v in report.violations]
+
+
+def test_the_pack_outranks_the_tagger_on_function_words():
+    """FR-6 a pack entry flagged is_function_word stays exempt when spaCy mistags it.
+
+    The rank check must not be what rescues it: `pour` here is *rarer* than the
+    target, so only the class exemption can pass this sentence -- and spaCy has
+    called it a NOUN. The pack's POS was corrected and reviewed; the tagger's was
+    not, so the pack wins.
+    """
+    pack = one_word_pack("ça", "PRON", "C'est pour ça.")
+    pack["word_count"] = 2
+    pack["words"].append(
+        {
+            "id": "fr:pour:ADP",
+            "lemma": "pour",
+            "display": "pour",
+            "pos": "ADP",
+            "rank": 2,
+            "register": "neutral",
+            "is_function_word": True,
+            "example": "C'est pour ça.",
+            "aliases": [],
+        }
+    )
+    said = {
+        "C'est pour ça.": [
+            ("C", "ce", "PRON"),
+            ("est", "être", "AUX"),
+            ("pour", "pour", "NOUN"),
+            ("ça", "cela", "PRON"),
+        ]
+    }
+    report = validate_pack(pack, analyzer=ScriptedAnalyzer(said))
+    assert report.ok, [str(v) for v in report.violations]
+
+
+def test_a_genuinely_rarer_content_word_still_fails(valid_pack):
+    """FR-6 the tagger-tolerance above must not rescue a real §6 violation."""
+    pack = copy.deepcopy(valid_pack)
+    pack["words"][0]["example"] = "Je suis un chat."  # target je(1), chat is NOUN rank 4
+    said = {
+        "Je suis un chat.": [
+            ("Je", "je", "PRON"),
+            ("suis", "être", "AUX"),
+            ("un", "un", "DET"),
+            ("chat", "chat", "NOUN"),
+        ]
+    }
+    report = validate_pack(pack, analyzer=ScriptedAnalyzer(said))
+    assert [v.entry_id for v in report.violations] == ["fr:je:PRON"]
+
+
+def test_an_already_met_word_survives_a_mangled_lemma():
+    """FR-6 a word the learner has met stays met when spaCy mangles *its* lemma too.
+
+    The tagger that drops `rester`'s final -r on the target does it to every other
+    word in the sentence as well. `rester` is in the pack and more frequent than
+    the target, so this sentence satisfies §6 -- only the lemma spelling differs.
+    """
+    pack = one_word_pack("tandis", "SCONJ", "Je reste tandis qu'il part.")
+    pack["word_count"] = 2
+    pack["words"][0]["rank"] = 2
+    pack["words"].append(
+        {
+            "id": "fr:rester:VERB",
+            "lemma": "rester",
+            "display": "rester",
+            "pos": "VERB",
+            "rank": 1,
+            "register": "neutral",
+            "is_function_word": False,
+            "example": "Je reste.",
+            "aliases": [],
+        }
+    )
+    said = {
+        "Je reste tandis qu'il part.": [
+            ("Je", "je", "PRON"),
+            ("reste", "reste", "VERB"),  # spaCy: `reste`, not `rester`
+            ("tandis", "tandis", "SCONJ"),
+            ("qu", "que", "SCONJ"),
+            ("il", "il", "PRON"),
+        ],
+        "Je reste.": [("Je", "je", "PRON"), ("reste", "reste", "VERB")],
+    }
+    report = validate_pack(pack, analyzer=ScriptedAnalyzer(said))
+    assert report.ok, [str(v) for v in report.violations]

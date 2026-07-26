@@ -10,7 +10,7 @@ dependencies = [
     "wordfreq>=3.1.1",
     "spacy>=3.8.0",
     "jsonschema>=4.23.0",
-    "fr-core-news-sm",
+    "fr-core-news-md",
     "click>=8.4.2",
 ]
 
@@ -38,4 +38,4 @@ line-length = 100
 select = ["E", "F", "I", "UP", "B", "SIM"]
 
 [tool.uv.sources]
-fr-core-news-sm = { url = "https://github.com/explosion/spacy-models/releases/download/fr_core_news_sm-3.8.0/fr_core_news_sm-3.8.0-py3-none-any.whl" }
+fr-core-news-md = { url = "https://github.com/explosion/spacy-models/releases/download/fr_core_news_md-3.8.0/fr_core_news_md-3.8.0-py3-none-any.whl" }

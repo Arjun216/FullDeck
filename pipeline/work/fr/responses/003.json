@@ -1,0 +1,60 @@
+Here's the batch (ranks 101–150):
+
+```json
+[
+  {"rank": 101, "lemma": "beaucoup", "pos": "ADV", "display": "beaucoup", "gloss": "a lot, many", "register": "neutral", "example": "Il y a beaucoup de gens."},
+  {"rank": 102, "lemma": "jour", "pos": "NOUN", "display": "le jour", "gloss": "day", "register": "neutral", "example": "C'est un grand jour."},
+  {"rank": 103, "lemma": "quelque", "pos": "DET", "display": "quelque", "gloss": "some, a few", "register": "neutral", "example": "Il y a quelques jours."},
+  {"rank": 104, "lemma": "comment", "pos": "ADV", "display": "comment", "gloss": "how", "register": "neutral", "example": "Comment vas-tu ?"},
+  {"rank": 105, "lemma": "être", "pos": "AUX", "display": "être", "gloss": "to be (you are)", "register": "neutral", "example": "Où es-tu ?"},
+  {"rank": 106, "lemma": "premier", "pos": "ADJ", "display": "premier", "gloss": "first", "register": "neutral", "example": "C'est le premier jour."},
+  {"rank": 107, "lemma": "parce que", "pos": "SCONJ", "display": "parce que", "gloss": "because", "register": "neutral", "example": "Il va bien parce qu'il faut le voir."},
+  {"rank": 108, "lemma": "personne", "pos": "NOUN", "display": "une personne", "gloss": "person; (ne...) nobody", "register": "neutral", "example": "Il n'y a personne là."},
+  {"rank": 109, "lemma": "cela", "pos": "PRON", "display": "cela", "gloss": "that", "register": "neutral", "example": "Cela ne va pas."},
+  {"rank": 110, "lemma": "trois", "pos": "NUM", "display": "trois", "gloss": "three", "register": "neutral", "example": "Il faut trois jours."},
+  {"rank": 111, "lemma": "homme", "pos": "NOUN", "display": "un homme", "gloss": "man", "register": "neutral", "example": "C'est un bon homme."},
+  {"rank": 112, "lemma": "ici", "pos": "ADV", "display": "ici", "gloss": "here", "register": "neutral", "example": "Il est ici depuis trois jours."},
+  {"rank": 113, "lemma": "cas", "pos": "NOUN", "display": "le cas", "gloss": "case", "register": "neutral", "example": "Dans ce cas, il faut voir."},
+  {"rank": 114, "lemma": "chose", "pos": "NOUN", "display": "la chose", "gloss": "thing", "register": "neutral", "example": "C'est une autre chose."},
+  {"rank": 115, "lemma": "devoir", "pos": "VERB", "display": "devoir", "gloss": "must, to have to", "register": "neutral", "example": "Il doit voir cela."},
+  {"rank": 116, "lemma": "partie", "pos": "NOUN", "display": "la partie", "gloss": "part", "register": "neutral", "example": "C'est une partie du monde."},
+  {"rank": 117, "lemma": "car", "pos": "CCONJ", "display": "car", "gloss": "for, because", "register": "neutral", "example": "Il va bien, car il est ici."},
+  {"rank": 118, "lemma": "mal", "pos": "ADV", "display": "mal", "gloss": "badly", "register": "casual", "example": "Ce n'est pas mal."},
+  {"rank": 119, "lemma": "fin", "pos": "NOUN", "display": "la fin", "gloss": "end", "register": "neutral", "example": "C'est la fin du jour."},
+  {"rank": 120, "lemma": "mieux", "pos": "ADV", "display": "mieux", "gloss": "better", "register": "neutral", "example": "Il va mieux."},
+  {"rank": 121, "lemma": "pendant", "pos": "ADP", "display": "pendant", "gloss": "during, for", "register": "neutral", "example": "Il est ici pendant trois jours."},
+  {"rank": 122, "lemma": "petit", "pos": "ADJ", "display": "petit", "gloss": "small", "register": "neutral", "example": "C'est un petit pays."},
+  {"rank": 123, "lemma": "puis", "pos": "ADV", "display": "puis", "gloss": "then, next", "register": "neutral", "example": "Il dit non, puis il dit oui."},
+  {"rank": 124, "lemma": "année", "pos": "NOUN", "display": "une année", "gloss": "year", "register": "neutral", "example": "C'est une bonne année."},
+  {"rank": 125, "lemma": "celui", "pos": "PRON", "display": "celui", "gloss": "the one, that one", "register": "neutral", "example": "Ceux qui voient cela le disent."},
+  {"rank": 126, "lemma": "moment", "pos": "NOUN", "display": "le moment", "gloss": "moment", "register": "neutral", "example": "C'est le bon moment."},
+  {"rank": 127, "lemma": "place", "pos": "NOUN", "display": "la place", "gloss": "place, seat", "register": "neutral", "example": "Il y a de la place ici."},
+  {"rank": 128, "lemma": "plusieurs", "pos": "DET", "display": "plusieurs", "gloss": "several", "register": "neutral", "example": "Il y a plusieurs cas."},
+  {"rank": 129, "lemma": "pourquoi", "pos": "ADV", "display": "pourquoi", "gloss": "why", "register": "neutral", "example": "Pourquoi dit-il cela ?"},
+  {"rank": 130, "lemma": "ton", "pos": "DET", "display": "ton", "gloss": "your (informal)", "register": "neutral", "example": "C'est ta place."},
+  {"rank": 131, "lemma": "ville", "pos": "NOUN", "display": "la ville", "gloss": "city, town", "register": "neutral", "example": "Il est dans la ville."},
+  {"rank": 132, "lemma": "mois", "pos": "NOUN", "display": "le mois", "gloss": "month", "register": "neutral", "example": "C'est son premier mois ici."},
+  {"rank": 133, "lemma": "vers", "pos": "ADP", "display": "vers", "gloss": "towards, around", "register": "neutral", "example": "Il va vers la ville."},
+  {"rank": 134, "lemma": "histoire", "pos": "NOUN", "display": "une histoire", "gloss": "story, history", "register": "neutral", "example": "C'est toute une histoire."},
+  {"rank": 135, "lemma": "mort", "pos": "NOUN", "display": "la mort", "gloss": "death", "register": "neutral", "example": "La mort fait partie de la vie."},
+  {"rank": 136, "lemma": "savoir", "pos": "VERB", "display": "savoir", "gloss": "to know", "register": "neutral", "example": "Je ne sais pas."},
+  {"rank": 137, "lemma": "faire", "pos": "VERB", "display": "faire", "gloss": "to do, to make", "register": "neutral", "example": "Que fais-tu ?"},
+  {"rank": 138, "lemma": "nouveau", "pos": "ADJ", "display": "nouveau", "gloss": "new", "register": "neutral", "example": "C'est un nouveau pays pour lui."},
+  {"rank": 139, "lemma": "part", "pos": "NOUN", "display": "la part", "gloss": "share, part", "register": "neutral", "example": "Il va quelque part dans la ville."},
+  {"rank": 140, "lemma": "travail", "pos": "NOUN", "display": "le travail", "gloss": "work", "register": "neutral", "example": "C'est un nouveau travail."},
+  {"rank": 141, "lemma": "aujourd'hui", "pos": "ADV", "display": "aujourd'hui", "gloss": "today", "register": "neutral", "example": "Il va au travail aujourd'hui."},
+  {"rank": 142, "lemma": "compte", "pos": "NOUN", "display": "le compte", "gloss": "account, count", "register": "neutral", "example": "Elle a plusieurs comptes."},
+  {"rank": 143, "lemma": "merci", "pos": "INTJ", "display": "merci", "gloss": "thank you", "register": "neutral", "example": "Merci beaucoup !"},
+  {"rank": 144, "lemma": "prendre", "pos": "VERB", "display": "prendre", "gloss": "to take", "register": "neutral", "example": "Il faut prendre le temps."},
+  {"rank": 145, "lemma": "vouloir", "pos": "VERB", "display": "vouloir", "gloss": "to want", "register": "neutral", "example": "Il veut voir cela."},
+  {"rank": 146, "lemma": "état", "pos": "NOUN", "display": "un état", "gloss": "state", "register": "neutral", "example": "L'état du pays est bon."},
+  {"rank": 147, "lemma": "cours", "pos": "NOUN", "display": "le cours", "gloss": "course, class", "register": "neutral", "example": "Il a cours aujourd'hui."},
+  {"rank": 148, "lemma": "pouvoir", "pos": "VERB", "display": "pouvoir", "gloss": "to be able to, can", "register": "neutral", "example": "Je peux le faire."},
+  {"rank": 149, "lemma": "politique", "pos": "NOUN", "display": "la politique", "gloss": "politics", "register": "neutral", "example": "Elle veut faire de la politique."},
+  {"rank": 150, "lemma": "rester", "pos": "VERB", "display": "rester", "gloss": "to stay, to remain", "register": "neutral", "example": "Il reste ici."}
+]
+```
+
+Tagger corrections: `parce`(107) → the fixed conjunction `parce que`; `personne`(108) ADJ→NOUN; `cela`(109) tagger's lemma `celer` is wrong — it's the demonstrative pronoun `cela` (same word already met at rank 27); `ta`(130) PRON→DET (possessive, lemma `ton`); `puis`(123) tagger's lemma `pouvoir`/CCONJ → really the adverb `puis` ("then"); `sais`(136) ADJ→VERB, lemma `savoir`; `fais`(137) ADJ→VERB, lemma `faire` (met at rank 35); `peux`(148) ADJ→VERB, lemma `pouvoir` (met at rank 44); `merci`(143) NOUN→INTJ; `politique`(149) ADJ→NOUN (dominant sense); `reste`(150) tagger's lemma `reste`→ correct infinitive `rester`.
+
+I couldn't write `work/fr/responses/003.json` since the file-write permission was denied — let me know if you want me to try again or if you'll paste this in yourself.

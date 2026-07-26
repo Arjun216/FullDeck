@@ -1,0 +1,60 @@
+The file write wasn't approved, so here's the response directly as requested:
+
+```json
+[
+  {"rank": 1001, "lemma": "tableau", "pos": "NOUN", "display": "le tableau", "gloss": "painting; board", "register": "neutral", "example": "Il regarde le tableau."},
+  {"rank": 1002, "lemma": "tendance", "pos": "NOUN", "display": "la tendance", "gloss": "trend", "register": "neutral", "example": "Cette tendance est nouvelle."},
+  {"rank": 1003, "lemma": "vingt", "pos": "NUM", "display": "vingt", "gloss": "twenty", "register": "neutral", "example": "J'ai vingt ans."},
+  {"rank": 1004, "lemma": "atteindre", "pos": "VERB", "display": "atteindre", "gloss": "to reach", "register": "neutral", "example": "Il a atteint son but."},
+  {"rank": 1005, "lemma": "boulot", "pos": "NOUN", "display": "le boulot", "gloss": "job (casual)", "register": "casual", "example": "J'ai un nouveau boulot."},
+  {"rank": 1006, "lemma": "bébé", "pos": "NOUN", "display": "le bébé", "gloss": "baby", "register": "neutral", "example": "Le bébé est petit."},
+  {"rank": 1007, "lemma": "choisir", "pos": "VERB", "display": "choisir", "gloss": "to choose", "register": "neutral", "example": "Il faut choisir."},
+  {"rank": 1008, "lemma": "communication", "pos": "NOUN", "display": "la communication", "gloss": "communication", "register": "neutral", "example": "La communication est importante."},
+  {"rank": 1009, "lemma": "côte", "pos": "NOUN", "display": "la côte", "gloss": "coast; rib", "register": "neutral", "example": "La côte est grande."},
+  {"rank": 1010, "lemma": "faire", "pos": "PROPN", "display": "-", "gloss": "not a new word (subjunctive of faire, already known)", "register": "neutral", "example": ""},
+  {"rank": 1011, "lemma": "gagné", "pos": "ADJ", "display": "gagné", "gloss": "won, a success", "register": "casual", "example": "C'est gagné !"},
+  {"rank": 1012, "lemma": "goût", "pos": "NOUN", "display": "le goût", "gloss": "taste", "register": "neutral", "example": "Ce goût est bon."},
+  {"rank": 1013, "lemma": "humain", "pos": "ADJ", "display": "humain", "gloss": "human", "register": "neutral", "example": "Le corps humain est fort."},
+  {"rank": 1014, "lemma": "loi", "pos": "PROPN", "display": "-", "gloss": "not a new word (plural of loi, already known)", "register": "neutral", "example": ""},
+  {"rank": 1015, "lemma": "Londres", "pos": "PROPN", "display": "Londres", "gloss": "London (city name)", "register": "neutral", "example": ""},
+  {"rank": 1016, "lemma": "madame", "pos": "NOUN", "display": "madame", "gloss": "madam, Mrs.", "register": "formal", "example": "Bonjour, madame."},
+  {"rank": 1017, "lemma": "parlement", "pos": "NOUN", "display": "le parlement", "gloss": "parliament", "register": "neutral", "example": "Le parlement est important."},
+  {"rank": 1018, "lemma": "peau", "pos": "NOUN", "display": "la peau", "gloss": "skin", "register": "neutral", "example": "Sa peau est blanche."},
+  {"rank": 1019, "lemma": "surface", "pos": "NOUN", "display": "la surface", "gloss": "surface", "register": "neutral", "example": "La surface est grande."},
+  {"rank": 1020, "lemma": "uniquement", "pos": "ADV", "display": "uniquement", "gloss": "only", "register": "neutral", "example": "Il travaille uniquement le soir."},
+  {"rank": 1021, "lemma": "vendre", "pos": "VERB", "display": "vendre", "gloss": "to sell", "register": "neutral", "example": "Je veux vendre ma voiture."},
+  {"rank": 1022, "lemma": "victime", "pos": "NOUN", "display": "la victime", "gloss": "victim", "register": "neutral", "example": "Elle est la victime."},
+  {"rank": 1023, "lemma": "épisode", "pos": "NOUN", "display": "l'épisode", "gloss": "episode", "register": "neutral", "example": "Cet épisode est long."},
+  {"rank": 1024, "lemma": "évidemment", "pos": "ADV", "display": "évidemment", "gloss": "obviously", "register": "neutral", "example": "Évidemment, il a raison."},
+  {"rank": 1025, "lemma": "aimer", "pos": "VERB", "display": "aimer", "gloss": "to like, to love", "register": "neutral", "example": "J'aimerais avoir plus de temps."},
+  {"rank": 1026, "lemma": "allemand", "pos": "ADJ", "display": "allemand", "gloss": "German", "register": "neutral", "example": "Il parle allemand."},
+  {"rank": 1027, "lemma": "arrêt", "pos": "NOUN", "display": "l'arrêt", "gloss": "stop", "register": "neutral", "example": "L'arrêt est proche."},
+  {"rank": 1028, "lemma": "avocat", "pos": "NOUN", "display": "l'avocat", "gloss": "lawyer; avocado", "register": "neutral", "example": "Mon avocat est bon."},
+  {"rank": 1029, "lemma": "bonheur", "pos": "NOUN", "display": "le bonheur", "gloss": "happiness", "register": "neutral", "example": "Le bonheur est simple."},
+  {"rank": 1030, "lemma": "budget", "pos": "NOUN", "display": "le budget", "gloss": "budget", "register": "neutral", "example": "Notre budget est petit."},
+  {"rank": 1031, "lemma": "caractère", "pos": "NOUN", "display": "le caractère", "gloss": "character", "register": "neutral", "example": "Il a un bon caractère."},
+  {"rank": 1032, "lemma": "compter", "pos": "VERB", "display": "compter", "gloss": "to count", "register": "neutral", "example": "Je sais compter."},
+  {"rank": 1033, "lemma": "consommation", "pos": "NOUN", "display": "la consommation", "gloss": "consumption", "register": "neutral", "example": "La consommation est importante."},
+  {"rank": 1034, "lemma": "découvrir", "pos": "VERB", "display": "découvrir", "gloss": "to discover", "register": "neutral", "example": "Je veux découvrir ce pays."},
+  {"rank": 1035, "lemma": "enseignement", "pos": "NOUN", "display": "l'enseignement", "gloss": "teaching, education", "register": "neutral", "example": "L'enseignement est important."},
+  {"rank": 1036, "lemma": "Hollande", "pos": "PROPN", "display": "Hollande", "gloss": "surname / place name", "register": "neutral", "example": ""},
+  {"rank": 1037, "lemma": "lendemain", "pos": "NOUN", "display": "le lendemain", "gloss": "the next day", "register": "neutral", "example": "Le lendemain, il part."},
+  {"rank": 1038, "lemma": "magnifique", "pos": "ADJ", "display": "magnifique", "gloss": "magnificent", "register": "neutral", "example": "Ce tableau est magnifique."},
+  {"rank": 1039, "lemma": "mari", "pos": "NOUN", "display": "le mari", "gloss": "husband", "register": "neutral", "example": "Son mari travaille beaucoup."},
+  {"rank": 1040, "lemma": "musée", "pos": "NOUN", "display": "le musée", "gloss": "museum", "register": "neutral", "example": "Le musée est grand."},
+  {"rank": 1041, "lemma": "populaire", "pos": "ADJ", "display": "populaire", "gloss": "popular", "register": "neutral", "example": "Ce film est populaire."},
+  {"rank": 1042, "lemma": "prince", "pos": "NOUN", "display": "le prince", "gloss": "prince", "register": "neutral", "example": "Le prince est jeune."},
+  {"rank": 1043, "lemma": "province", "pos": "NOUN", "display": "la province", "gloss": "province", "register": "neutral", "example": "Cette province est grande."},
+  {"rank": 1044, "lemma": "rentrer", "pos": "VERB", "display": "rentrer", "gloss": "to go home, to return", "register": "neutral", "example": "Je dois rentrer."},
+  {"rank": 1045, "lemma": "ressource", "pos": "NOUN", "display": "la ressource", "gloss": "resource", "register": "neutral", "example": "Cette ressource est importante."},
+  {"rank": 1046, "lemma": "retraite", "pos": "NOUN", "display": "la retraite", "gloss": "retirement", "register": "neutral", "example": "Il pense à la retraite."},
+  {"rank": 1047, "lemma": "sac", "pos": "NOUN", "display": "le sac", "gloss": "bag", "register": "neutral", "example": "Mon sac est grand."},
+  {"rank": 1048, "lemma": "secrétaire", "pos": "NOUN", "display": "le secrétaire", "gloss": "secretary", "register": "neutral", "example": "La secrétaire travaille beaucoup."},
+  {"rank": 1049, "lemma": "siège", "pos": "NOUN", "display": "le siège", "gloss": "seat", "register": "neutral", "example": "Ce siège est grand."},
+  {"rank": 1050, "lemma": "supérieur", "pos": "ADJ", "display": "supérieur", "gloss": "superior, higher", "register": "neutral", "example": "Ce niveau est supérieur."}
+]
+```
+
+Four words dropped as `PROPN` (not new teachable words): `fasse` (subjunctive of already-known `faire`@35), `lois` (plural of already-known `loi`@224), `londres`/`hollande` (proper nouns — city/surname). Also corrected several bad tagger outputs: `madame` (was given lemma `monsieur`), `victime` (was ADJ, should be NOUN), `aimerais`→`aimer`/VERB (was ADJ/`aimerai`), `enseignement`/`lendemain` (were ADV, should be NOUN), `musée` (was VERB/`muser` — unrelated word), `supérieur` (was NOUN, primary sense is ADJ).
+
+If you'd like this saved to `work/fr/responses/021.json` (matching the existing batch pattern), let me know and I'll write it — the earlier write attempt wasn't approved.
