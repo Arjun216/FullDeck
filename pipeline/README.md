@@ -98,6 +98,14 @@ it is listed bare — no rank, no POS. Only the batch's own range is numbered, b
 is usable by some targets and not others. Retries are batched for the same reason: one prompt per
 failing word re-sent the whole vocabulary 26 times over.
 
+The *harness* around the prompt turned out to cost more than the prompt. A plain `claude --print`
+ships this repo's `CLAUDE.md`, every skill, plugin, hook and MCP server, and the full built-in tool
+schemas — ~38k prompt tokens per batch, measured, against ~2.4k for the average prompt itself. The
+task fires no tool and needs no repo context, so `generate` passes `--safe-mode --tools ""`, which
+measures ~5.3k instead. Note `--bare` looks like the same idea but is not usable here: it reads
+auth strictly from `ANTHROPIC_API_KEY`, and this pipeline runs on the subscription precisely so no
+key lives in this repo.
+
 ## Tests
 
 ```sh

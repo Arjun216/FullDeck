@@ -210,8 +210,25 @@ def cmd_generate(args) -> int:
 def _run_claude(prompt: str, model: str, timeout: int) -> str:
     import subprocess
 
+    # The prompt is self-contained text in, JSON out: no tool ever fires, and none
+    # of this repo's CLAUDE.md, skills, plugins, hooks or MCP servers is relevant.
+    # Sending them anyway cost ~38k prompt tokens per batch -- more than the
+    # vocabulary list the prompt is actually made of. `--safe-mode` drops the
+    # customisations and `--tools ""` the built-in schemas, together ~7x cheaper
+    # per call; unlike `--bare` it still authenticates on the subscription, which
+    # is what keeps an API key out of this repo.
     result = subprocess.run(
-        ["claude", "--print", "--model", model, prompt],
+        [
+            "claude",
+            "--print",
+            "--model",
+            model,
+            "--safe-mode",
+            "--tools",
+            "",
+            "--no-session-persistence",
+            prompt,
+        ],
         capture_output=True,
         text=True,
         timeout=timeout,
