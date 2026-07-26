@@ -1,0 +1,10 @@
+{
+  "packs": [
+    {
+      "language_code": "fr",
+      "display_name": "Français",
+      "filename": "fr-mini.pack.json",
+      "unlocked_by_default": true
+    }
+  ]
+}
