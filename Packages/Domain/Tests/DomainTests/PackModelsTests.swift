@@ -47,3 +47,60 @@ func languageCodeEquatable() {
     #expect(LanguageCode("fr") == LanguageCode("fr"))
     #expect(LanguageCode("fr") != LanguageCode("hi"))
 }
+
+@Test("PackSource round-trips through its initializer")
+func packSourceRoundTrip() {
+    let source = PackSource(
+        name: "wordfreq", license: "CC-BY-SA 4.0", attribution: "wordfreq by Rory Beard"
+    )
+
+    #expect(source.name == "wordfreq")
+    #expect(source.license == "CC-BY-SA 4.0")
+    #expect(source.attribution == "wordfreq by Rory Beard")
+}
+
+@Test("LanguagePack round-trips through its initializer")
+func languagePackRoundTrip() {
+    let source = PackSource(
+        name: "wordfreq", license: "CC-BY-SA 4.0", attribution: "wordfreq by Rory Beard"
+    )
+    let words = [
+        WordEntry(
+            id: WordID("fr:le:DET"), lemma: "le", display: "le", pos: .det, rank: 1,
+            register: .neutral, isFunctionWord: true, gloss: nil, example: "Le chat.", aliases: []),
+    ]
+    let pack = LanguagePack(
+        schemaVersion: 1, packVersion: "0.1.0", languageCode: LanguageCode("fr"),
+        languageName: "French", baseLanguage: nil, wordCount: 1, source: source, words: words
+    )
+
+    #expect(pack.schemaVersion == 1)
+    #expect(pack.packVersion == "0.1.0")
+    #expect(pack.languageCode == LanguageCode("fr"))
+    #expect(pack.languageName == "French")
+    #expect(pack.baseLanguage == nil)
+    #expect(pack.wordCount == 1)
+    #expect(pack.words.count == 1)
+}
+
+@Test("PackDescriptor round-trips through its initializer")
+func packDescriptorRoundTrip() {
+    let descriptor = PackDescriptor(
+        languageCode: LanguageCode("fr"), displayName: "French",
+        filename: "fr.pack.json", unlockedByDefault: true
+    )
+
+    #expect(descriptor.languageCode == LanguageCode("fr"))
+    #expect(descriptor.displayName == "French")
+    #expect(descriptor.filename == "fr.pack.json")
+    #expect(descriptor.unlockedByDefault)
+}
+
+@Test("ProgressSummary round-trips through its initializer")
+func progressSummaryRoundTrip() {
+    let summary = ProgressSummary(wordsLearned: 100, wordsInProgress: 50, totalReviewed: 150)
+
+    #expect(summary.wordsLearned == 100)
+    #expect(summary.wordsInProgress == 50)
+    #expect(summary.totalReviewed == 150)
+}
