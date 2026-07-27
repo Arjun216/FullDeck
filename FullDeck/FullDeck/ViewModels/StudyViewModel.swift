@@ -66,6 +66,10 @@ final class StudyViewModel {
     }
 
     func start() async {
+        // The view's `.task` re-fires every time the Study tab reappears. A
+        // session already in progress is the learner's place in the deck —
+        // rebuilding the queue here would silently throw it away.
+        if case .card = state { return }
         state = .loading
         do {
             let pack = try await packStore.loadPack(languageCode)

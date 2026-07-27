@@ -208,3 +208,23 @@ func unavailableVoiceDegradesGracefully() async {
         return
     }
 }
+
+@Test("FR-3 restarting an in-progress session keeps the current card")
+@MainActor
+func restartingKeepsTheCurrentCard() async {
+    let pack = frPack([entry("chat", rank: 1), entry("chien", rank: 2)])
+    let viewModel = makeStudyViewModel(pack: pack)
+    await viewModel.start()
+    viewModel.reveal()
+    await viewModel.grade(.good)
+
+    // The view's .task re-fires every time its tab reappears; that must not
+    // throw away the session the learner is halfway through.
+    await viewModel.start()
+
+    #expect(
+        viewModel.state
+            == .card(
+                StudyViewModel.Card(
+                    entry: pack.words[1], isRevealed: false, index: 2, total: 2)))
+}
