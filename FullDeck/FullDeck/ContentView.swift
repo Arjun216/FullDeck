@@ -4,9 +4,19 @@ import SwiftUI
 /// Root shell: one tab per v1 screen. Owns which language is active — persisting
 /// that choice across launches is Phase 9.
 struct ContentView: View {
+    /// Tabs need an explicit, stable tag. Each tab's content is an `if let` on
+    /// `activeLanguage`, and a `_ConditionalContent` that flips branch changes the
+    /// tab's *implicit* identity — which silently breaks TabView's tag-to-tab
+    /// mapping and makes the last tab unreachable. The tag sits outside the
+    /// conditional, so it survives the flip.
+    private enum Tab: Hashable {
+        case languages, study, progress
+    }
+
     let dependencies: AppDependencies
 
     @State private var selectionViewModel: LanguageSelectionViewModel
+    @State private var selectedTab: Tab = .languages
 
     init(dependencies: AppDependencies) {
         self.dependencies = dependencies
@@ -19,13 +29,16 @@ struct ContentView: View {
     }
 
     var body: some View {
-        TabView {
+        TabView(selection: $selectedTab) {
             LanguageSelectionView(viewModel: selectionViewModel)
                 .tabItem { Label("Languages", systemImage: "globe") }
+                .tag(Tab.languages)
             studyTab
                 .tabItem { Label("Study", systemImage: "rectangle.stack") }
+                .tag(Tab.study)
             progressTab
                 .tabItem { Label("Progress", systemImage: "chart.bar") }
+                .tag(Tab.progress)
         }
     }
 

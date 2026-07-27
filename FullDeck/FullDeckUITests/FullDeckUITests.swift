@@ -25,4 +25,27 @@ final class FullDeckUITests: XCTestCase {
         XCTAssertTrue(tabBar.buttons["Study"].exists)
         XCTAssertTrue(tabBar.buttons["Progress"].exists)
     }
+
+    /// Regression: selecting a language must light up *every* dependent tab, not
+    /// just the first one visited. The Progress tab kept rendering the
+    /// "Choose a language" placeholder after French was already active.
+    @MainActor
+    func testFR10ProgressTabShowsTheReadoutAfterSelectingALanguage() throws {
+        let app = XCUIApplication()
+        app.launch()
+
+        let french = app.buttons["French"]
+        XCTAssertTrue(french.waitForExistence(timeout: 5))
+        french.tap()
+
+        app.tabBars.firstMatch.buttons["Progress"].tap()
+
+        let readout = app.descendants(matching: .any)
+            .matching(NSPredicate(format: "label CONTAINS[c] %@", "words learned"))
+            .firstMatch
+        XCTAssertTrue(
+            readout.waitForExistence(timeout: 5),
+            "Progress tab showed no readout. Hierarchy:\n\(app.debugDescription)")
+        XCTAssertFalse(app.staticTexts["Choose a language"].exists)
+    }
 }
