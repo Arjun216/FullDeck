@@ -90,8 +90,10 @@ Rules:
    first. A never-reviewed word's default `nextReviewDate` of `.distantPast` does **not** make it
    "due" — a word with no state is a *new* word and goes through the cap.
 2. **New words (FR-4).** Pack entries with no `ReviewState`, ordered by `rank` ascending, limited
-   to `max(0, newWordCap - introducedToday)`, where `introducedToday` counts states whose
-   `firstReviewedDate` is on `today`'s UTC day. A cap of 0 or less yields no new words.
+   to `max(0, newWordCap - introducedToday)`, where `introducedToday` counts states **belonging to
+   this pack** whose `firstReviewedDate` is on `today`'s UTC day. Scoping the count to pack
+   membership is what makes the cap per-language (FR-4) a property of the function rather than of
+   its caller. A cap of 0 or less yields no new words.
 3. **Order.** All due reviews first, then new words. Reviews are the debt; new words are the
    optional extra on top.
 4. **Language scoping.** Entries come from the pack, so states belonging to another language
@@ -290,8 +292,12 @@ Phase 13. Logic stays in the ViewModels; the views only read state and send inte
   one.
 
 Accessibility basics land here, not later: each interactive control gets a VoiceOver label, and
-text uses Dynamic-Type-scaling styles (no fixed point sizes). The audit and the manual walkthrough
-are Phase 10.
+text uses Dynamic-Type-scaling styles (no fixed point sizes — the progress count's 64pt display
+size goes through `@ScaledMetric(relativeTo: .largeTitle)` so it still scales). The audit and the
+manual walkthrough are Phase 10.
+
+All three screens render the same failure state, so it lives in one `ErrorStateView(message:)`
+rather than being copied into each view's `.failed` branch.
 
 **Composition root.** `FullDeckApp` constructs the graph once and injects it (ADR-002: no DI
 framework, no singletons): `InMemoryPackStore` seeded from a Phase-8-only in-code `SamplePack`
@@ -299,10 +305,21 @@ framework, no singletons): `InMemoryPackStore` seeded from a Phase-8-only in-cod
 and `SystemDayClock`. Both the sample pack and the in-memory stores are marked `ponytail:` and are
 deleted in Phase 9 when the real adapters and the bundled pack land.
 
-`ContentView` keeps its three tabs and owns `@State private var activeLanguage: LanguageCode?`.
-Study and Progress show a "choose a language first" placeholder while it is `nil`, and build their
-ViewModels keyed to the selected language (`.id(activeLanguage)`) once it is set. Persisting the
-choice is Phase 9.
+`ContentView` keeps its three tabs, reads the active language from `LanguageSelectionViewModel`,
+and shows a "choose a language first" placeholder in Study and Progress while it is `nil`.
+Persisting the choice is Phase 9.
+
+Two SwiftUI identity rules the tab shell has to respect, both found by driving the built app:
+
+- **Every tab carries an explicit `.tag`, applied outside its `if let`.** A tab whose content is a
+  `_ConditionalContent` changes its *implicit* identity when the branch flips, which breaks
+  `TabView`'s tag-to-tab mapping and strands the last tab on stale content. The `TabView` takes a
+  `selection:` binding so the tags are load-bearing.
+- **`ContentView` owns the study and progress ViewModels in `@State`**, rebuilt only when the
+  active language actually changes. Constructing them inside the tab bodies makes a new object on
+  every re-render. Paired with that, `StudyViewModel.start()` returns early while a card is in
+  play — the view's `.task` re-fires on every tab appearance, and reloading would throw away the
+  learner's place in the deck.
 
 ---
 

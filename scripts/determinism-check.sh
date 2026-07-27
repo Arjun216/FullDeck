@@ -26,8 +26,13 @@ status=0
 # Wall-clock "now", sleeps, and unseeded system RNG are never allowed in tests.
 # Both spellings of Date-now are caught: Date() and Date.now. (Date(timeIntervalSince1970:)
 # is fine — it's a fixed instant, not the clock.)
+#
+# The `(^|[^A-Za-z0-9_])` prefix is what keeps `Date` a whole token: without it,
+# a test named `firstGradeStampsFirstReviewedDate()` matched `Date()` on the tail
+# of its own name. A qualified `Foundation.Date()` is still caught — `.` is not
+# an identifier character.
 # shellcheck disable=SC2086
-if grep -nE 'Date\(\)|Date\.now|Task\.sleep|Thread\.sleep|arc4random|SystemRandomNumberGenerator' $files; then
+if grep -nE '(^|[^A-Za-z0-9_])Date(\(\)|\.now)|Task\.sleep|Thread\.sleep|arc4random|SystemRandomNumberGenerator' $files; then
   status=1
 fi
 

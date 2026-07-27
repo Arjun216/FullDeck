@@ -137,6 +137,13 @@ protocol SpeechService {
 
 The 2026 baseline is Swift 6 with strict concurrency checking on.
 
+> **Where it is actually on (as of Phase 8):** the Domain and Data packages declare
+> `swiftLanguageModes: [.v6]`, so everything below is compiler-enforced there. The app target
+> still builds in Swift 5 mode with `SWIFT_APPROACHABLE_CONCURRENCY` and a `MainActor` default
+> isolation — migration aids, not complete data-race checking. Its `@MainActor @Observable`
+> ViewModels follow the model by construction, but nothing enforces it yet. Flipping the app
+> target to Swift 6 (and matching the test target's isolation default) is Phase 10 work.
+
 - **Domain** types are `Sendable` value types (structs/enums); `Scheduler`/`SessionBuilder` are synchronous pure functions — trivially concurrency-safe.
 - **ViewModels** are `@MainActor @Observable` — UI state is always touched on the main thread.
 

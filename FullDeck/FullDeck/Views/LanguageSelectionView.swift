@@ -1,21 +1,59 @@
+import Domain
 import SwiftUI
 
-/// Lists the available language packs with their locked/unlocked state.
-/// Placeholder for Phase 4 — the real pack list, loading, and lock check are
-/// wired up in Phase 8 (presentation) and Phase 11 (StoreKit).
+/// Lists the bundled packs with lock state (FR-1, FR-2, FR-14).
 struct LanguageSelectionView: View {
+    let viewModel: LanguageSelectionViewModel
+
     var body: some View {
         NavigationStack {
-            ContentUnavailableView(
-                "Languages",
-                systemImage: "globe",
-                description: Text("Choose a language to learn. Wired up in Phase 8.")
-            )
-            .navigationTitle("Languages")
+            content
+                .navigationTitle("Languages")
+                .task { await viewModel.load() }
         }
     }
-}
 
-#Preview {
-    LanguageSelectionView()
+    @ViewBuilder
+    private var content: some View {
+        switch viewModel.state {
+        case .loading:
+            ProgressView()
+        case .ready(let options):
+            List(options) { option in
+                Button {
+                    viewModel.select(option)
+                } label: {
+                    HStack {
+                        Text(option.descriptor.displayName)
+                        Spacer()
+                        if !option.isUnlocked {
+                            Image(systemName: "lock.fill")
+                                .foregroundStyle(.secondary)
+                        } else if isActive(option) {
+                            Image(systemName: "checkmark")
+                        }
+                    }
+                }
+                .disabled(!option.isUnlocked)
+                .accessibilityLabel(accessibilityLabel(for: option))
+            }
+        case .failed(let message):
+            ErrorStateView(message: message)
+        }
+    }
+
+    private func isActive(_ option: LanguageSelectionViewModel.Option) -> Bool {
+        viewModel.activeLanguage == option.descriptor.languageCode
+    }
+
+    private func accessibilityLabel(
+        for option: LanguageSelectionViewModel.Option
+    ) -> String {
+        guard option.isUnlocked else {
+            return "\(option.descriptor.displayName), locked"
+        }
+        return isActive(option)
+            ? "\(option.descriptor.displayName), active language"
+            : option.descriptor.displayName
+    }
 }

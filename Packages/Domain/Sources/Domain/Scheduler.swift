@@ -21,14 +21,6 @@ public struct Scheduler: Sendable {
     /// Floor of 1 day is what guarantees `nextReviewDate > today` (FR-8); the
     /// one-year ceiling keeps a word from effectively disappearing forever.
     static let intervalRange = 1...365
-    /// Day arithmetic runs on a fixed Gregorian/UTC calendar, never
-    /// `Calendar.current`: the result must not depend on the device's locale or
-    /// time zone, and `date(byAdding: .day, ...)` stays correct across DST.
-    private static let calendar: Calendar = {
-        var calendar = Calendar(identifier: .gregorian)
-        calendar.timeZone = .gmt
-        return calendar
-    }()
 
     public init() {}
 
@@ -62,8 +54,7 @@ public struct Scheduler: Sendable {
             }
         next.intervalDays = interval.clamped(to: Self.intervalRange)
         // Derived from the *clamped* interval — the two must never disagree.
-        next.nextReviewDate =
-            Self.calendar.date(byAdding: .day, value: next.intervalDays, to: today) ?? today
+        next.nextReviewDate = DayCalendar.adding(days: next.intervalDays, to: today)
         return next
     }
 }

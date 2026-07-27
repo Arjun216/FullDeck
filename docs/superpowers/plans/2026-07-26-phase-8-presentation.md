@@ -56,6 +56,7 @@ private let day0 = Date(timeIntervalSince1970: 86_400 * 20_000)  // 2024-10-04T0
 | `FullDeck/FullDeck/ViewModels/StudyViewModel.swift` | Card sequencing, reveal/grade, speech (FR-3/5/6/7/8/12) |
 | `FullDeck/FullDeck/ViewModels/ProgressViewModel.swift` | Words learned out of the pack total (FR-10) |
 | `FullDeck/FullDeck/ViewModels/LanguageSelectionViewModel.swift` | Pack list, lock state, active language (FR-1, FR-2, FR-14) |
+| `FullDeck/FullDeck/Views/ErrorStateView.swift` | The one failure state all three screens render |
 | `FullDeck/FullDeck/AppDependencies.swift` | The dependency container the composition root builds |
 | `FullDeck/FullDeck/SamplePack.swift` | Phase-8-only in-code pack so the app runs before Phase 9 |
 | `FullDeck/FullDeckTests/Fakes.swift` | `FakeSpeechService`, `FixedDayClock`, stub entitlements, pack builders |
@@ -467,11 +468,16 @@ In `build`, insert before the `newWords` computation and use it in the `prefix`:
 
 ```swift
         // FR-4 counts *introductions per calendar day*, not per session, so a
-        // second session on the same day cannot re-spend the cap.
-        let introducedToday = states.filter { state in
-            guard let first = state.firstReviewedDate else { return false }
-            return DayCalendar.isSameDay(first, today)
-        }.count
+        // second session on the same day cannot re-spend the cap. Scoped to this
+        // pack's words, so a word introduced today in another language cannot
+        // spend this language's cap.
+        let introducedToday = pack.words
+            .compactMap { statesByWord[$0.id] }
+            .filter { state in
+                guard let first = state.firstReviewedDate else { return false }
+                return DayCalendar.isSameDay(first, today)
+            }
+            .count
 ```
 
 ```swift
@@ -548,6 +554,19 @@ func nothingDueAndNoNewWordsYieldsEmptyQueue() {
         pack: pack, states: [notYetDue], today: day0, newWordCap: 0)
 
     #expect(queue.isEmpty)
+}
+
+@Test("FR-4 a word introduced today in another language does not spend this pack's cap")
+func otherLanguageIntroductionDoesNotSpendTheCap() {
+    let pack = frPack([entry("chat", rank: 1), entry("chien", rank: 2)])
+    let hindiIntroducedToday = ReviewState(
+        wordID: WordID("hi:बिल्ली:NOUN"), intervalDays: 1, repetitions: 1,
+        nextReviewDate: day(1), firstReviewedDate: day0)
+
+    let queue = SessionBuilder().build(
+        pack: pack, states: [hindiIntroducedToday], today: day0, newWordCap: 2)
+
+    #expect(queue.map(\.lemma) == ["chat", "chien"])
 }
 
 @Test("FR-3 the session ignores review state belonging to another language")
@@ -1608,6 +1627,27 @@ git commit -m "feat(app): add LanguageSelectionViewModel with lock state (FR-1, 
 
 Views are thin glue: they read state and send intents, and hold no logic. They are not unit-tested — the ViewModels underneath them are.
 
+- [ ] **Step 0: Write the shared error state**
+
+All three views render the same failure state, so it lives in one place. Create
+`FullDeck/FullDeck/Views/ErrorStateView.swift`:
+
+```swift
+import SwiftUI
+
+/// The one failure state all three screens render (NFR-10). Phase 10 owns the
+/// final user-facing copy.
+struct ErrorStateView: View {
+    let message: String
+
+    var body: some View {
+        ContentUnavailableView(
+            "Something went wrong", systemImage: "exclamationmark.triangle",
+            description: Text(message))
+    }
+}
+```
+
 - [ ] **Step 1: Write `StudyView`**
 
 Replace `FullDeck/FullDeck/Views/StudyView.swift`:
@@ -1641,9 +1681,7 @@ struct StudyView: View {
         case .caughtUp(let nextDue):
             caughtUpView(nextDue)
         case .failed(let message):
-            ContentUnavailableView(
-                "Something went wrong", systemImage: "exclamationmark.triangle",
-                description: Text(message))
+            ErrorStateView(message: message)
         }
     }
 
@@ -1745,6 +1783,9 @@ import SwiftUI
 /// Words learned out of the language's total, and nothing else (FR-10).
 struct LearningProgressView: View {
     let viewModel: ProgressViewModel
+    // Dynamic Type: 64pt at the default text size, scaling on the .largeTitle
+    // curve. A bare .system(size:) would ignore the user's text-size setting.
+    @ScaledMetric(relativeTo: .largeTitle) private var countSize: CGFloat = 64
 
     var body: some View {
         NavigationStack {
@@ -1762,7 +1803,7 @@ struct LearningProgressView: View {
         case .ready(let learned, let total):
             VStack(spacing: 8) {
                 Text("\(learned)")
-                    .font(.system(size: 64, weight: .semibold, design: .rounded))
+                    .font(.system(size: countSize, weight: .semibold, design: .rounded))
                 Text("of \(total) words learned")
                     .font(.title3)
                     .foregroundStyle(.secondary)
@@ -1770,9 +1811,7 @@ struct LearningProgressView: View {
             .accessibilityElement(children: .combine)
             .accessibilityLabel("\(learned) of \(total) words learned")
         case .failed(let message):
-            ContentUnavailableView(
-                "Something went wrong", systemImage: "exclamationmark.triangle",
-                description: Text(message))
+            ErrorStateView(message: message)
         }
     }
 }
@@ -1813,8 +1852,7 @@ struct LanguageSelectionView: View {
                         if !option.isUnlocked {
                             Image(systemName: "lock.fill")
                                 .foregroundStyle(.secondary)
-                        } else if viewModel.activeLanguage
-                            == option.descriptor.languageCode {
+                        } else if isActive(option) {
                             Image(systemName: "checkmark")
                         }
                     }
@@ -1823,10 +1861,12 @@ struct LanguageSelectionView: View {
                 .accessibilityLabel(accessibilityLabel(for: option))
             }
         case .failed(let message):
-            ContentUnavailableView(
-                "Something went wrong", systemImage: "exclamationmark.triangle",
-                description: Text(message))
+            ErrorStateView(message: message)
         }
+    }
+
+    private func isActive(_ option: LanguageSelectionViewModel.Option) -> Bool {
+        viewModel.activeLanguage == option.descriptor.languageCode
     }
 
     private func accessibilityLabel(
@@ -1835,8 +1875,7 @@ struct LanguageSelectionView: View {
         guard option.isUnlocked else {
             return "\(option.descriptor.displayName), locked"
         }
-        let isActive = viewModel.activeLanguage == option.descriptor.languageCode
-        return isActive
+        return isActive(option)
             ? "\(option.descriptor.displayName), active language"
             : option.descriptor.displayName
     }
@@ -2021,9 +2060,24 @@ import SwiftUI
 /// Root shell: one tab per v1 screen. Owns which language is active — persisting
 /// that choice across launches is Phase 9.
 struct ContentView: View {
+    /// Tabs need an explicit, stable tag. Each tab's content is an `if let` on
+    /// `activeLanguage`, and a `_ConditionalContent` that flips branch changes the
+    /// tab's *implicit* identity — which silently breaks TabView's tag-to-tab
+    /// mapping and makes the last tab unreachable. The tag sits outside the
+    /// conditional, so it survives the flip.
+    private enum Tab: Hashable {
+        case languages, study, progress
+    }
+
     let dependencies: AppDependencies
 
     @State private var selectionViewModel: LanguageSelectionViewModel
+    @State private var selectedTab: Tab = .languages
+    // Owned here rather than rebuilt inside the tab bodies: a ViewModel
+    // constructed per body evaluation is a new object on every re-render, which
+    // discards whatever session the learner was in the middle of.
+    @State private var studyViewModel: StudyViewModel?
+    @State private var progressViewModel: ProgressViewModel?
 
     init(dependencies: AppDependencies) {
         self.dependencies = dependencies
@@ -2036,28 +2090,46 @@ struct ContentView: View {
     }
 
     var body: some View {
-        TabView {
+        TabView(selection: $selectedTab) {
             LanguageSelectionView(viewModel: selectionViewModel)
                 .tabItem { Label("Languages", systemImage: "globe") }
+                .tag(Tab.languages)
             studyTab
                 .tabItem { Label("Study", systemImage: "rectangle.stack") }
+                .tag(Tab.study)
             progressTab
                 .tabItem { Label("Progress", systemImage: "chart.bar") }
+                .tag(Tab.progress)
         }
+        // Rebuild the two ViewModels only when the active language genuinely
+        // changes — not on every re-render.
+        .task(id: selectionViewModel.activeLanguage) {
+            makeViewModels(for: selectionViewModel.activeLanguage)
+        }
+    }
+
+    private func makeViewModels(for language: LanguageCode?) {
+        guard let language else {
+            studyViewModel = nil
+            progressViewModel = nil
+            return
+        }
+        studyViewModel = StudyViewModel(
+            languageCode: language, packStore: dependencies.packStore,
+            reviewStore: dependencies.reviewStore,
+            scheduler: dependencies.scheduler,
+            sessionBuilder: dependencies.sessionBuilder,
+            speech: dependencies.speech, clock: dependencies.clock)
+        progressViewModel = ProgressViewModel(
+            languageCode: language, packStore: dependencies.packStore,
+            reviewStore: dependencies.reviewStore)
     }
 
     @ViewBuilder
     private var studyTab: some View {
-        if let language = selectionViewModel.activeLanguage {
-            StudyView(
-                viewModel: StudyViewModel(
-                    languageCode: language, packStore: dependencies.packStore,
-                    reviewStore: dependencies.reviewStore,
-                    scheduler: dependencies.scheduler,
-                    sessionBuilder: dependencies.sessionBuilder,
-                    speech: dependencies.speech, clock: dependencies.clock)
-            )
-            .id(language.rawValue)
+        if let studyViewModel, let language = selectionViewModel.activeLanguage {
+            StudyView(viewModel: studyViewModel)
+                .id(language.rawValue)
         } else {
             chooseALanguage
         }
@@ -2065,13 +2137,9 @@ struct ContentView: View {
 
     @ViewBuilder
     private var progressTab: some View {
-        if let language = selectionViewModel.activeLanguage {
-            LearningProgressView(
-                viewModel: ProgressViewModel(
-                    languageCode: language, packStore: dependencies.packStore,
-                    reviewStore: dependencies.reviewStore)
-            )
-            .id(language.rawValue)
+        if let progressViewModel, let language = selectionViewModel.activeLanguage {
+            LearningProgressView(viewModel: progressViewModel)
+                .id(language.rawValue)
         } else {
             chooseALanguage
         }
