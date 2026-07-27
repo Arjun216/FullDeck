@@ -81,6 +81,39 @@ final class StudyViewModel {
         }
     }
 
+    /// Active recall (FR-5): the learner commits to an attempt, *then* sees the
+    /// answer. Nothing can be graded before this.
+    func reveal() {
+        guard case .card(var card) = state, !card.isRevealed else { return }
+        card.isRevealed = true
+        state = .card(card)
+    }
+
+    /// Reveal → self-grade → schedule → persist → next card (FR-5, FR-8).
+    func grade(_ grade: Grade) async {
+        guard case .card(let card) = state, card.isRevealed else { return }
+        let today = clock.today
+        do {
+            let current =
+                try await reviewStore.reviewState(for: card.entry.id)
+                ?? ReviewState(wordID: card.entry.id)
+            var next = scheduler.schedule(current, grade: grade, today: today)
+            // Stamping the first review here is what makes FR-4's per-day cap
+            // countable. `learnedDate` stays Phase 9's job.
+            if next.firstReviewedDate == nil {
+                next.firstReviewedDate = today
+            }
+            try await reviewStore.save(next)
+            states.removeAll { $0.wordID == next.wordID }
+            states.append(next)
+        } catch {
+            state = .failed("Couldn't save your progress.")
+            return
+        }
+        position += 1
+        showCurrentCard()
+    }
+
     private func showCurrentCard() {
         guard position < queue.count else {
             state = .caughtUp(nextDue: nextDueDate())

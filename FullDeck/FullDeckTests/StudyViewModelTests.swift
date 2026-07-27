@@ -73,3 +73,95 @@ func missingPackSurfacesFailedState() async {
         return
     }
 }
+
+@Test("FR-5 reveal exposes the answer side of the card")
+@MainActor
+func revealExposesTheAnswer() async {
+    let viewModel = makeStudyViewModel()
+    await viewModel.start()
+
+    viewModel.reveal()
+
+    guard case .card(let card) = viewModel.state else {
+        Issue.record("expected a card, got \(viewModel.state)")
+        return
+    }
+    #expect(card.isRevealed)
+}
+
+@Test("FR-5 grading before reveal does nothing")
+@MainActor
+func gradingBeforeRevealDoesNothing() async {
+    let store = InMemoryReviewStore()
+    let viewModel = makeStudyViewModel(reviewStore: store)
+    await viewModel.start()
+
+    await viewModel.grade(.good)
+
+    let saved = try? await store.reviewState(for: WordID("fr:chat:NOUN"))
+    #expect(saved == nil)
+    guard case .card(let card) = viewModel.state else {
+        Issue.record("expected to still be on the first card, got \(viewModel.state)")
+        return
+    }
+    #expect(card.index == 1)
+}
+
+@Test("FR-8 grading persists the scheduler's updated state")
+@MainActor
+func gradingPersistsScheduledState() async {
+    let store = InMemoryReviewStore()
+    let viewModel = makeStudyViewModel(reviewStore: store)
+    await viewModel.start()
+    viewModel.reveal()
+
+    await viewModel.grade(.good)
+
+    let saved = try? await store.reviewState(for: WordID("fr:chat:NOUN"))
+    #expect(saved?.repetitions == 1)
+    #expect(saved?.intervalDays == 1)
+    #expect(saved?.nextReviewDate == day(1))
+}
+
+@Test("FR-4 the first grade stamps firstReviewedDate so the daily cap can count it")
+@MainActor
+func firstGradeStampsFirstReviewedDate() async {
+    let store = InMemoryReviewStore()
+    let viewModel = makeStudyViewModel(reviewStore: store)
+    await viewModel.start()
+    viewModel.reveal()
+
+    await viewModel.grade(.good)
+
+    let saved = try? await store.reviewState(for: WordID("fr:chat:NOUN"))
+    #expect(saved?.firstReviewedDate == day0)
+}
+
+@Test("FR-3 grading advances to the next card")
+@MainActor
+func gradingAdvancesToTheNextCard() async {
+    let pack = frPack([entry("chat", rank: 1), entry("chien", rank: 2)])
+    let viewModel = makeStudyViewModel(pack: pack)
+    await viewModel.start()
+    viewModel.reveal()
+
+    await viewModel.grade(.good)
+
+    #expect(
+        viewModel.state
+            == .card(
+                StudyViewModel.Card(
+                    entry: pack.words[1], isRevealed: false, index: 2, total: 2)))
+}
+
+@Test("FR-12 grading the last card ends the session in the caught-up state")
+@MainActor
+func gradingLastCardEndsTheSession() async {
+    let viewModel = makeStudyViewModel(pack: frPack([entry("chat", rank: 1)]))
+    await viewModel.start()
+    viewModel.reveal()
+
+    await viewModel.grade(.good)
+
+    #expect(viewModel.state == .caughtUp(nextDue: day(1)))
+}
