@@ -2,11 +2,13 @@ import Domain
 import Foundation
 
 /// Structural-profile validator (`docs/language-pack-schema.md` §7): VR-2
-/// through VR-9 and VR-11 through VR-16. VR-10 (the example-sentence
-/// frequency constraint) needs tokenization/lemmatization/POS-tagging
-/// equivalent to the pipeline's spaCy analyzer and is deliberately out of
-/// scope here — see the Phase 7 design doc's amendment. The pipeline already
-/// enforces VR-10 before a pack ships.
+/// through VR-9, VR-11 through VR-14, and the manifest-match / id-prefix-match
+/// halves of VR-16 (its BCP-47-well-formedness clause is not checked). VR-15
+/// (max supported schema version) lives in `JSONPackStore.swift`, not here.
+/// VR-10 (the example-sentence frequency constraint) needs
+/// tokenization/lemmatization/POS-tagging equivalent to the pipeline's spaCy
+/// analyzer and is deliberately out of scope here — see the Phase 7 design
+/// doc's amendment. The pipeline already enforces VR-10 before a pack ships.
 enum PackValidator {
     static func validate(
         _ pack: PackDTO,
@@ -49,9 +51,10 @@ enum PackValidator {
         ] {
             let trimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)
             let normalized = text.precomposedStringWithCanonicalMapping
-            if text != trimmed || text != normalized {
+            if text.isEmpty || text != trimmed || text != normalized {
                 return .validationFailed(
-                    rule: "VR-9", reason: "\(fieldName) is not trimmed and NFC-normalized")
+                    rule: "VR-9",
+                    reason: "\(fieldName) is empty, not trimmed, or not NFC-normalized")
             }
         }
         if let audio = entry.audio {
@@ -80,6 +83,9 @@ enum PackValidator {
         }
         if let dup = firstDuplicate(pack.words.map(\.id)) {
             return .validationFailed(rule: "VR-3", reason: "duplicate id \(dup)")
+        }
+        if let invalid = pack.words.first(where: { $0.rank < 1 }) {
+            return .validationFailed(rule: "VR-5", reason: "rank \(invalid.rank) is not >= 1")
         }
         if let dup = firstDuplicate(pack.words.map(\.rank)) {
             return .validationFailed(rule: "VR-5", reason: "duplicate rank \(dup)")

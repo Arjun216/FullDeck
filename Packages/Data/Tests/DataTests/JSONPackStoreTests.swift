@@ -112,6 +112,59 @@ func languageCodeMismatchWithManifestIsRejected() async throws {
     }
 }
 
+@Test("VR-5 a pack containing a rank below 1 is rejected")
+func rankBelowOneIsRejected() async throws {
+    let directory = FileManager.default.temporaryDirectory
+        .appendingPathComponent(UUID().uuidString, isDirectory: true)
+    try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+    var json = try String(contentsOf: Fixtures.url("fr-mini.pack.json"), encoding: .utf8)
+    json = json.replacingOccurrences(of: "\"rank\": 1,", with: "\"rank\": 0,")
+    try json.write(
+        to: directory.appendingPathComponent("zero-rank.pack.json"), atomically: true,
+        encoding: .utf8)
+    try """
+        {"packs": [{"language_code": "fr", "display_name": "Test", \
+        "filename": "zero-rank.pack.json", "unlocked_by_default": true}]}
+        """.write(
+            to: directory.appendingPathComponent("manifest.json"), atomically: true,
+            encoding: .utf8)
+    let store = JSONPackStore(packsDirectory: directory)
+
+    do {
+        _ = try await store.loadPack(LanguageCode("fr"))
+        Issue.record("expected VR-5 rejection")
+    } catch PackLoadError.validationFailed(let rule, _) {
+        #expect(rule == "VR-5")
+    }
+}
+
+@Test("VR-9 a pack containing an empty example sentence is rejected")
+func emptyExampleIsRejected() async throws {
+    let directory = FileManager.default.temporaryDirectory
+        .appendingPathComponent(UUID().uuidString, isDirectory: true)
+    try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+    var json = try String(contentsOf: Fixtures.url("fr-mini.pack.json"), encoding: .utf8)
+    json = json.replacingOccurrences(
+        of: "\"example\": \"Je suis Paul.\"", with: "\"example\": \"\"")
+    try json.write(
+        to: directory.appendingPathComponent("empty-example.pack.json"), atomically: true,
+        encoding: .utf8)
+    try """
+        {"packs": [{"language_code": "fr", "display_name": "Test", \
+        "filename": "empty-example.pack.json", "unlocked_by_default": true}]}
+        """.write(
+            to: directory.appendingPathComponent("manifest.json"), atomically: true,
+            encoding: .utf8)
+    let store = JSONPackStore(packsDirectory: directory)
+
+    do {
+        _ = try await store.loadPack(LanguageCode("fr"))
+        Issue.record("expected VR-9 rejection")
+    } catch PackLoadError.validationFailed(let rule, _) {
+        #expect(rule == "VR-9")
+    }
+}
+
 // --- robustness on bad/missing data (NFR-10) --------------------------------
 
 @Test("NFR-10 loading an unknown language surfaces fileNotFound, not a crash")
