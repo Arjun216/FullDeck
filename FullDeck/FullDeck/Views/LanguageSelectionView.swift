@@ -29,8 +29,7 @@ struct LanguageSelectionView: View {
                         if !option.isUnlocked {
                             Image(systemName: "lock.fill")
                                 .foregroundStyle(.secondary)
-                        } else if viewModel.activeLanguage
-                            == option.descriptor.languageCode {
+                        } else if isActive(option) {
                             Image(systemName: "checkmark")
                         }
                     }
@@ -39,10 +38,12 @@ struct LanguageSelectionView: View {
                 .accessibilityLabel(accessibilityLabel(for: option))
             }
         case .failed(let message):
-            ContentUnavailableView(
-                "Something went wrong", systemImage: "exclamationmark.triangle",
-                description: Text(message))
+            ErrorStateView(message: message)
         }
+    }
+
+    private func isActive(_ option: LanguageSelectionViewModel.Option) -> Bool {
+        viewModel.activeLanguage == option.descriptor.languageCode
     }
 
     private func accessibilityLabel(
@@ -51,8 +52,7 @@ struct LanguageSelectionView: View {
         guard option.isUnlocked else {
             return "\(option.descriptor.displayName), locked"
         }
-        let isActive = viewModel.activeLanguage == option.descriptor.languageCode
-        return isActive
+        return isActive(option)
             ? "\(option.descriptor.displayName), active language"
             : option.descriptor.displayName
     }

@@ -4,6 +4,10 @@ import SwiftUI
 struct LearningProgressView: View {
     let viewModel: ProgressViewModel
 
+    // Dynamic Type: 64pt at the default text size, scaling on the .largeTitle
+    // curve — a bare .system(size:) would ignore the user's setting entirely.
+    @ScaledMetric(relativeTo: .largeTitle) private var countSize: CGFloat = 64
+
     var body: some View {
         NavigationStack {
             content
@@ -20,7 +24,7 @@ struct LearningProgressView: View {
         case .ready(let learned, let total):
             VStack(spacing: 8) {
                 Text("\(learned)")
-                    .font(.system(size: 64, weight: .semibold, design: .rounded))
+                    .font(.system(size: countSize, weight: .semibold, design: .rounded))
                 Text("of \(total) words learned")
                     .font(.title3)
                     .foregroundStyle(.secondary)
@@ -28,9 +32,7 @@ struct LearningProgressView: View {
             .accessibilityElement(children: .combine)
             .accessibilityLabel("\(learned) of \(total) words learned")
         case .failed(let message):
-            ContentUnavailableView(
-                "Something went wrong", systemImage: "exclamationmark.triangle",
-                description: Text(message))
+            ErrorStateView(message: message)
         }
     }
 }

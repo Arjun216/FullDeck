@@ -26,9 +26,7 @@ struct StudyView: View {
         case .caughtUp(let nextDue):
             caughtUpView(nextDue)
         case .failed(let message):
-            ContentUnavailableView(
-                "Something went wrong", systemImage: "exclamationmark.triangle",
-                description: Text(message))
+            ErrorStateView(message: message)
         }
     }
 
