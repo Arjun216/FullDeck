@@ -44,6 +44,12 @@ final class StudyViewModel {
     private var queue: [WordEntry] = []
     private var position = 0
     private var states: [ReviewState] = []
+    /// `grade()` suspends at real `await`s (store I/O); `@MainActor` serializes
+    /// execution but not atomicity across a suspension. `StudyView` fires an
+    /// unstructured `Task` per button tap, so two taps on the same card can
+    /// both pass the entry guard before either mutates state. This flag closes
+    /// that window (FR-8): the second tap is a no-op instead of double-grading.
+    private var isGrading = false
 
     init(
         languageCode: LanguageCode,
@@ -95,7 +101,9 @@ final class StudyViewModel {
 
     /// Reveal → self-grade → schedule → persist → next card (FR-5, FR-8).
     func grade(_ grade: Grade) async {
-        guard case .card(let card) = state, card.isRevealed else { return }
+        guard !isGrading, case .card(let card) = state, card.isRevealed else { return }
+        isGrading = true
+        defer { isGrading = false }
         let today = clock.today
         do {
             let current =
@@ -140,6 +148,10 @@ final class StudyViewModel {
     }
 
     private func showCurrentCard() {
+        // Every advance — first card of a session or the next card after a
+        // grade — routes through here, so this is the one place that stops
+        // audio left over from the card being left (FR-7).
+        speech.stop()
         guard position < queue.count else {
             state = .caughtUp(nextDue: nextDueDate())
             return

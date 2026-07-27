@@ -209,6 +209,49 @@ func unavailableVoiceDegradesGracefully() async {
     }
 }
 
+@Test("FR-8 a double-tapped grade is applied once")
+@MainActor
+func doubleTappedGradeIsAppliedOnce() async {
+    let pack = frPack(
+        [entry("chat", rank: 1), entry("chien", rank: 2), entry("maison", rank: 3)])
+    let store = InMemoryReviewStore()
+    let viewModel = makeStudyViewModel(pack: pack, reviewStore: store)
+    await viewModel.start()
+    viewModel.reveal()
+
+    // Two unstructured taps on the same revealed card, as `StudyView`'s
+    // `Task { await viewModel.grade(grade) }` per button produces. `async let`
+    // starts both before either resumes past its first `await` — deterministic
+    // interleaving, no sleep needed.
+    async let first: Void = viewModel.grade(.good)
+    async let second: Void = viewModel.grade(.good)
+    _ = await (first, second)
+
+    let saved = try? await store.reviewState(for: WordID("fr:chat:NOUN"))
+    #expect(saved?.repetitions == 1)
+    #expect(saved?.intervalDays == 1)
+    guard case .card(let card) = viewModel.state else {
+        Issue.record("expected still to be on a card, got \(viewModel.state)")
+        return
+    }
+    #expect(card.index == 2)
+}
+
+@Test("FR-7 advancing to a new card stops any in-flight speech")
+@MainActor
+func advancingToANewCardStopsInFlightSpeech() async {
+    let pack = frPack([entry("chat", rank: 1), entry("chien", rank: 2)])
+    let speech = FakeSpeechService()
+    let viewModel = makeStudyViewModel(pack: pack, speech: speech)
+    await viewModel.start()
+    viewModel.reveal()
+    let stopsBeforeGrading = speech.stopCount
+
+    await viewModel.grade(.good)
+
+    #expect(speech.stopCount == stopsBeforeGrading + 1)
+}
+
 @Test("FR-3 restarting an in-progress session keeps the current card")
 @MainActor
 func restartingKeepsTheCurrentCard() async {
