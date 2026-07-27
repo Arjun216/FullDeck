@@ -305,10 +305,21 @@ framework, no singletons): `InMemoryPackStore` seeded from a Phase-8-only in-cod
 and `SystemDayClock`. Both the sample pack and the in-memory stores are marked `ponytail:` and are
 deleted in Phase 9 when the real adapters and the bundled pack land.
 
-`ContentView` keeps its three tabs and owns `@State private var activeLanguage: LanguageCode?`.
-Study and Progress show a "choose a language first" placeholder while it is `nil`, and build their
-ViewModels keyed to the selected language (`.id(activeLanguage)`) once it is set. Persisting the
-choice is Phase 9.
+`ContentView` keeps its three tabs, reads the active language from `LanguageSelectionViewModel`,
+and shows a "choose a language first" placeholder in Study and Progress while it is `nil`.
+Persisting the choice is Phase 9.
+
+Two SwiftUI identity rules the tab shell has to respect, both found by driving the built app:
+
+- **Every tab carries an explicit `.tag`, applied outside its `if let`.** A tab whose content is a
+  `_ConditionalContent` changes its *implicit* identity when the branch flips, which breaks
+  `TabView`'s tag-to-tab mapping and strands the last tab on stale content. The `TabView` takes a
+  `selection:` binding so the tags are load-bearing.
+- **`ContentView` owns the study and progress ViewModels in `@State`**, rebuilt only when the
+  active language actually changes. Constructing them inside the tab bodies makes a new object on
+  every re-render. Paired with that, `StudyViewModel.start()` returns early while a card is in
+  play — the view's `.task` re-fires on every tab appearance, and reloading would throw away the
+  learner's place in the deck.
 
 ---
 
