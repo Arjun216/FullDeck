@@ -292,8 +292,12 @@ Phase 13. Logic stays in the ViewModels; the views only read state and send inte
   one.
 
 Accessibility basics land here, not later: each interactive control gets a VoiceOver label, and
-text uses Dynamic-Type-scaling styles (no fixed point sizes). The audit and the manual walkthrough
-are Phase 10.
+text uses Dynamic-Type-scaling styles (no fixed point sizes — the progress count's 64pt display
+size goes through `@ScaledMetric(relativeTo: .largeTitle)` so it still scales). The audit and the
+manual walkthrough are Phase 10.
+
+All three screens render the same failure state, so it lives in one `ErrorStateView(message:)`
+rather than being copied into each view's `.failed` branch.
 
 **Composition root.** `FullDeckApp` constructs the graph once and injects it (ADR-002: no DI
 framework, no singletons): `InMemoryPackStore` seeded from a Phase-8-only in-code `SamplePack`

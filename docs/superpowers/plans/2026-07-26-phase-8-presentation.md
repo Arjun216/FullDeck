@@ -56,6 +56,7 @@ private let day0 = Date(timeIntervalSince1970: 86_400 * 20_000)  // 2024-10-04T0
 | `FullDeck/FullDeck/ViewModels/StudyViewModel.swift` | Card sequencing, reveal/grade, speech (FR-3/5/6/7/8/12) |
 | `FullDeck/FullDeck/ViewModels/ProgressViewModel.swift` | Words learned out of the pack total (FR-10) |
 | `FullDeck/FullDeck/ViewModels/LanguageSelectionViewModel.swift` | Pack list, lock state, active language (FR-1, FR-2, FR-14) |
+| `FullDeck/FullDeck/Views/ErrorStateView.swift` | The one failure state all three screens render |
 | `FullDeck/FullDeck/AppDependencies.swift` | The dependency container the composition root builds |
 | `FullDeck/FullDeck/SamplePack.swift` | Phase-8-only in-code pack so the app runs before Phase 9 |
 | `FullDeck/FullDeckTests/Fakes.swift` | `FakeSpeechService`, `FixedDayClock`, stub entitlements, pack builders |
@@ -1626,6 +1627,27 @@ git commit -m "feat(app): add LanguageSelectionViewModel with lock state (FR-1, 
 
 Views are thin glue: they read state and send intents, and hold no logic. They are not unit-tested — the ViewModels underneath them are.
 
+- [ ] **Step 0: Write the shared error state**
+
+All three views render the same failure state, so it lives in one place. Create
+`FullDeck/FullDeck/Views/ErrorStateView.swift`:
+
+```swift
+import SwiftUI
+
+/// The one failure state all three screens render (NFR-10). Phase 10 owns the
+/// final user-facing copy.
+struct ErrorStateView: View {
+    let message: String
+
+    var body: some View {
+        ContentUnavailableView(
+            "Something went wrong", systemImage: "exclamationmark.triangle",
+            description: Text(message))
+    }
+}
+```
+
 - [ ] **Step 1: Write `StudyView`**
 
 Replace `FullDeck/FullDeck/Views/StudyView.swift`:
@@ -1659,9 +1681,7 @@ struct StudyView: View {
         case .caughtUp(let nextDue):
             caughtUpView(nextDue)
         case .failed(let message):
-            ContentUnavailableView(
-                "Something went wrong", systemImage: "exclamationmark.triangle",
-                description: Text(message))
+            ErrorStateView(message: message)
         }
     }
 
@@ -1763,6 +1783,9 @@ import SwiftUI
 /// Words learned out of the language's total, and nothing else (FR-10).
 struct LearningProgressView: View {
     let viewModel: ProgressViewModel
+    // Dynamic Type: 64pt at the default text size, scaling on the .largeTitle
+    // curve. A bare .system(size:) would ignore the user's text-size setting.
+    @ScaledMetric(relativeTo: .largeTitle) private var countSize: CGFloat = 64
 
     var body: some View {
         NavigationStack {
@@ -1780,7 +1803,7 @@ struct LearningProgressView: View {
         case .ready(let learned, let total):
             VStack(spacing: 8) {
                 Text("\(learned)")
-                    .font(.system(size: 64, weight: .semibold, design: .rounded))
+                    .font(.system(size: countSize, weight: .semibold, design: .rounded))
                 Text("of \(total) words learned")
                     .font(.title3)
                     .foregroundStyle(.secondary)
@@ -1788,9 +1811,7 @@ struct LearningProgressView: View {
             .accessibilityElement(children: .combine)
             .accessibilityLabel("\(learned) of \(total) words learned")
         case .failed(let message):
-            ContentUnavailableView(
-                "Something went wrong", systemImage: "exclamationmark.triangle",
-                description: Text(message))
+            ErrorStateView(message: message)
         }
     }
 }
@@ -1831,8 +1852,7 @@ struct LanguageSelectionView: View {
                         if !option.isUnlocked {
                             Image(systemName: "lock.fill")
                                 .foregroundStyle(.secondary)
-                        } else if viewModel.activeLanguage
-                            == option.descriptor.languageCode {
+                        } else if isActive(option) {
                             Image(systemName: "checkmark")
                         }
                     }
@@ -1841,10 +1861,12 @@ struct LanguageSelectionView: View {
                 .accessibilityLabel(accessibilityLabel(for: option))
             }
         case .failed(let message):
-            ContentUnavailableView(
-                "Something went wrong", systemImage: "exclamationmark.triangle",
-                description: Text(message))
+            ErrorStateView(message: message)
         }
+    }
+
+    private func isActive(_ option: LanguageSelectionViewModel.Option) -> Bool {
+        viewModel.activeLanguage == option.descriptor.languageCode
     }
 
     private func accessibilityLabel(
@@ -1853,8 +1875,7 @@ struct LanguageSelectionView: View {
         guard option.isUnlocked else {
             return "\(option.descriptor.displayName), locked"
         }
-        let isActive = viewModel.activeLanguage == option.descriptor.languageCode
-        return isActive
+        return isActive(option)
             ? "\(option.descriptor.displayName), active language"
             : option.descriptor.displayName
     }
