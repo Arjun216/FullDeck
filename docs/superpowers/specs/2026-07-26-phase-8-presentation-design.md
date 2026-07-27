@@ -90,8 +90,10 @@ Rules:
    first. A never-reviewed word's default `nextReviewDate` of `.distantPast` does **not** make it
    "due" — a word with no state is a *new* word and goes through the cap.
 2. **New words (FR-4).** Pack entries with no `ReviewState`, ordered by `rank` ascending, limited
-   to `max(0, newWordCap - introducedToday)`, where `introducedToday` counts states whose
-   `firstReviewedDate` is on `today`'s UTC day. A cap of 0 or less yields no new words.
+   to `max(0, newWordCap - introducedToday)`, where `introducedToday` counts states **belonging to
+   this pack** whose `firstReviewedDate` is on `today`'s UTC day. Scoping the count to pack
+   membership is what makes the cap per-language (FR-4) a property of the function rather than of
+   its caller. A cap of 0 or less yields no new words.
 3. **Order.** All due reviews first, then new words. Reviews are the debt; new words are the
    optional extra on top.
 4. **Language scoping.** Entries come from the pack, so states belonging to another language

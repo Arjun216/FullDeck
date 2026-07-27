@@ -467,11 +467,16 @@ In `build`, insert before the `newWords` computation and use it in the `prefix`:
 
 ```swift
         // FR-4 counts *introductions per calendar day*, not per session, so a
-        // second session on the same day cannot re-spend the cap.
-        let introducedToday = states.filter { state in
-            guard let first = state.firstReviewedDate else { return false }
-            return DayCalendar.isSameDay(first, today)
-        }.count
+        // second session on the same day cannot re-spend the cap. Scoped to this
+        // pack's words, so a word introduced today in another language cannot
+        // spend this language's cap.
+        let introducedToday = pack.words
+            .compactMap { statesByWord[$0.id] }
+            .filter { state in
+                guard let first = state.firstReviewedDate else { return false }
+                return DayCalendar.isSameDay(first, today)
+            }
+            .count
 ```
 
 ```swift
@@ -548,6 +553,19 @@ func nothingDueAndNoNewWordsYieldsEmptyQueue() {
         pack: pack, states: [notYetDue], today: day0, newWordCap: 0)
 
     #expect(queue.isEmpty)
+}
+
+@Test("FR-4 a word introduced today in another language does not spend this pack's cap")
+func otherLanguageIntroductionDoesNotSpendTheCap() {
+    let pack = frPack([entry("chat", rank: 1), entry("chien", rank: 2)])
+    let hindiIntroducedToday = ReviewState(
+        wordID: WordID("hi:बिल्ली:NOUN"), intervalDays: 1, repetitions: 1,
+        nextReviewDate: day(1), firstReviewedDate: day0)
+
+    let queue = SessionBuilder().build(
+        pack: pack, states: [hindiIntroducedToday], today: day0, newWordCap: 2)
+
+    #expect(queue.map(\.lemma) == ["chat", "chien"])
 }
 
 @Test("FR-3 the session ignores review state belonging to another language")
