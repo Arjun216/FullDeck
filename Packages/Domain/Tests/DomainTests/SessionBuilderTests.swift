@@ -170,3 +170,16 @@ func otherLanguageStateIsIgnored() {
 
     #expect(queue.map(\.lemma) == ["chat"])
 }
+
+@Test("FR-4 a word introduced today in another language does not spend this pack's cap")
+func otherLanguageIntroductionDoesNotSpendTheCap() {
+    let pack = frPack([entry("chat", rank: 1), entry("chien", rank: 2)])
+    let hindiIntroducedToday = ReviewState(
+        wordID: WordID("hi:बिल्ली:NOUN"), intervalDays: 1, repetitions: 1,
+        nextReviewDate: day(1), firstReviewedDate: day0)
+
+    let queue = SessionBuilder().build(
+        pack: pack, states: [hindiIntroducedToday], today: day0, newWordCap: 2)
+
+    #expect(queue.map(\.lemma) == ["chat", "chien"])
+}

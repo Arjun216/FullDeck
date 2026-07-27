@@ -16,8 +16,9 @@ public struct SessionBuilder: Sendable {
         today: Date,
         newWordCap: Int = SessionBuilder.defaultNewWordCap
     ) -> [WordEntry] {
+        // Duplicate states per WordID are not expected; the second simply wins.
         let statesByWord = Dictionary(
-            states.map { ($0.wordID, $0) }, uniquingKeysWith: { _, latest in latest })
+            states.map { ($0.wordID, $0) }, uniquingKeysWith: { _, second in second })
         let today = DayCalendar.startOfDay(today)
 
         // Due (FR-3): has a state, and its next review lands on or before today.
@@ -36,11 +37,15 @@ public struct SessionBuilder: Sendable {
             .map(\.entry)
 
         // FR-4 counts *introductions per calendar day*, not per session, so a
-        // second session on the same day cannot re-spend the cap.
-        let introducedToday = states.filter { state in
-            guard let first = state.firstReviewedDate else { return false }
-            return DayCalendar.isSameDay(first, today)
-        }.count
+        // second session on the same day cannot re-spend the cap. Scoped to this
+        // pack's words (not the raw `states` array) so a state from another
+        // language can never eat into this pack's cap.
+        let introducedToday = pack.words
+            .compactMap { statesByWord[$0.id] }
+            .filter { state in
+                guard let first = state.firstReviewedDate else { return false }
+                return DayCalendar.isSameDay(first, today)
+            }.count
 
         // New (FR-4): never seen, taken in frequency order, capped.
         let newWords =
