@@ -8,8 +8,8 @@ import Testing
 //
 // Phase-4 scaffold smoke test: no requirement ID yet (FR-backed tests begin in
 // Phase 5/8). Just proves the app module compiles and its root view constructs.
-@Test("Phase-4 scaffold: app module builds and ContentView constructs")
+@Test("Phase-8 the composition root builds the root view")
 @MainActor
 func contentViewConstructs() {
-    _ = ContentView()
+    _ = ContentView(dependencies: .live())
 }
