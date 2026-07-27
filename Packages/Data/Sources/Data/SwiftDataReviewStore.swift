@@ -31,18 +31,14 @@ public actor SwiftDataReviewStore: ReviewStore {
     public func allStates(_ languageCode: LanguageCode) async throws -> [ReviewState] {
         let code = languageCode.rawValue
         let descriptor = FetchDescriptor<PersistentReviewState>(
-            predicate: #Predicate { $0.languageCode == code })
+            predicate: #Predicate { $0.languageCode == code },
+            sortBy: [SortDescriptor(\.wordID)])
         return try modelContext.fetch(descriptor).map(Self.toDomain)
     }
 
     public func progress(_ languageCode: LanguageCode) async throws -> ProgressSummary {
         let states = try await allStates(languageCode)
-        let learned = states.filter { $0.learnedDate != nil }.count
-        let inProgress = states.filter { $0.firstReviewedDate != nil && $0.learnedDate == nil }
-            .count
-        return ProgressSummary(
-            wordsLearned: learned, wordsInProgress: inProgress,
-            totalReviewed: learned + inProgress)
+        return ProgressSummary(states: states)
     }
 
     private static func toDomain(_ persisted: PersistentReviewState) -> ReviewState {
@@ -59,16 +55,12 @@ public actor SwiftDataReviewStore: ReviewStore {
     private static func toPersistent(_ state: ReviewState) -> PersistentReviewState {
         PersistentReviewState(
             wordID: state.wordID.rawValue,
-            languageCode: languageCode(fromWordID: state.wordID.rawValue),
+            languageCode: state.wordID.languageCode.rawValue,
             easeFactor: state.easeFactor,
             intervalDays: state.intervalDays,
             repetitions: state.repetitions,
             nextReviewDate: state.nextReviewDate,
             firstReviewedDate: state.firstReviewedDate,
             learnedDate: state.learnedDate)
-    }
-
-    private static func languageCode(fromWordID wordID: String) -> String {
-        String(wordID.split(separator: ":", maxSplits: 1).first ?? "")
     }
 }

@@ -12,6 +12,19 @@ public struct ProgressSummary: Equatable, Sendable {
     }
 }
 
+extension ProgressSummary {
+    /// Classifies a set of review states into learned/in-progress/total, purely
+    /// from their milestone dates (`learnedDate`/`firstReviewedDate`).
+    public init(states: [ReviewState]) {
+        let learned = states.filter { $0.learnedDate != nil }.count
+        let inProgress = states.filter { $0.firstReviewedDate != nil && $0.learnedDate == nil }
+            .count
+        self.init(
+            wordsLearned: learned, wordsInProgress: inProgress,
+            totalReviewed: learned + inProgress)
+    }
+}
+
 /// Read-only bundled content. Adapter: `JSONPackStore` (Phase 7, JSON+Codable, ADR-004).
 public protocol PackStore: Sendable {
     func availablePacks() async throws -> [PackDescriptor]
@@ -22,6 +35,7 @@ public protocol PackStore: Sendable {
 public protocol ReviewStore: Sendable {
     func reviewState(for word: WordID) async throws -> ReviewState?
     func save(_ state: ReviewState) async throws
+    /// Ordering guarantee: sorted by `wordID.rawValue`, ascending.
     func allStates(_ languageCode: LanguageCode) async throws -> [ReviewState]
     func progress(_ languageCode: LanguageCode) async throws -> ProgressSummary
 }

@@ -29,7 +29,7 @@ enum PackValidator {
     private static func checkEntry(
         _ entry: WordEntryDTO, audioAssetsDirectory: URL?
     ) -> PackLoadError? {
-        let code = languageCode(from: entry.id)
+        let code = WordID(entry.id).languageCode.rawValue
         let expectedID = "\(code):\(entry.lemma):\(entry.pos)"
         if entry.id != expectedID {
             return .validationFailed(
@@ -67,10 +67,6 @@ enum PackValidator {
             }
         }
         return nil
-    }
-
-    private static func languageCode(from id: String) -> String {
-        String(id.split(separator: ":", maxSplits: 1).first ?? "")
     }
 
     private static func checkPackLevel(

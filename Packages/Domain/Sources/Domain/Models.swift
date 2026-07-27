@@ -11,6 +11,13 @@ public struct WordID: Hashable, Sendable {
     }
 }
 
+extension WordID {
+    /// The language-code prefix of this word's id (e.g. `"fr:chat:NOUN"` → `LanguageCode("fr")`).
+    public var languageCode: LanguageCode {
+        LanguageCode(String(rawValue.prefix(while: { $0 != ":" })))
+    }
+}
+
 /// Opaque BCP-47 language code (`"fr"`, `"hi"`). A wrapper rather than a bare
 /// `String` for the same reason as `WordID`: a language code can never be passed
 /// where a word key is expected.

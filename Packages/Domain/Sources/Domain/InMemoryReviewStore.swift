@@ -21,17 +21,12 @@ public actor InMemoryReviewStore: ReviewStore {
     }
 
     public func allStates(_ languageCode: LanguageCode) async throws -> [ReviewState] {
-        let prefix = "\(languageCode.rawValue):"
-        return statesByWord.values.filter { $0.wordID.rawValue.hasPrefix(prefix) }
+        statesByWord.values.filter { $0.wordID.languageCode == languageCode }
+            .sorted { $0.wordID.rawValue < $1.wordID.rawValue }
     }
 
     public func progress(_ languageCode: LanguageCode) async throws -> ProgressSummary {
         let states = try await allStates(languageCode)
-        let learned = states.filter { $0.learnedDate != nil }.count
-        let inProgress = states.filter { $0.firstReviewedDate != nil && $0.learnedDate == nil }
-            .count
-        return ProgressSummary(
-            wordsLearned: learned, wordsInProgress: inProgress,
-            totalReviewed: learned + inProgress)
+        return ProgressSummary(states: states)
     }
 }
