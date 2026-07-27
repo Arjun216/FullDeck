@@ -33,13 +33,21 @@ func partOfSpeechFunctionWordClassification() {
 
 @Test("two WordEntry values with identical fields are equal")
 func wordEntryEquatable() {
-    let a = WordEntry(
+    let entry = WordEntry(
         id: WordID("fr:chat:NOUN"), lemma: "chat", display: "le chat", pos: .noun, rank: 4,
         register: .neutral, isFunctionWord: false, gloss: "cat", example: "J'ai un chat.",
         aliases: [])
-    let b = a
+    let sameFields = WordEntry(
+        id: WordID("fr:chat:NOUN"), lemma: "chat", display: "le chat", pos: .noun, rank: 4,
+        register: .neutral, isFunctionWord: false, gloss: "cat", example: "J'ai un chat.",
+        aliases: [])
+    let differentRank = WordEntry(
+        id: WordID("fr:chat:NOUN"), lemma: "chat", display: "le chat", pos: .noun, rank: 5,
+        register: .neutral, isFunctionWord: false, gloss: "cat", example: "J'ai un chat.",
+        aliases: [])
 
-    #expect(a == b)
+    #expect(entry == sameFields)
+    #expect(entry != differentRank)
 }
 
 @Test("LanguageCode wraps a raw string and compares by value")
