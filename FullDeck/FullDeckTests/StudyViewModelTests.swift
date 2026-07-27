@@ -165,3 +165,46 @@ func gradingLastCardEndsTheSession() async {
 
     #expect(viewModel.state == .caughtUp(nextDue: day(1)))
 }
+
+@Test("FR-7 speaking the word sends it to the speech port with the pack's language")
+@MainActor
+func speakWordSendsTheWord() async {
+    let speech = FakeSpeechService()
+    let viewModel = makeStudyViewModel(speech: speech)
+    await viewModel.start()
+
+    viewModel.speakWord()
+
+    #expect(speech.spoken.count == 1)
+    #expect(speech.spoken.first?.text == "chat")
+    #expect(speech.spoken.first?.language == LanguageCode("fr"))
+}
+
+@Test("FR-7 speaking the sentence sends the card's example sentence")
+@MainActor
+func speakSentenceSendsTheExample() async {
+    let speech = FakeSpeechService()
+    let viewModel = makeStudyViewModel(speech: speech)
+    await viewModel.start()
+
+    viewModel.speakSentence()
+
+    #expect(speech.spoken.first?.text == "Une phrase avec chat.")
+}
+
+@Test("FR-7 an unavailable voice flags audio unavailable and leaves the session usable")
+@MainActor
+func unavailableVoiceDegradesGracefully() async {
+    let speech = FakeSpeechService()
+    speech.errorToThrow = .voiceUnavailable(LanguageCode("fr"))
+    let viewModel = makeStudyViewModel(speech: speech)
+    await viewModel.start()
+
+    viewModel.speakWord()
+
+    #expect(viewModel.audioUnavailable)
+    guard case .card = viewModel.state else {
+        Issue.record("the session must stay usable, got \(viewModel.state)")
+        return
+    }
+}

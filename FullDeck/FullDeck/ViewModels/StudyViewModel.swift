@@ -114,6 +114,27 @@ final class StudyViewModel {
         showCurrentCard()
     }
 
+    /// FR-7: playback is always learner-initiated. Nothing auto-plays.
+    func speakWord() {
+        guard case .card(let card) = state else { return }
+        speak(card.entry.display)
+    }
+
+    func speakSentence() {
+        guard case .card(let card) = state else { return }
+        speak(card.entry.example)
+    }
+
+    private func speak(_ text: String) {
+        do {
+            try speech.speak(text, language: languageCode)
+        } catch {
+            // No voice installed for this language: the card still works, the
+            // learner just loses audio (FR-7).
+            audioUnavailable = true
+        }
+    }
+
     private func showCurrentCard() {
         guard position < queue.count else {
             state = .caughtUp(nextDue: nextDueDate())
