@@ -156,4 +156,22 @@ final class FullDeckUITests: XCTestCase {
                 .firstMatch.waitForExistence(timeout: 15))
         try performAudit(on: app)
     }
+
+    /// NFR-12: the UI chrome resolves through the localization catalog — this
+    /// is the "prove it, don't just wire it" step. Only the tab labels are
+    /// checked; if the catalog resolves for these chrome strings it resolves
+    /// for all of them (same mechanism, same file).
+    @MainActor
+    func testNFR12UIChromeIsLocalizedIntoSpanish() throws {
+        let app = XCUIApplication()
+        app.launchArguments += ["-AppleLanguages", "(es)", "-AppleLocale", "es_ES"]
+        app.launch()
+
+        let tabBar = app.tabBars.firstMatch
+        XCTAssertTrue(
+            tabBar.buttons["Estudiar"].waitForExistence(timeout: 15),
+            "Study tab did not render in Spanish. Hierarchy:\n\(app.debugDescription)")
+        XCTAssertTrue(tabBar.buttons["Idiomas"].exists)
+        XCTAssertTrue(tabBar.buttons["Progreso"].exists)
+    }
 }
