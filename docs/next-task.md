@@ -12,25 +12,26 @@ design), Opus earns its cost.
 
 ## Right now
 
-**Task:** Phase 9 — brainstorm and write the implementation plan
-**Model:** Opus 5, high effort
-**Output:** `docs/superpowers/plans/2026-07-28-phase-9-integration.md`
+**Task:** Phase 10 — cross-cutting concerns (accessibility audit, error→state
+mapping, offline verification, UI localization catalog, observability decision)
+**Model:** Sonnet 5, default effort
+**Spec:** none written yet — Phase 10 in `docs/build-plan.md` is specific enough
+to skip a brainstorm and go straight to a plan, per the same judgment call Phase
+9 made in reverse (brainstorm only where a real decision needs Arjun first).
 
-Two decisions need Arjun, not the model — the build plan mandates both:
-1. What N makes a word "learned", and whether a lapse un-learns it.
-2. Which completion-screen option to build (build plan asks for 2–3 proposals, his pick).
-
-Why Opus: no spec exists for either. The learned threshold is stamped into
-`learnedDate` and read by progress + the done state — getting N wrong means a
-refactor plus a data migration later.
+Phase 9 shipped: `L = intervalDays >= 14` (sticky), the completion state and
+screen, real `JSONPackStore` + `SwiftDataReviewStore` wiring, the bundled
+1000-word French pack, active-language persistence, and integration tests
+across the seams. All CLAUDE.md gates green (Domain 98.70%, Data 91.96%,
+determinism, lint).
 
 ## Then
 
 | # | Task | Model | Effort |
 |---|---|---|---|
-| 1 | Execute the Phase 9 plan (TDD loops, integration tests) — **switch model first** | Sonnet 5 | default |
-| 2 | Phase 10 — accessibility audit, error→state mapping, localization catalog | Sonnet 5 | default |
-| 3 | Phase 11 design — StoreKit 2 purchase/entitlement state machine | Opus 5 | xhigh |
+| 1 | Phase 11 design — StoreKit 2 purchase/entitlement state machine | Opus 5 | xhigh |
+| 2 | Phase 11 execution (StoreKitTest, sandbox) | Sonnet 5 | default |
+| 3 | Phase 12 — Hindi pack generation, architecture-validation verdict | Opus 5 (verdict) / Sonnet 5 (pipeline runs) | high / default |
 
 Switching happens at the plan boundary, never mid-execution. Writing the plan is the
 expensive thinking; executing it is cheap. Two model changes per phase, both at a
@@ -42,8 +43,8 @@ natural session break.
 
 | Phase | Segment | Model | Effort | Why |
 |---|---|---|---|---|
-| 9 | Define "learned", completion-screen options | Opus 5 | high | Irreversible domain call |
-| 9 | TDD execution, integration tests | Sonnet 5 | default | Plan written, tests are the guardrail |
+| 9 | ~~Define "learned", completion-screen options~~ | ~~Opus 5~~ | ~~high~~ | Done 2026-07-28 |
+| 9 | ~~TDD execution, integration tests~~ | ~~Sonnet 5~~ | ~~default~~ | Done 2026-07-28 |
 | 10 | a11y, error mapping, localization, offline audit | Sonnet 5 | default | Spec'd in the build plan |
 | 11 | StoreKit design + state machine | Opus 5 | xhigh | New API surface, purchase correctness, IAP is new to Arjun |
 | 11 | Execution | Sonnet 5 | default | StoreKitTest gates it |
