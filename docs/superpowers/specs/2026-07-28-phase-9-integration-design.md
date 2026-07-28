@@ -228,7 +228,10 @@ it listing that one pack, `unlocked_by_default: true`.
 
 No `project.pbxproj` edit is needed. The app target uses `PBXFileSystemSynchronizedRootGroup`
 (Xcode 16 synchronized folders), so a new directory under `FullDeck/FullDeck/` is picked up
-automatically and non-source files land in Copy Bundle Resources.
+automatically and non-source files land in Copy Bundle Resources — **flattened** to the bundle
+root rather than preserving the `Resources/packs/` subdirectory (confirmed against a built
+`.app`), so the composition root reads from `Bundle.main.resourceURL` directly, not a `packs/`
+subpath.
 
 **Consequence, accepted:** the Languages tab shows one row until Phase 12. `SamplePack`'s
 in-code Hindi descriptor demonstrated the locked state; a production manifest cannot list a

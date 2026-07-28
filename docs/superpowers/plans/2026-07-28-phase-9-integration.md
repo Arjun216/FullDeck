@@ -677,6 +677,8 @@ git commit -m "feat(app): add the completion screen"
 
 No `project.pbxproj` edit is needed: the app target uses `PBXFileSystemSynchronizedRootGroup` (Xcode 16 synchronized folders), so a new directory under `FullDeck/FullDeck/` is picked up automatically and non-source files land in Copy Bundle Resources.
 
+**Verified at Step 4, correcting an assumption in the design doc:** Xcode's synchronized-group resource copy *flattens* loose files rather than preserving the `Resources/packs/` subdirectory — both files land at the bundle root (`FullDeck.app/fr.pack.json`, `FullDeck.app/manifest.json`), not under a `packs/` folder. `AppDependencies.bundledPacksDirectory` in Task 7 targets `Bundle.main.resourceURL` directly, not `.appending(path: "packs")`. Turning `Resources/packs` into an actual folder reference (blue folder) to preserve the subdirectory would need a `project.pbxproj` edit, which the phase avoids; pointing at the bundle root costs nothing.
+
 - [ ] **Step 1: Copy the pack**
 
 ```bash
@@ -768,9 +770,11 @@ struct AppDependencies {
     let sessionBuilder = SessionBuilder()
 
     /// Where Task 6's bundled `manifest.json` + `fr.pack.json` live at runtime.
+    /// The bundle root, not a `packs/` subdirectory — Xcode's synchronized-group
+    /// resource copy flattens loose files rather than preserving the source
+    /// folder structure (confirmed by inspecting the built .app in Task 6).
     static var bundledPacksDirectory: URL {
-        Bundle.main.resourceURL?.appending(path: "packs")
-            ?? URL(fileURLWithPath: Bundle.main.bundlePath).appending(path: "packs")
+        Bundle.main.resourceURL ?? URL(fileURLWithPath: Bundle.main.bundlePath)
     }
 
     /// The seam integration tests use: same wiring as `live()`, but pointed at a
