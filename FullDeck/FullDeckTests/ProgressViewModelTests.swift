@@ -39,6 +39,38 @@ func untouchedLanguageReadsZero() async {
     #expect(viewModel.state == .ready(learned: 0, total: 2))
 }
 
+@Test("FR-11 progress reports the pack as complete when every word is learned")
+@MainActor
+func progressReportsCompleteWhenAllLearned() async {
+    let pack = frPack([entry("chat", rank: 1), entry("chien", rank: 2)])
+    let viewModel = makeProgressViewModel(
+        pack: pack, seed: pack.words.map { learnedState($0) })
+
+    await viewModel.load()
+
+    #expect(viewModel.state == .ready(learned: 2, total: 2))
+    #expect(viewModel.state.isComplete)
+}
+
+@Test("FR-11 a partly learned pack is not complete")
+@MainActor
+func partlyLearnedPackIsNotComplete() async {
+    let pack = frPack([entry("chat", rank: 1), entry("chien", rank: 2)])
+    let viewModel = makeProgressViewModel(pack: pack, seed: [learnedState(pack.words[0])])
+
+    await viewModel.load()
+
+    #expect(!viewModel.state.isComplete)
+}
+
+@Test("FR-11 an empty or unloaded pack is never complete")
+@MainActor
+func unloadedPackIsNotComplete() async {
+    let viewModel = makeProgressViewModel()
+
+    #expect(!viewModel.state.isComplete)  // still .loading
+}
+
 @Test("NFR-10 a missing pack surfaces a failed state instead of crashing")
 @MainActor
 func missingPackSurfacesFailedProgressState() async {

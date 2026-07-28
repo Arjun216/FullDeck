@@ -39,3 +39,12 @@ final class ProgressViewModel {
         }
     }
 }
+
+extension ProgressViewModel.State {
+    /// FR-11. `total > 0` guards the degenerate case: an empty pack is not an
+    /// achievement, and `.loading` is not a verdict.
+    var isComplete: Bool {
+        if case .ready(let learned, let total) = self { return total > 0 && learned == total }
+        return false
+    }
+}
