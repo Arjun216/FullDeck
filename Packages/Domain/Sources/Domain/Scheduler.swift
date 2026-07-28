@@ -21,6 +21,10 @@ public struct Scheduler: Sendable {
     /// Floor of 1 day is what guarantees `nextReviewDate > today` (FR-8); the
     /// one-year ceiling keeps a word from effectively disappearing forever.
     static let intervalRange = 1...365
+    /// A word counts as learned once it survives a two-week gap (FR-10, FR-11).
+    /// Interval-based rather than repetition-based so a low-ease word has to earn
+    /// it: at ease 2.2 the third pass lands at 13.2 days and does not cross.
+    static let learnedIntervalDays = 14
 
     public init() {}
 
@@ -55,6 +59,16 @@ public struct Scheduler: Sendable {
         next.intervalDays = interval.clamped(to: Self.intervalRange)
         // Derived from the *clamped* interval — the two must never disagree.
         next.nextReviewDate = DayCalendar.adding(days: next.intervalDays, to: today)
+        // FR-4's per-day new-word cap counts introductions by this date. It lives
+        // here rather than in the caller because it is a pure function of the same
+        // (state, grade, today) the scheduler already takes.
+        if next.firstReviewedDate == nil { next.firstReviewedDate = today }
+        // Sticky (FR-17): set once on the crossing review and never cleared — not
+        // even by a lapse, which resets intervalDays to 1. The progress trend is
+        // reconstructed from this date, so clearing it would erase history.
+        if state.learnedDate == nil, next.intervalDays >= Self.learnedIntervalDays {
+            next.learnedDate = today
+        }
         return next
     }
 }

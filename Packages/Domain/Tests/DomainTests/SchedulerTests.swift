@@ -131,6 +131,78 @@ func intervalNeverGrowsPastCeiling() {
     #expect(next.nextReviewDate == day(665))
 }
 
+// MARK: - The learned threshold (Phase 9)
+
+@Test("FR-10 a word that lands below the learned interval is not learned")
+func belowLearnedIntervalIsNotLearned() {
+    // Ease 2.2 — this word took a `.hard` earlier. 6 × 2.2 = 13.2 → 13, one short.
+    let state = ReviewState(
+        wordID: chat, easeFactor: 2.2, intervalDays: 6, repetitions: 2,
+        nextReviewDate: day(7), firstReviewedDate: day0)
+
+    let next = Scheduler().schedule(state, grade: .good, today: day(7))
+
+    #expect(next.intervalDays == 13)
+    #expect(next.learnedDate == nil)
+}
+
+@Test("FR-10 crossing the learned interval stamps learnedDate")
+func crossingLearnedIntervalStampsLearnedDate() {
+    // Ease 2.5 — same shape as the test above, one notch easier. 6 × 2.5 = 15.
+    let state = ReviewState(
+        wordID: chat, easeFactor: 2.5, intervalDays: 6, repetitions: 2,
+        nextReviewDate: day(7), firstReviewedDate: day0)
+
+    let next = Scheduler().schedule(state, grade: .good, today: day(7))
+
+    #expect(next.intervalDays == 15)
+    #expect(next.learnedDate == day(7))
+}
+
+@Test("FR-10 a lapse does not un-learn a word")
+func lapseDoesNotUnlearnWord() {
+    let learned = ReviewState(
+        wordID: chat, easeFactor: 2.5, intervalDays: 15, repetitions: 3,
+        nextReviewDate: day(22), firstReviewedDate: day0, learnedDate: day(7))
+
+    let next = Scheduler().schedule(learned, grade: .again, today: day(22))
+
+    #expect(next.intervalDays == 1)
+    #expect(next.learnedDate == day(7))
+}
+
+@Test("FR-10 a later review does not restamp learnedDate")
+func laterReviewDoesNotRestampLearnedDate() {
+    let learned = ReviewState(
+        wordID: chat, easeFactor: 2.5, intervalDays: 15, repetitions: 3,
+        nextReviewDate: day(22), firstReviewedDate: day0, learnedDate: day(7))
+
+    let next = Scheduler().schedule(learned, grade: .good, today: day(22))
+
+    #expect(next.intervalDays == 38)
+    #expect(next.learnedDate == day(7))
+}
+
+@Test("FR-4 a first review stamps firstReviewedDate")
+func firstReviewStampsFirstReviewedDate() {
+    let state = ReviewState(wordID: chat)
+
+    let next = Scheduler().schedule(state, grade: .good, today: day0)
+
+    #expect(next.firstReviewedDate == day0)
+}
+
+@Test("FR-4 a later review leaves firstReviewedDate alone")
+func laterReviewLeavesFirstReviewedDateAlone() {
+    let state = ReviewState(
+        wordID: chat, intervalDays: 1, repetitions: 1, nextReviewDate: day(1),
+        firstReviewedDate: day0)
+
+    let next = Scheduler().schedule(state, grade: .good, today: day(1))
+
+    #expect(next.firstReviewedDate == day0)
+}
+
 // MARK: - Invariants
 
 /// SplitMix64 — a tiny seeded generator. The stdlib's default RNG cannot be
@@ -160,6 +232,7 @@ func schedulingInvariantsHoldAcrossSeededRandomWalk() {
     let scheduler = Scheduler()
     var state = ReviewState(wordID: chat)
     var today = day0
+    var everCrossedLearnedInterval = false
 
     for step in 0..<2_000 {
         let grade = Grade.allCases.randomElement(using: &rng) ?? .good
@@ -184,6 +257,18 @@ func schedulingInvariantsHoldAcrossSeededRandomWalk() {
         #expect(
             scheduler.schedule(state, grade: grade, today: today) == next,
             "step \(step): scheduling is not pure — same inputs gave different output")
+        if next.intervalDays >= Scheduler.learnedIntervalDays { everCrossedLearnedInterval = true }
+        #expect(
+            next.firstReviewedDate != nil,
+            "step \(step): a reviewed word has no firstReviewedDate")
+        if let previouslyLearned = state.learnedDate {
+            #expect(
+                next.learnedDate == previouslyLearned,
+                "step \(step): learnedDate moved after it was set")
+        }
+        #expect(
+            next.learnedDate == nil || everCrossedLearnedInterval,
+            "step \(step): learnedDate was set without any interval reaching the threshold")
 
         state = next
         // Learners review late as often as on time; jitter the next visit so the
