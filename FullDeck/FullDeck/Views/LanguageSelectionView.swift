@@ -24,7 +24,13 @@ struct LanguageSelectionView: View {
                     viewModel.select(option)
                 } label: {
                     HStack {
+                        // Default Button styling tints this system blue, which
+                        // fails WCAG AA contrast at body text size (caught by
+                        // the accessibility audit) — the checkmark already
+                        // carries the "selected" signal, so this text doesn't
+                        // need to borrow the accent color too.
                         Text(option.descriptor.displayName)
+                            .foregroundStyle(.primary)
                         Spacer()
                         if !option.isUnlocked {
                             Image(systemName: "lock.fill")
@@ -34,6 +40,7 @@ struct LanguageSelectionView: View {
                         }
                     }
                 }
+                .buttonStyle(.plain)
                 .disabled(!option.isUnlocked)
                 .accessibilityLabel(accessibilityLabel(for: option))
             }

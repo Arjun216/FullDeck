@@ -37,10 +37,27 @@ struct StudyView: View {
     }
 
     private func cardView(_ card: StudyViewModel.Card) -> some View {
+        // NFR-5: at the largest accessibility Dynamic Type sizes this card's
+        // content (word, buttons, grade row) can exceed the screen height —
+        // a ScrollView lets it grow instead of clip, caught by the
+        // accessibility audit's "may be clipped" finding.
+        ScrollView {
+            cardContent(card)
+        }
+    }
+
+    private func cardContent(_ card: StudyViewModel.Card) -> some View {
         VStack(spacing: 24) {
             Text("\(card.index) of \(card.total)")
                 .font(.footnote)
-                .foregroundStyle(.secondary)
+                // NFR-6: `.secondary` at `.footnote` size falls under WCAG
+                // AA's 4.5:1 normal-text threshold (caught by the
+                // accessibility audit); `.primary` keeps it readable.
+                .foregroundStyle(.primary)
+                // NFR-5: guarantees this Text its full ideal height at large
+                // Dynamic Type sizes instead of being compressed/clipped by
+                // the surrounding VStack (caught by the accessibility audit).
+                .fixedSize(horizontal: false, vertical: true)
                 .accessibilityLabel("Card \(card.index) of \(card.total)")
 
             VStack(spacing: 8) {
@@ -48,7 +65,8 @@ struct StudyView: View {
                     .font(.largeTitle)
                 Text(card.entry.pos.rawValue.lowercased())
                     .font(.caption)
-                    .foregroundStyle(.secondary)
+                    // NFR-6: same contrast issue as the index text above.
+                    .foregroundStyle(.primary)
             }
 
             Button {
@@ -56,25 +74,15 @@ struct StudyView: View {
             } label: {
                 Label("Hear the word", systemImage: "speaker.wave.2")
             }
+            // NFR-6: default Button styling tints this system blue, which
+            // fails WCAG AA contrast at this text size (caught by the
+            // accessibility audit) — same issue and fix as the language row.
+            .buttonStyle(.plain)
+            .foregroundStyle(.primary)
             .accessibilityLabel("Hear the word \(card.entry.display)")
 
             if card.isRevealed {
-                VStack(spacing: 12) {
-                    if let gloss = card.entry.gloss {
-                        Text(gloss).font(.title3)
-                    }
-                    Text(card.entry.example)
-                        .font(.body)
-                        .multilineTextAlignment(.center)
-                    Button {
-                        viewModel.speakSentence()
-                    } label: {
-                        Label("Hear the sentence", systemImage: "speaker.wave.2")
-                    }
-                    .accessibilityLabel("Hear the example sentence")
-                }
-
-                gradeButtons
+                revealedContent(card)
             } else {
                 Button("Reveal") { viewModel.reveal() }
                     .buttonStyle(.borderedProminent)
@@ -84,10 +92,34 @@ struct StudyView: View {
             if viewModel.audioUnavailable {
                 Text("Audio unavailable on this device.")
                     .font(.footnote)
-                    .foregroundStyle(.secondary)
+                    // NFR-6: same contrast issue as the index text above.
+                    .foregroundStyle(.primary)
             }
         }
         .padding()
+    }
+
+    @ViewBuilder
+    private func revealedContent(_ card: StudyViewModel.Card) -> some View {
+        VStack(spacing: 12) {
+            if let gloss = card.entry.gloss {
+                Text(gloss).font(.title3)
+            }
+            Text(card.entry.example)
+                .font(.body)
+                .multilineTextAlignment(.center)
+            Button {
+                viewModel.speakSentence()
+            } label: {
+                Label("Hear the sentence", systemImage: "speaker.wave.2")
+            }
+            // NFR-6: same contrast fix as "Hear the word" above.
+            .buttonStyle(.plain)
+            .foregroundStyle(.primary)
+            .accessibilityLabel("Hear the example sentence")
+        }
+
+        gradeButtons
     }
 
     private var gradeButtons: some View {
@@ -136,7 +168,9 @@ struct StudyView: View {
             if let nextDue {
                 Text("Next review \(nextDue.formatted(date: .abbreviated, time: .omitted)).")
                     .font(.body)
-                    .foregroundStyle(.secondary)
+                    // NFR-6: `.secondary` at normal (non-"large") text size
+                    // falls under WCAG AA's 4.5:1 threshold.
+                    .foregroundStyle(.primary)
             }
             Button("Add another language — $0.99", action: onAddLanguage)
                 .buttonStyle(.borderedProminent)
