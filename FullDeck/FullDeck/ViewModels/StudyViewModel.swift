@@ -18,6 +18,10 @@ final class StudyViewModel {
         /// Nothing due and the daily cap is spent (FR-12). `nextDue` is the
         /// earliest future review, `nil` when there is none.
         case caughtUp(nextDue: Date?)
+        /// FR-11: every word in the pack has met `L`. No new words will ever be
+        /// introduced again; due reviews still are. Distinct from `caughtUp`,
+        /// which means "nothing due today" on an unfinished pack.
+        case complete(nextDue: Date?)
         case failed(String)
     }
 
@@ -44,6 +48,8 @@ final class StudyViewModel {
     private var queue: [WordEntry] = []
     private var position = 0
     private var states: [ReviewState] = []
+    /// Cached from the loaded pack so the completion check costs no extra I/O.
+    private var wordCount = 0
     /// `grade()` suspends at real `await`s (store I/O); `@MainActor` serializes
     /// execution but not atomicity across a suspension. `StudyView` fires an
     /// unstructured `Task` per button tap, so two taps on the same card can
@@ -79,6 +85,7 @@ final class StudyViewModel {
         state = .loading
         do {
             let pack = try await packStore.loadPack(languageCode)
+            wordCount = pack.wordCount
             states = try await reviewStore.allStates(languageCode)
             queue = sessionBuilder.build(
                 pack: pack, states: states, today: clock.today, newWordCap: newWordCap)
@@ -148,7 +155,13 @@ final class StudyViewModel {
         // audio left over from the card being left (FR-7).
         speech.stop()
         guard position < queue.count else {
-            state = .caughtUp(nextDue: nextDueDate())
+            // FR-11 wins over FR-12: a finished pack is done, not merely caught up.
+            // Only reachable with an empty queue — if a review is due, the card shows.
+            let nextDue = nextDueDate()
+            state =
+                wordCount > 0 && ProgressSummary(states: states).wordsLearned == wordCount
+                ? .complete(nextDue: nextDue)
+                : .caughtUp(nextDue: nextDue)
             return
         }
         state = .card(

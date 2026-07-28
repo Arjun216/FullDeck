@@ -25,6 +25,10 @@ struct StudyView: View {
             cardView(card)
         case .caughtUp(let nextDue):
             caughtUpView(nextDue)
+        case .complete:
+            // Placeholder so the switch compiles for Task 3's ViewModel tests;
+            // Task 5 replaces this with the real completion screen.
+            ProgressView()
         case .failed(let message):
             ErrorStateView(message: message)
         }

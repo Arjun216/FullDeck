@@ -271,3 +271,68 @@ func restartingKeepsTheCurrentCard() async {
                 StudyViewModel.Card(
                     entry: pack.words[1], isRevealed: false, index: 2, total: 2)))
 }
+
+@Test("FR-11 a pack with every word learned shows the completion state")
+@MainActor
+func everyWordLearnedShowsCompletionState() async {
+    let pack = frPack([entry("chat", rank: 1), entry("chien", rank: 2)])
+    let seed = pack.words.map { learnedState($0) }
+    let viewModel = makeStudyViewModel(
+        pack: pack, today: day(10), reviewStore: InMemoryReviewStore(seed: seed))
+
+    await viewModel.start()
+
+    #expect(viewModel.state == .complete(nextDue: day(22)))
+}
+
+@Test("FR-11 the completion state is not shown while a review is due")
+@MainActor
+func completionStateNotShownWhileReviewIsDue() async {
+    let pack = frPack([entry("chat", rank: 1), entry("chien", rank: 2)])
+    var seed = pack.words.map { learnedState($0) }
+    seed[0].nextReviewDate = day(10)  // learned, but due today
+    let viewModel = makeStudyViewModel(
+        pack: pack, today: day(10), reviewStore: InMemoryReviewStore(seed: seed))
+
+    await viewModel.start()
+
+    #expect(
+        viewModel.state
+            == .card(
+                StudyViewModel.Card(
+                    entry: pack.words[0], isRevealed: false, index: 1, total: 1)))
+}
+
+@Test("FR-12 an unfinished pack with an empty queue still shows caught up")
+@MainActor
+func unfinishedPackWithEmptyQueueShowsCaughtUp() async {
+    let pack = frPack([entry("chat", rank: 1), entry("chien", rank: 2)])
+    // Both seen, neither learned, neither due — caught up, not complete.
+    let seed = pack.words.map {
+        ReviewState(
+            wordID: $0.id, intervalDays: 6, repetitions: 2, nextReviewDate: day(22),
+            firstReviewedDate: day0)
+    }
+    let viewModel = makeStudyViewModel(
+        pack: pack, today: day(10), reviewStore: InMemoryReviewStore(seed: seed))
+
+    await viewModel.start()
+
+    #expect(viewModel.state == .caughtUp(nextDue: day(22)))
+}
+
+@Test("FR-11 no new words are introduced once the pack is complete")
+@MainActor
+func noNewWordsIntroducedWhenComplete() async {
+    let pack = frPack([entry("chat", rank: 1), entry("chien", rank: 2)])
+    let seed = pack.words.map { learnedState($0) }
+    let viewModel = makeStudyViewModel(
+        pack: pack, today: day(10), newWordCap: 100,
+        reviewStore: InMemoryReviewStore(seed: seed))
+
+    await viewModel.start()
+
+    // A cap of 100 against a 2-word pack: if anything could still be introduced,
+    // this would be a card.
+    #expect(viewModel.state == .complete(nextDue: day(22)))
+}

@@ -27,6 +27,13 @@ func frPack(_ entries: [WordEntry]) -> LanguagePack {
         words: entries)
 }
 
+/// A `ReviewState` that has met `L` — for tests that need a pack already learned.
+func learnedState(_ entry: WordEntry, on learned: Date = day(7)) -> ReviewState {
+    ReviewState(
+        wordID: entry.id, easeFactor: 2.5, intervalDays: 15, repetitions: 3,
+        nextReviewDate: day(22), firstReviewedDate: day0, learnedDate: learned)
+}
+
 func frDescriptor(unlockedByDefault: Bool = true) -> PackDescriptor {
     PackDescriptor(
         languageCode: LanguageCode("fr"), displayName: "French", filename: "fr.pack.json",
