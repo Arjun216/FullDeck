@@ -109,12 +109,7 @@ final class StudyViewModel {
             let current =
                 try await reviewStore.reviewState(for: card.entry.id)
                 ?? ReviewState(wordID: card.entry.id)
-            var next = scheduler.schedule(current, grade: grade, today: today)
-            // Stamping the first review here is what makes FR-4's per-day cap
-            // countable. `learnedDate` stays Phase 9's job.
-            if next.firstReviewedDate == nil {
-                next.firstReviewedDate = today
-            }
+            let next = scheduler.schedule(current, grade: grade, today: today)
             try await reviewStore.save(next)
             states.removeAll { $0.wordID == next.wordID }
             states.append(next)
