@@ -1,4 +1,5 @@
 import Domain
+import Foundation
 import Observation
 
 /// Lists the bundled packs with their lock state and tracks which language is
@@ -24,10 +25,13 @@ final class LanguageSelectionViewModel {
 
     private let packStore: PackStore
     private let entitlements: EntitlementStore
+    private let defaults: UserDefaults
+    private static let activeLanguageKey = "activeLanguageCode"
 
-    init(packStore: PackStore, entitlements: EntitlementStore) {
+    init(packStore: PackStore, entitlements: EntitlementStore, defaults: UserDefaults = .standard) {
         self.packStore = packStore
         self.entitlements = entitlements
+        self.defaults = defaults
     }
 
     func load() async {
@@ -41,6 +45,13 @@ final class LanguageSelectionViewModel {
                         isUnlocked: descriptor.unlockedByDefault
                             || entitlements.isUnlocked(descriptor.languageCode))
                 })
+            // Honored only if the pack is still listed: a pack removed between
+            // launches must not leave the app pointing at nothing (FR-9).
+            if activeLanguage == nil,
+                let saved = defaults.string(forKey: Self.activeLanguageKey),
+                descriptors.contains(where: { $0.languageCode.rawValue == saved }) {
+                activeLanguage = LanguageCode(saved)
+            }
         } catch {
             state = .failed("Couldn't load the available languages.")
         }
@@ -50,5 +61,6 @@ final class LanguageSelectionViewModel {
     func select(_ option: Option) {
         guard option.isUnlocked else { return }
         activeLanguage = option.descriptor.languageCode
+        defaults.set(option.descriptor.languageCode.rawValue, forKey: Self.activeLanguageKey)
     }
 }

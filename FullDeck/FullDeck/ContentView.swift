@@ -1,8 +1,8 @@
 import Domain
 import SwiftUI
 
-/// Root shell: one tab per v1 screen. Owns which language is active — persisting
-/// that choice across launches is Phase 9.
+/// Root shell: one tab per v1 screen. Which language is active is owned by
+/// `LanguageSelectionViewModel` and persisted across launches there.
 struct ContentView: View {
     /// Tabs need an explicit, stable tag. Each tab's content is an `if let` on
     /// `activeLanguage`, and a `_ConditionalContent` that flips branch changes the
