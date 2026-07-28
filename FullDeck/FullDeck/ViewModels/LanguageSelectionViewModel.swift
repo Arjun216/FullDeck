@@ -52,8 +52,10 @@ final class LanguageSelectionViewModel {
                 descriptors.contains(where: { $0.languageCode.rawValue == saved }) {
                 activeLanguage = LanguageCode(saved)
             }
+        } catch let error as PackLoadError {
+            state = .failed(error.userMessage)
         } catch {
-            state = .failed("Couldn't load the available languages.")
+            state = .failed(String(localized: "Couldn't load the available languages."))
         }
     }
 

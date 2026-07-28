@@ -336,3 +336,27 @@ func noNewWordsIntroducedWhenComplete() async {
     // this would be a card.
     #expect(viewModel.state == .complete(nextDue: day(22)))
 }
+
+@Test("NFR-10 a schema-version mismatch surfaces the update message")
+@MainActor
+func studySchemaVersionMismatchSurfacesUpdateMessage() async {
+    let viewModel = makeStudyViewModel(
+        errorOverride: .unsupportedSchemaVersion(found: 99, maxSupported: 1))
+
+    await viewModel.start()
+
+    #expect(viewModel.state == .failed("This language needs an app update."))
+}
+
+@Test("NFR-10 a save failure surfaces a failed state instead of crashing")
+@MainActor
+func saveFailureSurfacesFailedState() async {
+    let store = InMemoryReviewStore(saveErrorOverride: FakeStoreError())
+    let viewModel = makeStudyViewModel(reviewStore: store)
+    await viewModel.start()
+    viewModel.reveal()
+
+    await viewModel.grade(.good)
+
+    #expect(viewModel.state == .failed("Couldn't save your progress."))
+}

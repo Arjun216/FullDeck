@@ -91,10 +91,11 @@ final class StudyViewModel {
                 pack: pack, states: states, today: clock.today, newWordCap: newWordCap)
             position = 0
             showCurrentCard()
+        } catch let error as PackLoadError {
+            state = .failed(error.userMessage)
         } catch {
-            // NFR-10: bad or missing data is a state, never a crash. Phase 10
-            // owns the user-facing copy.
-            state = .failed("Couldn't load this language.")
+            // NFR-10: bad or missing data is a state, never a crash.
+            state = .failed(String(localized: "Couldn't load this language."))
         }
     }
 
@@ -121,7 +122,7 @@ final class StudyViewModel {
             states.removeAll { $0.wordID == next.wordID }
             states.append(next)
         } catch {
-            state = .failed("Couldn't save your progress.")
+            state = .failed(String(localized: "Couldn't save your progress."))
             return
         }
         position += 1

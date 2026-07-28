@@ -11,6 +11,10 @@ func day(_ offset: Int) -> Date {
     day0.addingTimeInterval(TimeInterval(offset) * 86_400)
 }
 
+/// A non-`PackLoadError` failure to inject into `InMemoryReviewStore.save(_:)`
+/// — `ReviewStore` failures are opaque, unlike the finite `PackLoadError` set.
+struct FakeStoreError: Error, Equatable, Sendable {}
+
 func entry(_ lemma: String, rank: Int) -> WordEntry {
     WordEntry(
         id: WordID("fr:\(lemma):NOUN"), lemma: lemma, display: lemma, pos: .noun,
@@ -77,11 +81,13 @@ func makeStudyViewModel(
     today: Date = day0,
     newWordCap: Int = SessionBuilder.defaultNewWordCap,
     speech: FakeSpeechService = FakeSpeechService(),
-    reviewStore: InMemoryReviewStore = InMemoryReviewStore()
+    reviewStore: InMemoryReviewStore = InMemoryReviewStore(),
+    errorOverride: PackLoadError? = nil
 ) -> StudyViewModel {
     let code = LanguageCode("fr")
     let packStore = InMemoryPackStore(
-        descriptors: [frDescriptor()], packs: pack.map { [code: $0] } ?? [:])
+        descriptors: [frDescriptor()], packs: pack.map { [code: $0] } ?? [:],
+        errorOverride: errorOverride)
     return StudyViewModel(
         languageCode: code, packStore: packStore, reviewStore: reviewStore,
         scheduler: Scheduler(), sessionBuilder: SessionBuilder(), speech: speech,

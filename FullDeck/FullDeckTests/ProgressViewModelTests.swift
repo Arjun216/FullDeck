@@ -6,11 +6,13 @@ import Testing
 @MainActor
 private func makeProgressViewModel(
     pack: LanguagePack? = frPack([entry("chat", rank: 1), entry("chien", rank: 2)]),
-    seed: [ReviewState] = []
+    seed: [ReviewState] = [],
+    errorOverride: PackLoadError? = nil
 ) -> ProgressViewModel {
     let code = LanguageCode("fr")
     let packStore = InMemoryPackStore(
-        descriptors: [frDescriptor()], packs: pack.map { [code: $0] } ?? [:])
+        descriptors: [frDescriptor()], packs: pack.map { [code: $0] } ?? [:],
+        errorOverride: errorOverride)
     return ProgressViewModel(
         languageCode: code, packStore: packStore,
         reviewStore: InMemoryReviewStore(seed: seed))
@@ -82,4 +84,15 @@ func missingPackSurfacesFailedProgressState() async {
         Issue.record("expected a failed state, got \(viewModel.state)")
         return
     }
+}
+
+@Test("NFR-10 a schema-version mismatch surfaces the update message")
+@MainActor
+func progressSchemaVersionMismatchSurfacesUpdateMessage() async {
+    let viewModel = makeProgressViewModel(
+        errorOverride: .unsupportedSchemaVersion(found: 99, maxSupported: 1))
+
+    await viewModel.load()
+
+    #expect(viewModel.state == .failed("This language needs an app update."))
 }

@@ -22,10 +22,11 @@ private func emptyDefaults() -> UserDefaults {
 private func makeSelectionViewModel(
     descriptors: [PackDescriptor] = [frDescriptor(), hindiDescriptor],
     unlocked: Set<String> = [],
-    defaults: UserDefaults = emptyDefaults()
+    defaults: UserDefaults = emptyDefaults(),
+    errorOverride: PackLoadError? = nil
 ) -> LanguageSelectionViewModel {
     LanguageSelectionViewModel(
-        packStore: InMemoryPackStore(descriptors: descriptors),
+        packStore: InMemoryPackStore(descriptors: descriptors, errorOverride: errorOverride),
         entitlements: StubEntitlementStore(unlocked: unlocked), defaults: defaults)
 }
 
@@ -136,4 +137,15 @@ func unavailablePersistedLanguageIsNotRestored() async {
     await viewModel.load()
 
     #expect(viewModel.activeLanguage == nil)
+}
+
+@Test("NFR-10 a schema-version mismatch surfaces the update message")
+@MainActor
+func selectionSchemaVersionMismatchSurfacesUpdateMessage() async {
+    let viewModel = makeSelectionViewModel(
+        errorOverride: .unsupportedSchemaVersion(found: 99, maxSupported: 1))
+
+    await viewModel.load()
+
+    #expect(viewModel.state == .failed("This language needs an app update."))
 }

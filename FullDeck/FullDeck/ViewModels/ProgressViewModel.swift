@@ -1,4 +1,5 @@
 import Domain
+import Foundation
 import Observation
 
 /// Words learned out of the language's total, and nothing else (FR-10). No
@@ -34,8 +35,10 @@ final class ProgressViewModel {
             let pack = try await packStore.loadPack(languageCode)
             let progress = try await reviewStore.progress(languageCode)
             state = .ready(learned: progress.wordsLearned, total: pack.wordCount)
+        } catch let error as PackLoadError {
+            state = .failed(error.userMessage)
         } catch {
-            state = .failed("Couldn't load your progress.")
+            state = .failed(String(localized: "Couldn't load your progress."))
         }
     }
 }

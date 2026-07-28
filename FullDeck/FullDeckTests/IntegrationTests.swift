@@ -125,7 +125,9 @@ func corruptPackSurfacesFailedStateEndToEnd() async throws {
     let study = makeStudy(dependencies, today: day0)
     await study.start()
 
-    #expect(study.state == .failed("Couldn't load this language."))
+    #expect(
+        study.state
+            == .failed("This language's data couldn't be read. Try reinstalling the app."))
 }
 
 @Test("NFR-10 a missing pack surfaces a failed state instead of crashing")
@@ -140,7 +142,9 @@ func missingPackSurfacesFailedStateEndToEnd() async throws {
         reviewStore: dependencies.reviewStore)
     await progress.load()
 
-    #expect(progress.state == .failed("Couldn't load your progress."))
+    #expect(
+        progress.state
+            == .failed("This language's data couldn't be read. Try reinstalling the app."))
 }
 
 // swiftlint:enable force_cast
