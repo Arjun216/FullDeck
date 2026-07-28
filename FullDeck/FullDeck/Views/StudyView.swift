@@ -7,6 +7,10 @@ struct StudyView: View {
     // `@Bindable` isn't needed — nothing here writes back into the ViewModel;
     // `let` plus @Observable is enough for SwiftUI to track what it reads.
     let viewModel: StudyViewModel
+    /// FR-11's completion screen offers another language; only `ContentView` knows
+    /// how to select a tab, so it hands the action down rather than the view
+    /// reaching for shared state.
+    let onAddLanguage: () -> Void
 
     var body: some View {
         NavigationStack {
@@ -25,10 +29,8 @@ struct StudyView: View {
             cardView(card)
         case .caughtUp(let nextDue):
             caughtUpView(nextDue)
-        case .complete:
-            // Placeholder so the switch compiles for Task 3's ViewModel tests;
-            // Task 5 replaces this with the real completion screen.
-            ProgressView()
+        case .complete(let nextDue):
+            completionView(nextDue)
         case .failed(let message):
             ErrorStateView(message: message)
         }
@@ -118,5 +120,28 @@ struct StudyView: View {
                 Text("Nothing is due right now.")
             }
         }
+    }
+
+    /// FR-11: the deliberate ending. The price is stated rather than hidden —
+    /// concealing it would be the dark pattern. No summary statistics, no streak.
+    private func completionView(_ nextDue: Date?) -> some View {
+        VStack(spacing: 16) {
+            Image(systemName: "checkmark.seal")
+                .font(.largeTitle)
+                .foregroundStyle(.secondary)
+            Text("You've learned all the words in this language.")
+                .font(.title2)
+                .multilineTextAlignment(.center)
+            if let nextDue {
+                Text("Next review \(nextDue.formatted(date: .abbreviated, time: .omitted)).")
+                    .font(.body)
+                    .foregroundStyle(.secondary)
+            }
+            Button("Add another language — $0.99", action: onAddLanguage)
+                .buttonStyle(.borderedProminent)
+                .accessibilityHint("Opens the languages list")
+        }
+        .padding()
+        .accessibilityElement(children: .contain)
     }
 }

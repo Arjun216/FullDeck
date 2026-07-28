@@ -72,7 +72,7 @@ struct ContentView: View {
     @ViewBuilder
     private var studyTab: some View {
         if let studyViewModel, let language = selectionViewModel.activeLanguage {
-            StudyView(viewModel: studyViewModel)
+            StudyView(viewModel: studyViewModel, onAddLanguage: { selectedTab = .languages })
                 .id(language.rawValue)
         } else {
             chooseALanguage

@@ -28,6 +28,11 @@ struct LearningProgressView: View {
                 Text("of \(total) words learned")
                     .font(.title3)
                     .foregroundStyle(.secondary)
+                if viewModel.state.isComplete {
+                    Text("Every word. That's the whole deck.")
+                        .font(.callout)
+                        .foregroundStyle(.secondary)
+                }
             }
             .accessibilityElement(children: .combine)
             .accessibilityLabel("\(learned) of \(total) words learned")

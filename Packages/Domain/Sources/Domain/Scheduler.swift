@@ -59,9 +59,17 @@ public struct Scheduler: Sendable {
         next.intervalDays = interval.clamped(to: Self.intervalRange)
         // Derived from the *clamped* interval — the two must never disagree.
         next.nextReviewDate = DayCalendar.adding(days: next.intervalDays, to: today)
-        // FR-4's per-day new-word cap counts introductions by this date. It lives
-        // here rather than in the caller because it is a pure function of the same
-        // (state, grade, today) the scheduler already takes.
+        return stampingMilestones(on: next, previous: state, today: today)
+    }
+
+    /// FR-4 and FR-10/FR-17's milestone dates. Split out of `schedule` purely to
+    /// keep its cyclomatic complexity under the SwiftLint gate — both lines are a
+    /// pure function of the same `(state, grade, today)` `schedule` already took.
+    private func stampingMilestones(
+        on next: ReviewState, previous state: ReviewState, today: Date
+    ) -> ReviewState {
+        var next = next
+        // FR-4's per-day new-word cap counts introductions by this date.
         if next.firstReviewedDate == nil { next.firstReviewedDate = today }
         // Sticky (FR-17): set once on the crossing review and never cleared — not
         // even by a lapse, which resets intervalDays to 1. The progress trend is
