@@ -45,3 +45,23 @@ func loadPackThrowsForMissingLanguage() async throws {
         #expect(error == .fileNotFound(languageCode: fr))
     }
 }
+
+@Test("NFR-10 an injected errorOverride is thrown from availablePacks")
+func errorOverrideThrowsFromAvailablePacks() async throws {
+    let store = InMemoryPackStore(
+        errorOverride: .unsupportedSchemaVersion(found: 99, maxSupported: 1))
+
+    await #expect(throws: PackLoadError.unsupportedSchemaVersion(found: 99, maxSupported: 1)) {
+        try await store.availablePacks()
+    }
+}
+
+@Test("NFR-10 an injected errorOverride is thrown from loadPack")
+func errorOverrideThrowsFromLoadPack() async throws {
+    let store = InMemoryPackStore(
+        errorOverride: .unsupportedSchemaVersion(found: 99, maxSupported: 1))
+
+    await #expect(throws: PackLoadError.unsupportedSchemaVersion(found: 99, maxSupported: 1)) {
+        try await store.loadPack(fr)
+    }
+}

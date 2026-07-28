@@ -51,3 +51,14 @@ func progressComputesFromMilestoneDates() async throws {
 
     #expect(summary == ProgressSummary(wordsLearned: 1, wordsInProgress: 1, totalReviewed: 2))
 }
+
+struct FakeStoreError: Error, Equatable, Sendable {}
+
+@Test("NFR-10 an injected saveErrorOverride is thrown from save")
+func saveErrorOverrideThrows() async throws {
+    let store = InMemoryReviewStore(saveErrorOverride: FakeStoreError())
+
+    await #expect(throws: FakeStoreError()) {
+        try await store.save(ReviewState(wordID: chat))
+    }
+}
