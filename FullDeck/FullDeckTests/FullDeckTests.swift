@@ -10,6 +10,6 @@ import Testing
 // Phase 5/8). Just proves the app module compiles and its root view constructs.
 @Test("Phase-8 the composition root builds the root view")
 @MainActor
-func contentViewConstructs() {
-    _ = ContentView(dependencies: .live())
+func contentViewConstructs() throws {
+    _ = ContentView(dependencies: try AppDependencies.live())
 }

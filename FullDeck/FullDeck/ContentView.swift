@@ -97,5 +97,8 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView(dependencies: .live())
+    // The preview shares the app's real wiring; if the store can't open there is
+    // nothing to preview, so a failure here is a preview-only crash, not shipped.
+    // swiftlint:disable:next force_try
+    ContentView(dependencies: try! AppDependencies.live())
 }

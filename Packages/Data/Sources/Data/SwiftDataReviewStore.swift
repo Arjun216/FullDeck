@@ -64,3 +64,14 @@ public actor SwiftDataReviewStore: ReviewStore {
             learnedDate: state.learnedDate)
     }
 }
+
+extension SwiftDataReviewStore {
+    /// Builds the `ModelContainer` for this store's schema. `PersistentReviewState`
+    /// never crosses the `ReviewStore` port (architecture.md §1) and stays
+    /// internal to this package — this factory is the one door a composition
+    /// root outside `Data` needs to open a container for it.
+    public static func makeContainer(inMemory: Bool) throws -> ModelContainer {
+        let configuration = ModelConfiguration(isStoredInMemoryOnly: inMemory)
+        return try ModelContainer(for: PersistentReviewState.self, configurations: configuration)
+    }
+}
