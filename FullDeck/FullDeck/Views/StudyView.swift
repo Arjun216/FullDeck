@@ -78,6 +78,7 @@ struct StudyView: View {
             } else {
                 Button("Reveal") { viewModel.reveal() }
                     .buttonStyle(.borderedProminent)
+                    .accessibilityHint("Shows the answer")
             }
 
             if viewModel.audioUnavailable {

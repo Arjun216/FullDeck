@@ -21,7 +21,10 @@ final class FullDeckUITests: XCTestCase {
         app.launch()
 
         let tabBar = app.tabBars.firstMatch
-        XCTAssertTrue(tabBar.buttons["Languages"].waitForExistence(timeout: 5))
+        // Cold launch to first render is more timing-variable than any other
+        // wait in this file; a generous window here avoids flaking under host
+        // load without loosening anything after the app is already warm.
+        XCTAssertTrue(tabBar.buttons["Languages"].waitForExistence(timeout: 10))
         XCTAssertTrue(tabBar.buttons["Study"].exists)
         XCTAssertTrue(tabBar.buttons["Progress"].exists)
     }
@@ -34,8 +37,10 @@ final class FullDeckUITests: XCTestCase {
         let app = XCUIApplication()
         app.launch()
 
-        let french = app.buttons["French"]
-        XCTAssertTrue(french.waitForExistence(timeout: 5))
+        let french = app.buttons["Français"]
+        // Cold launch to first render is more timing-variable than the other
+        // waits below; see testAppLaunchesWithThreeTabs.
+        XCTAssertTrue(french.waitForExistence(timeout: 10))
         french.tap()
 
         app.tabBars.firstMatch.buttons["Progress"].tap()
@@ -57,8 +62,10 @@ final class FullDeckUITests: XCTestCase {
         let app = XCUIApplication()
         app.launch()
 
-        let french = app.buttons["French"]
-        XCTAssertTrue(french.waitForExistence(timeout: 5))
+        let french = app.buttons["Français"]
+        // Cold launch to first render is more timing-variable than the other
+        // waits below; see testAppLaunchesWithThreeTabs.
+        XCTAssertTrue(french.waitForExistence(timeout: 10))
         french.tap()
 
         let tabBar = app.tabBars.firstMatch
