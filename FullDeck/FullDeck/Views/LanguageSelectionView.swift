@@ -1,4 +1,5 @@
 import Domain
+import Foundation
 import SwiftUI
 
 /// Lists the bundled packs with lock state (FR-1, FR-2, FR-14).
@@ -57,10 +58,10 @@ struct LanguageSelectionView: View {
         for option: LanguageSelectionViewModel.Option
     ) -> String {
         guard option.isUnlocked else {
-            return "\(option.descriptor.displayName), locked"
+            return String(localized: "\(option.descriptor.displayName), locked")
         }
         return isActive(option)
-            ? "\(option.descriptor.displayName), active language"
+            ? String(localized: "\(option.descriptor.displayName), active language")
             : option.descriptor.displayName
     }
 }

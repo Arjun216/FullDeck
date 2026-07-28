@@ -1,4 +1,5 @@
 import Domain
+import Foundation
 import SwiftUI
 
 /// The daily study session (FR-3, FR-5, FR-6, FR-7, FR-12). Thin: every decision
@@ -136,10 +137,10 @@ struct StudyView: View {
 
     private func label(for grade: Grade) -> String {
         switch grade {
-        case .again: "Again"
-        case .hard: "Hard"
-        case .good: "Good"
-        case .easy: "Easy"
+        case .again: String(localized: "Again")
+        case .hard: String(localized: "Hard")
+        case .good: String(localized: "Good")
+        case .easy: String(localized: "Easy")
         }
     }
 
