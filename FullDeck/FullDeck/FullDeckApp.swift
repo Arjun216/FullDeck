@@ -5,6 +5,7 @@
 //  Created by Arjun Pathak on 2026-07-24.
 //
 
+import Foundation
 import SwiftUI
 
 @main
@@ -23,7 +24,7 @@ struct FullDeckApp: App {
             case .success(let dependencies):
                 ContentView(dependencies: dependencies)
             case .failure:
-                ErrorStateView(message: "Couldn't open your saved progress.")
+                ErrorStateView(message: String(localized: "Couldn't open your saved progress."))
             }
         }
     }
