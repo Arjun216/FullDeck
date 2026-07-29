@@ -17,7 +17,7 @@ private let chat = WordID("fr:chat:NOUN")
 func firstPassingReviewSchedulesOneDay() {
     let state = ReviewState(wordID: chat)
 
-    let next = Scheduler().schedule(state, grade: .good, today: day0)
+    let next = Scheduler().schedule(state, grade: .recalled, today: day0)
 
     #expect(next.intervalDays == 1)
     #expect(next.nextReviewDate == day(1))
@@ -27,7 +27,7 @@ func firstPassingReviewSchedulesOneDay() {
 func secondPassingReviewSchedulesSixDays() {
     let state = ReviewState(wordID: chat, intervalDays: 1, repetitions: 1, nextReviewDate: day(1))
 
-    let next = Scheduler().schedule(state, grade: .good, today: day(1))
+    let next = Scheduler().schedule(state, grade: .recalled, today: day(1))
 
     #expect(next.intervalDays == 6)
     #expect(next.nextReviewDate == day(7))
@@ -37,7 +37,7 @@ func secondPassingReviewSchedulesSixDays() {
 func passingGradeIncrementsRepetitions() {
     let state = ReviewState(wordID: chat, intervalDays: 6, repetitions: 1, nextReviewDate: day(7))
 
-    let next = Scheduler().schedule(state, grade: .good, today: day(7))
+    let next = Scheduler().schedule(state, grade: .recalled, today: day(7))
 
     #expect(next.repetitions == 2)
 }
@@ -47,7 +47,7 @@ func matureIntervalMultipliesByEaseFactor() {
     let state = ReviewState(
         wordID: chat, easeFactor: 2.5, intervalDays: 6, repetitions: 2, nextReviewDate: day(7))
 
-    let next = Scheduler().schedule(state, grade: .good, today: day(7))
+    let next = Scheduler().schedule(state, grade: .recalled, today: day(7))
 
     #expect(next.intervalDays == 15)  // 6 × 2.5
     #expect(next.nextReviewDate == day(22))
@@ -58,7 +58,7 @@ func failingGradeResetsIntervalAndRepetitions() {
     let state = ReviewState(
         wordID: chat, easeFactor: 2.5, intervalDays: 30, repetitions: 5, nextReviewDate: day(30))
 
-    let next = Scheduler().schedule(state, grade: .again, today: day(30))
+    let next = Scheduler().schedule(state, grade: .forgot, today: day(30))
 
     #expect(next.intervalDays == 1)
     #expect(next.repetitions == 0)
@@ -66,14 +66,12 @@ func failingGradeResetsIntervalAndRepetitions() {
 }
 
 // `arguments:` runs the same test body once per case — Swift Testing's
-// table-driven form, reported as four separate results.
+// table-driven form, reported as separate results.
 @Test(
     "FR-8 each grade moves the ease factor by its own delta",
     arguments: [
-        (Grade.again, 2.30),
-        (Grade.hard, 2.35),
-        (Grade.good, 2.50),
-        (Grade.easy, 2.65),
+        (Grade.forgot, 2.30),
+        (Grade.recalled, 2.50),
     ])
 func gradeMovesEaseFactorByItsDelta(grade: Grade, expectedEase: Double) {
     let state = ReviewState(
@@ -84,40 +82,15 @@ func gradeMovesEaseFactorByItsDelta(grade: Grade, expectedEase: Double) {
     #expect(abs(next.easeFactor - expectedEase) < 1e-9)
 }
 
-@Test(
-    "FR-8 the ease factor stays inside its clamps",
-    arguments: [
-        (1.35, Grade.again, 1.30),  // floor: repeated failures can't drive ease to zero
-        (2.95, Grade.easy, 3.00),  // ceiling: intervals can't run away
-    ])
-func easeFactorStaysInsideItsClamps(startEase: Double, grade: Grade, expectedEase: Double) {
+@Test("FR-8 repeated failures cannot drive the ease factor below its floor")
+func easeFactorStaysAboveItsFloor() {
     let state = ReviewState(
-        wordID: chat, easeFactor: startEase, intervalDays: 10, repetitions: 3,
+        wordID: chat, easeFactor: 1.35, intervalDays: 10, repetitions: 3,
         nextReviewDate: day(10))
 
-    let next = Scheduler().schedule(state, grade: grade, today: day(10))
+    let next = Scheduler().schedule(state, grade: .forgot, today: day(10))
 
-    #expect(abs(next.easeFactor - expectedEase) < 1e-9)
-}
-
-@Test("FR-8 a hard grade grows the interval by a small fixed step, not by the ease factor")
-func hardGradeGrowsIntervalBySmallStep() {
-    let state = ReviewState(
-        wordID: chat, easeFactor: 2.5, intervalDays: 10, repetitions: 3, nextReviewDate: day(10))
-
-    let next = Scheduler().schedule(state, grade: .hard, today: day(10))
-
-    #expect(next.intervalDays == 12)  // 10 × 1.2 — textbook SM-2 would give 10 × 2.35
-}
-
-@Test("FR-8 a grade schedules with the ease it just changed, not the old one")
-func gradeSchedulesWithTheEaseItJustChanged() {
-    let state = ReviewState(
-        wordID: chat, easeFactor: 2.5, intervalDays: 10, repetitions: 3, nextReviewDate: day(10))
-
-    let next = Scheduler().schedule(state, grade: .easy, today: day(10))
-
-    #expect(next.intervalDays == 27)  // 10 × 2.65 (raised ease), not 10 × 2.5
+    #expect(abs(next.easeFactor - 1.30) < 1e-9)
 }
 
 @Test("FR-8 the interval never grows past its one-year ceiling")
@@ -125,7 +98,7 @@ func intervalNeverGrowsPastCeiling() {
     let state = ReviewState(
         wordID: chat, easeFactor: 2.5, intervalDays: 300, repetitions: 10, nextReviewDate: day(300))
 
-    let next = Scheduler().schedule(state, grade: .good, today: day(300))
+    let next = Scheduler().schedule(state, grade: .recalled, today: day(300))
 
     #expect(next.intervalDays == 365)  // 300 × 2.5 = 750, capped
     #expect(next.nextReviewDate == day(665))
@@ -135,12 +108,12 @@ func intervalNeverGrowsPastCeiling() {
 
 @Test("FR-10 a word that lands below the learned interval is not learned")
 func belowLearnedIntervalIsNotLearned() {
-    // Ease 2.2 — this word took a `.hard` earlier. 6 × 2.2 = 13.2 → 13, one short.
+    // Ease 2.2 — a word that has lapsed before. 6 × 2.2 = 13.2 → 13, one short.
     let state = ReviewState(
         wordID: chat, easeFactor: 2.2, intervalDays: 6, repetitions: 2,
         nextReviewDate: day(7), firstReviewedDate: day0)
 
-    let next = Scheduler().schedule(state, grade: .good, today: day(7))
+    let next = Scheduler().schedule(state, grade: .recalled, today: day(7))
 
     #expect(next.intervalDays == 13)
     #expect(next.learnedDate == nil)
@@ -153,7 +126,7 @@ func crossingLearnedIntervalStampsLearnedDate() {
         wordID: chat, easeFactor: 2.5, intervalDays: 6, repetitions: 2,
         nextReviewDate: day(7), firstReviewedDate: day0)
 
-    let next = Scheduler().schedule(state, grade: .good, today: day(7))
+    let next = Scheduler().schedule(state, grade: .recalled, today: day(7))
 
     #expect(next.intervalDays == 15)
     #expect(next.learnedDate == day(7))
@@ -165,7 +138,7 @@ func lapseDoesNotUnlearnWord() {
         wordID: chat, easeFactor: 2.5, intervalDays: 15, repetitions: 3,
         nextReviewDate: day(22), firstReviewedDate: day0, learnedDate: day(7))
 
-    let next = Scheduler().schedule(learned, grade: .again, today: day(22))
+    let next = Scheduler().schedule(learned, grade: .forgot, today: day(22))
 
     #expect(next.intervalDays == 1)
     #expect(next.learnedDate == day(7))
@@ -177,7 +150,7 @@ func laterReviewDoesNotRestampLearnedDate() {
         wordID: chat, easeFactor: 2.5, intervalDays: 15, repetitions: 3,
         nextReviewDate: day(22), firstReviewedDate: day0, learnedDate: day(7))
 
-    let next = Scheduler().schedule(learned, grade: .good, today: day(22))
+    let next = Scheduler().schedule(learned, grade: .recalled, today: day(22))
 
     #expect(next.intervalDays == 38)
     #expect(next.learnedDate == day(7))
@@ -187,7 +160,7 @@ func laterReviewDoesNotRestampLearnedDate() {
 func firstReviewStampsFirstReviewedDate() {
     let state = ReviewState(wordID: chat)
 
-    let next = Scheduler().schedule(state, grade: .good, today: day0)
+    let next = Scheduler().schedule(state, grade: .recalled, today: day0)
 
     #expect(next.firstReviewedDate == day0)
 }
@@ -198,7 +171,7 @@ func laterReviewLeavesFirstReviewedDateAlone() {
         wordID: chat, intervalDays: 1, repetitions: 1, nextReviewDate: day(1),
         firstReviewedDate: day0)
 
-    let next = Scheduler().schedule(state, grade: .good, today: day(1))
+    let next = Scheduler().schedule(state, grade: .recalled, today: day(1))
 
     #expect(next.firstReviewedDate == day0)
 }
@@ -235,7 +208,7 @@ func schedulingInvariantsHoldAcrossSeededRandomWalk() {
     var everCrossedLearnedInterval = false
 
     for step in 0..<2_000 {
-        let grade = Grade.allCases.randomElement(using: &rng) ?? .good
+        let grade = Grade.allCases.randomElement(using: &rng) ?? .recalled
         let previousInterval = state.intervalDays
 
         let next = scheduler.schedule(state, grade: grade, today: today)
@@ -247,7 +220,7 @@ func schedulingInvariantsHoldAcrossSeededRandomWalk() {
         #expect(
             Scheduler.intervalRange.contains(next.intervalDays),
             "step \(step): interval \(next.intervalDays) escaped its clamp")
-        if grade == .again {
+        if grade == .forgot {
             // `max(_, 1)` because a never-reviewed word starts at interval 0 and
             // a lapse still schedules it for tomorrow — the floor, not a growth.
             #expect(

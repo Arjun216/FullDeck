@@ -30,11 +30,13 @@ public struct LanguageCode: Hashable, Sendable {
 }
 
 /// The learner's self-assessment after revealing a card (FR-5).
+///
+/// Binary by decision (spec 2026-07-28): a four-way judgement cost decision time
+/// at exactly the moment the learner should be thinking about the word. `forgot`
+/// is declared first so `allCases` renders fail-left / pass-right.
 public enum Grade: Sendable, CaseIterable {
-    case again
-    case hard
-    case good
-    case easy
+    case forgot
+    case recalled
 }
 
 /// Everything the scheduler needs to know about one word, and everything it

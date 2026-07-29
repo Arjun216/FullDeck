@@ -71,7 +71,7 @@ func gradesPersistAcrossRelaunch() async throws {
     await study.start()
     for _ in 0..<3 {
         study.reveal()
-        await study.grade(.good)
+        await study.grade(.recalled)
     }
 
     // "Relaunch": a brand-new ViewModel over the same store.
@@ -99,7 +99,7 @@ func studyingToThresholdReachesCompletion() async throws {
         await study.start()
         while case .card = study.state {
             study.reveal()
-            await study.grade(.good)
+            await study.grade(.recalled)
         }
     }
 

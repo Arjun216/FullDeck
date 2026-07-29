@@ -15,9 +15,8 @@ extension Comparable {
 /// aren't sticking.
 public struct Scheduler: Sendable {
     /// Ease starts at 2.5, so the ceiling sits above the start — otherwise
-    /// `.easy` would be a silent no-op on a fresh word.
+    /// `.recalled` would be a silent no-op on a fresh word.
     static let easeRange = 1.3...3.0
-    static let hardMultiplier = 1.2
     /// Floor of 1 day is what guarantees `nextReviewDate > today` (FR-8); the
     /// one-year ceiling keeps a word from effectively disappearing forever.
     static let intervalRange = 1...365
@@ -34,26 +33,20 @@ public struct Scheduler: Sendable {
         // shape (worse answer → lower ease), but readable.
         let easeDelta: Double =
             switch grade {
-            case .again: -0.20
-            case .hard: -0.15
-            case .good: 0
-            case .easy: 0.15
+            case .forgot: -0.20
+            case .recalled: 0
             }
         next.easeFactor = (state.easeFactor + easeDelta).clamped(to: Self.easeRange)
         // Reset-on-failure (FR-8): a lapse sends the word back to the bottom of
         // the ladder — tomorrow, and the fixed steps again from there.
-        next.repetitions = grade == .again ? 0 : state.repetitions + 1
+        next.repetitions = grade == .forgot ? 0 : state.repetitions + 1
         // SM-2's ladder: the first two passes use fixed steps, after which the
         // ease factor takes over and intervals grow multiplicatively.
         let interval =
             switch (grade, state.repetitions) {
-            case (.again, _): 1
+            case (.forgot, _): 1
             case (_, 0): 1
             case (_, 1): 6
-            // `hard` deliberately departs from textbook SM-2, which multiplies
-            // by the ease factor even here — so "I barely got it" still
-            // *lengthened* the interval. A small fixed step is the fix.
-            case (.hard, _): Int((Double(state.intervalDays) * Self.hardMultiplier).rounded())
             default: Int((Double(state.intervalDays) * next.easeFactor).rounded())
             }
         next.intervalDays = interval.clamped(to: Self.intervalRange)

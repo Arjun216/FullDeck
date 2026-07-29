@@ -117,29 +117,14 @@
         }
       }
     },
-    "Grade this word %@" : {
+    "Knew it!" : {
       "localizations" : {
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Califica esta palabra: %@" } }
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "¡Lo sabía!" } }
       }
     },
-    "Again" : {
+    "Let's try this again" : {
       "localizations" : {
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Otra vez" } }
-      }
-    },
-    "Hard" : {
-      "localizations" : {
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Difícil" } }
-      }
-    },
-    "Good" : {
-      "localizations" : {
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Bien" } }
-      }
-    },
-    "Easy" : {
-      "localizations" : {
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Fácil" } }
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Volvamos a intentarlo" } }
       }
     },
     "You're caught up" : {

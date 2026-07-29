@@ -130,17 +130,26 @@ struct StudyView: View {
                     Task { await viewModel.grade(grade) }
                 }
                 .buttonStyle(.bordered)
-                .accessibilityLabel("Grade this word \(label(for: grade))")
+                // NFR-6: `.bordered` tints its label system blue over a light
+                // grey fill — about 3.4:1, under WCAG AA's 4.5:1 for normal
+                // text. Same issue and fix as "Hear the word" above. The
+                // audit only started catching it here once the redundant
+                // `.accessibilityLabel` came off: that override made the
+                // Button one opaque element and hid its label text from the
+                // contrast check.
+                .foregroundStyle(.primary)
             }
         }
     }
 
+    /// No `.accessibilityLabel` override: with four terse grades the "Grade this
+    /// word …" prefix disambiguated, but "Grade this word Let's try this again"
+    /// reads worse than the button's own text. A `Button` with a text label
+    /// already exposes that text to VoiceOver.
     private func label(for grade: Grade) -> String {
         switch grade {
-        case .again: String(localized: "Again")
-        case .hard: String(localized: "Hard")
-        case .good: String(localized: "Good")
-        case .easy: String(localized: "Easy")
+        case .forgot: String(localized: "Let's try this again")
+        case .recalled: String(localized: "Knew it!")
         }
     }
 
