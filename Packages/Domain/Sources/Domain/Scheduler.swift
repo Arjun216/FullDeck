@@ -31,10 +31,14 @@ public struct Scheduler: Sendable {
         var next = state
         // A flat delta table replaces SM-2's quadratic quality formula: same
         // shape (worse answer → lower ease), but readable.
+        //
+        // `recalled` must carry a *positive* delta, not zero. At zero, ease
+        // could only ever decay toward its floor — Anki's "ease hell" — and a
+        // word that lapsed once could never recover from it.
         let easeDelta: Double =
             switch grade {
             case .forgot: -0.20
-            case .recalled: 0
+            case .recalled: 0.05
             }
         next.easeFactor = (state.easeFactor + easeDelta).clamped(to: Self.easeRange)
         // Reset-on-failure (FR-8): a lapse sends the word back to the bottom of

@@ -71,7 +71,7 @@ func failingGradeResetsIntervalAndRepetitions() {
     "FR-8 each grade moves the ease factor by its own delta",
     arguments: [
         (Grade.forgot, 2.30),
-        (Grade.recalled, 2.50),
+        (Grade.recalled, 2.55),
     ])
 func gradeMovesEaseFactorByItsDelta(grade: Grade, expectedEase: Double) {
     let state = ReviewState(
@@ -93,6 +93,27 @@ func easeFactorStaysAboveItsFloor() {
     #expect(abs(next.easeFactor - 1.30) < 1e-9)
 }
 
+@Test("FR-8 repeated successes cannot drive the ease factor past its ceiling")
+func easeFactorStaysBelowItsCeiling() {
+    let state = ReviewState(
+        wordID: chat, easeFactor: 2.98, intervalDays: 10, repetitions: 3,
+        nextReviewDate: day(10))
+
+    let next = Scheduler().schedule(state, grade: .recalled, today: day(10))
+
+    #expect(abs(next.easeFactor - 3.00) < 1e-9)
+}
+
+@Test("FR-8 a grade schedules with the ease it just changed, not the old one")
+func gradeSchedulesWithTheEaseItJustChanged() {
+    let state = ReviewState(
+        wordID: chat, easeFactor: 2.5, intervalDays: 10, repetitions: 3, nextReviewDate: day(10))
+
+    let next = Scheduler().schedule(state, grade: .recalled, today: day(10))
+
+    #expect(next.intervalDays == 26)  // 10 × 2.55 (raised ease), not 10 × 2.5 = 25
+}
+
 @Test("FR-8 the interval never grows past its one-year ceiling")
 func intervalNeverGrowsPastCeiling() {
     let state = ReviewState(
@@ -108,9 +129,10 @@ func intervalNeverGrowsPastCeiling() {
 
 @Test("FR-10 a word that lands below the learned interval is not learned")
 func belowLearnedIntervalIsNotLearned() {
-    // Ease 2.2 — a word that has lapsed before. 6 × 2.2 = 13.2 → 13, one short.
+    // Ease 2.15 — a word that has lapsed before. Recalling lifts it to 2.20,
+    // and 6 × 2.20 = 13.2 → 13, one day short of the threshold.
     let state = ReviewState(
-        wordID: chat, easeFactor: 2.2, intervalDays: 6, repetitions: 2,
+        wordID: chat, easeFactor: 2.15, intervalDays: 6, repetitions: 2,
         nextReviewDate: day(7), firstReviewedDate: day0)
 
     let next = Scheduler().schedule(state, grade: .recalled, today: day(7))
@@ -249,4 +271,18 @@ func schedulingInvariantsHoldAcrossSeededRandomWalk() {
         let daysLate = Int.random(in: 0...3, using: &rng)
         today = next.nextReviewDate.addingTimeInterval(TimeInterval(daysLate) * 86_400)
     }
+}
+
+@Test("FR-8 a successful recall lifts the ease factor back off its floor")
+func recalledLiftsEaseOffItsFloor() {
+    // A word driven to the floor by past lapses. If `recalled` carried a zero
+    // delta, ease could only ever decay — the word would be punished forever
+    // for lapses it has since recovered from.
+    let state = ReviewState(
+        wordID: chat, easeFactor: 1.30, intervalDays: 4, repetitions: 2, nextReviewDate: day(4))
+
+    let next = Scheduler().schedule(state, grade: .recalled, today: day(4))
+
+    #expect(next.easeFactor > state.easeFactor)
+    #expect(abs(next.easeFactor - 1.35) < 1e-9)
 }

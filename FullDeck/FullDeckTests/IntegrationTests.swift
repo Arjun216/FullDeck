@@ -92,8 +92,9 @@ func studyingToThresholdReachesCompletion() async throws {
     let directory = try makeTempPacksDirectory(wordCount: 3)
     let dependencies = try AppDependencies.make(packsDirectory: directory, inMemory: true)
 
-    // Three passes take every word to interval 15 (1 → 6 → 15), crossing L = 14
-    // on the third. Reviews land on day 0, day 1, and day 7.
+    // Three passes take every word to interval 16 (1 → 6 → 16), crossing L = 14
+    // on the third. Reviews land on day 0, day 1, and day 7. Each recall also
+    // lifts ease 2.50 → 2.55 → 2.60 → 2.65, so the third interval is 6 × 2.65.
     for reviewDay in [0, 1, 7] {
         let study = makeStudy(dependencies, today: day(reviewDay), newWordCap: 3)
         await study.start()
@@ -112,7 +113,7 @@ func studyingToThresholdReachesCompletion() async throws {
 
     let afterwards = makeStudy(dependencies, today: day(8), newWordCap: 3)
     await afterwards.start()
-    #expect(afterwards.state == .complete(nextDue: day(22)))
+    #expect(afterwards.state == .complete(nextDue: day(23)))
 }
 
 @Test("NFR-10 a corrupt pack surfaces a failed state instead of crashing")
