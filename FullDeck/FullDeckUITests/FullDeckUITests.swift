@@ -108,7 +108,7 @@ final class FullDeckUITests: XCTestCase {
         let nextLabel = "Card \(startingIndex + 1) of \(total)"
 
         app.buttons["Reveal"].tap()
-        app.buttons["Grade this word Good"].tap()
+        app.buttons["Knew it!"].tap()
         XCTAssertTrue(app.staticTexts[nextLabel].waitForExistence(timeout: 15))
 
         tabBar.buttons["Progress"].tap()

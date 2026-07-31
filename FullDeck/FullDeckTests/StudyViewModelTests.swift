@@ -96,7 +96,7 @@ func gradingBeforeRevealDoesNothing() async {
     let viewModel = makeStudyViewModel(reviewStore: store)
     await viewModel.start()
 
-    await viewModel.grade(.good)
+    await viewModel.grade(.recalled)
 
     let saved = try? await store.reviewState(for: WordID("fr:chat:NOUN"))
     #expect(saved == nil)
@@ -115,7 +115,7 @@ func gradingPersistsScheduledState() async {
     await viewModel.start()
     viewModel.reveal()
 
-    await viewModel.grade(.good)
+    await viewModel.grade(.recalled)
 
     let saved = try? await store.reviewState(for: WordID("fr:chat:NOUN"))
     #expect(saved?.repetitions == 1)
@@ -131,7 +131,7 @@ func firstGradeStampsFirstReviewedDate() async {
     await viewModel.start()
     viewModel.reveal()
 
-    await viewModel.grade(.good)
+    await viewModel.grade(.recalled)
 
     let saved = try? await store.reviewState(for: WordID("fr:chat:NOUN"))
     #expect(saved?.firstReviewedDate == day0)
@@ -145,7 +145,7 @@ func gradingAdvancesToTheNextCard() async {
     await viewModel.start()
     viewModel.reveal()
 
-    await viewModel.grade(.good)
+    await viewModel.grade(.recalled)
 
     #expect(
         viewModel.state
@@ -161,7 +161,7 @@ func gradingLastCardEndsTheSession() async {
     await viewModel.start()
     viewModel.reveal()
 
-    await viewModel.grade(.good)
+    await viewModel.grade(.recalled)
 
     #expect(viewModel.state == .caughtUp(nextDue: day(1)))
 }
@@ -223,8 +223,8 @@ func doubleTappedGradeIsAppliedOnce() async {
     // `Task { await viewModel.grade(grade) }` per button produces. `async let`
     // starts both before either resumes past its first `await` — deterministic
     // interleaving, no sleep needed.
-    async let first: Void = viewModel.grade(.good)
-    async let second: Void = viewModel.grade(.good)
+    async let first: Void = viewModel.grade(.recalled)
+    async let second: Void = viewModel.grade(.recalled)
     _ = await (first, second)
 
     let saved = try? await store.reviewState(for: WordID("fr:chat:NOUN"))
@@ -247,7 +247,7 @@ func advancingToANewCardStopsInFlightSpeech() async {
     viewModel.reveal()
     let stopsBeforeGrading = speech.stopCount
 
-    await viewModel.grade(.good)
+    await viewModel.grade(.recalled)
 
     #expect(speech.stopCount == stopsBeforeGrading + 1)
 }
@@ -259,7 +259,7 @@ func restartingKeepsTheCurrentCard() async {
     let viewModel = makeStudyViewModel(pack: pack)
     await viewModel.start()
     viewModel.reveal()
-    await viewModel.grade(.good)
+    await viewModel.grade(.recalled)
 
     // The view's .task re-fires every time its tab reappears; that must not
     // throw away the session the learner is halfway through.
@@ -356,7 +356,7 @@ func saveFailureSurfacesFailedState() async {
     await viewModel.start()
     viewModel.reveal()
 
-    await viewModel.grade(.good)
+    await viewModel.grade(.recalled)
 
     #expect(viewModel.state == .failed("Couldn't save your progress."))
 }

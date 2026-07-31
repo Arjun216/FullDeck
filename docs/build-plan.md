@@ -228,6 +228,24 @@ Summarize what you changed and any residual risks.
 
 ---
 
+## PHASE 10.5 — Recall Scale & Visual Design (inserted 2026-07-28)
+
+Not in the original plan. Added after reviewing the app on device.
+
+Spec: `docs/superpowers/specs/2026-07-28-binary-recall-and-warm-ui-design.md`
+
+1. **Binary recall scale** — `Grade` reduces from four cases to `forgot` /
+   `recalled`; `recalled` gains a positive ease delta so ease can recover.
+2. **Warm minimal token layer** — semantic colorsets and a spacing scale,
+   replacing the empty `AccentColor` that left every control system blue.
+3. **Swipe to grade** — right for recalled, left for forgot, with both buttons
+   retained as the accessible path.
+
+`docs/requirements.md` already parameterised the grade scale as "4-level vs.
+binary", so no requirement changes.
+
+---
+
 ## PHASE 11 — Monetization (StoreKit 2) with Sandbox + StoreKit Testing
 
 *Artifact: purchase flow behind the Phase 8 lock protocol, tested with StoreKit's test tooling and sandbox.*

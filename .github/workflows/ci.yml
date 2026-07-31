@@ -29,7 +29,10 @@ jobs:
       # Python is irrelevant. --frozen fails if uv.lock is stale rather than
       # silently resolving something else.
       - name: Install uv
-        uses: astral-sh/setup-uv@v9
+        # Pinned to the exact release tag: setup-uv stopped publishing floating
+        # major tags after v7, so `@v9` is an unresolvable ref and fails during
+        # "Set up job" before any step runs.
+        uses: astral-sh/setup-uv@v9.0.0
         with:
           enable-cache: true
           cache-dependency-glob: pipeline/uv.lock
