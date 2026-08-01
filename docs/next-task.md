@@ -12,22 +12,53 @@ design), Opus earns its cost.
 
 ## Right now
 
-**Task:** Phase 11 — StoreKit 2 monetization. Unshelve
-`docs/superpowers/specs/2026-08-01-storekit-monetization-design.md` and
-**re-verify its StoreKit API notes before writing the plan** (last
-checked 2026-08-01; the spec already flags an open iOS 26.x bug where
-`currentEntitlements` returns empty for valid non-consumables, which is
-why its entitlement refresh is additive-only).
-**Model:** Opus 5 to re-check the design, Sonnet 5 for execution.
+**Task:** Phase 13 — QA and the edge-case matrix, `docs/test-plan.md`.
+**Model:** Sonnet 5.
 
-**Ship Phase 11 soon.** Hindi now shows as **locked with no way to unlock
-it** — safe, since `select()` refuses locked packs, but a worse state
-than the "coming soon" row it replaced.
+**Before shipping, someone has to do the App Store Connect work** —
+[`docs/app-store-connect-setup.md`](app-store-connect-setup.md) is the
+step-by-step. Nothing in Phase 11 was proved against Apple's servers; the
+sandbox run in §5 (buy, delete the app, reinstall, Restore) is the only
+real test of FR-15.
 
-**Phase 12 is done (2026-08-01).** Hindi ships: 1000 words, locked.
-Verdict in [`docs/phase-12-verdict.md`](phase-12-verdict.md) — read that
-rather than re-deriving it. ADR-004 held for the app layer: one file
-changed, +6/−29, all six insertions comments, nothing in `Packages/`.
+**Phase 11 is done (2026-08-01).** Hindi is buyable. Domain unchanged —
+the `EntitlementStore` swap was caller-invisible, as designed. Three
+things worth not rediscovering:
+
+- **StoreKit testing is broken from the command line on iOS 26.5.**
+  `xcodebuild test` never pushes the scheme's StoreKit configuration to
+  the simulator's `storekitd`, and it fails *silently*: `SKTestSession`
+  doesn't throw, not even on deliberately invalid JSON — it hands back an
+  empty store, so every product lookup returns nothing and `buyProduct`
+  fails `.notEntitled`. `StoreKitPurchaseServiceTests` detects this and
+  skips its six tests. Run them from the Xcode IDE or on an iOS 18
+  runtime. Hours went into the `.storekit` file before the environment
+  turned out to be the problem.
+- **iOS 26 toolbar titles aren't Dynamic Type scalable**, and the
+  accessibility audit fails them: "user will not be able to change the
+  font size of this SwiftUI.AccessibilityNode". Reproduced with a bare
+  `Button("...")` and again with an explicit `.font(.body)`. Both Restore
+  and the purchase sheet's Done moved out of toolbars because of it.
+  Don't put user-facing text in a toolbar on this OS.
+- **A `Button`'s hit area is only what its label draws.** A row of
+  `Text` + `Spacer` + glyph is dead in the gap between them. This
+  presented as *one* broken row: `Français` is wide enough to keep
+  catching taps, `हिन्दी` is not, so the same code looked selectively
+  broken — and the element still reported `hittable=true, enabled=true`.
+  `.contentShape(Rectangle())` has to go on the **label's content**, not
+  on the `Button`. Arjun found it by noticing the padlock itself worked.
+
+**The additive-only entitlement refresh is deliberate and untestable
+before release.** `refreshEntitlements()` only ever adds; a language
+leaves the cache only on an explicit `revocationDate`. The iOS 26.x bug
+it defends against — `currentEntitlements` empty for a valid
+non-consumable — is production-only and does not reproduce in sandbox.
+Do not "simplify" it into a wholesale cache replace.
+
+**Phase 12 is done (2026-08-01).** Hindi ships: 1000 words. Verdict in
+[`docs/phase-12-verdict.md`](phase-12-verdict.md) — read that rather than
+re-deriving it. ADR-004 held for the app layer: one file changed,
++6/−29, all six insertions comments, nothing in `Packages/`.
 
 Four things worth not rediscovering:
 
@@ -76,7 +107,7 @@ Type walkthrough) also still need Arjun on a real device.
 
 | # | Task | Model | Effort |
 |---|---|---|---|
-| 1 | Phase 13 — QA, edge-case matrix, `docs/test-plan.md` | Sonnet 5 | default |
+| 1 | The App Store Connect setup + sandbox run (needs Arjun, not an agent) | — | — |
 | 2 | Phase 13 — human read of the 1000 Hindi sentences (D4 review) | Sonnet 5 | default |
 | 3 | Phase 14 — release docs, checklists, `MAINTENANCE.md` | Sonnet 5 | default |
 
@@ -100,8 +131,8 @@ natural session break.
 | 12 | ~~Fix the pipeline's Hindi tagger~~ | ~~Opus 5~~ | ~~high~~ | Done 2026-08-01 — UDPipe backend; no spaCy Hindi POS model exists |
 | 12 | ~~Pack generation runs~~ | ~~Sonnet 5~~ | ~~default~~ | Done 2026-08-01 — 1000 words, 9 waivers |
 | 12 | ~~Hindi verdict — is the abstraction leaking?~~ | ~~Opus 5~~ | ~~high~~ | Done 2026-08-01 — `docs/phase-12-verdict.md` |
-| 11 | StoreKit design — unshelve, re-verify the API notes | Opus 5 | xhigh | Written 2026-08-01; APIs need a re-check before the plan |
-| 11 | Execution | Sonnet 5 | default | StoreKitTest gates it. Phase 12 is done, so this is unblocked |
+| 11 | ~~StoreKit design — unshelve, re-verify the API notes~~ | ~~Opus 5~~ | ~~xhigh~~ | Done 2026-08-01 — verified against the iOS 26.5 SDK; design unchanged |
+| 11 | ~~Execution~~ | ~~Opus 5~~ | ~~default~~ | Done 2026-08-01 — SKTestSession suite skips on the iOS 26.5 CLI regression |
 | 13 | QA, edge-case matrix, `docs/test-plan.md` | Sonnet 5 | default | Broad but enumerable |
 | 14 | Release docs, checklists, `MAINTENANCE.md` | Sonnet 5 | default | Writing, not deciding |
 | — | Running gates, reading test output | Haiku 4.5 | — | Mechanical |

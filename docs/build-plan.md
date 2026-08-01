@@ -250,20 +250,38 @@ binary", so no requirement changes.
 
 ---
 
-> **Reordered 2026-08-01: Phase 12 ran before Phase 11, and is now complete.**
-> Monetization needed a second pack to sell. Hindi is real — 1000 words, shipped
-> locked — so Phase 11 unshelves now:
-> `docs/superpowers/specs/2026-08-01-storekit-monetization-design.md`. **Re-verify
-> its StoreKit API notes first** (last checked 2026-08-01).
->
-> Until Phase 11 lands, Hindi shows as **locked with no way to unlock it**.
-> `LanguageSelectionViewModel.select` refuses locked packs, so this is safe, but
-> it is a worse user-facing state than the "coming soon" row it replaced. The two
-> phases should land close together.
+> **Reordered 2026-08-01: Phase 12 ran before Phase 11.** Monetization needed a
+> second pack to sell. Both are now complete — Hindi ships locked, and Phase 11
+> makes it buyable. The API re-verification asked for here was done against the
+> iOS 26.5 SDK and is recorded at the end of
+> `docs/superpowers/specs/2026-08-01-storekit-monetization-design.md`.
 
 ## PHASE 11 — Monetization (StoreKit 2) with Sandbox + StoreKit Testing
 
 *Artifact: purchase flow behind the Phase 8 lock protocol, tested with StoreKit's test tooling and sandbox.*
+
+> **Phase complete 2026-08-01.** Hindi is buyable. Domain unchanged; the
+> `EntitlementStore` swap was caller-invisible, as designed.
+>
+> Three things a future session should not have to rediscover:
+>
+> - **StoreKit testing is broken from the command line on iOS 26.5.**
+>   `xcodebuild test` never pushes the scheme's StoreKit configuration to the
+>   simulator's `storekitd`, and it fails *silently* — `SKTestSession` does not
+>   throw, not even on deliberately invalid JSON, it just hands back an empty
+>   store. `StoreKitPurchaseServiceTests` detects this and skips. Run it from the
+>   Xcode IDE, or on an iOS 18 runtime, to actually exercise those six tests.
+> - **iOS 26 toolbar titles are not Dynamic Type scalable**, and the audit fails
+>   them outright. Both Restore and the sheet's Done moved out of toolbars
+>   because of it. Don't put user-facing text in a toolbar on this OS.
+> - **A `Button`'s hit area is only what its label draws.** A row of
+>   `Text` + `Spacer` + glyph is dead in the gap. It looked like one broken row,
+>   because `Français` is wide enough to keep catching taps while `हिन्दी` is
+>   not. `.contentShape(Rectangle())` belongs on the *label's content*.
+>
+> The out-of-Xcode work is [`docs/app-store-connect-setup.md`](app-store-connect-setup.md).
+> The additive-only entitlement refresh cannot be exercised before release — the
+> bug it defends against is production-only.
 
 ```
 Implement in-app purchases with StoreKit 2, plugged into the lock-check protocol stubbed in Phase 8 — first language free, each additional language a $0.99 non-consumable one-time unlock.
