@@ -37,9 +37,10 @@ struct ContentView: View {
     var body: some View {
         TabView(selection: $selectedTab) {
             LanguageSelectionView(
-                viewModel: selectionViewModel, purchases: dependencies.purchases)
-                .tabItem { Label("Languages", systemImage: "globe") }
-                .tag(Tab.languages)
+                viewModel: selectionViewModel, purchases: dependencies.purchases
+            )
+            .tabItem { Label("Languages", systemImage: "globe") }
+            .tag(Tab.languages)
             studyTab
                 .tabItem { Label("Study", systemImage: "rectangle.stack") }
                 .tag(Tab.study)
@@ -94,11 +95,12 @@ struct ContentView: View {
     private var chooseALanguage: some View {
         ContentUnavailableView(
             "Choose a language", systemImage: "globe",
-            description: Text("Pick a language on the Languages tab to start."))
-            // Not inside a NavigationStack, so it does not inherit a screen
-            // background from either of the other two tabs.
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color.appBackground)
+            description: Text("Pick a language on the Languages tab to start.")
+        )
+        // Not inside a NavigationStack, so it does not inherit a screen
+        // background from either of the other two tabs.
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.appBackground)
     }
 }
 

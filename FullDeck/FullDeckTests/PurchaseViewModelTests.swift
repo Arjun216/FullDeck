@@ -120,7 +120,8 @@ func unverifiedTransactionIsAFailure() async {
     await viewModel.buy()
 
     #expect(!viewModel.didUnlock)
-    if case .failed = viewModel.state {} else {
+    if case .failed = viewModel.state {
+    } else {
         Issue.record("unverified must not unlock anything, got \(viewModel.state)")
     }
 }

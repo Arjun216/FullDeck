@@ -74,8 +74,14 @@ xcodebuild test -project FullDeck/FullDeck.xcodeproj -scheme FullDeck \
 ```sh
 swiftlint lint --strict                                   # brew install swiftlint; this is the gated lint
 swift format lint --strict --recursive Packages FullDeck  # Apple's formatter, bundled with the toolchain
-swift format --in-place --recursive Packages FullDeck     # auto-fix
+swift format --in-place --recursive Packages FullDeck     # auto-fix — but see below
 ```
+
+The two tools disagree in one place, and **SwiftLint wins**: `swift format --in-place` moves the
+opening brace of a multi-line `if` condition onto its own line, which SwiftLint's `opening_brace`
+rule rejects. `LanguageSelectionViewModel.swift:55` is deliberately left in SwiftLint's shape, so
+`swift format lint` permanently reports one error there. Re-running `--in-place` will break the
+gated lint; revert that hunk if you do.
 
 ## The content pipeline
 

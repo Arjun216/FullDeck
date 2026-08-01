@@ -122,7 +122,8 @@ final class FullDeckUITests: XCTestCase {
         app.launch()
 
         let hindi = app.buttons.matching(
-            NSPredicate(format: "label BEGINSWITH %@", "हिन्दी")).firstMatch
+            NSPredicate(format: "label BEGINSWITH %@", "हिन्दी")
+        ).firstMatch
         XCTAssertTrue(
             hindi.waitForExistence(timeout: 15),
             "No Hindi row. Hierarchy:\n\(app.debugDescription)")
@@ -159,7 +160,8 @@ final class FullDeckUITests: XCTestCase {
         // StoreKit test environment on iOS 26.5 (see StoreKitPurchaseServiceTests).
         // The chrome, the copy and the contrast are the same either way.
         let hindi = app.buttons.matching(
-            NSPredicate(format: "label BEGINSWITH %@", "हिन्दी")).firstMatch
+            NSPredicate(format: "label BEGINSWITH %@", "हिन्दी")
+        ).firstMatch
         XCTAssertTrue(hindi.waitForExistence(timeout: 15))
         hindi.tap()
         XCTAssertTrue(app.buttons["Done"].waitForExistence(timeout: 10))
@@ -221,7 +223,8 @@ extension FullDeckUITests {
         app.launch()
 
         let hindi = app.buttons.matching(
-            NSPredicate(format: "label BEGINSWITH %@", "हिन्दी")).firstMatch
+            NSPredicate(format: "label BEGINSWITH %@", "हिन्दी")
+        ).firstMatch
         XCTAssertTrue(hindi.waitForExistence(timeout: 15))
         hindi.tap()
 

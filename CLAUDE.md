@@ -86,6 +86,13 @@ swiftlint lint --strict                                   # brew install swiftli
 swift format lint --strict --recursive Packages FullDeck  # add --in-place to fix
 ```
 
+The two disagree, and **SwiftLint wins** — it is the gate. `swift format --in-place` puts the
+opening brace of a multi-line `if` condition on its own line; SwiftLint's `opening_brace` rule
+rejects exactly that. `LanguageSelectionViewModel.swift:55` is the one place this bites, and it
+is left in SwiftLint's shape on purpose, so `swift format lint` reports one permanent error
+there. Don't "fix" it — that reintroduces a gated violation. If a third site ever appears,
+disable `opening_brace` in `.swiftlint.yml` rather than fighting it file by file.
+
 **Content pipeline** (`pipeline/`, Python + uv — see `pipeline/README.md`). Its own CI job, on Linux:
 ```sh
 uv sync --project pipeline
