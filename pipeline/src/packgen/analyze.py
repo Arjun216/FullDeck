@@ -166,3 +166,16 @@ class UDPipeAnalyzer:
         if error.occurred():
             raise RuntimeError(f"UDPipe failed on {sentence!r}: {error.message}")
         return parse_conllu(conllu)
+
+
+# The one place a language maps to an NLP backend. Adding a language is a row
+# here; adding a *kind* of backend is a class -- which happens once per backend,
+# not once per language.
+ANALYZERS = {"fr": SpacyAnalyzer, "hi": UDPipeAnalyzer}
+
+
+def make_analyzer(language_code: str) -> Analyzer:
+    backend = ANALYZERS.get(language_code)
+    if backend is None:
+        raise LookupError(f"no analyzer registered for {language_code!r}; add one to ANALYZERS")
+    return backend(language_code)

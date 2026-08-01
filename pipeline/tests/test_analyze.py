@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
-from packgen.analyze import parse_conllu
+import pytest
+
+from packgen.analyze import SpacyAnalyzer, UDPipeAnalyzer, make_analyzer, parse_conllu
 
 CONLLU = """\
 # newdoc
@@ -38,3 +40,19 @@ def test_nfr10_an_unspecified_lemma_is_empty_not_an_underscore():
     """NFR-10 CoNLL-U writes `_` for "not annotated"; carrying it through would put a
     literal underscore in the pack, and words.py would accept it as a real lemma."""
     assert parse_conllu("1\tfoo\t_\tNOUN\t_\t_\t_\t_\t_\t_\n")[0].lemma == ""
+
+
+def test_fr6_the_analyzer_table_maps_each_language_to_its_backend():
+    """FR-6 adding a language is a row in ANALYZERS, not a branch at three call sites.
+
+    Neither call loads a model -- both backends resolve theirs lazily in a
+    cached_property -- so this needs nothing on disk.
+    """
+    assert isinstance(make_analyzer("fr"), SpacyAnalyzer)
+    assert isinstance(make_analyzer("hi"), UDPipeAnalyzer)
+
+
+def test_nfr10_an_unregistered_language_says_what_to_add():
+    """NFR-10 the failure names the table to edit rather than an AttributeError later."""
+    with pytest.raises(LookupError, match="ANALYZERS"):
+        make_analyzer("xx")

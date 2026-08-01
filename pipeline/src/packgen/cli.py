@@ -28,7 +28,7 @@ import sys
 from datetime import date
 from pathlib import Path
 
-from packgen.analyze import SpacyAnalyzer
+from packgen.analyze import make_analyzer
 from packgen.generate import assemble_pack, parse_response, render_prompt
 from packgen.validate import Profile, validate_pack
 from packgen.words import Candidate, build_candidates, suspicious_lemmas
@@ -97,7 +97,7 @@ def main(argv: list[str] | None = None) -> int:
 def cmd_words(args) -> int:
     lang = args.language
     candidates, rejections = build_candidates(
-        lang, analyzer=SpacyAnalyzer(lang), pool=args.pool, limit=args.limit
+        lang, analyzer=make_analyzer(lang), pool=args.pool, limit=args.limit
     )
 
     out = WORK / lang
@@ -270,7 +270,7 @@ def cmd_pack(args) -> int:
     exceptions = _load_exceptions(WORK / lang / EXCEPTIONS)
     report = validate_pack(
         pack,
-        analyzer=SpacyAnalyzer(lang),
+        analyzer=make_analyzer(lang),
         profile=Profile(args.profile),
         exceptions=exceptions,
     )
@@ -320,7 +320,7 @@ def cmd_validate(args) -> int:
     pack = json.loads(args.path.read_text(encoding="utf-8"))
     report = validate_pack(
         pack,
-        analyzer=SpacyAnalyzer(pack.get("language_code", "")),
+        analyzer=make_analyzer(pack.get("language_code", "")),
         profile=Profile(args.profile),
         exceptions=_load_exceptions(args.exceptions) if args.exceptions else None,
     )
