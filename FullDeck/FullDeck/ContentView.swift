@@ -93,6 +93,10 @@ struct ContentView: View {
         ContentUnavailableView(
             "Choose a language", systemImage: "globe",
             description: Text("Pick a language on the Languages tab to start."))
+            // Not inside a NavigationStack, so it does not inherit a screen
+            // background from either of the other two tabs.
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Color.appBackground)
     }
 }
 
