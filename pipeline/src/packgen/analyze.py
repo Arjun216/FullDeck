@@ -8,6 +8,9 @@ unit tests, so it depends on this Protocol and never on spaCy directly.
 from __future__ import annotations
 
 import functools
+import hashlib
+import shutil
+import urllib.request
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Protocol
@@ -75,6 +78,46 @@ class RemoteModel:
 # UDPipe models are plain files, so they land beside the other working data
 # rather than in site-packages. Not committed -- see `packgen models`.
 MODELS_DIR = Path(__file__).resolve().parents[2] / "work" / "models"
+
+
+def download_model(spec: RemoteModel, directory: Path = MODELS_DIR) -> Path:
+    """Fetch a pinned model, refusing anything whose SHA-256 does not match.
+
+    The checksum is the point, not a nicety: the URL is a third-party mirror's
+    `master` branch, so a model that changed underneath us would change pack
+    contents with no other signal.
+
+    Re-running is cheap -- a file already on disk with the right digest is
+    returned untouched, which is what makes the CI cache worth having.
+    """
+    directory.mkdir(parents=True, exist_ok=True)
+    destination = directory / spec.filename
+    if destination.is_file() and _sha256(destination) == spec.sha256:
+        return destination
+
+    # Download beside the destination, not onto it: an interrupted fetch must not
+    # leave a truncated file that looks like a model.
+    partial = destination.with_name(destination.name + ".partial")
+    with urllib.request.urlopen(spec.url) as response, partial.open("wb") as out:
+        shutil.copyfileobj(response, out)
+
+    actual = _sha256(partial)
+    if actual != spec.sha256:
+        partial.unlink()
+        raise LookupError(
+            f"{spec.filename}: expected SHA-256 {spec.sha256}, got {actual}. "
+            f"The pinned model changed upstream -- do not use it."
+        )
+    partial.replace(destination)
+    return destination
+
+
+def _sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1 << 20), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
 
 
 def parse_conllu(conllu: str) -> list[Token]:

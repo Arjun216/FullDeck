@@ -28,6 +28,9 @@ pipeline/work/*/prompts/
 pipeline/work/*/retry/*.md
 pipeline/work/*/retry/targets.json
 pipeline/work/*/drops.json
+# The UDPipe model is 25 MB of binary, pinned by checksum and fetched with
+# `packgen models <lang>`. Never committed.
+pipeline/work/models/
 # ...but retry/answers/ is generated content, not a regenerable prompt: keep it.
 !pipeline/work/*/retry/answers/
 

@@ -2,9 +2,20 @@
 
 from __future__ import annotations
 
+import contextlib
+import hashlib
+import io
+
 import pytest
 
-from packgen.analyze import SpacyAnalyzer, UDPipeAnalyzer, make_analyzer, parse_conllu
+from packgen.analyze import (
+    RemoteModel,
+    SpacyAnalyzer,
+    UDPipeAnalyzer,
+    download_model,
+    make_analyzer,
+    parse_conllu,
+)
 
 CONLLU = """\
 # newdoc
@@ -56,3 +67,57 @@ def test_nfr10_an_unregistered_language_says_what_to_add():
     """NFR-10 the failure names the table to edit rather than an AttributeError later."""
     with pytest.raises(LookupError, match="ANALYZERS"):
         make_analyzer("xx")
+
+
+# --- pinned model downloads -------------------------------------------------
+
+
+def fake_urlopen(payload: bytes):
+    @contextlib.contextmanager
+    def opener(url, *args, **kwargs):
+        yield io.BytesIO(payload)
+
+    return opener
+
+
+def spec_for(payload: bytes) -> RemoteModel:
+    return RemoteModel(
+        filename="test.udpipe",
+        url="https://example.invalid/test.udpipe",
+        sha256=hashlib.sha256(payload).hexdigest(),
+    )
+
+
+def test_fr6_a_model_is_downloaded_to_the_models_directory(tmp_path, monkeypatch):
+    """FR-6 the model UDPipe does not ship as a wheel is fetched on demand."""
+    payload = b"pretend this is 25MB of model"
+    monkeypatch.setattr("urllib.request.urlopen", fake_urlopen(payload))
+
+    path = download_model(spec_for(payload), tmp_path)
+
+    assert path == tmp_path / "test.udpipe"
+    assert path.read_bytes() == payload
+
+
+def test_nfr10_a_model_whose_checksum_differs_is_refused(tmp_path, monkeypatch):
+    """NFR-10 the URL is a mirror's master branch. A model that changed upstream must
+    fail loudly, not quietly alter every pack generated afterwards."""
+    monkeypatch.setattr("urllib.request.urlopen", fake_urlopen(b"something else"))
+    spec = spec_for(b"the real model")
+
+    with pytest.raises(LookupError, match="SHA-256"):
+        download_model(spec, tmp_path)
+
+    assert list(tmp_path.iterdir()) == [], "a rejected download must leave nothing behind"
+
+
+def test_nfr10_a_model_already_on_disk_is_not_downloaded_again(tmp_path, monkeypatch):
+    """NFR-10 25 MB per run is not a no-op; the CI cache depends on this being cheap."""
+    payload = b"pretend this is 25MB of model"
+    (tmp_path / "test.udpipe").write_bytes(payload)
+
+    def explode(*args, **kwargs):
+        raise AssertionError("should not have downloaded")
+
+    monkeypatch.setattr("urllib.request.urlopen", explode)
+    assert download_model(spec_for(payload), tmp_path) == tmp_path / "test.udpipe"
