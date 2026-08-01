@@ -240,11 +240,13 @@ Spec: `docs/superpowers/specs/2026-07-28-binary-recall-and-warm-ui-design.md`
 2. ~~**Warm minimal token layer**~~ — semantic colorsets and a spacing scale,
    replacing the empty `AccentColor` that left every control system blue.
    Done 2026-07-31.
-3. **Swipe to grade** — right for recalled, left for forgot, with both buttons
-   retained as the accessible path.
+3. ~~**Swipe to grade**~~ — right for recalled, left for forgot, with both buttons
+   retained as the accessible path. Done 2026-07-31.
 
 `docs/requirements.md` already parameterised the grade scale as "4-level vs.
 binary", so no requirement changes.
+
+**Phase complete 2026-07-31.** Phase 11 is next.
 
 ---
 

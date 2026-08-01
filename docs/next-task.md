@@ -12,52 +12,45 @@ design), Opus earns its cost.
 
 ## Right now
 
-**Task:** Phase 10.5 part 3 — swipe to grade
-**Model:** Sonnet 5, default effort
-**Why Sonnet:** Decision 3 of
-`docs/superpowers/specs/2026-07-28-binary-recall-and-warm-ui-design.md`
-settles the gesture, the direction mapping and the accessibility
-fallback — this is a diff, not a decision.
+**Task:** Phase 11 design — StoreKit 2 purchase/entitlement state machine
+**Model:** Opus 5, xhigh effort
+**Why Opus:** new API surface, purchase correctness, and IAP is new to
+Arjun. No spec exists yet — this is a decision, not a diff.
 
-Phase 10.5 part 2 shipped: the app is warm, not system-blue-on-white.
-Seven asset-catalog colorsets, each with a light and dark value.
-`AccentColor` was an *empty* colorset, which is why everything rendered
-system blue; filling it was the highest-leverage line in the change,
-because it is wired as `ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME`
-and so retints the tab bar and every button style with no code at all.
-Text moved from SwiftUI's `.primary` / `.secondary` to
-`Color.textPrimary` / `Color.textSecondary`, and a `Spacing` enum
-(xs 4 … xl 32) replaced the ad-hoc 8/12/16/24 mix. Its values are
-deliberately *not* `@ScaledMetric`: Dynamic Type already grows the text
-and the stacks with it, and scaling the gaps too pushes the largest
-accessibility sizes off screen.
+**Phase 10.5 is done.** All three parts shipped: the binary recall
+scale, the warm token layer, and swipe to grade.
 
-Three tokens are named `AppBackground` / `AppSurface` / `AppSeparator`
-rather than the spec's bare `Background` / `Surface` / `Separator`.
-Xcode generates Swift symbols from colorset names, and SwiftUI already
-declares `.background` and `.separator` on `ShapeStyle` — the bare names
-would have made `.background(.background)` an ambiguous overload.
-`AppSurface`, `AppSeparator` and `AccentText` have no consumer yet; the
-card treatment in part 3 is their first.
+Part 3 shipped: swipe right commits `recalled`, left commits `forgot`,
+past a quarter of the card's width. The card tracks the finger with an
+offset and a slight tilt, and springs back below threshold. Both buttons
+are untouched and remain the accessible path — the swipe is an
+accelerator, never the only way. The commit rule lives in `CardSwipe`
+rather than the view, so its threshold is unit-tested at the exact
+boundary (75 points commits, 74 does not) — something an XCUITest swipe
+cannot express. The card also finally got a surface, which is what
+consumes `AppSurface` and `AppSeparator`.
 
 Two things worth not rediscovering:
 
-- A `List` paints its own opaque background over anything set on the
-  enclosing `NavigationStack` content. `.scrollContentBackground(.hidden)`
-  *plus* `.listRowBackground` is what lets the screen base through —
-  either one alone leaves system-grey showing.
-- **White on the light-mode accent `#D97706` is 3.19:1**, under WCAG AA's
-  4.5:1 for normal text. That is what `.borderedProminent` renders, so it
-  affects the Reveal button and the completion screen's unlock button.
-  `performAudit` in `FullDeckUITests` already excludes the Reveal button's
-  contrast finding on the grounds that it is "Apple's own default
-  prominent-button appearance" — that justification expired the moment the
-  accent became ours, and the exclusion now shields a colour we picked.
-  Decide it in part 3, which touches button styling anyway. `#B45309`
-  (the `AccentText` value) measures 5.02:1 against white and clears the
-  bar.
+- The drag gesture is attached **unconditionally** and made inert until
+  the card is revealed, rather than attached only when revealed. Both
+  halves matter. Gating the *grade* keeps FR-5 honest — otherwise the
+  swipe is a second path around `reveal()`. Gating by *attachment*
+  instead looks equivalent and is not: an unattached gesture lets the
+  drag fall through to the `TabView`, which yanks the learner to another
+  tab the moment they swipe a beat too early. Found by driving it in the
+  simulator; no test caught it.
+- `performAudit`'s contrast exclusion is **gone**, and `AccentFill`
+  (`#B45309`, the same in both appearances) is why. A prominent fill
+  under a white label and an accent used as text have opposite contrast
+  requirements — one token cannot serve both. `AccentColor`'s dark value
+  has to stay bright to work as text on the dark background (8.15:1),
+  and white on that is 2.15:1. The audit now runs unfiltered.
 
-**Next:** Phase 11 (StoreKit) follows after part 3.
+`AccentText` still has no consumer. It is the text-safe accent for
+whenever something needs one.
+
+**Next:** Phase 11 (StoreKit). Phase 10.5 is closed.
 
 **Carried forward from Phase 10:** the completion screen
 (`StudyView.completionView`) and the caught-up screen
@@ -71,9 +64,8 @@ Type walkthrough) also still need Arjun on a real device.
 
 | # | Task | Model | Effort |
 |---|---|---|---|
-| 1 | Phase 11 design — StoreKit 2 purchase/entitlement state machine | Opus 5 | xhigh |
-| 2 | Phase 11 execution (StoreKitTest, sandbox) | Sonnet 5 | default |
-| 3 | Phase 12 — Hindi pack generation, architecture-validation verdict | Opus 5 (verdict) / Sonnet 5 (pipeline runs) | high / default |
+| 1 | Phase 11 execution (StoreKitTest, sandbox) | Sonnet 5 | default |
+| 2 | Phase 12 — Hindi pack generation, architecture-validation verdict | Opus 5 (verdict) / Sonnet 5 (pipeline runs) | high / default |
 
 Switching happens at the plan boundary, never mid-execution. Writing the plan is the
 expensive thinking; executing it is cheap. Two model changes per phase, both at a
@@ -90,7 +82,7 @@ natural session break.
 | 10 | ~~a11y, error mapping, localization, offline audit~~ | ~~Sonnet 5~~ | ~~default~~ | Done 2026-07-28 |
 | 10.5 | ~~Binary recall scale~~ | ~~Opus 5~~ | ~~default~~ | Done 2026-07-29 |
 | 10.5 | ~~Warm minimal token layer~~ | ~~Sonnet 5~~ | ~~default~~ | Done 2026-07-31 |
-| 10.5 | Swipe to grade | Sonnet 5 | default | Spec settles gesture + fallback; this is a diff |
+| 10.5 | ~~Swipe to grade~~ | ~~Sonnet 5~~ | ~~default~~ | Done 2026-07-31 |
 | 11 | StoreKit design + state machine | Opus 5 | xhigh | New API surface, purchase correctness, IAP is new to Arjun |
 | 11 | Execution | Sonnet 5 | default | StoreKitTest gates it |
 | 12 | Hindi verdict — is the abstraction leaking? | Opus 5 | high | Central architectural claim (ADR-004), judgment call |

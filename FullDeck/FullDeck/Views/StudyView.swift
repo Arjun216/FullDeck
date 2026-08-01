@@ -13,6 +13,14 @@ struct StudyView: View {
     /// reaching for shared state.
     let onAddLanguage: () -> Void
 
+    /// Live horizontal offset of the card while a finger is down. Reset to zero
+    /// when the drag is released — either because it sprang back or because the
+    /// next card replaced this one.
+    @State private var dragTranslation: CGFloat = 0
+    /// Measured, not assumed: the commit threshold is a fraction of the card's
+    /// real width, which differs by device and orientation.
+    @State private var cardWidth: CGFloat = 0
+
     var body: some View {
         NavigationStack {
             content
@@ -49,7 +57,83 @@ struct StudyView: View {
         // accessibility audit's "may be clipped" finding.
         ScrollView {
             cardContent(card)
+                .overlay(swipeHint)
+                .offset(x: dragTranslation)
+                // Tilt with the drag. Dividing by 20 keeps a full-width throw
+                // under about 20 degrees — enough to feel physical, not enough
+                // to make the word hard to read on the way out.
+                .rotationEffect(.degrees(Double(dragTranslation) / 20))
+                .background(
+                    // iOS 17 deployment target, so no onGeometryChange (18+).
+                    GeometryReader { proxy in
+                        Color.clear
+                            .onAppear { cardWidth = proxy.size.width }
+                            .onChange(of: proxy.size.width) { _, new in cardWidth = new }
+                    }
+                )
+                // Attached unconditionally, but inert until the card is
+                // revealed. Two things depend on that split:
+                //
+                // Only a revealed card can be graded (FR-5) — otherwise the
+                // swipe is a second path around `reveal()`, which is the one
+                // thing active recall exists to prevent. `grade()` would reject
+                // it, but the card would still animate as if it worked.
+                //
+                // And the gesture has to *claim* the drag either way. Left
+                // unattached, a pre-reveal swipe falls through to the TabView
+                // and yanks the learner to another tab — which is what happens
+                // to anyone who swipes a beat too early.
+                .gesture(swipeGesture(isRevealed: card.isRevealed))
+                .animation(.spring(duration: 0.3), value: dragTranslation)
         }
+    }
+
+    /// The grade this drag *would* commit, or nil at rest. Direction alone
+    /// decides it — distance only drives the opacity.
+    private var pendingGrade: Grade? {
+        if dragTranslation > 0 { return .recalled }
+        if dragTranslation < 0 { return .forgot }
+        return nil
+    }
+
+    @ViewBuilder
+    private var swipeHint: some View {
+        if let pendingGrade {
+            Text(label(for: pendingGrade))
+                .font(.title3.weight(.semibold))
+                .foregroundStyle(Color.textPrimary)
+                .padding(Spacing.sm)
+                .opacity(CardSwipe.progress(forTranslation: dragTranslation, cardWidth: cardWidth))
+                // Decoration: the buttons below already announce both grades, and
+                // a label that fades in mid-gesture would be read out mid-drag.
+                .accessibilityHidden(true)
+        }
+    }
+
+    private func swipeGesture(isRevealed: Bool) -> some Gesture {
+        // minimumDistance lets the enclosing ScrollView claim vertical drags
+        // first, so scrolling a long card at large type sizes still works.
+        DragGesture(minimumDistance: 20)
+            .onChanged { dragTranslation = isRevealed ? $0.translation.width : 0 }
+            .onEnded { value in
+                guard
+                    isRevealed,
+                    let grade = CardSwipe.grade(
+                        forTranslation: value.translation.width, cardWidth: cardWidth)
+                else {
+                    dragTranslation = 0
+                    return
+                }
+                // Throw the card clear before the next one arrives, then reset
+                // without animation so the incoming card starts centred.
+                dragTranslation = value.translation.width > 0 ? cardWidth * 2 : -cardWidth * 2
+                Task {
+                    await viewModel.grade(grade)
+                    var transaction = Transaction()
+                    transaction.disablesAnimations = true
+                    withTransaction(transaction) { dragTranslation = 0 }
+                }
+            }
     }
 
     private func cardContent(_ card: StudyViewModel.Card) -> some View {
@@ -96,6 +180,11 @@ struct StudyView: View {
             } else {
                 Button("Reveal") { viewModel.reveal() }
                     .buttonStyle(.borderedProminent)
+                    // NFR-6: `.borderedProminent` puts a white label on the
+                    // accent fill. White on AccentColor (#D97706) is 3.19:1,
+                    // under WCAG AA's 4.5:1 for normal text; on AccentFill
+                    // (#B45309) it is 5.02:1.
+                    .tint(Color.accentFill)
                     .accessibilityHint("Shows the answer")
             }
 
@@ -106,7 +195,16 @@ struct StudyView: View {
                     .foregroundStyle(Color.textPrimary)
             }
         }
-        .padding()
+        // Two paddings, two jobs: the inner one is the card's own gutter, the
+        // outer one the margin between the card and the screen edge.
+        .padding(Spacing.lg)
+        .frame(maxWidth: .infinity)
+        .background(
+            RoundedRectangle(cornerRadius: Spacing.md, style: .continuous)
+                .fill(Color.appSurface)
+                .stroke(Color.appSeparator, lineWidth: 1)
+        )
+        .padding(Spacing.md)
     }
 
     @ViewBuilder
@@ -197,6 +295,8 @@ struct StudyView: View {
             }
             Button("Add another language — $0.99", action: onAddLanguage)
                 .buttonStyle(.borderedProminent)
+                // NFR-6: same white-on-accent issue as the Reveal button.
+                .tint(Color.accentFill)
                 .accessibilityHint("Opens the languages list")
         }
         .padding()
