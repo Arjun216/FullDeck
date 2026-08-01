@@ -4,7 +4,25 @@
 **Date:** 2026-08-01
 **Requirements:** FR-14 (purchase an additional language), FR-15 (restore purchases),
 FR-1/FR-2 (lock state, free launch language)
-**Status:** approved for planning
+**Status:** **SHELVED 2026-08-01 — do not implement yet.** The design below is
+approved and still stands; what changed is when it can happen.
+
+Phase 11 needs something to sell, and the app ships exactly one pack. Decision 0
+originally solved that by generating a Hindi pack through the pipeline — but the
+pipeline's Hindi path was registered and never exercised: `xx-sent-ud-sm` is absent
+from `pipeline/pyproject.toml`, and it is a *sentence segmenter* with no POS tagger
+or lemmatizer, while `words.py` reads `token.lemma_` and `token.pos_` off it. spaCy
+ships no Hindi pipeline with POS at all. Making Hindi real is Phase 12's job, not a
+side errand.
+
+Selling `arjunpathak.FullDeck.language.hi` before that pack exists would let a
+purchase succeed and unlock nothing. So **Phase 12 (Hindi) now runs before Phase
+11 (monetization)** — the honest order, since monetization depends on a second pack
+and not the reverse.
+
+Unshelve this when the Hindi pack is real. Re-check the StoreKit API notes in
+Sources first; they were verified on 2026-08-01 and the iOS 26.x
+`currentEntitlements` reports in Decision 4 may have been fixed by then.
 
 ## What this builds
 
@@ -29,22 +47,28 @@ purchase or restore, a Restore toolbar item, and clearing `activeLanguage` if th
 active language is revoked. Those are additions to `LanguageSelectionView` and
 `LanguageSelectionViewModel`, not changes to how either talks to `EntitlementStore`.
 
-## Decision 0 — a real Hindi pack ships now, not in Phase 12
+## Decision 0 — WITHDRAWN: Phase 12 supplies the second pack
 
-The manifest currently lists exactly one pack: French, `unlocked_by_default: true`.
-With nothing purchasable, every screen this phase builds is unreachable by hand and
-the App Store Connect sandbox walkthrough cannot be completed end to end.
+*Superseded on 2026-08-01, the day this spec was written. Kept rather than deleted
+because the reasoning is what reordered the phases.*
 
-So Phase 11 generates a **~50-word Hindi pack** through the existing pipeline and
-adds it to the manifest with `unlocked_by_default: false`. Phase 12 replaces it with
-the full 1000-word pack.
+This decision originally had Phase 11 generate a ~50-word Hindi pack through the
+existing pipeline, so that there would be something to buy.
 
-**Acknowledged cost:** Phase 12's stated job is the architecture-validation verdict —
-"is the language abstraction leaking?" Shipping a Hindi pack now answers part of that
-question early. This is a net gain (the signal arrives while there is still time to
-act on it) but it must be recorded, because Phase 12 now begins with its central
-question half-answered rather than open. Phase 12 still runs the full pack and still
-owns the verdict.
+It does not survive contact with the pipeline. `LANGUAGE_RULES` has an `"hi"` entry
+and `SpacyAnalyzer.MODELS` maps it to `xx_sent_ud_sm`, which reads as support — but
+that model is absent from `pipeline/pyproject.toml`, so `packgen words hi` fails at
+once, and it is a sentence segmenter with no POS tagger or lemmatizer, while
+`words.py:82` reads `token.lemma_` and `token.pos_` off it. spaCy has no Hindi
+pipeline with POS. Fixing that means a new NLP dependency or moving tagging into the
+Claude prompts — Phase 12's actual work, not a Phase 11 side errand.
+
+**Phase 12 therefore runs first**, and supplies the real Hindi pack. Until then the
+Languages screen carries a non-purchasable "coming soon" row so the app reads as
+deliberately one-language rather than unfinished. That row is presentation copy in
+the app target, *not* a manifest entry: `availablePacks()` returns packs that exist,
+and a manifest entry with no pack file would push "a pack that isn't there" into
+`PackDescriptor`, the loader and the validator.
 
 ## Decision 1 — architecture
 
