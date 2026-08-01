@@ -93,6 +93,23 @@ def test_ranks_are_contiguous_from_one_and_stop_at_the_limit(monkeypatch):
     assert [c.lemma for c in candidates] == ["de", "chat", "chien"]
 
 
+def test_devanagari_words_are_not_mistaken_for_junk(monkeypatch):
+    """FR-6 Devanagari vowel signs and virama are Unicode marks, not letters.
+
+    `str.isalpha()` is False for `ा` (Mc) and `्` (Mn), so the plain-alpha test
+    threw away 2707 of Hindi's top 3000 forms -- including `के`, the single most
+    frequent word in the language.
+    """
+    forms = ["के", "अच्छा", "नहीं", "घर", "😂", "3"]
+    candidates, rejections = build(monkeypatch, forms, {}, lang="hi")
+
+    assert [c.source_form for c in candidates] == ["के", "अच्छा", "नहीं", "घर"]
+    assert {r.form: r.reason for r in rejections} == {
+        "😂": "non-alphabetic",
+        "3": "non-alphabetic",
+    }
+
+
 def test_a_form_the_tagger_returns_nothing_for_is_rejected(monkeypatch):
     """NFR-10 an untokenizable form must be recorded, not crash on tokens[0].
 

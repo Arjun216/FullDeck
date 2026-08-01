@@ -12,6 +12,7 @@ a table entry, not a new code path.
 
 from __future__ import annotations
 
+import unicodedata
 from dataclasses import dataclass
 
 from packgen.analyze import Analyzer
@@ -144,8 +145,12 @@ def suspicious_lemmas(pack: dict) -> list[str]:
 
 def _reject_reason(form: str, rules: LanguageRules) -> str | None:
     # Non-alphabetic first, so a stray digit is labelled for what it is rather
-    # than swept up by the one-letter rule.
-    if not all(ch.isalpha() or ch in "-'’" for ch in form):
+    # than swept up by the one-letter rule. "Alphabetic" has to include combining
+    # marks: Devanagari writes its vowels as marks (`ा` Mc, `्` Mn), so a plain
+    # isalpha() test rejects `के` -- the most frequent word in Hindi -- as junk.
+    if not all(
+        ch.isalpha() or unicodedata.category(ch) in ("Mn", "Mc") or ch in "-'’" for ch in form
+    ):
         return "non-alphabetic"
     if len(form) == 1 and form not in rules.one_letter_words:
         return "elision-fragment"
