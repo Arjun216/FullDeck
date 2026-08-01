@@ -53,7 +53,7 @@ struct StudyView: View {
     }
 
     private func cardContent(_ card: StudyViewModel.Card) -> some View {
-        VStack(spacing: 24) {
+        VStack(spacing: Spacing.lg) {
             Text("\(card.index) of \(card.total)")
                 .font(.footnote)
                 // NFR-6: `.secondary` at `.footnote` size falls under WCAG
@@ -67,7 +67,7 @@ struct StudyView: View {
                 .fixedSize(horizontal: false, vertical: true)
                 .accessibilityLabel("Card \(card.index) of \(card.total)")
 
-            VStack(spacing: 8) {
+            VStack(spacing: Spacing.sm) {
                 Text(card.entry.display)
                     .font(.largeTitle)
                     .foregroundStyle(Color.textPrimary)
@@ -82,9 +82,11 @@ struct StudyView: View {
             } label: {
                 Label("Hear the word", systemImage: "speaker.wave.2")
             }
-            // NFR-6: default Button styling tints this system blue, which
+            // NFR-6: default Button styling tints this with the accent, which
             // fails WCAG AA contrast at this text size (caught by the
             // accessibility audit) — same issue and fix as the language row.
+            // #D97706 is 3.07:1 on the background: a fill/large-text colour,
+            // not a body-text one.
             .buttonStyle(.plain)
             .foregroundStyle(Color.textPrimary)
             .accessibilityLabel("Hear the word \(card.entry.display)")
@@ -109,7 +111,7 @@ struct StudyView: View {
 
     @ViewBuilder
     private func revealedContent(_ card: StudyViewModel.Card) -> some View {
-        VStack(spacing: 12) {
+        VStack(spacing: Spacing.md) {
             if let gloss = card.entry.gloss {
                 Text(gloss)
                     .font(.title3)
@@ -134,15 +136,15 @@ struct StudyView: View {
     }
 
     private var gradeButtons: some View {
-        HStack(spacing: 12) {
+        HStack(spacing: Spacing.md) {
             ForEach(Grade.allCases, id: \.self) { grade in
                 Button(label(for: grade)) {
                     Task { await viewModel.grade(grade) }
                 }
                 .buttonStyle(.bordered)
-                // NFR-6: `.bordered` tints its label system blue over a light
-                // grey fill — about 3.4:1, under WCAG AA's 4.5:1 for normal
-                // text. Same issue and fix as "Hear the word" above. The
+                // NFR-6: `.bordered` tints its label with the accent over a
+                // light grey fill, under WCAG AA's 4.5:1 for normal text.
+                // Same issue and fix as "Hear the word" above. The
                 // audit only started catching it here once the redundant
                 // `.accessibilityLabel` came off: that override made the
                 // Button one opaque element and hid its label text from the
@@ -178,7 +180,7 @@ struct StudyView: View {
     /// FR-11: the deliberate ending. The price is stated rather than hidden —
     /// concealing it would be the dark pattern. No summary statistics, no streak.
     private func completionView(_ nextDue: Date?) -> some View {
-        VStack(spacing: 16) {
+        VStack(spacing: Spacing.md) {
             Image(systemName: "checkmark.seal")
                 .font(.largeTitle)
                 .foregroundStyle(Color.textSecondary)

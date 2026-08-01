@@ -27,9 +27,9 @@ struct LanguageSelectionView: View {
                     viewModel.select(option)
                 } label: {
                     HStack {
-                        // Default Button styling tints this system blue, which
-                        // fails WCAG AA contrast at body text size (caught by
-                        // the accessibility audit) — the checkmark already
+                        // Default Button styling tints this with the accent,
+                        // which fails WCAG AA contrast at body text size
+                        // (caught by the audit) — the checkmark already
                         // carries the "selected" signal, so this text doesn't
                         // need to borrow the accent color too.
                         Text(option.descriptor.displayName)
