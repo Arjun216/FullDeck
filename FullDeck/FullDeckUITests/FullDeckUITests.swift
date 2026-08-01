@@ -71,17 +71,12 @@ final class FullDeckUITests: XCTestCase {
             .firstMatch.label
     }
 
-    /// `.borderedProminent` (the "Reveal" button, and completionView's
-    /// unlock button) renders white text on systemBlue — Apple's own default
-    /// prominent-button appearance, used platform-wide. The audit flags it as
-    /// borderline ("Contrast nearly passed"); deviating from HIG-standard
-    /// button styling to chase that isn't the right trade here, so this one
-    /// specific, known issue is excluded rather than the whole audit type.
+    /// No issue filter. The one known exclusion — `.borderedProminent`'s white
+    /// label on the accent fill — was retired when the prominent buttons moved
+    /// to `AccentFill` (#B45309, 5.02:1 against white). A filter that outlives
+    /// the problem it was written for hides the next real regression.
     private func performAudit(on app: XCUIApplication) throws {
-        try app.performAccessibilityAudit { issue in
-            issue.compactDescription.contains("Contrast")
-                && (issue.element?.label).map { $0.contains("Reveal") } == true
-        }
+        try app.performAccessibilityAudit()
     }
 
     /// Regression: switching tabs mid-session must not throw away the learner's

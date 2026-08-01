@@ -96,6 +96,11 @@ struct StudyView: View {
             } else {
                 Button("Reveal") { viewModel.reveal() }
                     .buttonStyle(.borderedProminent)
+                    // NFR-6: `.borderedProminent` puts a white label on the
+                    // accent fill. White on AccentColor (#D97706) is 3.19:1,
+                    // under WCAG AA's 4.5:1 for normal text; on AccentFill
+                    // (#B45309) it is 5.02:1.
+                    .tint(Color.accentFill)
                     .accessibilityHint("Shows the answer")
             }
 
@@ -197,6 +202,8 @@ struct StudyView: View {
             }
             Button("Add another language — $0.99", action: onAddLanguage)
                 .buttonStyle(.borderedProminent)
+                // NFR-6: same white-on-accent issue as the Reveal button.
+                .tint(Color.accentFill)
                 .accessibilityHint("Opens the languages list")
         }
         .padding()
