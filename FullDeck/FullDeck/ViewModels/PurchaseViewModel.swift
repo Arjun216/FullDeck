@@ -26,10 +26,17 @@ final class PurchaseViewModel {
 
     private(set) var state: State = .idle
 
+    /// Set once a purchase lands, so the Languages screen knows to reload and
+    /// drop the padlock.
+    private(set) var didUnlock = false
+
     let languageCode: LanguageCode
     let displayName: String
 
     private let purchases: PurchaseService
+    /// Held apart from `state` so a retry out of `.failed` still knows the price
+    /// without refetching it.
+    private var price: String?
 
     init(languageCode: LanguageCode, displayName: String, purchases: PurchaseService) {
         self.languageCode = languageCode
@@ -45,6 +52,32 @@ final class PurchaseViewModel {
             state = .unavailable(String(localized: "The store isn't reachable right now."))
             return
         }
+        price = fetched
         state = .ready(price: fetched)
+    }
+
+    func buy() async {
+        guard let price else { return }
+        state = .purchasing
+        do {
+            switch try await purchases.purchase(languageCode) {
+            case .purchased:
+                didUnlock = true
+                state = .purchased
+            case .cancelled:
+                // Cancelling is a decision, not a failure. Anything that reads
+                // as an error here is the app scolding someone for changing
+                // their mind.
+                state = .ready(price: price)
+            case .pending:
+                // Neither complete nor failed: a family organiser has to approve
+                // it, and the entitlement arrives later through
+                // Transaction.updates -- possibly after a relaunch.
+                state = .pending
+            }
+        } catch {
+            state = .failed(
+                String(localized: "Couldn't complete the purchase. You haven't been charged."))
+        }
     }
 }
