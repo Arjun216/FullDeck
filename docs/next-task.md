@@ -12,30 +12,52 @@ design), Opus earns its cost.
 
 ## Right now
 
-**Task:** Phase 10.5 part 2 — warm minimal token layer
+**Task:** Phase 10.5 part 3 — swipe to grade
 **Model:** Sonnet 5, default effort
-**Why Sonnet:** the palette, contrast ratios and token names are all settled in
-`docs/superpowers/specs/2026-07-28-binary-recall-and-warm-ui-design.md` — this
-is a diff, not a decision.
+**Why Sonnet:** Decision 3 of
+`docs/superpowers/specs/2026-07-28-binary-recall-and-warm-ui-design.md`
+settles the gesture, the direction mapping and the accessibility
+fallback — this is a diff, not a decision.
 
-Phase 10.5 part 1 shipped: the recall scale is binary. `Grade` is now
-`forgot` / `recalled`; the `hard` fixed-step interval and its
-departs-from-SM-2 workaround are gone, as is the near-inert `easy` case.
-`recalled` carries a +0.05 ease delta — required, not cosmetic: at zero
-the ease factor could only ever decay toward its floor, so a word that
-lapsed early could never recover. Persistence stores `ReviewState` and
-never the grade, so no migration was needed. Buttons read "Knew it!" and
-"Let's try this again".
+Phase 10.5 part 2 shipped: the app is warm, not system-blue-on-white.
+Seven asset-catalog colorsets, each with a light and dark value.
+`AccentColor` was an *empty* colorset, which is why everything rendered
+system blue; filling it was the highest-leverage line in the change,
+because it is wired as `ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME`
+and so retints the tab bar and every button style with no code at all.
+Text moved from SwiftUI's `.primary` / `.secondary` to
+`Color.textPrimary` / `Color.textSecondary`, and a `Spacing` enum
+(xs 4 … xl 32) replaced the ad-hoc 8/12/16/24 mix. Its values are
+deliberately *not* `@ScaledMetric`: Dynamic Type already grows the text
+and the stacks with it, and scaling the gaps too pushes the largest
+accessibility sizes off screen.
 
-Removing the redundant `Grade this word …` accessibility label unmasked a
-contrast failure the audit had never been able to see: the override made
-each `Button` one opaque element, hiding its blue-on-grey label text from
-the check. Fixed with `.foregroundStyle(.primary)`. Worth remembering —
-an explicit `accessibilityLabel` on a container can hide its children
-from `performAccessibilityAudit()`.
+Three tokens are named `AppBackground` / `AppSurface` / `AppSeparator`
+rather than the spec's bare `Background` / `Surface` / `Separator`.
+Xcode generates Swift symbols from colorset names, and SwiftUI already
+declares `.background` and `.separator` on `ShapeStyle` — the bare names
+would have made `.background(.background)` an ambiguous overload.
+`AppSurface`, `AppSeparator` and `AccentText` have no consumer yet; the
+card treatment in part 3 is their first.
 
-**Next:** the token layer (spec Decision 2), then swipe-to-grade
-(Decision 3). Phase 11 (StoreKit) follows after.
+Two things worth not rediscovering:
+
+- A `List` paints its own opaque background over anything set on the
+  enclosing `NavigationStack` content. `.scrollContentBackground(.hidden)`
+  *plus* `.listRowBackground` is what lets the screen base through —
+  either one alone leaves system-grey showing.
+- **White on the light-mode accent `#D97706` is 3.19:1**, under WCAG AA's
+  4.5:1 for normal text. That is what `.borderedProminent` renders, so it
+  affects the Reveal button and the completion screen's unlock button.
+  `performAudit` in `FullDeckUITests` already excludes the Reveal button's
+  contrast finding on the grounds that it is "Apple's own default
+  prominent-button appearance" — that justification expired the moment the
+  accent became ours, and the exclusion now shields a colour we picked.
+  Decide it in part 3, which touches button styling anyway. `#B45309`
+  (the `AccentText` value) measures 5.02:1 against white and clears the
+  bar.
+
+**Next:** Phase 11 (StoreKit) follows after part 3.
 
 **Carried forward from Phase 10:** the completion screen
 (`StudyView.completionView`) and the caught-up screen
@@ -49,10 +71,9 @@ Type walkthrough) also still need Arjun on a real device.
 
 | # | Task | Model | Effort |
 |---|---|---|---|
-| 1 | Phase 10.5 part 3 — swipe to grade | Sonnet 5 | default |
-| 2 | Phase 11 design — StoreKit 2 purchase/entitlement state machine | Opus 5 | xhigh |
-| 3 | Phase 11 execution (StoreKitTest, sandbox) | Sonnet 5 | default |
-| 4 | Phase 12 — Hindi pack generation, architecture-validation verdict | Opus 5 (verdict) / Sonnet 5 (pipeline runs) | high / default |
+| 1 | Phase 11 design — StoreKit 2 purchase/entitlement state machine | Opus 5 | xhigh |
+| 2 | Phase 11 execution (StoreKitTest, sandbox) | Sonnet 5 | default |
+| 3 | Phase 12 — Hindi pack generation, architecture-validation verdict | Opus 5 (verdict) / Sonnet 5 (pipeline runs) | high / default |
 
 Switching happens at the plan boundary, never mid-execution. Writing the plan is the
 expensive thinking; executing it is cheap. Two model changes per phase, both at a
@@ -68,7 +89,8 @@ natural session break.
 | 9 | ~~TDD execution, integration tests~~ | ~~Sonnet 5~~ | ~~default~~ | Done 2026-07-28 |
 | 10 | ~~a11y, error mapping, localization, offline audit~~ | ~~Sonnet 5~~ | ~~default~~ | Done 2026-07-28 |
 | 10.5 | ~~Binary recall scale~~ | ~~Opus 5~~ | ~~default~~ | Done 2026-07-29 |
-| 10.5 | Warm minimal token layer, then swipe to grade | Sonnet 5 | default | Spec settles palette + contrast; this is a diff |
+| 10.5 | ~~Warm minimal token layer~~ | ~~Sonnet 5~~ | ~~default~~ | Done 2026-07-31 |
+| 10.5 | Swipe to grade | Sonnet 5 | default | Spec settles gesture + fallback; this is a diff |
 | 11 | StoreKit design + state machine | Opus 5 | xhigh | New API surface, purchase correctness, IAP is new to Arjun |
 | 11 | Execution | Sonnet 5 | default | StoreKitTest gates it |
 | 12 | Hindi verdict — is the abstraction leaking? | Opus 5 | high | Central architectural claim (ADR-004), judgment call |
