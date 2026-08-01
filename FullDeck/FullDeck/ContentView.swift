@@ -36,7 +36,8 @@ struct ContentView: View {
 
     var body: some View {
         TabView(selection: $selectedTab) {
-            LanguageSelectionView(viewModel: selectionViewModel)
+            LanguageSelectionView(
+                viewModel: selectionViewModel, purchases: dependencies.purchases)
                 .tabItem { Label("Languages", systemImage: "globe") }
                 .tag(Tab.languages)
             studyTab

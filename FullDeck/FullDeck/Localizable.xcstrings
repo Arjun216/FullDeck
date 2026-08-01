@@ -54,6 +54,16 @@
         }
       }
     },
+    "All 1000 words. One payment, yours for good.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Las 1000 palabras. Un solo pago, tuyas para siempre."
+          }
+        }
+      }
+    },
     "Audio unavailable on this device.": {
       "localizations": {
         "es": {
@@ -80,6 +90,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Elige un idioma"
+          }
+        }
+      }
+    },
+    "Couldn't complete the purchase. You haven't been charged.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pudo completar la compra. No se te ha cobrado."
           }
         }
       }
@@ -124,12 +144,32 @@
         }
       }
     },
+    "Couldn't restore your purchases.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pudieron restaurar tus compras."
+          }
+        }
+      }
+    },
     "Couldn't save your progress.": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
             "value": "No se pudo guardar tu progreso."
+          }
+        }
+      }
+    },
+    "Done": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Listo"
           }
         }
       }
@@ -224,12 +264,32 @@
         }
       }
     },
+    "No previous purchases found.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se encontraron compras anteriores."
+          }
+        }
+      }
+    },
     "Nothing is due right now.": {
       "localizations": {
         "es": {
           "stringUnit": {
             "state": "translated",
             "value": "No hay nada pendiente ahora mismo."
+          }
+        }
+      }
+    },
+    "OK": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OK"
           }
         }
       }
@@ -260,6 +320,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Progreso"
+          }
+        }
+      }
+    },
+    "Restore Purchases": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restaurar compras"
           }
         }
       }
@@ -304,6 +374,16 @@
         }
       }
     },
+    "The store isn't reachable right now.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La tienda no está disponible en este momento."
+          }
+        }
+      }
+    },
     "This language needs an app update.": {
       "localizations": {
         "es": {
@@ -320,6 +400,36 @@
           "stringUnit": {
             "state": "translated",
             "value": "No se pudieron leer los datos de este idioma. Intenta reinstalar la app."
+          }
+        }
+      }
+    },
+    "This purchase is waiting for approval.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esta compra está esperando aprobación."
+          }
+        }
+      }
+    },
+    "Unlock for %@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Desbloquear por %@"
+          }
+        }
+      }
+    },
+    "Unlocked.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Desbloqueado."
           }
         }
       }

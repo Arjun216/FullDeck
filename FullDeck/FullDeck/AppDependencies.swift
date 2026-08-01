@@ -27,20 +27,32 @@ struct AppDependencies {
 
     /// The seam integration tests use: same wiring as `live()`, but pointed at a
     /// temp packs directory and an in-memory store.
-    static func make(packsDirectory: URL, inMemory: Bool) throws -> AppDependencies {
+    /// The defaults keep the integration tests off the store: `make` on its own
+    /// must never reach StoreKit.
+    static func make(
+        packsDirectory: URL, inMemory: Bool,
+        entitlements: EntitlementStore = NoPurchasesEntitlementStore(),
+        purchases: PurchaseService = NoPurchasesService()
+    ) throws -> AppDependencies {
         let container = try SwiftDataReviewStore.makeContainer(inMemory: inMemory)
         return AppDependencies(
             packStore: JSONPackStore(packsDirectory: packsDirectory),
             reviewStore: SwiftDataReviewStore(modelContainer: container),
             speech: AVSpeechService(),
             clock: SystemDayClock(),
-            entitlements: NoPurchasesEntitlementStore(),
-            purchases: NoPurchasesService())
+            entitlements: entitlements,
+            purchases: purchases)
     }
 
     /// Throws rather than crashes: opening the SwiftData store can fail on a full
     /// or corrupt disk, and NFR-10 forbids a crash on bad data.
     static func live() throws -> AppDependencies {
-        try make(packsDirectory: bundledPacksDirectory, inMemory: false)
+        // One object behind both ports, so there is exactly one entitlement
+        // cache rather than two that can disagree.
+        let store = StoreKitPurchaseService()
+        store.start()
+        return try make(
+            packsDirectory: bundledPacksDirectory, inMemory: false,
+            entitlements: store, purchases: store)
     }
 }

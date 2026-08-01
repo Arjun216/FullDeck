@@ -195,3 +195,25 @@ final class FullDeckUITests: XCTestCase {
         XCTAssertTrue(tabBar.buttons["Progreso"].exists)
     }
 }
+
+extension FullDeckUITests {
+    /// FR-14: tapping a locked row opens the purchase sheet. The sheet reaches
+    /// `unavailable` here rather than `ready` — `xcodebuild test` from the
+    /// command line does not give the app a StoreKit test environment on iOS
+    /// 26.5 (see StoreKitPurchaseServiceTests) — but that it *opens* and says
+    /// something honest is the behaviour under test.
+    @MainActor
+    func testFR14TappingALockedLanguageOpensThePurchaseSheet() throws {
+        let app = XCUIApplication()
+        app.launch()
+
+        let hindi = app.buttons.matching(
+            NSPredicate(format: "label BEGINSWITH %@", "हिन्दी")).firstMatch
+        XCTAssertTrue(hindi.waitForExistence(timeout: 15))
+        hindi.tap()
+
+        XCTAssertTrue(
+            app.buttons["Done"].waitForExistence(timeout: 10),
+            "no purchase sheet. Hierarchy:\n\(app.debugDescription)")
+    }
+}

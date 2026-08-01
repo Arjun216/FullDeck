@@ -44,6 +44,10 @@ final class PurchaseViewModel {
         self.purchases = purchases
     }
 
+    /// Read-only so the sheet can offer a retry out of `.failed` without the
+    /// price having to live in every state that might precede one.
+    var lastKnownPrice: String? { price }
+
     func loadProduct() async {
         state = .loadingProduct
         // A missing product and an unreachable store are the same thing to the
