@@ -95,11 +95,10 @@ def main(argv: list[str] | None = None) -> int:
 
 
 def cmd_words(args) -> int:
-    import spacy
-
     lang = args.language
-    nlp = spacy.load(SpacyAnalyzer.MODELS[lang], disable=["ner", "parser"])
-    candidates, rejections = build_candidates(lang, nlp=nlp, pool=args.pool, limit=args.limit)
+    candidates, rejections = build_candidates(
+        lang, analyzer=SpacyAnalyzer(lang), pool=args.pool, limit=args.limit
+    )
 
     out = WORK / lang
     out.mkdir(parents=True, exist_ok=True)

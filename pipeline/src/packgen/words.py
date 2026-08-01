@@ -14,6 +14,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
+from packgen.analyze import Analyzer
 from packgen.rules import CLOSED_CLASS, ENTRY_POS
 
 
@@ -54,7 +55,7 @@ LANGUAGE_RULES = {
 def build_candidates(
     language_code: str,
     *,
-    nlp,
+    analyzer: Analyzer,
     pool: int = 3000,
     limit: int = 1000,
 ) -> tuple[list[Candidate], list[Rejection]]:
@@ -62,6 +63,11 @@ def build_candidates(
 
     `pool` is the buffer above `limit` -- roughly a third of the raw list is noise
     or a duplicate lemma, so 3000 raw forms comfortably yields 1000 lemmas.
+
+    The tagger arrives as an `Analyzer`, not a spaCy pipeline: Hindi's backend is
+    UDPipe, which has no `nlp.pipe`. One form at a time gives up spaCy's batching
+    -- ponytail: a few tens of seconds on a stage that runs once per language,
+    against a second code path forever.
     """
     from wordfreq import top_n_list
 
@@ -72,14 +78,19 @@ def build_candidates(
     rejections: list[Rejection] = []
     seen: set[tuple[str, str]] = set()
 
-    for form, doc in zip(forms, nlp.pipe(forms), strict=True):
+    for form in forms:
         reason = _reject_reason(form, rules)
         if reason:
             rejections.append(Rejection(form, reason))
             continue
 
-        token = doc[0]
-        lemma, pos = token.lemma_.strip(), token.pos_
+        tokens = analyzer.analyze(form)
+        if not tokens:
+            rejections.append(Rejection(form, "no-tokens"))
+            continue
+
+        token = tokens[0]
+        lemma, pos = token.lemma.strip(), token.pos
         if pos not in ENTRY_POS:
             rejections.append(Rejection(form, f"pos:{pos}"))
             continue
