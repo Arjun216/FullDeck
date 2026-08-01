@@ -5,6 +5,12 @@
       "display_name": "Français",
       "filename": "fr.pack.json",
       "unlocked_by_default": true
+    },
+    {
+      "language_code": "hi",
+      "display_name": "हिन्दी",
+      "filename": "hi.pack.json",
+      "unlocked_by_default": false
     }
   ]
 }
