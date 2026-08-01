@@ -153,6 +153,19 @@ final class FullDeckUITests: XCTestCase {
         XCTAssertTrue(tabBar.buttons["Languages"].waitForExistence(timeout: 15))
         try performAudit(on: app)
 
+        // The purchase sheet — a whole screen the audit had never seen, and the
+        // one place the app asks for money. It reaches `unavailable` rather than
+        // `ready` here: `xcodebuild test` from the command line gives the app no
+        // StoreKit test environment on iOS 26.5 (see StoreKitPurchaseServiceTests).
+        // The chrome, the copy and the contrast are the same either way.
+        let hindi = app.buttons.matching(
+            NSPredicate(format: "label BEGINSWITH %@", "हिन्दी")).firstMatch
+        XCTAssertTrue(hindi.waitForExistence(timeout: 15))
+        hindi.tap()
+        XCTAssertTrue(app.buttons["Done"].waitForExistence(timeout: 10))
+        try performAudit(on: app)
+        app.buttons["Done"].tap()
+
         let french = frenchButton(in: app)
         XCTAssertTrue(french.waitForExistence(timeout: 15))
         french.tap()

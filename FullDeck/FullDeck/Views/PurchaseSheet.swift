@@ -14,33 +14,33 @@ struct PurchaseSheet: View {
 
     @Environment(\.dismiss) private var dismiss
 
+    /// No `NavigationStack`, and Done is a plain button in the body rather than
+    /// a toolbar item: iOS 26 renders toolbar titles at a fixed size, and the
+    /// audit fails them with "user will not be able to change the font size of
+    /// this SwiftUI.AccessibilityNode". The Languages screen's Restore control
+    /// moved out of the toolbar for the same reason. The sheet has no
+    /// navigation to do, so the stack was only ever there to host the toolbar.
     var body: some View {
-        NavigationStack {
-            VStack(spacing: Spacing.lg) {
-                Text(viewModel.displayName)
-                    .font(.largeTitle.weight(.semibold))
-                    .foregroundStyle(Color.textPrimary)
-                Text("All 1000 words. One payment, yours for good.")
-                    .font(.body)
-                    .foregroundStyle(Color.textPrimary)
-                    .multilineTextAlignment(.center)
-                Spacer()
-                stateContent
-            }
-            .padding(Spacing.lg)
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color.appBackground)
-            .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button("Done") { dismiss() }
-                        // NFR-6: the default toolbar tint is AccentColor
-                        // (#D97706), 3.07:1 on the background — a fill colour,
-                        // not a body-text one. Same fix as the Study screen.
-                        .foregroundStyle(Color.textPrimary)
-                }
-            }
-            .task { await viewModel.loadProduct() }
+        VStack(spacing: Spacing.lg) {
+            Text(viewModel.displayName)
+                .font(.largeTitle.weight(.semibold))
+                .foregroundStyle(Color.textPrimary)
+            Text("All 1000 words. One payment, yours for good.")
+                .font(.body)
+                .foregroundStyle(Color.textPrimary)
+                .multilineTextAlignment(.center)
+            Spacer()
+            stateContent
+            Button("Done") { dismiss() }
+                // NFR-6: the default button tint is AccentColor (#D97706),
+                // 3.07:1 on the background — a fill colour, not a body-text one.
+                .buttonStyle(.plain)
+                .foregroundStyle(Color.textPrimary)
         }
+        .padding(Spacing.lg)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.appBackground)
+        .task { await viewModel.loadProduct() }
     }
 
     @ViewBuilder
