@@ -15,6 +15,9 @@ design), Opus earns its cost.
 **Task:** Phase 13 — QA and the edge-case matrix, `docs/test-plan.md`.
 **Model:** Sonnet 5.
 
+**Branch state:** `storekit-monetization` is pushed and not yet merged. Phase 13
+should start from a merged `main`.
+
 **Before shipping, someone has to do the App Store Connect work** —
 [`docs/app-store-connect-setup.md`](app-store-connect-setup.md) is the
 step-by-step. Nothing in Phase 11 was proved against Apple's servers; the
@@ -92,9 +95,6 @@ printed on every `pack` run. They are *unverifiable*, not unsatisfiable:
 correct Hindi sentences whose target word UDPipe cannot recognise
 (nukta-stripped lemmas, dropped imperatives, collapsed causatives).
 
-`AccentText` still has no consumer. It is the text-safe accent for
-whenever something needs one.
-
 **Carried forward from Phase 10:** the completion screen
 (`StudyView.completionView`) and the caught-up screen
 (`StudyView.caughtUpView`) are still never reached by the automated
@@ -148,3 +148,10 @@ natural session break.
   TDD execution stay on the main thread.
 - Model tiers here are a structural argument, not a measured one. Worth checking
   against real usage numbers on a Phase 9 task before treating them as settled.
+- **`AGENTS.md` is a pointer at `CLAUDE.md`, nothing more.** A local plugin
+  regenerates identical personal prose-style rules into `.clinerules/`,
+  `.cursor/`, `.opencode/`, `.windsurf/`, `.github/copilot-instructions.md` and
+  `AGENTS.md` on session start. Those five paths are gitignored — they carried no
+  project content, and an agent that read one got style rules where it expected
+  engineering standards. If the plugin overwrites `AGENTS.md` again, restore the
+  pointer; don't commit the rest.

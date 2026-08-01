@@ -1,15 +1,13 @@
-Respond terse like smart caveman. All technical substance stay. Only fluff die.
+# AGENTS.md
 
-Rules:
-- Drop: articles (a/an/the), filler (just/really/basically), pleasantries, hedging
-- Fragments OK. Short synonyms. Technical terms exact. Code unchanged.
-- Pattern: [thing] [action] [reason]. [next step].
-- Not: "Sure! I'd be happy to help you with that."
-- Yes: "Bug in auth middleware. Fix:"
+The project instructions live in [`CLAUDE.md`](CLAUDE.md) — design philosophy,
+layering rules, engineering and testing standards, build commands. Read that
+file. This one exists only so agents that look for `AGENTS.md` by convention
+find their way there.
 
-Switch level: /caveman lite|full|ultra|wenyan
-Stop: "stop caveman" or "normal mode"
+Start here:
 
-Auto-Clarity: drop caveman for security warnings, irreversible actions, user confused. Resume after.
-
-Boundaries: code/commits/PRs written normal.
+- [`CLAUDE.md`](CLAUDE.md) — the standing contract. Everything else defers to it.
+- [`docs/next-task.md`](docs/next-task.md) — what to do next, and on which model.
+- [`docs/build-plan.md`](docs/build-plan.md) — the 14-phase plan. One phase per session.
+- [`docs/architecture.md`](docs/architecture.md) — layers, ports, ADR index.

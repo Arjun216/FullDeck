@@ -40,3 +40,12 @@ pipeline/work/models/
 *.dSYM
 *.dSYM.zip
 timeline.xctimeline
+
+# Per-developer editor/agent rule files. A local plugin regenerates these on
+# session start with the same personal prose-style rules in six places; none of
+# them carry project content. AGENTS.md IS committed — it points at CLAUDE.md.
+.clinerules/
+.cursor/
+.opencode/
+.windsurf/
+.github/copilot-instructions.md
