@@ -79,7 +79,11 @@ def test_nfr10_an_unregistered_language_says_what_to_add():
         ("कर", "VERB", "करना"),  # stem -> infinitive, the dictionary citation form
         ("जा", "VERB", "जाना"),
         ("दे", "VERB", "देना"),
-        ("करना", "VERB", "करना"),  # already an infinitive: left alone
+        # A stem can itself end in ना. UDPipe never emits an infinitive -- always
+        # the bare stem -- so "looks like an infinitive already" is not a safe
+        # guard, and skipping these left बनाना and मनाना unmatchable.
+        ("बना", "VERB", "बनाना"),
+        ("मना", "VERB", "मनाना"),
         ("है", "AUX", "होना"),  # suppletive: no amount of suffixing gets there
         ("था", "AUX", "होना"),
         ("घर", "NOUN", "घर"),  # only verbs are cited by infinitive

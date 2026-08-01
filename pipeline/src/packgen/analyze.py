@@ -137,7 +137,11 @@ def _hindi_lemma(lemma: str, pos: str) -> str:
         return lemma
     if lemma in _HINDI_SUPPLETIVE:
         return _HINDI_SUPPLETIVE[lemma]
-    return lemma if lemma.endswith("ना") else lemma + "ना"
+    # Unconditional: UDPipe emits the bare stem for every verb, never an
+    # infinitive. Guarding on "already ends in ना" therefore protects against
+    # nothing real, and silently breaks stems that happen to end that way --
+    # बना (बनाना) and मना (मनाना) were left unmatchable by exactly that guard.
+    return lemma + "ना"
 
 
 LEMMA_NORMALIZERS = {"hi": _hindi_lemma}
