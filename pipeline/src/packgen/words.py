@@ -49,7 +49,15 @@ class LanguageRules:
 
 LANGUAGE_RULES = {
     "fr": LanguageRules(one_letter_words=frozenset({"a", "à", "y"}), drop_suffixes=("qu",)),
-    "hi": LanguageRules(),
+    # Devanagari has no elision, so the length-1 rule is inherited from French and
+    # fires on real letters. Of the 12 single-codepoint forms inside the top 1200,
+    # only these two are unambiguously words: `न` (not/nor, raw rank 46) and `व`
+    # (and, formal, raw rank 115). The rest are bare letters, and the tagger cannot
+    # tell the difference -- it calls `ई` a NOUN and `ह` a NUM. `आ` and `ए` are
+    # left out on purpose: `आ` is an inflected form whose real lemma (`आना`) is
+    # already a candidate, and `ए` is more often the letter's name than the
+    # vocative particle.
+    "hi": LanguageRules(one_letter_words=frozenset({"न", "व"})),
 }
 
 

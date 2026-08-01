@@ -1,0 +1,8402 @@
+[
+  {
+    "lemma": "के",
+    "pos": "ADP",
+    "rank": 1,
+    "is_function_word": true,
+    "source_form": "के"
+  },
+  {
+    "lemma": "है",
+    "pos": "AUX",
+    "rank": 2,
+    "is_function_word": true,
+    "source_form": "है"
+  },
+  {
+    "lemma": "में",
+    "pos": "ADP",
+    "rank": 3,
+    "is_function_word": true,
+    "source_form": "में"
+  },
+  {
+    "lemma": "का",
+    "pos": "VERB",
+    "rank": 4,
+    "is_function_word": false,
+    "source_form": "की"
+  },
+  {
+    "lemma": "से",
+    "pos": "PART",
+    "rank": 5,
+    "is_function_word": true,
+    "source_form": "से"
+  },
+  {
+    "lemma": "और",
+    "pos": "CCONJ",
+    "rank": 6,
+    "is_function_word": true,
+    "source_form": "और"
+  },
+  {
+    "lemma": "को",
+    "pos": "ADP",
+    "rank": 7,
+    "is_function_word": true,
+    "source_form": "को"
+  },
+  {
+    "lemma": "पर",
+    "pos": "CCONJ",
+    "rank": 8,
+    "is_function_word": true,
+    "source_form": "पर"
+  },
+  {
+    "lemma": "भी",
+    "pos": "PART",
+    "rank": 9,
+    "is_function_word": true,
+    "source_form": "भी"
+  },
+  {
+    "lemma": "एक",
+    "pos": "NUM",
+    "rank": 10,
+    "is_function_word": false,
+    "source_form": "एक"
+  },
+  {
+    "lemma": "तो",
+    "pos": "PART",
+    "rank": 11,
+    "is_function_word": true,
+    "source_form": "तो"
+  },
+  {
+    "lemma": "नहीं",
+    "pos": "PART",
+    "rank": 12,
+    "is_function_word": true,
+    "source_form": "नहीं"
+  },
+  {
+    "lemma": "ने",
+    "pos": "ADP",
+    "rank": 13,
+    "is_function_word": true,
+    "source_form": "ने"
+  },
+  {
+    "lemma": "कर",
+    "pos": "VERB",
+    "rank": 14,
+    "is_function_word": false,
+    "source_form": "कर"
+  },
+  {
+    "lemma": "ही",
+    "pos": "PART",
+    "rank": 15,
+    "is_function_word": true,
+    "source_form": "ही"
+  },
+  {
+    "lemma": "हो",
+    "pos": "VERB",
+    "rank": 16,
+    "is_function_word": false,
+    "source_form": "हो"
+  },
+  {
+    "lemma": "ले",
+    "pos": "VERB",
+    "rank": 17,
+    "is_function_word": false,
+    "source_form": "लिए"
+  },
+  {
+    "lemma": "कि",
+    "pos": "SCONJ",
+    "rank": 18,
+    "is_function_word": true,
+    "source_form": "कि"
+  },
+  {
+    "lemma": "यह",
+    "pos": "DET",
+    "rank": 19,
+    "is_function_word": true,
+    "source_form": "इस"
+  },
+  {
+    "lemma": "था",
+    "pos": "AUX",
+    "rank": 20,
+    "is_function_word": true,
+    "source_form": "था"
+  },
+  {
+    "lemma": "यह",
+    "pos": "PRON",
+    "rank": 21,
+    "is_function_word": true,
+    "source_form": "यह"
+  },
+  {
+    "lemma": "जा",
+    "pos": "AUX",
+    "rank": 22,
+    "is_function_word": true,
+    "source_form": "गया"
+  },
+  {
+    "lemma": "जो",
+    "pos": "PRON",
+    "rank": 23,
+    "is_function_word": true,
+    "source_form": "जो"
+  },
+  {
+    "lemma": "आप",
+    "pos": "PRON",
+    "rank": 24,
+    "is_function_word": true,
+    "source_form": "आप"
+  },
+  {
+    "lemma": "रह",
+    "pos": "AUX",
+    "rank": 25,
+    "is_function_word": true,
+    "source_form": "रहे"
+  },
+  {
+    "lemma": "साथ",
+    "pos": "ADV",
+    "rank": 26,
+    "is_function_word": false,
+    "source_form": "साथ"
+  },
+  {
+    "lemma": "अपना",
+    "pos": "PRON",
+    "rank": 27,
+    "is_function_word": true,
+    "source_form": "अपने"
+  },
+  {
+    "lemma": "रह",
+    "pos": "VERB",
+    "rank": 28,
+    "is_function_word": false,
+    "source_form": "रहा"
+  },
+  {
+    "lemma": "क्या",
+    "pos": "PRON",
+    "rank": 29,
+    "is_function_word": true,
+    "source_form": "क्या"
+  },
+  {
+    "lemma": "अब",
+    "pos": "PRON",
+    "rank": 30,
+    "is_function_word": true,
+    "source_form": "अब"
+  },
+  {
+    "lemma": "कुछ",
+    "pos": "DET",
+    "rank": 31,
+    "is_function_word": true,
+    "source_form": "कुछ"
+  },
+  {
+    "lemma": "कोई",
+    "pos": "PRON",
+    "rank": 32,
+    "is_function_word": true,
+    "source_form": "कोई"
+  },
+  {
+    "lemma": "दे",
+    "pos": "VERB",
+    "rank": 33,
+    "is_function_word": false,
+    "source_form": "दिया"
+  },
+  {
+    "lemma": "तक",
+    "pos": "PART",
+    "rank": 34,
+    "is_function_word": true,
+    "source_form": "तक"
+  },
+  {
+    "lemma": "बाद",
+    "pos": "ADV",
+    "rank": 35,
+    "is_function_word": false,
+    "source_form": "बाद"
+  },
+  {
+    "lemma": "वह",
+    "pos": "PRON",
+    "rank": 36,
+    "is_function_word": true,
+    "source_form": "वो"
+  },
+  {
+    "lemma": "हम",
+    "pos": "PRON",
+    "rank": 37,
+    "is_function_word": true,
+    "source_form": "हम"
+  },
+  {
+    "lemma": "या",
+    "pos": "CCONJ",
+    "rank": 38,
+    "is_function_word": true,
+    "source_form": "या"
+  },
+  {
+    "lemma": "न",
+    "pos": "PART",
+    "rank": 39,
+    "is_function_word": true,
+    "source_form": "न"
+  },
+  {
+    "lemma": "बात",
+    "pos": "NOUN",
+    "rank": 40,
+    "is_function_word": false,
+    "source_form": "बात"
+  },
+  {
+    "lemma": "आज",
+    "pos": "NOUN",
+    "rank": 41,
+    "is_function_word": false,
+    "source_form": "आज"
+  },
+  {
+    "lemma": "जब",
+    "pos": "PRON",
+    "rank": 42,
+    "is_function_word": true,
+    "source_form": "जब"
+  },
+  {
+    "lemma": "जी",
+    "pos": "PART",
+    "rank": 43,
+    "is_function_word": true,
+    "source_form": "जी"
+  },
+  {
+    "lemma": "बहुत",
+    "pos": "ADV",
+    "rank": 44,
+    "is_function_word": false,
+    "source_form": "बहुत"
+  },
+  {
+    "lemma": "लेकिन",
+    "pos": "CCONJ",
+    "rank": 45,
+    "is_function_word": true,
+    "source_form": "लेकिन"
+  },
+  {
+    "lemma": "मैं",
+    "pos": "PRON",
+    "rank": 46,
+    "is_function_word": true,
+    "source_form": "मैं"
+  },
+  {
+    "lemma": "वाला",
+    "pos": "ADP",
+    "rank": 47,
+    "is_function_word": true,
+    "source_form": "वाले"
+  },
+  {
+    "lemma": "सरकार",
+    "pos": "NOUN",
+    "rank": 48,
+    "is_function_word": false,
+    "source_form": "सरकार"
+  },
+  {
+    "lemma": "फिर",
+    "pos": "ADV",
+    "rank": 49,
+    "is_function_word": false,
+    "source_form": "फिर"
+  },
+  {
+    "lemma": "नाम",
+    "pos": "NOUN",
+    "rank": 50,
+    "is_function_word": false,
+    "source_form": "नाम"
+  },
+  {
+    "lemma": "दिन",
+    "pos": "NOUN",
+    "rank": 51,
+    "is_function_word": false,
+    "source_form": "दिन"
+  },
+  {
+    "lemma": "देश",
+    "pos": "NOUN",
+    "rank": 52,
+    "is_function_word": false,
+    "source_form": "देश"
+  },
+  {
+    "lemma": "नही",
+    "pos": "PART",
+    "rank": 53,
+    "is_function_word": true,
+    "source_form": "नही"
+  },
+  {
+    "lemma": "लोग",
+    "pos": "NOUN",
+    "rank": 54,
+    "is_function_word": false,
+    "source_form": "लोग"
+  },
+  {
+    "lemma": "हर",
+    "pos": "DET",
+    "rank": 55,
+    "is_function_word": true,
+    "source_form": "हर"
+  },
+  {
+    "lemma": "दो",
+    "pos": "NUM",
+    "rank": 56,
+    "is_function_word": false,
+    "source_form": "दो"
+  },
+  {
+    "lemma": "पहले",
+    "pos": "ADV",
+    "rank": 57,
+    "is_function_word": false,
+    "source_form": "पहले"
+  },
+  {
+    "lemma": "कह",
+    "pos": "VERB",
+    "rank": 58,
+    "is_function_word": false,
+    "source_form": "कहा"
+  },
+  {
+    "lemma": "जा",
+    "pos": "VERB",
+    "rank": 59,
+    "is_function_word": false,
+    "source_form": "गए"
+  },
+  {
+    "lemma": "समय",
+    "pos": "NOUN",
+    "rank": 60,
+    "is_function_word": false,
+    "source_form": "समय"
+  },
+  {
+    "lemma": "काम",
+    "pos": "NOUN",
+    "rank": 61,
+    "is_function_word": false,
+    "source_form": "काम"
+  },
+  {
+    "lemma": "सक",
+    "pos": "AUX",
+    "rank": 62,
+    "is_function_word": true,
+    "source_form": "सकता"
+  },
+  {
+    "lemma": "ना",
+    "pos": "NOUN",
+    "rank": 63,
+    "is_function_word": false,
+    "source_form": "ना"
+  },
+  {
+    "lemma": "बार",
+    "pos": "NOUN",
+    "rank": 64,
+    "is_function_word": false,
+    "source_form": "बार"
+  },
+  {
+    "lemma": "अगर",
+    "pos": "SCONJ",
+    "rank": 65,
+    "is_function_word": true,
+    "source_form": "अगर"
+  },
+  {
+    "lemma": "सभी",
+    "pos": "DET",
+    "rank": 66,
+    "is_function_word": true,
+    "source_form": "सभी"
+  },
+  {
+    "lemma": "चाहिए",
+    "pos": "AUX",
+    "rank": 67,
+    "is_function_word": true,
+    "source_form": "चाहिए"
+  },
+  {
+    "lemma": "कभी",
+    "pos": "PRON",
+    "rank": 68,
+    "is_function_word": true,
+    "source_form": "कभी"
+  },
+  {
+    "lemma": "तरह",
+    "pos": "NOUN",
+    "rank": 69,
+    "is_function_word": false,
+    "source_form": "तरह"
+  },
+  {
+    "lemma": "कई",
+    "pos": "DET",
+    "rank": 70,
+    "is_function_word": true,
+    "source_form": "कई"
+  },
+  {
+    "lemma": "घर",
+    "pos": "NOUN",
+    "rank": 71,
+    "is_function_word": false,
+    "source_form": "घर"
+  },
+  {
+    "lemma": "रूप",
+    "pos": "NOUN",
+    "rank": 72,
+    "is_function_word": false,
+    "source_form": "रूप"
+  },
+  {
+    "lemma": "द्वारा",
+    "pos": "ADP",
+    "rank": 73,
+    "is_function_word": true,
+    "source_form": "द्वारा"
+  },
+  {
+    "lemma": "वह",
+    "pos": "DET",
+    "rank": 74,
+    "is_function_word": true,
+    "source_form": "उस"
+  },
+  {
+    "lemma": "कम",
+    "pos": "DET",
+    "rank": 75,
+    "is_function_word": true,
+    "source_form": "कम"
+  },
+  {
+    "lemma": "जैसे",
+    "pos": "ADV",
+    "rank": 76,
+    "is_function_word": false,
+    "source_form": "जैसे"
+  },
+  {
+    "lemma": "मा",
+    "pos": "NOUN",
+    "rank": 77,
+    "is_function_word": false,
+    "source_form": "मे"
+  },
+  {
+    "lemma": "व",
+    "pos": "CCONJ",
+    "rank": 78,
+    "is_function_word": true,
+    "source_form": "व"
+  },
+  {
+    "lemma": "सब",
+    "pos": "PRON",
+    "rank": 79,
+    "is_function_word": true,
+    "source_form": "सब"
+  },
+  {
+    "lemma": "सबसे",
+    "pos": "ADV",
+    "rank": 80,
+    "is_function_word": false,
+    "source_form": "सबसे"
+  },
+  {
+    "lemma": "साल",
+    "pos": "NOUN",
+    "rank": 81,
+    "is_function_word": false,
+    "source_form": "साल"
+  },
+  {
+    "lemma": "जान",
+    "pos": "ADJ",
+    "rank": 82,
+    "is_function_word": false,
+    "source_form": "जाने"
+  },
+  {
+    "lemma": "प्रदेश",
+    "pos": "NOUN",
+    "rank": 83,
+    "is_function_word": false,
+    "source_form": "प्रदेश"
+  },
+  {
+    "lemma": "हूँ",
+    "pos": "PRON",
+    "rank": 84,
+    "is_function_word": true,
+    "source_form": "हूँ"
+  },
+  {
+    "lemma": "ऐसा",
+    "pos": "DET",
+    "rank": 85,
+    "is_function_word": true,
+    "source_form": "ऐसे"
+  },
+  {
+    "lemma": "एवं",
+    "pos": "CCONJ",
+    "rank": 86,
+    "is_function_word": true,
+    "source_form": "एवं"
+  },
+  {
+    "lemma": "ऐसा",
+    "pos": "PRON",
+    "rank": 87,
+    "is_function_word": true,
+    "source_form": "ऐसा"
+  },
+  {
+    "lemma": "क्यों",
+    "pos": "PRON",
+    "rank": 88,
+    "is_function_word": true,
+    "source_form": "क्यों"
+  },
+  {
+    "lemma": "बारे",
+    "pos": "ADP",
+    "rank": 89,
+    "is_function_word": true,
+    "source_form": "बारे"
+  },
+  {
+    "lemma": "जीवन",
+    "pos": "NOUN",
+    "rank": 90,
+    "is_function_word": false,
+    "source_form": "जीवन"
+  },
+  {
+    "lemma": "बस",
+    "pos": "PART",
+    "rank": 91,
+    "is_function_word": true,
+    "source_form": "बस"
+  },
+  {
+    "lemma": "अधिक",
+    "pos": "DET",
+    "rank": 92,
+    "is_function_word": true,
+    "source_form": "अधिक"
+  },
+  {
+    "lemma": "ज्यादा",
+    "pos": "DET",
+    "rank": 93,
+    "is_function_word": true,
+    "source_form": "ज्यादा"
+  },
+  {
+    "lemma": "भारतीय",
+    "pos": "NOUN",
+    "rank": 94,
+    "is_function_word": false,
+    "source_form": "भारतीय"
+  },
+  {
+    "lemma": "कारण",
+    "pos": "NOUN",
+    "rank": 95,
+    "is_function_word": false,
+    "source_form": "कारण"
+  },
+  {
+    "lemma": "अभी",
+    "pos": "PRON",
+    "rank": 96,
+    "is_function_word": true,
+    "source_form": "अभी"
+  },
+  {
+    "lemma": "लगा",
+    "pos": "VERB",
+    "rank": 97,
+    "is_function_word": false,
+    "source_form": "लगा"
+  },
+  {
+    "lemma": "प",
+    "pos": "VERB",
+    "rank": 98,
+    "is_function_word": false,
+    "source_form": "पे"
+  },
+  {
+    "lemma": "भाई",
+    "pos": "NOUN",
+    "rank": 99,
+    "is_function_word": false,
+    "source_form": "भाई"
+  },
+  {
+    "lemma": "कैसे",
+    "pos": "PRON",
+    "rank": 100,
+    "is_function_word": true,
+    "source_form": "कैसे"
+  },
+  {
+    "lemma": "पता",
+    "pos": "NOUN",
+    "rank": 101,
+    "is_function_word": false,
+    "source_form": "पता"
+  },
+  {
+    "lemma": "बन",
+    "pos": "VERB",
+    "rank": 102,
+    "is_function_word": false,
+    "source_form": "बना"
+  },
+  {
+    "lemma": "बीच",
+    "pos": "ADV",
+    "rank": 103,
+    "is_function_word": false,
+    "source_form": "बीच"
+  },
+  {
+    "lemma": "सिर्फ",
+    "pos": "PART",
+    "rank": 104,
+    "is_function_word": true,
+    "source_form": "सिर्फ"
+  },
+  {
+    "lemma": "दुनिया",
+    "pos": "NOUN",
+    "rank": 105,
+    "is_function_word": false,
+    "source_form": "दुनिया"
+  },
+  {
+    "lemma": "विकास",
+    "pos": "NOUN",
+    "rank": 106,
+    "is_function_word": false,
+    "source_form": "विकास"
+  },
+  {
+    "lemma": "चुनाव",
+    "pos": "NOUN",
+    "rank": 107,
+    "is_function_word": false,
+    "source_form": "चुनाव"
+  },
+  {
+    "lemma": "तथा",
+    "pos": "CCONJ",
+    "rank": 108,
+    "is_function_word": true,
+    "source_form": "तथा"
+  },
+  {
+    "lemma": "तब",
+    "pos": "PRON",
+    "rank": 109,
+    "is_function_word": true,
+    "source_form": "तब"
+  },
+  {
+    "lemma": "आगे",
+    "pos": "ADV",
+    "rank": 110,
+    "is_function_word": false,
+    "source_form": "आगे"
+  },
+  {
+    "lemma": "ओर",
+    "pos": "ADV",
+    "rank": 111,
+    "is_function_word": false,
+    "source_form": "ओर"
+  },
+  {
+    "lemma": "श्री",
+    "pos": "NOUN",
+    "rank": 112,
+    "is_function_word": false,
+    "source_form": "श्री"
+  },
+  {
+    "lemma": "धर्म",
+    "pos": "NOUN",
+    "rank": 113,
+    "is_function_word": false,
+    "source_form": "धर्म"
+  },
+  {
+    "lemma": "फिल्म",
+    "pos": "NOUN",
+    "rank": 114,
+    "is_function_word": false,
+    "source_form": "फिल्म"
+  },
+  {
+    "lemma": "खुद",
+    "pos": "PRON",
+    "rank": 115,
+    "is_function_word": true,
+    "source_form": "खुद"
+  },
+  {
+    "lemma": "पुलिस",
+    "pos": "NOUN",
+    "rank": 116,
+    "is_function_word": false,
+    "source_form": "पुलिस"
+  },
+  {
+    "lemma": "शुरू",
+    "pos": "NOUN",
+    "rank": 117,
+    "is_function_word": false,
+    "source_form": "शुरू"
+  },
+  {
+    "lemma": "सही",
+    "pos": "ADJ",
+    "rank": 118,
+    "is_function_word": false,
+    "source_form": "सही"
+  },
+  {
+    "lemma": "कौन",
+    "pos": "PRON",
+    "rank": 119,
+    "is_function_word": true,
+    "source_form": "कौन"
+  },
+  {
+    "lemma": "पार्टी",
+    "pos": "NOUN",
+    "rank": 120,
+    "is_function_word": false,
+    "source_form": "पार्टी"
+  },
+  {
+    "lemma": "पूरा",
+    "pos": "ADJ",
+    "rank": 121,
+    "is_function_word": false,
+    "source_form": "पूरी"
+  },
+  {
+    "lemma": "अलग",
+    "pos": "ADJ",
+    "rank": 122,
+    "is_function_word": false,
+    "source_form": "अलग"
+  },
+  {
+    "lemma": "केवल",
+    "pos": "PART",
+    "rank": 123,
+    "is_function_word": true,
+    "source_form": "केवल"
+  },
+  {
+    "lemma": "क्योंकि",
+    "pos": "SCONJ",
+    "rank": 124,
+    "is_function_word": true,
+    "source_form": "क्योंकि"
+  },
+  {
+    "lemma": "पानी",
+    "pos": "NOUN",
+    "rank": 125,
+    "is_function_word": false,
+    "source_form": "पानी"
+  },
+  {
+    "lemma": "यहाँ",
+    "pos": "PRON",
+    "rank": 126,
+    "is_function_word": true,
+    "source_form": "यहाँ"
+  },
+  {
+    "lemma": "जो",
+    "pos": "DET",
+    "rank": 127,
+    "is_function_word": true,
+    "source_form": "जिस"
+  },
+  {
+    "lemma": "बड़ा",
+    "pos": "ADJ",
+    "rank": 128,
+    "is_function_word": false,
+    "source_form": "बड़ी"
+  },
+  {
+    "lemma": "माँ",
+    "pos": "PRON",
+    "rank": 129,
+    "is_function_word": true,
+    "source_form": "माँ"
+  },
+  {
+    "lemma": "मिल",
+    "pos": "VERB",
+    "rank": 130,
+    "is_function_word": false,
+    "source_form": "मिल"
+  },
+  {
+    "lemma": "देख",
+    "pos": "VERB",
+    "rank": 131,
+    "is_function_word": false,
+    "source_form": "देख"
+  },
+  {
+    "lemma": "मन",
+    "pos": "NOUN",
+    "rank": 132,
+    "is_function_word": false,
+    "source_form": "मन"
+  },
+  {
+    "lemma": "राज्य",
+    "pos": "NOUN",
+    "rank": 133,
+    "is_function_word": false,
+    "source_form": "राज्य"
+  },
+  {
+    "lemma": "अन्य",
+    "pos": "ADJ",
+    "rank": 134,
+    "is_function_word": false,
+    "source_form": "अन्य"
+  },
+  {
+    "lemma": "मंदिर",
+    "pos": "NOUN",
+    "rank": 135,
+    "is_function_word": false,
+    "source_form": "मंदिर"
+  },
+  {
+    "lemma": "आ",
+    "pos": "VERB",
+    "rank": 136,
+    "is_function_word": false,
+    "source_form": "आया"
+  },
+  {
+    "lemma": "भाषा",
+    "pos": "NOUN",
+    "rank": 137,
+    "is_function_word": false,
+    "source_form": "भाषा"
+  },
+  {
+    "lemma": "सामने",
+    "pos": "ADV",
+    "rank": 138,
+    "is_function_word": false,
+    "source_form": "सामने"
+  },
+  {
+    "lemma": "अच्छा",
+    "pos": "ADJ",
+    "rank": 139,
+    "is_function_word": false,
+    "source_form": "अच्छा"
+  },
+  {
+    "lemma": "लग",
+    "pos": "VERB",
+    "rank": 140,
+    "is_function_word": false,
+    "source_form": "लगता"
+  },
+  {
+    "lemma": "तीन",
+    "pos": "NUM",
+    "rank": 141,
+    "is_function_word": false,
+    "source_form": "तीन"
+  },
+  {
+    "lemma": "प्यार",
+    "pos": "NOUN",
+    "rank": 142,
+    "is_function_word": false,
+    "source_form": "प्यार"
+  },
+  {
+    "lemma": "रात",
+    "pos": "NOUN",
+    "rank": 143,
+    "is_function_word": false,
+    "source_form": "रात"
+  },
+  {
+    "lemma": "क्षेत्र",
+    "pos": "NOUN",
+    "rank": 144,
+    "is_function_word": false,
+    "source_form": "क्षेत्र"
+  },
+  {
+    "lemma": "याद",
+    "pos": "NOUN",
+    "rank": 145,
+    "is_function_word": false,
+    "source_form": "याद"
+  },
+  {
+    "lemma": "हाथ",
+    "pos": "NOUN",
+    "rank": 146,
+    "is_function_word": false,
+    "source_form": "हाथ"
+  },
+  {
+    "lemma": "चल",
+    "pos": "VERB",
+    "rank": 147,
+    "is_function_word": false,
+    "source_form": "चल"
+  },
+  {
+    "lemma": "महिला",
+    "pos": "NOUN",
+    "rank": 148,
+    "is_function_word": false,
+    "source_form": "महिला"
+  },
+  {
+    "lemma": "शामिल",
+    "pos": "ADJ",
+    "rank": 149,
+    "is_function_word": false,
+    "source_form": "शामिल"
+  },
+  {
+    "lemma": "इतना",
+    "pos": "ADJ",
+    "rank": 150,
+    "is_function_word": false,
+    "source_form": "इतना"
+  },
+  {
+    "lemma": "इसलिए",
+    "pos": "PRON",
+    "rank": 151,
+    "is_function_word": true,
+    "source_form": "इसलिए"
+  },
+  {
+    "lemma": "जानकारी",
+    "pos": "NOUN",
+    "rank": 152,
+    "is_function_word": false,
+    "source_form": "जानकारी"
+  },
+  {
+    "lemma": "परिवार",
+    "pos": "NOUN",
+    "rank": 153,
+    "is_function_word": false,
+    "source_form": "परिवार"
+  },
+  {
+    "lemma": "बिना",
+    "pos": "PART",
+    "rank": 154,
+    "is_function_word": true,
+    "source_form": "बिना"
+  },
+  {
+    "lemma": "जगह",
+    "pos": "NOUN",
+    "rank": 155,
+    "is_function_word": false,
+    "source_form": "जगह"
+  },
+  {
+    "lemma": "प्राप्त",
+    "pos": "ADJ",
+    "rank": 156,
+    "is_function_word": false,
+    "source_form": "प्राप्त"
+  },
+  {
+    "lemma": "बंद",
+    "pos": "ADJ",
+    "rank": 157,
+    "is_function_word": false,
+    "source_form": "बंद"
+  },
+  {
+    "lemma": "बाहर",
+    "pos": "ADV",
+    "rank": 158,
+    "is_function_word": false,
+    "source_form": "बाहर"
+  },
+  {
+    "lemma": "अनुसार",
+    "pos": "NOUN",
+    "rank": 159,
+    "is_function_word": false,
+    "source_form": "अनुसार"
+  },
+  {
+    "lemma": "दूर",
+    "pos": "ADV",
+    "rank": 160,
+    "is_function_word": false,
+    "source_form": "दूर"
+  },
+  {
+    "lemma": "दौरान",
+    "pos": "ADV",
+    "rank": 161,
+    "is_function_word": false,
+    "source_form": "दौरान"
+  },
+  {
+    "lemma": "पूर्व",
+    "pos": "ADJ",
+    "rank": 162,
+    "is_function_word": false,
+    "source_form": "पूर्व"
+  },
+  {
+    "lemma": "व्यक्ति",
+    "pos": "NOUN",
+    "rank": 163,
+    "is_function_word": false,
+    "source_form": "व्यक्ति"
+  },
+  {
+    "lemma": "कल",
+    "pos": "NOUN",
+    "rank": 164,
+    "is_function_word": false,
+    "source_form": "कल"
+  },
+  {
+    "lemma": "खिलाफ",
+    "pos": "ADP",
+    "rank": 165,
+    "is_function_word": true,
+    "source_form": "खिलाफ"
+  },
+  {
+    "lemma": "दूसरा",
+    "pos": "ADJ",
+    "rank": 166,
+    "is_function_word": false,
+    "source_form": "दूसरे"
+  },
+  {
+    "lemma": "भगवान",
+    "pos": "NOUN",
+    "rank": 167,
+    "is_function_word": false,
+    "source_form": "भगवान"
+  },
+  {
+    "lemma": "वर्ष",
+    "pos": "NOUN",
+    "rank": 168,
+    "is_function_word": false,
+    "source_form": "वर्ष"
+  },
+  {
+    "lemma": "समझ",
+    "pos": "NOUN",
+    "rank": 169,
+    "is_function_word": false,
+    "source_form": "समझ"
+  },
+  {
+    "lemma": "समाज",
+    "pos": "NOUN",
+    "rank": 170,
+    "is_function_word": false,
+    "source_form": "समाज"
+  },
+  {
+    "lemma": "सा",
+    "pos": "PART",
+    "rank": 171,
+    "is_function_word": true,
+    "source_form": "सी"
+  },
+  {
+    "lemma": "हिन्दू",
+    "pos": "NOUN",
+    "rank": 172,
+    "is_function_word": false,
+    "source_form": "हिन्दू"
+  },
+  {
+    "lemma": "पिता",
+    "pos": "NOUN",
+    "rank": 173,
+    "is_function_word": false,
+    "source_form": "पिता"
+  },
+  {
+    "lemma": "प्रकार",
+    "pos": "NOUN",
+    "rank": 174,
+    "is_function_word": false,
+    "source_form": "प्रकार"
+  },
+  {
+    "lemma": "बता",
+    "pos": "VERB",
+    "rank": 175,
+    "is_function_word": false,
+    "source_form": "बता"
+  },
+  {
+    "lemma": "आम",
+    "pos": "ADJ",
+    "rank": 176,
+    "is_function_word": false,
+    "source_form": "आम"
+  },
+  {
+    "lemma": "कार्य",
+    "pos": "NOUN",
+    "rank": 177,
+    "is_function_word": false,
+    "source_form": "कार्य"
+  },
+  {
+    "lemma": "भर",
+    "pos": "PART",
+    "rank": 178,
+    "is_function_word": true,
+    "source_form": "भर"
+  },
+  {
+    "lemma": "यदि",
+    "pos": "SCONJ",
+    "rank": 179,
+    "is_function_word": true,
+    "source_form": "यदि"
+  },
+  {
+    "lemma": "शहर",
+    "pos": "NOUN",
+    "rank": 180,
+    "is_function_word": false,
+    "source_form": "शहर"
+  },
+  {
+    "lemma": "तेरा",
+    "pos": "NOUN",
+    "rank": 181,
+    "is_function_word": false,
+    "source_form": "तेरे"
+  },
+  {
+    "lemma": "मौत",
+    "pos": "NOUN",
+    "rank": 182,
+    "is_function_word": false,
+    "source_form": "मौत"
+  },
+  {
+    "lemma": "शिक्षा",
+    "pos": "NOUN",
+    "rank": 183,
+    "is_function_word": false,
+    "source_form": "शिक्षा"
+  },
+  {
+    "lemma": "सुबह",
+    "pos": "NOUN",
+    "rank": 184,
+    "is_function_word": false,
+    "source_form": "सुबह"
+  },
+  {
+    "lemma": "उपयोग",
+    "pos": "NOUN",
+    "rank": 185,
+    "is_function_word": false,
+    "source_form": "उपयोग"
+  },
+  {
+    "lemma": "तरफ",
+    "pos": "ADV",
+    "rank": 186,
+    "is_function_word": false,
+    "source_form": "तरफ"
+  },
+  {
+    "lemma": "मंत्री",
+    "pos": "NOUN",
+    "rank": 187,
+    "is_function_word": false,
+    "source_form": "मंत्री"
+  },
+  {
+    "lemma": "आदमी",
+    "pos": "NOUN",
+    "rank": 188,
+    "is_function_word": false,
+    "source_form": "आदमी"
+  },
+  {
+    "lemma": "जान",
+    "pos": "NOUN",
+    "rank": 189,
+    "is_function_word": false,
+    "source_form": "जान"
+  },
+  {
+    "lemma": "लाख",
+    "pos": "NUM",
+    "rank": 190,
+    "is_function_word": false,
+    "source_form": "लाख"
+  },
+  {
+    "lemma": "सेवा",
+    "pos": "NOUN",
+    "rank": 191,
+    "is_function_word": false,
+    "source_form": "सेवा"
+  },
+  {
+    "lemma": "चार",
+    "pos": "NUM",
+    "rank": 192,
+    "is_function_word": false,
+    "source_form": "चार"
+  },
+  {
+    "lemma": "जारी",
+    "pos": "ADJ",
+    "rank": 193,
+    "is_function_word": false,
+    "source_form": "जारी"
+  },
+  {
+    "lemma": "पहला",
+    "pos": "ADJ",
+    "rank": 194,
+    "is_function_word": false,
+    "source_form": "पहली"
+  },
+  {
+    "lemma": "मत",
+    "pos": "NOUN",
+    "rank": 195,
+    "is_function_word": false,
+    "source_form": "मत"
+  },
+  {
+    "lemma": "ले",
+    "pos": "AUX",
+    "rank": 196,
+    "is_function_word": true,
+    "source_form": "लो"
+  },
+  {
+    "lemma": "ह",
+    "pos": "VERB",
+    "rank": 197,
+    "is_function_word": false,
+    "source_form": "हे"
+  },
+  {
+    "lemma": "आदि",
+    "pos": "PART",
+    "rank": 198,
+    "is_function_word": true,
+    "source_form": "आदि"
+  },
+  {
+    "lemma": "करोड",
+    "pos": "NUM",
+    "rank": 199,
+    "is_function_word": false,
+    "source_form": "करोड़"
+  },
+  {
+    "lemma": "कहीं",
+    "pos": "PRON",
+    "rank": 200,
+    "is_function_word": true,
+    "source_form": "कहीं"
+  },
+  {
+    "lemma": "काफी",
+    "pos": "DET",
+    "rank": 201,
+    "is_function_word": true,
+    "source_form": "काफी"
+  },
+  {
+    "lemma": "चाह",
+    "pos": "VERB",
+    "rank": 202,
+    "is_function_word": false,
+    "source_form": "चाहते"
+  },
+  {
+    "lemma": "टीम",
+    "pos": "NOUN",
+    "rank": 203,
+    "is_function_word": false,
+    "source_form": "टीम"
+  },
+  {
+    "lemma": "मीडिया",
+    "pos": "NOUN",
+    "rank": 204,
+    "is_function_word": false,
+    "source_form": "मीडिया"
+  },
+  {
+    "lemma": "रख",
+    "pos": "VERB",
+    "rank": 205,
+    "is_function_word": false,
+    "source_form": "रखा"
+  },
+  {
+    "lemma": "शब्द",
+    "pos": "NOUN",
+    "rank": 206,
+    "is_function_word": false,
+    "source_form": "शब्द"
+  },
+  {
+    "lemma": "हमेशा",
+    "pos": "ADV",
+    "rank": 207,
+    "is_function_word": false,
+    "source_form": "हमेशा"
+  },
+  {
+    "lemma": "इस्तेमाल",
+    "pos": "NOUN",
+    "rank": 208,
+    "is_function_word": false,
+    "source_form": "इस्तेमाल"
+  },
+  {
+    "lemma": "कब",
+    "pos": "PRON",
+    "rank": 209,
+    "is_function_word": true,
+    "source_form": "कब"
+  },
+  {
+    "lemma": "बच्चा",
+    "pos": "NOUN",
+    "rank": 210,
+    "is_function_word": false,
+    "source_form": "बच्चे"
+  },
+  {
+    "lemma": "माता",
+    "pos": "NOUN",
+    "rank": 211,
+    "is_function_word": false,
+    "source_form": "माता"
+  },
+  {
+    "lemma": "प्रति",
+    "pos": "PART",
+    "rank": 212,
+    "is_function_word": true,
+    "source_form": "प्रति"
+  },
+  {
+    "lemma": "रंग",
+    "pos": "NOUN",
+    "rank": 213,
+    "is_function_word": false,
+    "source_form": "रंग"
+  },
+  {
+    "lemma": "सारा",
+    "pos": "DET",
+    "rank": 214,
+    "is_function_word": true,
+    "source_form": "सारे"
+  },
+  {
+    "lemma": "ऊपर",
+    "pos": "ADV",
+    "rank": 215,
+    "is_function_word": false,
+    "source_form": "ऊपर"
+  },
+  {
+    "lemma": "जन्म",
+    "pos": "NOUN",
+    "rank": 216,
+    "is_function_word": false,
+    "source_form": "जन्म"
+  },
+  {
+    "lemma": "जबकि",
+    "pos": "CCONJ",
+    "rank": 217,
+    "is_function_word": true,
+    "source_form": "जबकि"
+  },
+  {
+    "lemma": "जहाँ",
+    "pos": "PRON",
+    "rank": 218,
+    "is_function_word": true,
+    "source_form": "जहाँ"
+  },
+  {
+    "lemma": "ठीक",
+    "pos": "PART",
+    "rank": 219,
+    "is_function_word": true,
+    "source_form": "ठीक"
+  },
+  {
+    "lemma": "सेना",
+    "pos": "NOUN",
+    "rank": 220,
+    "is_function_word": false,
+    "source_form": "सेना"
+  },
+  {
+    "lemma": "हिन्दी",
+    "pos": "NOUN",
+    "rank": 221,
+    "is_function_word": false,
+    "source_form": "हिन्दी"
+  },
+  {
+    "lemma": "ध्यान",
+    "pos": "NOUN",
+    "rank": 222,
+    "is_function_word": false,
+    "source_form": "ध्यान"
+  },
+  {
+    "lemma": "प्रयोग",
+    "pos": "NOUN",
+    "rank": 223,
+    "is_function_word": false,
+    "source_form": "प्रयोग"
+  },
+  {
+    "lemma": "अलावा",
+    "pos": "NOUN",
+    "rank": 224,
+    "is_function_word": false,
+    "source_form": "अलावा"
+  },
+  {
+    "lemma": "इतना",
+    "pos": "ADV",
+    "rank": 225,
+    "is_function_word": false,
+    "source_form": "इतनी"
+  },
+  {
+    "lemma": "छोड़",
+    "pos": "VERB",
+    "rank": 226,
+    "is_function_word": false,
+    "source_form": "छोड़"
+  },
+  {
+    "lemma": "जहाँ",
+    "pos": "ADV",
+    "rank": 227,
+    "is_function_word": false,
+    "source_form": "जहां"
+  },
+  {
+    "lemma": "ज्ञान",
+    "pos": "NOUN",
+    "rank": 228,
+    "is_function_word": false,
+    "source_form": "ज्ञान"
+  },
+  {
+    "lemma": "नेता",
+    "pos": "NOUN",
+    "rank": 229,
+    "is_function_word": false,
+    "source_form": "नेता"
+  },
+  {
+    "lemma": "लड़की",
+    "pos": "NOUN",
+    "rank": 230,
+    "is_function_word": false,
+    "source_form": "लड़की"
+  },
+  {
+    "lemma": "विभाग",
+    "pos": "NOUN",
+    "rank": 231,
+    "is_function_word": false,
+    "source_form": "विभाग"
+  },
+  {
+    "lemma": "सरकारी",
+    "pos": "ADJ",
+    "rank": 232,
+    "is_function_word": false,
+    "source_form": "सरकारी"
+  },
+  {
+    "lemma": "नीचे",
+    "pos": "ADV",
+    "rank": 233,
+    "is_function_word": false,
+    "source_form": "नीचे"
+  },
+  {
+    "lemma": "पीछे",
+    "pos": "ADV",
+    "rank": 234,
+    "is_function_word": false,
+    "source_form": "पीछे"
+  },
+  {
+    "lemma": "बना",
+    "pos": "VERB",
+    "rank": 235,
+    "is_function_word": false,
+    "source_form": "बनाया"
+  },
+  {
+    "lemma": "भाग",
+    "pos": "NOUN",
+    "rank": 236,
+    "is_function_word": false,
+    "source_form": "भाग"
+  },
+  {
+    "lemma": "छोटा",
+    "pos": "ADJ",
+    "rank": 237,
+    "is_function_word": false,
+    "source_form": "छोटे"
+  },
+  {
+    "lemma": "तैयार",
+    "pos": "ADJ",
+    "rank": 238,
+    "is_function_word": false,
+    "source_form": "तैयार"
+  },
+  {
+    "lemma": "युद्ध",
+    "pos": "NOUN",
+    "rank": 239,
+    "is_function_word": false,
+    "source_form": "युद्ध"
+  },
+  {
+    "lemma": "विचार",
+    "pos": "NOUN",
+    "rank": 240,
+    "is_function_word": false,
+    "source_form": "विचार"
+  },
+  {
+    "lemma": "सोच",
+    "pos": "VERB",
+    "rank": 241,
+    "is_function_word": false,
+    "source_form": "सोच"
+  },
+  {
+    "lemma": "आधार",
+    "pos": "NOUN",
+    "rank": 242,
+    "is_function_word": false,
+    "source_form": "आधार"
+  },
+  {
+    "lemma": "कहानी",
+    "pos": "NOUN",
+    "rank": 243,
+    "is_function_word": false,
+    "source_form": "कहानी"
+  },
+  {
+    "lemma": "कोशिश",
+    "pos": "NOUN",
+    "rank": 244,
+    "is_function_word": false,
+    "source_form": "कोशिश"
+  },
+  {
+    "lemma": "खेल",
+    "pos": "NOUN",
+    "rank": 245,
+    "is_function_word": false,
+    "source_form": "खेल"
+  },
+  {
+    "lemma": "मुख्य",
+    "pos": "NOUN",
+    "rank": 246,
+    "is_function_word": false,
+    "source_form": "मुख्य"
+  },
+  {
+    "lemma": "लिख",
+    "pos": "VERB",
+    "rank": 247,
+    "is_function_word": false,
+    "source_form": "लिखा"
+  },
+  {
+    "lemma": "स्कूल",
+    "pos": "NOUN",
+    "rank": 248,
+    "is_function_word": false,
+    "source_form": "स्कूल"
+  },
+  {
+    "lemma": "मगर",
+    "pos": "CCONJ",
+    "rank": 249,
+    "is_function_word": true,
+    "source_form": "मगर"
+  },
+  {
+    "lemma": "मै.",
+    "pos": "AUX",
+    "rank": 250,
+    "is_function_word": true,
+    "source_form": "मै"
+  },
+  {
+    "lemma": "सवाल",
+    "pos": "NOUN",
+    "rank": 251,
+    "is_function_word": false,
+    "source_form": "सवाल"
+  },
+  {
+    "lemma": "जिला",
+    "pos": "NOUN",
+    "rank": 252,
+    "is_function_word": false,
+    "source_form": "जिला"
+  },
+  {
+    "lemma": "बोल",
+    "pos": "VERB",
+    "rank": 253,
+    "is_function_word": false,
+    "source_form": "बोल"
+  },
+  {
+    "lemma": "मतलब",
+    "pos": "NOUN",
+    "rank": 254,
+    "is_function_word": false,
+    "source_form": "मतलब"
+  },
+  {
+    "lemma": "शरीर",
+    "pos": "NOUN",
+    "rank": 255,
+    "is_function_word": false,
+    "source_form": "शरीर"
+  },
+  {
+    "lemma": "स्थान",
+    "pos": "NOUN",
+    "rank": 256,
+    "is_function_word": false,
+    "source_form": "स्थान"
+  },
+  {
+    "lemma": "अध्यक्ष",
+    "pos": "NOUN",
+    "rank": 257,
+    "is_function_word": false,
+    "source_form": "अध्यक्ष"
+  },
+  {
+    "lemma": "दर्द",
+    "pos": "NOUN",
+    "rank": 258,
+    "is_function_word": false,
+    "source_form": "दर्द"
+  },
+  {
+    "lemma": "नया",
+    "pos": "ADJ",
+    "rank": 259,
+    "is_function_word": false,
+    "source_form": "नई"
+  },
+  {
+    "lemma": "प्रेम",
+    "pos": "NOUN",
+    "rank": 260,
+    "is_function_word": false,
+    "source_form": "प्रेम"
+  },
+  {
+    "lemma": "बजे",
+    "pos": "NOUN",
+    "rank": 261,
+    "is_function_word": false,
+    "source_form": "बजे"
+  },
+  {
+    "lemma": "माँ",
+    "pos": "NOUN",
+    "rank": 262,
+    "is_function_word": false,
+    "source_form": "मां"
+  },
+  {
+    "lemma": "विधानसभा",
+    "pos": "NOUN",
+    "rank": 263,
+    "is_function_word": false,
+    "source_form": "विधानसभा"
+  },
+  {
+    "lemma": "बाप",
+    "pos": "NOUN",
+    "rank": 264,
+    "is_function_word": false,
+    "source_form": "बाप"
+  },
+  {
+    "lemma": "लगभग",
+    "pos": "PART",
+    "rank": 265,
+    "is_function_word": true,
+    "source_form": "लगभग"
+  },
+  {
+    "lemma": "वहाँ",
+    "pos": "PRON",
+    "rank": 266,
+    "is_function_word": true,
+    "source_form": "वहां"
+  },
+  {
+    "lemma": "शायद",
+    "pos": "ADV",
+    "rank": 267,
+    "is_function_word": false,
+    "source_form": "शायद"
+  },
+  {
+    "lemma": "सच",
+    "pos": "NOUN",
+    "rank": 268,
+    "is_function_word": false,
+    "source_form": "सच"
+  },
+  {
+    "lemma": "निर्माण",
+    "pos": "NOUN",
+    "rank": 269,
+    "is_function_word": false,
+    "source_form": "निर्माण"
+  },
+  {
+    "lemma": "पैसा",
+    "pos": "NOUN",
+    "rank": 270,
+    "is_function_word": false,
+    "source_form": "पैसे"
+  },
+  {
+    "lemma": "मान",
+    "pos": "VERB",
+    "rank": 271,
+    "is_function_word": false,
+    "source_form": "माना"
+  },
+  {
+    "lemma": "विशेष",
+    "pos": "ADJ",
+    "rank": 272,
+    "is_function_word": false,
+    "source_form": "विशेष"
+  },
+  {
+    "lemma": "वैसे",
+    "pos": "ADV",
+    "rank": 273,
+    "is_function_word": false,
+    "source_form": "वैसे"
+  },
+  {
+    "lemma": "साहब",
+    "pos": "PART",
+    "rank": 274,
+    "is_function_word": true,
+    "source_form": "साहब"
+  },
+  {
+    "lemma": "जैसा",
+    "pos": "SCONJ",
+    "rank": 275,
+    "is_function_word": true,
+    "source_form": "जैसा"
+  },
+  {
+    "lemma": "यात्रा",
+    "pos": "NOUN",
+    "rank": 276,
+    "is_function_word": false,
+    "source_form": "यात्रा"
+  },
+  {
+    "lemma": "सुरक्षा",
+    "pos": "NOUN",
+    "rank": 277,
+    "is_function_word": false,
+    "source_form": "सुरक्षा"
+  },
+  {
+    "lemma": "हालांकि",
+    "pos": "SCONJ",
+    "rank": 278,
+    "is_function_word": true,
+    "source_form": "हालांकि"
+  },
+  {
+    "lemma": "इतिहास",
+    "pos": "NOUN",
+    "rank": 279,
+    "is_function_word": false,
+    "source_form": "इतिहास"
+  },
+  {
+    "lemma": "कहाँ",
+    "pos": "PRON",
+    "rank": 280,
+    "is_function_word": true,
+    "source_form": "कहाँ"
+  },
+  {
+    "lemma": "गाँव",
+    "pos": "NOUN",
+    "rank": 281,
+    "is_function_word": false,
+    "source_form": "गांव"
+  },
+  {
+    "lemma": "पत्नी",
+    "pos": "NOUN",
+    "rank": 282,
+    "is_function_word": false,
+    "source_form": "पत्नी"
+  },
+  {
+    "lemma": "पसंद",
+    "pos": "NOUN",
+    "rank": 283,
+    "is_function_word": false,
+    "source_form": "पसंद"
+  },
+  {
+    "lemma": "मार",
+    "pos": "VERB",
+    "rank": 284,
+    "is_function_word": false,
+    "source_form": "मार"
+  },
+  {
+    "lemma": "योजना",
+    "pos": "NOUN",
+    "rank": 285,
+    "is_function_word": false,
+    "source_form": "योजना"
+  },
+  {
+    "lemma": "वजह",
+    "pos": "NOUN",
+    "rank": 286,
+    "is_function_word": false,
+    "source_form": "वजह"
+  },
+  {
+    "lemma": "व्यवस्था",
+    "pos": "NOUN",
+    "rank": 287,
+    "is_function_word": false,
+    "source_form": "व्यवस्था"
+  },
+  {
+    "lemma": "शादी",
+    "pos": "NOUN",
+    "rank": 288,
+    "is_function_word": false,
+    "source_form": "शादी"
+  },
+  {
+    "lemma": "स्थिति",
+    "pos": "NOUN",
+    "rank": 289,
+    "is_function_word": false,
+    "source_form": "स्थिति"
+  },
+  {
+    "lemma": "कंपनी",
+    "pos": "NOUN",
+    "rank": 290,
+    "is_function_word": false,
+    "source_form": "कंपनी"
+  },
+  {
+    "lemma": "कितना",
+    "pos": "DET",
+    "rank": 291,
+    "is_function_word": true,
+    "source_form": "कितना"
+  },
+  {
+    "lemma": "जवाब",
+    "pos": "NOUN",
+    "rank": 292,
+    "is_function_word": false,
+    "source_form": "जवाब"
+  },
+  {
+    "lemma": "बदल",
+    "pos": "VERB",
+    "rank": 293,
+    "is_function_word": false,
+    "source_form": "बदल"
+  },
+  {
+    "lemma": "बैंक",
+    "pos": "NOUN",
+    "rank": 294,
+    "is_function_word": false,
+    "source_form": "बैंक"
+  },
+  {
+    "lemma": "मांग",
+    "pos": "NOUN",
+    "rank": 295,
+    "is_function_word": false,
+    "source_form": "मांग"
+  },
+  {
+    "lemma": "संख्या",
+    "pos": "NOUN",
+    "rank": 296,
+    "is_function_word": false,
+    "source_form": "संख्या"
+  },
+  {
+    "lemma": "खा",
+    "pos": "ADJ",
+    "rank": 297,
+    "is_function_word": false,
+    "source_form": "खाने"
+  },
+  {
+    "lemma": "जीत",
+    "pos": "NOUN",
+    "rank": 298,
+    "is_function_word": false,
+    "source_form": "जीत"
+  },
+  {
+    "lemma": "तौर",
+    "pos": "NOUN",
+    "rank": 299,
+    "is_function_word": false,
+    "source_form": "तौर"
+  },
+  {
+    "lemma": "देख",
+    "pos": "PRON",
+    "rank": 300,
+    "is_function_word": true,
+    "source_form": "देखें"
+  },
+  {
+    "lemma": "बिजली",
+    "pos": "NOUN",
+    "rank": 301,
+    "is_function_word": false,
+    "source_form": "बिजली"
+  },
+  {
+    "lemma": "मदद",
+    "pos": "NOUN",
+    "rank": 302,
+    "is_function_word": false,
+    "source_form": "मदद"
+  },
+  {
+    "lemma": "वापस",
+    "pos": "ADJ",
+    "rank": 303,
+    "is_function_word": false,
+    "source_form": "वापस"
+  },
+  {
+    "lemma": "स्तर",
+    "pos": "NOUN",
+    "rank": 304,
+    "is_function_word": false,
+    "source_form": "स्तर"
+  },
+  {
+    "lemma": "अंदर",
+    "pos": "ADV",
+    "rank": 305,
+    "is_function_word": false,
+    "source_form": "अंदर"
+  },
+  {
+    "lemma": "इतना",
+    "pos": "DET",
+    "rank": 306,
+    "is_function_word": true,
+    "source_form": "इतने"
+  },
+  {
+    "lemma": "ऑफ",
+    "pos": "NOUN",
+    "rank": 307,
+    "is_function_word": false,
+    "source_form": "ऑफ"
+  },
+  {
+    "lemma": "प्रमुख",
+    "pos": "NOUN",
+    "rank": 308,
+    "is_function_word": false,
+    "source_form": "प्रमुख"
+  },
+  {
+    "lemma": "बहन",
+    "pos": "NOUN",
+    "rank": 309,
+    "is_function_word": false,
+    "source_form": "बहन"
+  },
+  {
+    "lemma": "विधायक",
+    "pos": "NOUN",
+    "rank": 310,
+    "is_function_word": false,
+    "source_form": "विधायक"
+  },
+  {
+    "lemma": "उम्र",
+    "pos": "NOUN",
+    "rank": 311,
+    "is_function_word": false,
+    "source_form": "उम्र"
+  },
+  {
+    "lemma": "कार्यक्रम",
+    "pos": "NOUN",
+    "rank": 312,
+    "is_function_word": false,
+    "source_form": "कार्यक्रम"
+  },
+  {
+    "lemma": "दे",
+    "pos": "AUX",
+    "rank": 313,
+    "is_function_word": true,
+    "source_form": "देती"
+  },
+  {
+    "lemma": "नगर",
+    "pos": "NOUN",
+    "rank": 314,
+    "is_function_word": false,
+    "source_form": "नगर"
+  },
+  {
+    "lemma": "पति",
+    "pos": "NOUN",
+    "rank": 315,
+    "is_function_word": false,
+    "source_form": "पति"
+  },
+  {
+    "lemma": "प्रदर्शन",
+    "pos": "NOUN",
+    "rank": 316,
+    "is_function_word": false,
+    "source_form": "प्रदर्शन"
+  },
+  {
+    "lemma": "प्रदान",
+    "pos": "NOUN",
+    "rank": 317,
+    "is_function_word": false,
+    "source_form": "प्रदान"
+  },
+  {
+    "lemma": "वीडियो",
+    "pos": "NOUN",
+    "rank": 318,
+    "is_function_word": false,
+    "source_form": "वीडियो"
+  },
+  {
+    "lemma": "स्थित",
+    "pos": "ADJ",
+    "rank": 319,
+    "is_function_word": false,
+    "source_form": "स्थित"
+  },
+  {
+    "lemma": "कानून",
+    "pos": "NOUN",
+    "rank": 320,
+    "is_function_word": false,
+    "source_form": "कानून"
+  },
+  {
+    "lemma": "पड़",
+    "pos": "VERB",
+    "rank": 321,
+    "is_function_word": false,
+    "source_form": "पड़ा"
+  },
+  {
+    "lemma": "पद",
+    "pos": "NOUN",
+    "rank": 322,
+    "is_function_word": false,
+    "source_form": "पद"
+  },
+  {
+    "lemma": "मिल",
+    "pos": "ADJ",
+    "rank": 323,
+    "is_function_word": false,
+    "source_form": "मिलता"
+  },
+  {
+    "lemma": "विरोध",
+    "pos": "NOUN",
+    "rank": 324,
+    "is_function_word": false,
+    "source_form": "विरोध"
+  },
+  {
+    "lemma": "शुभकामना",
+    "pos": "NOUN",
+    "rank": 325,
+    "is_function_word": false,
+    "source_form": "शुभकामनाएं"
+  },
+  {
+    "lemma": "सर",
+    "pos": "NOUN",
+    "rank": 326,
+    "is_function_word": false,
+    "source_form": "सर"
+  },
+  {
+    "lemma": "हाल",
+    "pos": "NOUN",
+    "rank": 327,
+    "is_function_word": false,
+    "source_form": "हाल"
+  },
+  {
+    "lemma": "एंड",
+    "pos": "NOUN",
+    "rank": 328,
+    "is_function_word": false,
+    "source_form": "एंड"
+  },
+  {
+    "lemma": "काल",
+    "pos": "NOUN",
+    "rank": 329,
+    "is_function_word": false,
+    "source_form": "काल"
+  },
+  {
+    "lemma": "कोर्ट",
+    "pos": "NOUN",
+    "rank": 330,
+    "is_function_word": false,
+    "source_form": "कोर्ट"
+  },
+  {
+    "lemma": "गलत",
+    "pos": "ADJ",
+    "rank": 331,
+    "is_function_word": false,
+    "source_form": "गलत"
+  },
+  {
+    "lemma": "चुक",
+    "pos": "AUX",
+    "rank": 332,
+    "is_function_word": true,
+    "source_form": "चुका"
+  },
+  {
+    "lemma": "डॉ",
+    "pos": "NOUN",
+    "rank": 333,
+    "is_function_word": false,
+    "source_form": "डॉ"
+  },
+  {
+    "lemma": "ताकि",
+    "pos": "SCONJ",
+    "rank": 334,
+    "is_function_word": true,
+    "source_form": "ताकि"
+  },
+  {
+    "lemma": "बल्कि",
+    "pos": "SCONJ",
+    "rank": 335,
+    "is_function_word": true,
+    "source_form": "बल्कि"
+  },
+  {
+    "lemma": "बाबा",
+    "pos": "NOUN",
+    "rank": 336,
+    "is_function_word": false,
+    "source_form": "बाबा"
+  },
+  {
+    "lemma": "मामला",
+    "pos": "NOUN",
+    "rank": 337,
+    "is_function_word": false,
+    "source_form": "मामले"
+  },
+  {
+    "lemma": "रुपया",
+    "pos": "NOUN",
+    "rank": 338,
+    "is_function_word": false,
+    "source_form": "रुपये"
+  },
+  {
+    "lemma": "वहीं",
+    "pos": "ADV",
+    "rank": 339,
+    "is_function_word": false,
+    "source_form": "वहीं"
+  },
+  {
+    "lemma": "वोट",
+    "pos": "NOUN",
+    "rank": 340,
+    "is_function_word": false,
+    "source_form": "वोट"
+  },
+  {
+    "lemma": "शक्ति",
+    "pos": "NOUN",
+    "rank": 341,
+    "is_function_word": false,
+    "source_form": "शक्ति"
+  },
+  {
+    "lemma": "समर्थन",
+    "pos": "NOUN",
+    "rank": 342,
+    "is_function_word": false,
+    "source_form": "समर्थन"
+  },
+  {
+    "lemma": "सम्मान",
+    "pos": "NOUN",
+    "rank": 343,
+    "is_function_word": false,
+    "source_form": "सम्मान"
+  },
+  {
+    "lemma": "चाहे",
+    "pos": "VERB",
+    "rank": 344,
+    "is_function_word": false,
+    "source_form": "चाहे"
+  },
+  {
+    "lemma": "धीरे",
+    "pos": "ADV",
+    "rank": 345,
+    "is_function_word": false,
+    "source_form": "धीरे"
+  },
+  {
+    "lemma": "पहचान",
+    "pos": "NOUN",
+    "rank": 346,
+    "is_function_word": false,
+    "source_form": "पहचान"
+  },
+  {
+    "lemma": "पैदा",
+    "pos": "ADJ",
+    "rank": 347,
+    "is_function_word": false,
+    "source_form": "पैदा"
+  },
+  {
+    "lemma": "माध्यम",
+    "pos": "NOUN",
+    "rank": 348,
+    "is_function_word": false,
+    "source_form": "माध्यम"
+  },
+  {
+    "lemma": "राजा",
+    "pos": "NOUN",
+    "rank": 349,
+    "is_function_word": false,
+    "source_form": "राजा"
+  },
+  {
+    "lemma": "शाम",
+    "pos": "NOUN",
+    "rank": 350,
+    "is_function_word": false,
+    "source_form": "शाम"
+  },
+  {
+    "lemma": "आरोप",
+    "pos": "NOUN",
+    "rank": 351,
+    "is_function_word": false,
+    "source_form": "आरोप"
+  },
+  {
+    "lemma": "जल",
+    "pos": "NOUN",
+    "rank": 352,
+    "is_function_word": false,
+    "source_form": "जल"
+  },
+  {
+    "lemma": "जान",
+    "pos": "VERB",
+    "rank": 353,
+    "is_function_word": false,
+    "source_form": "जानते"
+  },
+  {
+    "lemma": "जैसा",
+    "pos": "ADP",
+    "rank": 354,
+    "is_function_word": true,
+    "source_form": "जैसी"
+  },
+  {
+    "lemma": "पांच",
+    "pos": "NUM",
+    "rank": 355,
+    "is_function_word": false,
+    "source_form": "पांच"
+  },
+  {
+    "lemma": "पिछला",
+    "pos": "ADJ",
+    "rank": 356,
+    "is_function_word": false,
+    "source_form": "पिछले"
+  },
+  {
+    "lemma": "महीना",
+    "pos": "NOUN",
+    "rank": 357,
+    "is_function_word": false,
+    "source_form": "महीने"
+  },
+  {
+    "lemma": "राजनीति",
+    "pos": "NOUN",
+    "rank": 358,
+    "is_function_word": false,
+    "source_form": "राजनीति"
+  },
+  {
+    "lemma": "हिंदू",
+    "pos": "NOUN",
+    "rank": 359,
+    "is_function_word": false,
+    "source_form": "हिंदू"
+  },
+  {
+    "lemma": "हेतु",
+    "pos": "CCONJ",
+    "rank": 360,
+    "is_function_word": true,
+    "source_form": "हेतु"
+  },
+  {
+    "lemma": "देर",
+    "pos": "NOUN",
+    "rank": 361,
+    "is_function_word": false,
+    "source_form": "देर"
+  },
+  {
+    "lemma": "परीक्षा",
+    "pos": "NOUN",
+    "rank": 362,
+    "is_function_word": false,
+    "source_form": "परीक्षा"
+  },
+  {
+    "lemma": "प्रयास",
+    "pos": "NOUN",
+    "rank": 363,
+    "is_function_word": false,
+    "source_form": "प्रयास"
+  },
+  {
+    "lemma": "बाकी",
+    "pos": "ADJ",
+    "rank": 364,
+    "is_function_word": false,
+    "source_form": "बाकी"
+  },
+  {
+    "lemma": "मुस्लिम",
+    "pos": "NOUN",
+    "rank": 365,
+    "is_function_word": false,
+    "source_form": "मुस्लिम"
+  },
+  {
+    "lemma": "वक्त",
+    "pos": "NOUN",
+    "rank": 366,
+    "is_function_word": false,
+    "source_form": "वक्त"
+  },
+  {
+    "lemma": "विभिन्न",
+    "pos": "ADJ",
+    "rank": 367,
+    "is_function_word": false,
+    "source_form": "विभिन्न"
+  },
+  {
+    "lemma": "विश्वास",
+    "pos": "NOUN",
+    "rank": 368,
+    "is_function_word": false,
+    "source_form": "विश्वास"
+  },
+  {
+    "lemma": "समस्या",
+    "pos": "NOUN",
+    "rank": 369,
+    "is_function_word": false,
+    "source_form": "समस्या"
+  },
+  {
+    "lemma": "हत्या",
+    "pos": "NOUN",
+    "rank": 370,
+    "is_function_word": false,
+    "source_form": "हत्या"
+  },
+  {
+    "lemma": "उच्च",
+    "pos": "ADJ",
+    "rank": 371,
+    "is_function_word": false,
+    "source_form": "उच्च"
+  },
+  {
+    "lemma": "पड़",
+    "pos": "AUX",
+    "rank": 372,
+    "is_function_word": true,
+    "source_form": "पड़ता"
+  },
+  {
+    "lemma": "बाताँ",
+    "pos": "NOUN",
+    "rank": 373,
+    "is_function_word": false,
+    "source_form": "बातें"
+  },
+  {
+    "lemma": "भूल",
+    "pos": "NOUN",
+    "rank": 374,
+    "is_function_word": false,
+    "source_form": "भूल"
+  },
+  {
+    "lemma": "संघ",
+    "pos": "NOUN",
+    "rank": 375,
+    "is_function_word": false,
+    "source_form": "संघ"
+  },
+  {
+    "lemma": "संस्कृति",
+    "pos": "NOUN",
+    "rank": 376,
+    "is_function_word": false,
+    "source_form": "संस्कृति"
+  },
+  {
+    "lemma": "अध्ययन",
+    "pos": "NOUN",
+    "rank": 377,
+    "is_function_word": false,
+    "source_form": "अध्ययन"
+  },
+  {
+    "lemma": "खबर",
+    "pos": "NOUN",
+    "rank": 378,
+    "is_function_word": false,
+    "source_form": "खबर"
+  },
+  {
+    "lemma": "निकल",
+    "pos": "VERB",
+    "rank": 379,
+    "is_function_word": false,
+    "source_form": "निकल"
+  },
+  {
+    "lemma": "पा",
+    "pos": "VERB",
+    "rank": 380,
+    "is_function_word": false,
+    "source_form": "पाया"
+  },
+  {
+    "lemma": "मिनट",
+    "pos": "NOUN",
+    "rank": 381,
+    "is_function_word": false,
+    "source_form": "मिनट"
+  },
+  {
+    "lemma": "योगी",
+    "pos": "NOUN",
+    "rank": 382,
+    "is_function_word": false,
+    "source_form": "योगी"
+  },
+  {
+    "lemma": "विषय",
+    "pos": "NOUN",
+    "rank": 383,
+    "is_function_word": false,
+    "source_form": "विषय"
+  },
+  {
+    "lemma": "हिस्सा",
+    "pos": "NOUN",
+    "rank": 384,
+    "is_function_word": false,
+    "source_form": "हिस्सा"
+  },
+  {
+    "lemma": "अधिकार",
+    "pos": "NOUN",
+    "rank": 385,
+    "is_function_word": false,
+    "source_form": "अधिकार"
+  },
+  {
+    "lemma": "डर",
+    "pos": "NOUN",
+    "rank": 386,
+    "is_function_word": false,
+    "source_form": "डर"
+  },
+  {
+    "lemma": "तभी",
+    "pos": "PRON",
+    "rank": 387,
+    "is_function_word": true,
+    "source_form": "तभी"
+  },
+  {
+    "lemma": "दिखा",
+    "pos": "VERB",
+    "rank": 388,
+    "is_function_word": false,
+    "source_form": "दिखाई"
+  },
+  {
+    "lemma": "दोस्त",
+    "pos": "ADJ",
+    "rank": 389,
+    "is_function_word": false,
+    "source_form": "दोस्त"
+  },
+  {
+    "lemma": "महत्वपूर्ण",
+    "pos": "ADJ",
+    "rank": 390,
+    "is_function_word": false,
+    "source_form": "महत्वपूर्ण"
+  },
+  {
+    "lemma": "मैच",
+    "pos": "NOUN",
+    "rank": 391,
+    "is_function_word": false,
+    "source_form": "मैच"
+  },
+  {
+    "lemma": "घंटा",
+    "pos": "NOUN",
+    "rank": 392,
+    "is_function_word": false,
+    "source_form": "घंटे"
+  },
+  {
+    "lemma": "तहत",
+    "pos": "NOUN",
+    "rank": 393,
+    "is_function_word": false,
+    "source_form": "तहत"
+  },
+  {
+    "lemma": "देखो",
+    "pos": "VERB",
+    "rank": 394,
+    "is_function_word": false,
+    "source_form": "देखो"
+  },
+  {
+    "lemma": "पोस्ट",
+    "pos": "ADV",
+    "rank": 395,
+    "is_function_word": false,
+    "source_form": "पोस्ट"
+  },
+  {
+    "lemma": "बोला",
+    "pos": "VERB",
+    "rank": 396,
+    "is_function_word": false,
+    "source_form": "बोले"
+  },
+  {
+    "lemma": "मान",
+    "pos": "NOUN",
+    "rank": 397,
+    "is_function_word": false,
+    "source_form": "मान"
+  },
+  {
+    "lemma": "हार",
+    "pos": "NOUN",
+    "rank": 398,
+    "is_function_word": false,
+    "source_form": "हार"
+  },
+  {
+    "lemma": "अंतिम",
+    "pos": "ADJ",
+    "rank": 399,
+    "is_function_word": false,
+    "source_form": "अंतिम"
+  },
+  {
+    "lemma": "आर्थिक",
+    "pos": "ADJ",
+    "rank": 400,
+    "is_function_word": false,
+    "source_form": "आर्थिक"
+  },
+  {
+    "lemma": "उपलब्ध",
+    "pos": "ADJ",
+    "rank": 401,
+    "is_function_word": false,
+    "source_form": "उपलब्ध"
+  },
+  {
+    "lemma": "कुल",
+    "pos": "DET",
+    "rank": 402,
+    "is_function_word": true,
+    "source_form": "कुल"
+  },
+  {
+    "lemma": "गीत",
+    "pos": "NOUN",
+    "rank": 403,
+    "is_function_word": false,
+    "source_form": "गीत"
+  },
+  {
+    "lemma": "जाति",
+    "pos": "NOUN",
+    "rank": 404,
+    "is_function_word": false,
+    "source_form": "जाति"
+  },
+  {
+    "lemma": "तुम",
+    "pos": "PRON",
+    "rank": 405,
+    "is_function_word": true,
+    "source_form": "तुम्हारे"
+  },
+  {
+    "lemma": "बी",
+    "pos": "PART",
+    "rank": 406,
+    "is_function_word": true,
+    "source_form": "बी"
+  },
+  {
+    "lemma": "बेटी",
+    "pos": "NOUN",
+    "rank": 407,
+    "is_function_word": false,
+    "source_form": "बेटी"
+  },
+  {
+    "lemma": "भारी",
+    "pos": "ADJ",
+    "rank": 408,
+    "is_function_word": false,
+    "source_form": "भारी"
+  },
+  {
+    "lemma": "स्वास्थ्य",
+    "pos": "NOUN",
+    "rank": 409,
+    "is_function_word": false,
+    "source_form": "स्वास्थ्य"
+  },
+  {
+    "lemma": "अर्थ",
+    "pos": "ADV",
+    "rank": 410,
+    "is_function_word": false,
+    "source_form": "अर्थ"
+  },
+  {
+    "lemma": "आग",
+    "pos": "NOUN",
+    "rank": 411,
+    "is_function_word": false,
+    "source_form": "आग"
+  },
+  {
+    "lemma": "पूजा",
+    "pos": "NOUN",
+    "rank": 412,
+    "is_function_word": false,
+    "source_form": "पूजा"
+  },
+  {
+    "lemma": "राजनीतिक",
+    "pos": "ADJ",
+    "rank": 413,
+    "is_function_word": false,
+    "source_form": "राजनीतिक"
+  },
+  {
+    "lemma": "विवाह",
+    "pos": "NOUN",
+    "rank": 414,
+    "is_function_word": false,
+    "source_form": "विवाह"
+  },
+  {
+    "lemma": "सड़क",
+    "pos": "NOUN",
+    "rank": 415,
+    "is_function_word": false,
+    "source_form": "सड़क"
+  },
+  {
+    "lemma": "सहित",
+    "pos": "ADP",
+    "rank": 416,
+    "is_function_word": true,
+    "source_form": "सहित"
+  },
+  {
+    "lemma": "सात",
+    "pos": "NUM",
+    "rank": 417,
+    "is_function_word": false,
+    "source_form": "सात"
+  },
+  {
+    "lemma": "स्वयं",
+    "pos": "PRON",
+    "rank": 418,
+    "is_function_word": true,
+    "source_form": "स्वयं"
+  },
+  {
+    "lemma": "हजार",
+    "pos": "NUM",
+    "rank": 419,
+    "is_function_word": false,
+    "source_form": "हजार"
+  },
+  {
+    "lemma": "आयोजित",
+    "pos": "ADJ",
+    "rank": 420,
+    "is_function_word": false,
+    "source_form": "आयोजित"
+  },
+  {
+    "lemma": "कमी",
+    "pos": "NOUN",
+    "rank": 421,
+    "is_function_word": false,
+    "source_form": "कमी"
+  },
+  {
+    "lemma": "किसान",
+    "pos": "NOUN",
+    "rank": 422,
+    "is_function_word": false,
+    "source_form": "किसान"
+  },
+  {
+    "lemma": "खत्म",
+    "pos": "ADJ",
+    "rank": 423,
+    "is_function_word": false,
+    "source_form": "खत्म"
+  },
+  {
+    "lemma": "जल्दी",
+    "pos": "ADV",
+    "rank": 424,
+    "is_function_word": false,
+    "source_form": "जल्दी"
+  },
+  {
+    "lemma": "टीवी",
+    "pos": "NOUN",
+    "rank": 425,
+    "is_function_word": false,
+    "source_form": "टीवी"
+  },
+  {
+    "lemma": "निर्णय",
+    "pos": "NOUN",
+    "rank": 426,
+    "is_function_word": false,
+    "source_form": "निर्णय"
+  },
+  {
+    "lemma": "बेहतर",
+    "pos": "ADJ",
+    "rank": 427,
+    "is_function_word": false,
+    "source_form": "बेहतर"
+  },
+  {
+    "lemma": "अभियान",
+    "pos": "NOUN",
+    "rank": 428,
+    "is_function_word": false,
+    "source_form": "अभियान"
+  },
+  {
+    "lemma": "जरूरत",
+    "pos": "NOUN",
+    "rank": 429,
+    "is_function_word": false,
+    "source_form": "जरूरत"
+  },
+  {
+    "lemma": "धन",
+    "pos": "NOUN",
+    "rank": 430,
+    "is_function_word": false,
+    "source_form": "धन"
+  },
+  {
+    "lemma": "धन्यवाद",
+    "pos": "NOUN",
+    "rank": 431,
+    "is_function_word": false,
+    "source_form": "धन्यवाद"
+  },
+  {
+    "lemma": "नजर",
+    "pos": "NOUN",
+    "rank": 432,
+    "is_function_word": false,
+    "source_form": "नजर"
+  },
+  {
+    "lemma": "पत्र",
+    "pos": "NOUN",
+    "rank": 433,
+    "is_function_word": false,
+    "source_form": "पत्र"
+  },
+  {
+    "lemma": "बाल",
+    "pos": "NOUN",
+    "rank": 434,
+    "is_function_word": false,
+    "source_form": "बाल"
+  },
+  {
+    "lemma": "युवा",
+    "pos": "NOUN",
+    "rank": 435,
+    "is_function_word": false,
+    "source_form": "युवा"
+  },
+  {
+    "lemma": "रेलवे",
+    "pos": "NOUN",
+    "rank": 436,
+    "is_function_word": false,
+    "source_form": "रेलवे"
+  },
+  {
+    "lemma": "वर्ग",
+    "pos": "NOUN",
+    "rank": 437,
+    "is_function_word": false,
+    "source_form": "वर्ग"
+  },
+  {
+    "lemma": "शुरुआत",
+    "pos": "NOUN",
+    "rank": 438,
+    "is_function_word": false,
+    "source_form": "शुरुआत"
+  },
+  {
+    "lemma": "शो",
+    "pos": "NOUN",
+    "rank": 439,
+    "is_function_word": false,
+    "source_form": "शो"
+  },
+  {
+    "lemma": "संबंध",
+    "pos": "NOUN",
+    "rank": 440,
+    "is_function_word": false,
+    "source_form": "संबंध"
+  },
+  {
+    "lemma": "स्वतन्त्रता",
+    "pos": "NOUN",
+    "rank": 441,
+    "is_function_word": false,
+    "source_form": "स्वतंत्रता"
+  },
+  {
+    "lemma": "अवसर",
+    "pos": "NOUN",
+    "rank": 442,
+    "is_function_word": false,
+    "source_form": "अवसर"
+  },
+  {
+    "lemma": "आरक्षण",
+    "pos": "NOUN",
+    "rank": 443,
+    "is_function_word": false,
+    "source_form": "आरक्षण"
+  },
+  {
+    "lemma": "जांच",
+    "pos": "NOUN",
+    "rank": 444,
+    "is_function_word": false,
+    "source_form": "जांच"
+  },
+  {
+    "lemma": "तैं",
+    "pos": "PRON",
+    "rank": 445,
+    "is_function_word": true,
+    "source_form": "तुझे"
+  },
+  {
+    "lemma": "दर्शन",
+    "pos": "NOUN",
+    "rank": 446,
+    "is_function_word": false,
+    "source_form": "दर्शन"
+  },
+  {
+    "lemma": "दलित",
+    "pos": "NOUN",
+    "rank": 447,
+    "is_function_word": false,
+    "source_form": "दलित"
+  },
+  {
+    "lemma": "बैठ",
+    "pos": "VERB",
+    "rank": 448,
+    "is_function_word": false,
+    "source_form": "बैठे"
+  },
+  {
+    "lemma": "मर",
+    "pos": "VERB",
+    "rank": 449,
+    "is_function_word": false,
+    "source_form": "मर"
+  },
+  {
+    "lemma": "लाभ",
+    "pos": "NOUN",
+    "rank": 450,
+    "is_function_word": false,
+    "source_form": "लाभ"
+  },
+  {
+    "lemma": "सफलता",
+    "pos": "NOUN",
+    "rank": 451,
+    "is_function_word": false,
+    "source_form": "सफलता"
+  },
+  {
+    "lemma": "सामाजिक",
+    "pos": "ADJ",
+    "rank": 452,
+    "is_function_word": false,
+    "source_form": "सामाजिक"
+  },
+  {
+    "lemma": "कदम",
+    "pos": "NOUN",
+    "rank": 453,
+    "is_function_word": false,
+    "source_form": "कदम"
+  },
+  {
+    "lemma": "कृपया",
+    "pos": "ADV",
+    "rank": 454,
+    "is_function_word": false,
+    "source_form": "कृपया"
+  },
+  {
+    "lemma": "खाना",
+    "pos": "NOUN",
+    "rank": 455,
+    "is_function_word": false,
+    "source_form": "खाना"
+  },
+  {
+    "lemma": "घटना",
+    "pos": "NOUN",
+    "rank": 456,
+    "is_function_word": false,
+    "source_form": "घटना"
+  },
+  {
+    "lemma": "चुक",
+    "pos": "VERB",
+    "rank": 457,
+    "is_function_word": false,
+    "source_form": "चुकी"
+  },
+  {
+    "lemma": "दर",
+    "pos": "NOUN",
+    "rank": 458,
+    "is_function_word": false,
+    "source_form": "दर"
+  },
+  {
+    "lemma": "बढ़",
+    "pos": "ADV",
+    "rank": 459,
+    "is_function_word": false,
+    "source_form": "बढ़"
+  },
+  {
+    "lemma": "बेटा",
+    "pos": "NOUN",
+    "rank": 460,
+    "is_function_word": false,
+    "source_form": "बेटा"
+  },
+  {
+    "lemma": "भर्ती",
+    "pos": "NOUN",
+    "rank": 461,
+    "is_function_word": false,
+    "source_form": "भर्ती"
+  },
+  {
+    "lemma": "सफल",
+    "pos": "ADJ",
+    "rank": 462,
+    "is_function_word": false,
+    "source_form": "सफल"
+  },
+  {
+    "lemma": "खडा",
+    "pos": "ADJ",
+    "rank": 463,
+    "is_function_word": false,
+    "source_form": "खड़े"
+  },
+  {
+    "lemma": "जिंदगी",
+    "pos": "NOUN",
+    "rank": 464,
+    "is_function_word": false,
+    "source_form": "जिंदगी"
+  },
+  {
+    "lemma": "जेल",
+    "pos": "NOUN",
+    "rank": 465,
+    "is_function_word": false,
+    "source_form": "जेल"
+  },
+  {
+    "lemma": "दूध",
+    "pos": "NOUN",
+    "rank": 466,
+    "is_function_word": false,
+    "source_form": "दूध"
+  },
+  {
+    "lemma": "मुश्किल",
+    "pos": "ADJ",
+    "rank": 467,
+    "is_function_word": false,
+    "source_form": "मुश्किल"
+  },
+  {
+    "lemma": "संगठन",
+    "pos": "NOUN",
+    "rank": 468,
+    "is_function_word": false,
+    "source_form": "संगठन"
+  },
+  {
+    "lemma": "उठा",
+    "pos": "VERB",
+    "rank": 469,
+    "is_function_word": false,
+    "source_form": "उठा"
+  },
+  {
+    "lemma": "ऑफ़",
+    "pos": "PART",
+    "rank": 470,
+    "is_function_word": true,
+    "source_form": "ऑफ़"
+  },
+  {
+    "lemma": "तुम्हारी",
+    "pos": "NOUN",
+    "rank": 471,
+    "is_function_word": false,
+    "source_form": "तुम्हारी"
+  },
+  {
+    "lemma": "थोड़ा",
+    "pos": "DET",
+    "rank": 472,
+    "is_function_word": true,
+    "source_form": "थोड़ी"
+  },
+  {
+    "lemma": "दल",
+    "pos": "NOUN",
+    "rank": 473,
+    "is_function_word": false,
+    "source_form": "दल"
+  },
+  {
+    "lemma": "नौकरी",
+    "pos": "NOUN",
+    "rank": 474,
+    "is_function_word": false,
+    "source_form": "नौकरी"
+  },
+  {
+    "lemma": "परेशान",
+    "pos": "ADJ",
+    "rank": 475,
+    "is_function_word": false,
+    "source_form": "परेशान"
+  },
+  {
+    "lemma": "मृत्यु",
+    "pos": "NOUN",
+    "rank": 476,
+    "is_function_word": false,
+    "source_form": "मृत्यु"
+  },
+  {
+    "lemma": "रोक",
+    "pos": "NOUN",
+    "rank": 477,
+    "is_function_word": false,
+    "source_form": "रोक"
+  },
+  {
+    "lemma": "लोक",
+    "pos": "NOUN",
+    "rank": 478,
+    "is_function_word": false,
+    "source_form": "लोक"
+  },
+  {
+    "lemma": "साफ",
+    "pos": "ADV",
+    "rank": 479,
+    "is_function_word": false,
+    "source_form": "साफ"
+  },
+  {
+    "lemma": "सीमा",
+    "pos": "NOUN",
+    "rank": 480,
+    "is_function_word": false,
+    "source_form": "सीमा"
+  },
+  {
+    "lemma": "सुख",
+    "pos": "NOUN",
+    "rank": 481,
+    "is_function_word": false,
+    "source_form": "सुख"
+  },
+  {
+    "lemma": "खून",
+    "pos": "NOUN",
+    "rank": 482,
+    "is_function_word": false,
+    "source_form": "खून"
+  },
+  {
+    "lemma": "गुरु",
+    "pos": "NOUN",
+    "rank": 483,
+    "is_function_word": false,
+    "source_form": "गुरु"
+  },
+  {
+    "lemma": "जरूर",
+    "pos": "ADV",
+    "rank": 484,
+    "is_function_word": false,
+    "source_form": "जरूर"
+  },
+  {
+    "lemma": "डाल",
+    "pos": "VERB",
+    "rank": 485,
+    "is_function_word": false,
+    "source_form": "डाल"
+  },
+  {
+    "lemma": "नंबर",
+    "pos": "NOUN",
+    "rank": 486,
+    "is_function_word": false,
+    "source_form": "नंबर"
+  },
+  {
+    "lemma": "पल",
+    "pos": "NOUN",
+    "rank": 487,
+    "is_function_word": false,
+    "source_form": "पल"
+  },
+  {
+    "lemma": "प्रक्रिया",
+    "pos": "NOUN",
+    "rank": 488,
+    "is_function_word": false,
+    "source_form": "प्रक्रिया"
+  },
+  {
+    "lemma": "वर्तमान",
+    "pos": "NOUN",
+    "rank": 489,
+    "is_function_word": false,
+    "source_form": "वर्तमान"
+  },
+  {
+    "lemma": "सभा",
+    "pos": "NOUN",
+    "rank": 490,
+    "is_function_word": false,
+    "source_form": "सभा"
+  },
+  {
+    "lemma": "सो",
+    "pos": "VERB",
+    "rank": 491,
+    "is_function_word": false,
+    "source_form": "सो"
+  },
+  {
+    "lemma": "अंत",
+    "pos": "NOUN",
+    "rank": 492,
+    "is_function_word": false,
+    "source_form": "अंत"
+  },
+  {
+    "lemma": "उम्मीद",
+    "pos": "NOUN",
+    "rank": 493,
+    "is_function_word": false,
+    "source_form": "उम्मीद"
+  },
+  {
+    "lemma": "घोषणा",
+    "pos": "NOUN",
+    "rank": 494,
+    "is_function_word": false,
+    "source_form": "घोषणा"
+  },
+  {
+    "lemma": "चरण",
+    "pos": "NOUN",
+    "rank": 495,
+    "is_function_word": false,
+    "source_form": "चरण"
+  },
+  {
+    "lemma": "छात्र",
+    "pos": "NOUN",
+    "rank": 496,
+    "is_function_word": false,
+    "source_form": "छात्रों"
+  },
+  {
+    "lemma": "जल्द",
+    "pos": "ADV",
+    "rank": 497,
+    "is_function_word": false,
+    "source_form": "जल्द"
+  },
+  {
+    "lemma": "तेल",
+    "pos": "NOUN",
+    "rank": 498,
+    "is_function_word": false,
+    "source_form": "तेल"
+  },
+  {
+    "lemma": "थोडा",
+    "pos": "ADJ",
+    "rank": 499,
+    "is_function_word": false,
+    "source_form": "थोड़ा"
+  },
+  {
+    "lemma": "दिशा",
+    "pos": "NOUN",
+    "rank": 500,
+    "is_function_word": false,
+    "source_form": "दिशा"
+  },
+  {
+    "lemma": "परिणाम",
+    "pos": "NOUN",
+    "rank": 501,
+    "is_function_word": false,
+    "source_form": "परिणाम"
+  },
+  {
+    "lemma": "परिवर्तन",
+    "pos": "NOUN",
+    "rank": 502,
+    "is_function_word": false,
+    "source_form": "परिवर्तन"
+  },
+  {
+    "lemma": "पार",
+    "pos": "NOUN",
+    "rank": 503,
+    "is_function_word": false,
+    "source_form": "पार"
+  },
+  {
+    "lemma": "बेट",
+    "pos": "NOUN",
+    "rank": 504,
+    "is_function_word": false,
+    "source_form": "बेटे"
+  },
+  {
+    "lemma": "मुक्त",
+    "pos": "ADJ",
+    "rank": 505,
+    "is_function_word": false,
+    "source_form": "मुक्त"
+  },
+  {
+    "lemma": "सेक्स",
+    "pos": "NOUN",
+    "rank": 506,
+    "is_function_word": false,
+    "source_form": "सेक्स"
+  },
+  {
+    "lemma": "हमा",
+    "pos": "NOUN",
+    "rank": 507,
+    "is_function_word": false,
+    "source_form": "हमे"
+  },
+  {
+    "lemma": "चेहरा",
+    "pos": "NOUN",
+    "rank": 508,
+    "is_function_word": false,
+    "source_form": "चेहरे"
+  },
+  {
+    "lemma": "छात्र",
+    "pos": "PART",
+    "rank": 509,
+    "is_function_word": true,
+    "source_form": "छात्र"
+  },
+  {
+    "lemma": "ज़िन्दगी",
+    "pos": "NOUN",
+    "rank": 510,
+    "is_function_word": false,
+    "source_form": "ज़िन्दगी"
+  },
+  {
+    "lemma": "जाय",
+    "pos": "VERB",
+    "rank": 511,
+    "is_function_word": false,
+    "source_form": "जायेगा"
+  },
+  {
+    "lemma": "पत्थर",
+    "pos": "NOUN",
+    "rank": 512,
+    "is_function_word": false,
+    "source_form": "पत्थर"
+  },
+  {
+    "lemma": "मनुष्य",
+    "pos": "NOUN",
+    "rank": 513,
+    "is_function_word": false,
+    "source_form": "मनुष्य"
+  },
+  {
+    "lemma": "ले",
+    "pos": "NOUN",
+    "rank": 514,
+    "is_function_word": false,
+    "source_form": "लेता"
+  },
+  {
+    "lemma": "वाह",
+    "pos": "INTJ",
+    "rank": 515,
+    "is_function_word": false,
+    "source_form": "वाह"
+  },
+  {
+    "lemma": "असली",
+    "pos": "ADJ",
+    "rank": 516,
+    "is_function_word": false,
+    "source_form": "असली"
+  },
+  {
+    "lemma": "कॉलेज",
+    "pos": "NOUN",
+    "rank": 517,
+    "is_function_word": false,
+    "source_form": "कॉलेज"
+  },
+  {
+    "lemma": "खुश",
+    "pos": "ADJ",
+    "rank": 518,
+    "is_function_word": false,
+    "source_form": "खुश"
+  },
+  {
+    "lemma": "जमीन",
+    "pos": "NOUN",
+    "rank": 519,
+    "is_function_word": false,
+    "source_form": "जमीन"
+  },
+  {
+    "lemma": "पुत्र",
+    "pos": "NOUN",
+    "rank": 520,
+    "is_function_word": false,
+    "source_form": "पुत्र"
+  },
+  {
+    "lemma": "भोजन",
+    "pos": "NOUN",
+    "rank": 521,
+    "is_function_word": false,
+    "source_form": "भोजन"
+  },
+  {
+    "lemma": "वन",
+    "pos": "NOUN",
+    "rank": 522,
+    "is_function_word": false,
+    "source_form": "वन"
+  },
+  {
+    "lemma": "शासन",
+    "pos": "NOUN",
+    "rank": 523,
+    "is_function_word": false,
+    "source_form": "शासन"
+  },
+  {
+    "lemma": "स्थानीय",
+    "pos": "ADJ",
+    "rank": 524,
+    "is_function_word": false,
+    "source_form": "स्थानीय"
+  },
+  {
+    "lemma": "अधिकारी",
+    "pos": "NOUN",
+    "rank": 525,
+    "is_function_word": false,
+    "source_form": "अधिकारी"
+  },
+  {
+    "lemma": "अल्लाह",
+    "pos": "NOUN",
+    "rank": 526,
+    "is_function_word": false,
+    "source_form": "अल्लाह"
+  },
+  {
+    "lemma": "आंदोलन",
+    "pos": "NOUN",
+    "rank": 527,
+    "is_function_word": false,
+    "source_form": "आंदोलन"
+  },
+  {
+    "lemma": "आदेश",
+    "pos": "NOUN",
+    "rank": 528,
+    "is_function_word": false,
+    "source_form": "आदेश"
+  },
+  {
+    "lemma": "कीमत",
+    "pos": "NOUN",
+    "rank": 529,
+    "is_function_word": false,
+    "source_form": "कीमत"
+  },
+  {
+    "lemma": "खा",
+    "pos": "NOUN",
+    "rank": 530,
+    "is_function_word": false,
+    "source_form": "खा"
+  },
+  {
+    "lemma": "पा",
+    "pos": "AUX",
+    "rank": 531,
+    "is_function_word": true,
+    "source_form": "पाए"
+  },
+  {
+    "lemma": "प्रभु",
+    "pos": "NOUN",
+    "rank": 532,
+    "is_function_word": false,
+    "source_form": "प्रभु"
+  },
+  {
+    "lemma": "बयान",
+    "pos": "NOUN",
+    "rank": 533,
+    "is_function_word": false,
+    "source_form": "बयान"
+  },
+  {
+    "lemma": "लागू",
+    "pos": "ADJ",
+    "rank": 534,
+    "is_function_word": false,
+    "source_form": "लागू"
+  },
+  {
+    "lemma": "सदस्य",
+    "pos": "NOUN",
+    "rank": 535,
+    "is_function_word": false,
+    "source_form": "सदस्य"
+  },
+  {
+    "lemma": "सामान्य",
+    "pos": "ADJ",
+    "rank": 536,
+    "is_function_word": false,
+    "source_form": "सामान्य"
+  },
+  {
+    "lemma": "अक्सर",
+    "pos": "ADV",
+    "rank": 537,
+    "is_function_word": false,
+    "source_form": "अक्सर"
+  },
+  {
+    "lemma": "आवश्यकता",
+    "pos": "NOUN",
+    "rank": 538,
+    "is_function_word": false,
+    "source_form": "आवश्यकता"
+  },
+  {
+    "lemma": "खुशी",
+    "pos": "NOUN",
+    "rank": 539,
+    "is_function_word": false,
+    "source_form": "खुशी"
+  },
+  {
+    "lemma": "खूब",
+    "pos": "DET",
+    "rank": 540,
+    "is_function_word": true,
+    "source_form": "खूब"
+  },
+  {
+    "lemma": "गलती",
+    "pos": "NOUN",
+    "rank": 541,
+    "is_function_word": false,
+    "source_form": "गलती"
+  },
+  {
+    "lemma": "चर्चा",
+    "pos": "NOUN",
+    "rank": 542,
+    "is_function_word": false,
+    "source_form": "चर्चा"
+  },
+  {
+    "lemma": "चैनल",
+    "pos": "NOUN",
+    "rank": 543,
+    "is_function_word": false,
+    "source_form": "चैनल"
+  },
+  {
+    "lemma": "तरीका",
+    "pos": "NOUN",
+    "rank": 544,
+    "is_function_word": false,
+    "source_form": "तरीके"
+  },
+  {
+    "lemma": "दम",
+    "pos": "NOUN",
+    "rank": 545,
+    "is_function_word": false,
+    "source_form": "दम"
+  },
+  {
+    "lemma": "निकाल",
+    "pos": "PART",
+    "rank": 546,
+    "is_function_word": true,
+    "source_form": "निकाल"
+  },
+  {
+    "lemma": "नेतृत्व",
+    "pos": "NOUN",
+    "rank": 547,
+    "is_function_word": false,
+    "source_form": "नेतृत्व"
+  },
+  {
+    "lemma": "बाजार",
+    "pos": "NOUN",
+    "rank": 548,
+    "is_function_word": false,
+    "source_form": "बाजार"
+  },
+  {
+    "lemma": "रिपोर्ट",
+    "pos": "NOUN",
+    "rank": 549,
+    "is_function_word": false,
+    "source_form": "रिपोर्ट"
+  },
+  {
+    "lemma": "लगातार",
+    "pos": "ADV",
+    "rank": 550,
+    "is_function_word": false,
+    "source_form": "लगातार"
+  },
+  {
+    "lemma": "समान",
+    "pos": "NOUN",
+    "rank": 551,
+    "is_function_word": false,
+    "source_form": "समान"
+  },
+  {
+    "lemma": "साबित",
+    "pos": "ADJ",
+    "rank": 552,
+    "is_function_word": false,
+    "source_form": "साबित"
+  },
+  {
+    "lemma": "खड़ा",
+    "pos": "ADJ",
+    "rank": 553,
+    "is_function_word": false,
+    "source_form": "खड़ा"
+  },
+  {
+    "lemma": "टेस्ट",
+    "pos": "NOUN",
+    "rank": 554,
+    "is_function_word": false,
+    "source_form": "टेस्ट"
+  },
+  {
+    "lemma": "दिख",
+    "pos": "VERB",
+    "rank": 555,
+    "is_function_word": false,
+    "source_form": "दिखा"
+  },
+  {
+    "lemma": "दोस्त",
+    "pos": "NOUN",
+    "rank": 556,
+    "is_function_word": false,
+    "source_form": "दोस्तों"
+  },
+  {
+    "lemma": "पक्ष",
+    "pos": "NOUN",
+    "rank": 557,
+    "is_function_word": false,
+    "source_form": "पक्ष"
+  },
+  {
+    "lemma": "प्रवेश",
+    "pos": "NOUN",
+    "rank": 558,
+    "is_function_word": false,
+    "source_form": "प्रवेश"
+  },
+  {
+    "lemma": "प्रशिक्षण",
+    "pos": "NOUN",
+    "rank": 559,
+    "is_function_word": false,
+    "source_form": "प्रशिक्षण"
+  },
+  {
+    "lemma": "फैसला",
+    "pos": "NOUN",
+    "rank": 560,
+    "is_function_word": false,
+    "source_form": "फैसला"
+  },
+  {
+    "lemma": "मार्ग",
+    "pos": "NOUN",
+    "rank": 561,
+    "is_function_word": false,
+    "source_form": "मार्ग"
+  },
+  {
+    "lemma": "व्यापार",
+    "pos": "NOUN",
+    "rank": 562,
+    "is_function_word": false,
+    "source_form": "व्यापार"
+  },
+  {
+    "lemma": "सत्ता",
+    "pos": "NOUN",
+    "rank": 563,
+    "is_function_word": false,
+    "source_form": "सत्ता"
+  },
+  {
+    "lemma": "समाप्त",
+    "pos": "ADJ",
+    "rank": 564,
+    "is_function_word": false,
+    "source_form": "समाप्त"
+  },
+  {
+    "lemma": "हासिल",
+    "pos": "ADJ",
+    "rank": 565,
+    "is_function_word": false,
+    "source_form": "हासिल"
+  },
+  {
+    "lemma": "अगला",
+    "pos": "ADJ",
+    "rank": 566,
+    "is_function_word": false,
+    "source_form": "अगले"
+  },
+  {
+    "lemma": "अरा",
+    "pos": "NOUN",
+    "rank": 567,
+    "is_function_word": false,
+    "source_form": "अरे"
+  },
+  {
+    "lemma": "आत्मा",
+    "pos": "NOUN",
+    "rank": 568,
+    "is_function_word": false,
+    "source_form": "आत्मा"
+  },
+  {
+    "lemma": "खाली",
+    "pos": "ADJ",
+    "rank": 569,
+    "is_function_word": false,
+    "source_form": "खाली"
+  },
+  {
+    "lemma": "तुम्हें",
+    "pos": "PRON",
+    "rank": 570,
+    "is_function_word": true,
+    "source_form": "तुम्हें"
+  },
+  {
+    "lemma": "परन्तु",
+    "pos": "CCONJ",
+    "rank": 571,
+    "is_function_word": true,
+    "source_form": "परन्तु"
+  },
+  {
+    "lemma": "बावजूद",
+    "pos": "NOUN",
+    "rank": 572,
+    "is_function_word": false,
+    "source_form": "बावजूद"
+  },
+  {
+    "lemma": "बिल्कुल",
+    "pos": "ADV",
+    "rank": 573,
+    "is_function_word": false,
+    "source_form": "बिल्कुल"
+  },
+  {
+    "lemma": "मात्र",
+    "pos": "PART",
+    "rank": 574,
+    "is_function_word": true,
+    "source_form": "मात्र"
+  },
+  {
+    "lemma": "विदेशी",
+    "pos": "ADJ",
+    "rank": 575,
+    "is_function_word": false,
+    "source_form": "विदेशी"
+  },
+  {
+    "lemma": "वेबसाइट",
+    "pos": "NOUN",
+    "rank": 576,
+    "is_function_word": false,
+    "source_form": "वेबसाइट"
+  },
+  {
+    "lemma": "संविधान",
+    "pos": "NOUN",
+    "rank": 577,
+    "is_function_word": false,
+    "source_form": "संविधान"
+  },
+  {
+    "lemma": "सिर",
+    "pos": "NOUN",
+    "rank": 578,
+    "is_function_word": false,
+    "source_form": "सिर"
+  },
+  {
+    "lemma": "आवश्यक",
+    "pos": "ADJ",
+    "rank": 579,
+    "is_function_word": false,
+    "source_form": "आवश्यक"
+  },
+  {
+    "lemma": "कार्ड",
+    "pos": "NOUN",
+    "rank": 580,
+    "is_function_word": false,
+    "source_form": "कार्ड"
+  },
+  {
+    "lemma": "कृषि",
+    "pos": "NOUN",
+    "rank": 581,
+    "is_function_word": false,
+    "source_form": "कृषि"
+  },
+  {
+    "lemma": "गाय",
+    "pos": "NOUN",
+    "rank": 582,
+    "is_function_word": false,
+    "source_form": "गाय"
+  },
+  {
+    "lemma": "गिरफ्तार",
+    "pos": "ADJ",
+    "rank": 583,
+    "is_function_word": false,
+    "source_form": "गिरफ्तार"
+  },
+  {
+    "lemma": "जितना",
+    "pos": "ADJ",
+    "rank": 584,
+    "is_function_word": false,
+    "source_form": "जितना"
+  },
+  {
+    "lemma": "ट्रेन",
+    "pos": "NOUN",
+    "rank": 585,
+    "is_function_word": false,
+    "source_form": "ट्रेन"
+  },
+  {
+    "lemma": "तय",
+    "pos": "ADJ",
+    "rank": 586,
+    "is_function_word": false,
+    "source_form": "तय"
+  },
+  {
+    "lemma": "नदी",
+    "pos": "NOUN",
+    "rank": 587,
+    "is_function_word": false,
+    "source_form": "नदी"
+  },
+  {
+    "lemma": "निजी",
+    "pos": "ADJ",
+    "rank": 588,
+    "is_function_word": false,
+    "source_form": "निजी"
+  },
+  {
+    "lemma": "नींद",
+    "pos": "NOUN",
+    "rank": 589,
+    "is_function_word": false,
+    "source_form": "नींद"
+  },
+  {
+    "lemma": "प्रशासन",
+    "pos": "NOUN",
+    "rank": 590,
+    "is_function_word": false,
+    "source_form": "प्रशासन"
+  },
+  {
+    "lemma": "बारिश",
+    "pos": "NOUN",
+    "rank": 591,
+    "is_function_word": false,
+    "source_form": "बारिश"
+  },
+  {
+    "lemma": "मौका",
+    "pos": "NOUN",
+    "rank": 592,
+    "is_function_word": false,
+    "source_form": "मौका"
+  },
+  {
+    "lemma": "रेल",
+    "pos": "NOUN",
+    "rank": 593,
+    "is_function_word": false,
+    "source_form": "रेल"
+  },
+  {
+    "lemma": "संपर्क",
+    "pos": "NOUN",
+    "rank": 594,
+    "is_function_word": false,
+    "source_form": "संपर्क"
+  },
+  {
+    "lemma": "समिति",
+    "pos": "NOUN",
+    "rank": 595,
+    "is_function_word": false,
+    "source_form": "समिति"
+  },
+  {
+    "lemma": "समुदाय",
+    "pos": "NOUN",
+    "rank": 596,
+    "is_function_word": false,
+    "source_form": "समुदाय"
+  },
+  {
+    "lemma": "सांसद",
+    "pos": "NOUN",
+    "rank": 597,
+    "is_function_word": false,
+    "source_form": "सांसद"
+  },
+  {
+    "lemma": "सुरक्षित",
+    "pos": "ADJ",
+    "rank": 598,
+    "is_function_word": false,
+    "source_form": "सुरक्षित"
+  },
+  {
+    "lemma": "सूचना",
+    "pos": "NOUN",
+    "rank": 599,
+    "is_function_word": false,
+    "source_form": "सूचना"
+  },
+  {
+    "lemma": "स्थापित",
+    "pos": "ADJ",
+    "rank": 600,
+    "is_function_word": false,
+    "source_form": "स्थापित"
+  },
+  {
+    "lemma": "स्वागत",
+    "pos": "NOUN",
+    "rank": 601,
+    "is_function_word": false,
+    "source_form": "स्वागत"
+  },
+  {
+    "lemma": "हमला",
+    "pos": "NOUN",
+    "rank": 602,
+    "is_function_word": false,
+    "source_form": "हमला"
+  },
+  {
+    "lemma": "हवा",
+    "pos": "NOUN",
+    "rank": 603,
+    "is_function_word": false,
+    "source_form": "हवा"
+  },
+  {
+    "lemma": "हाँ",
+    "pos": "PRON",
+    "rank": 604,
+    "is_function_word": true,
+    "source_form": "हाँ"
+  },
+  {
+    "lemma": "खराब",
+    "pos": "ADJ",
+    "rank": 605,
+    "is_function_word": false,
+    "source_form": "खराब"
+  },
+  {
+    "lemma": "ग्राम",
+    "pos": "NOUN",
+    "rank": 606,
+    "is_function_word": false,
+    "source_form": "ग्राम"
+  },
+  {
+    "lemma": "डिग्री",
+    "pos": "NOUN",
+    "rank": 607,
+    "is_function_word": false,
+    "source_form": "डिग्री"
+  },
+  {
+    "lemma": "पड",
+    "pos": "AUX",
+    "rank": 608,
+    "is_function_word": true,
+    "source_form": "पड़ेगा"
+  },
+  {
+    "lemma": "प्रचार",
+    "pos": "NOUN",
+    "rank": 609,
+    "is_function_word": false,
+    "source_form": "प्रचार"
+  },
+  {
+    "lemma": "प्रथम",
+    "pos": "ADJ",
+    "rank": 610,
+    "is_function_word": false,
+    "source_form": "प्रथम"
+  },
+  {
+    "lemma": "प्रभावित",
+    "pos": "ADJ",
+    "rank": 611,
+    "is_function_word": false,
+    "source_form": "प्रभावित"
+  },
+  {
+    "lemma": "भला",
+    "pos": "PART",
+    "rank": 612,
+    "is_function_word": true,
+    "source_form": "भले"
+  },
+  {
+    "lemma": "भीड़",
+    "pos": "NOUN",
+    "rank": 613,
+    "is_function_word": false,
+    "source_form": "भीड़"
+  },
+  {
+    "lemma": "भूमि",
+    "pos": "NOUN",
+    "rank": 614,
+    "is_function_word": false,
+    "source_form": "भूमि"
+  },
+  {
+    "lemma": "योग",
+    "pos": "NOUN",
+    "rank": 615,
+    "is_function_word": false,
+    "source_form": "योग"
+  },
+  {
+    "lemma": "रोज",
+    "pos": "NOUN",
+    "rank": 616,
+    "is_function_word": false,
+    "source_form": "रोज"
+  },
+  {
+    "lemma": "लक्ष्य",
+    "pos": "NOUN",
+    "rank": 617,
+    "is_function_word": false,
+    "source_form": "लक्ष्य"
+  },
+  {
+    "lemma": "शान्ति",
+    "pos": "NOUN",
+    "rank": 618,
+    "is_function_word": false,
+    "source_form": "शांति"
+  },
+  {
+    "lemma": "संघर्ष",
+    "pos": "NOUN",
+    "rank": 619,
+    "is_function_word": false,
+    "source_form": "संघर्ष"
+  },
+  {
+    "lemma": "सहयोग",
+    "pos": "NOUN",
+    "rank": 620,
+    "is_function_word": false,
+    "source_form": "सहयोग"
+  },
+  {
+    "lemma": "हार्दिक",
+    "pos": "NOUN",
+    "rank": 621,
+    "is_function_word": false,
+    "source_form": "हार्दिक"
+  },
+  {
+    "lemma": "आँख",
+    "pos": "NOUN",
+    "rank": 622,
+    "is_function_word": false,
+    "source_form": "आँखों"
+  },
+  {
+    "lemma": "करा",
+    "pos": "VERB",
+    "rank": 623,
+    "is_function_word": false,
+    "source_form": "करा"
+  },
+  {
+    "lemma": "घोषित",
+    "pos": "ADJ",
+    "rank": 624,
+    "is_function_word": false,
+    "source_form": "घोषित"
+  },
+  {
+    "lemma": "धार्मिक",
+    "pos": "ADJ",
+    "rank": 625,
+    "is_function_word": false,
+    "source_form": "धार्मिक"
+  },
+  {
+    "lemma": "परंतु",
+    "pos": "CCONJ",
+    "rank": 626,
+    "is_function_word": true,
+    "source_form": "परंतु"
+  },
+  {
+    "lemma": "पाकिस्तानी",
+    "pos": "ADJ",
+    "rank": 627,
+    "is_function_word": false,
+    "source_form": "पाकिस्तानी"
+  },
+  {
+    "lemma": "पुराना",
+    "pos": "ADJ",
+    "rank": 628,
+    "is_function_word": false,
+    "source_form": "पुराने"
+  },
+  {
+    "lemma": "पुरुष",
+    "pos": "NOUN",
+    "rank": 629,
+    "is_function_word": false,
+    "source_form": "पुरुष"
+  },
+  {
+    "lemma": "पूछ",
+    "pos": "VERB",
+    "rank": 630,
+    "is_function_word": false,
+    "source_form": "पूछा"
+  },
+  {
+    "lemma": "प्रतिशत",
+    "pos": "NOUN",
+    "rank": 631,
+    "is_function_word": false,
+    "source_form": "प्रतिशत"
+  },
+  {
+    "lemma": "प्रत्येक",
+    "pos": "DET",
+    "rank": 632,
+    "is_function_word": true,
+    "source_form": "प्रत्येक"
+  },
+  {
+    "lemma": "प्रभाव",
+    "pos": "NOUN",
+    "rank": 633,
+    "is_function_word": false,
+    "source_form": "प्रभाव"
+  },
+  {
+    "lemma": "फोटो",
+    "pos": "NOUN",
+    "rank": 634,
+    "is_function_word": false,
+    "source_form": "फोटो"
+  },
+  {
+    "lemma": "फोन",
+    "pos": "NOUN",
+    "rank": 635,
+    "is_function_word": false,
+    "source_form": "फोन"
+  },
+  {
+    "lemma": "भाव",
+    "pos": "NOUN",
+    "rank": 636,
+    "is_function_word": false,
+    "source_form": "भाव"
+  },
+  {
+    "lemma": "मात्रा",
+    "pos": "NOUN",
+    "rank": 637,
+    "is_function_word": false,
+    "source_form": "मात्रा"
+  },
+  {
+    "lemma": "मुसलमान",
+    "pos": "NOUN",
+    "rank": 638,
+    "is_function_word": false,
+    "source_form": "मुसलमान"
+  },
+  {
+    "lemma": "लगता",
+    "pos": "VERB",
+    "rank": 639,
+    "is_function_word": false,
+    "source_form": "लगती"
+  },
+  {
+    "lemma": "संबंधित",
+    "pos": "ADJ",
+    "rank": 640,
+    "is_function_word": false,
+    "source_form": "संबंधित"
+  },
+  {
+    "lemma": "सुधार",
+    "pos": "NOUN",
+    "rank": 641,
+    "is_function_word": false,
+    "source_form": "सुधार"
+  },
+  {
+    "lemma": "इंटरनेट",
+    "pos": "NOUN",
+    "rank": 642,
+    "is_function_word": false,
+    "source_form": "इंटरनेट"
+  },
+  {
+    "lemma": "करीब",
+    "pos": "PART",
+    "rank": 643,
+    "is_function_word": true,
+    "source_form": "करीब"
+  },
+  {
+    "lemma": "कैसा",
+    "pos": "PRON",
+    "rank": 644,
+    "is_function_word": true,
+    "source_form": "कैसा"
+  },
+  {
+    "lemma": "चिंता",
+    "pos": "NOUN",
+    "rank": 645,
+    "is_function_word": false,
+    "source_form": "चिंता"
+  },
+  {
+    "lemma": "जुड",
+    "pos": "VERB",
+    "rank": 646,
+    "is_function_word": false,
+    "source_form": "जुड़े"
+  },
+  {
+    "lemma": "धरती",
+    "pos": "NOUN",
+    "rank": 647,
+    "is_function_word": false,
+    "source_form": "धरती"
+  },
+  {
+    "lemma": "फल",
+    "pos": "NOUN",
+    "rank": 648,
+    "is_function_word": false,
+    "source_form": "फल"
+  },
+  {
+    "lemma": "बचपन",
+    "pos": "NOUN",
+    "rank": 649,
+    "is_function_word": false,
+    "source_form": "बचपन"
+  },
+  {
+    "lemma": "बोर्ड",
+    "pos": "NOUN",
+    "rank": 650,
+    "is_function_word": false,
+    "source_form": "बोर्ड"
+  },
+  {
+    "lemma": "भीतर",
+    "pos": "ADV",
+    "rank": 651,
+    "is_function_word": false,
+    "source_form": "भीतर"
+  },
+  {
+    "lemma": "मूल",
+    "pos": "ADJ",
+    "rank": 652,
+    "is_function_word": false,
+    "source_form": "मूल"
+  },
+  {
+    "lemma": "संसार",
+    "pos": "NOUN",
+    "rank": 653,
+    "is_function_word": false,
+    "source_form": "संसार"
+  },
+  {
+    "lemma": "सौ",
+    "pos": "NUM",
+    "rank": 654,
+    "is_function_word": false,
+    "source_form": "सौ"
+  },
+  {
+    "lemma": "अनेक",
+    "pos": "DET",
+    "rank": 655,
+    "is_function_word": true,
+    "source_form": "अनेक"
+  },
+  {
+    "lemma": "अस्पताल",
+    "pos": "NOUN",
+    "rank": 656,
+    "is_function_word": false,
+    "source_form": "अस्पताल"
+  },
+  {
+    "lemma": "गैस",
+    "pos": "NOUN",
+    "rank": 657,
+    "is_function_word": false,
+    "source_form": "गैस"
+  },
+  {
+    "lemma": "गोली",
+    "pos": "NOUN",
+    "rank": 658,
+    "is_function_word": false,
+    "source_form": "गोली"
+  },
+  {
+    "lemma": "दर्ज",
+    "pos": "ADJ",
+    "rank": 659,
+    "is_function_word": false,
+    "source_form": "दर्ज"
+  },
+  {
+    "lemma": "नीति",
+    "pos": "NOUN",
+    "rank": 660,
+    "is_function_word": false,
+    "source_form": "नीति"
+  },
+  {
+    "lemma": "नोट",
+    "pos": "NOUN",
+    "rank": 661,
+    "is_function_word": false,
+    "source_form": "नोट"
+  },
+  {
+    "lemma": "बोली",
+    "pos": "NOUN",
+    "rank": 662,
+    "is_function_word": false,
+    "source_form": "बोली"
+  },
+  {
+    "lemma": "महसूस",
+    "pos": "ADJ",
+    "rank": 663,
+    "is_function_word": false,
+    "source_form": "महसूस"
+  },
+  {
+    "lemma": "शीर्ष",
+    "pos": "ADJ",
+    "rank": 664,
+    "is_function_word": false,
+    "source_form": "शीर्ष"
+  },
+  {
+    "lemma": "सहायता",
+    "pos": "NOUN",
+    "rank": 665,
+    "is_function_word": false,
+    "source_form": "सहायता"
+  },
+  {
+    "lemma": "स्पष्ट",
+    "pos": "ADJ",
+    "rank": 666,
+    "is_function_word": false,
+    "source_form": "स्पष्ट"
+  },
+  {
+    "lemma": "अंग्रेजी",
+    "pos": "ADJ",
+    "rank": 667,
+    "is_function_word": false,
+    "source_form": "अंग्रेज़ी"
+  },
+  {
+    "lemma": "आखिर",
+    "pos": "ADV",
+    "rank": 668,
+    "is_function_word": false,
+    "source_form": "आखिर"
+  },
+  {
+    "lemma": "डॉक्टर",
+    "pos": "NOUN",
+    "rank": 669,
+    "is_function_word": false,
+    "source_form": "डॉक्टर"
+  },
+  {
+    "lemma": "तस्वीर",
+    "pos": "NOUN",
+    "rank": 670,
+    "is_function_word": false,
+    "source_form": "तस्वीर"
+  },
+  {
+    "lemma": "मौजूद",
+    "pos": "ADJ",
+    "rank": 671,
+    "is_function_word": false,
+    "source_form": "मौजूद"
+  },
+  {
+    "lemma": "मौसम",
+    "pos": "NOUN",
+    "rank": 672,
+    "is_function_word": false,
+    "source_form": "मौसम"
+  },
+  {
+    "lemma": "रास्ता",
+    "pos": "NOUN",
+    "rank": 673,
+    "is_function_word": false,
+    "source_form": "रास्ता"
+  },
+  {
+    "lemma": "लड़ाई",
+    "pos": "NOUN",
+    "rank": 674,
+    "is_function_word": false,
+    "source_form": "लड़ाई"
+  },
+  {
+    "lemma": "वक़्त",
+    "pos": "NOUN",
+    "rank": 675,
+    "is_function_word": false,
+    "source_form": "वक़्त"
+  },
+  {
+    "lemma": "विज्ञान",
+    "pos": "NOUN",
+    "rank": 676,
+    "is_function_word": false,
+    "source_form": "विज्ञान"
+  },
+  {
+    "lemma": "सूची",
+    "pos": "NOUN",
+    "rank": 677,
+    "is_function_word": false,
+    "source_form": "सूची"
+  },
+  {
+    "lemma": "आजकल",
+    "pos": "NOUN",
+    "rank": 678,
+    "is_function_word": false,
+    "source_form": "आजकल"
+  },
+  {
+    "lemma": "आयोग",
+    "pos": "NOUN",
+    "rank": 679,
+    "is_function_word": false,
+    "source_form": "आयोग"
+  },
+  {
+    "lemma": "गरीब",
+    "pos": "ADJ",
+    "rank": 680,
+    "is_function_word": false,
+    "source_form": "गरीब"
+  },
+  {
+    "lemma": "जरूरी",
+    "pos": "ADJ",
+    "rank": 681,
+    "is_function_word": false,
+    "source_form": "जरूरी"
+  },
+  {
+    "lemma": "फूल",
+    "pos": "NOUN",
+    "rank": 682,
+    "is_function_word": false,
+    "source_form": "फूल"
+  },
+  {
+    "lemma": "मूल्य",
+    "pos": "NOUN",
+    "rank": 683,
+    "is_function_word": false,
+    "source_form": "मूल्य"
+  },
+  {
+    "lemma": "राय",
+    "pos": "NOUN",
+    "rank": 684,
+    "is_function_word": false,
+    "source_form": "राय"
+  },
+  {
+    "lemma": "रोग",
+    "pos": "NOUN",
+    "rank": 685,
+    "is_function_word": false,
+    "source_form": "रोग"
+  },
+  {
+    "lemma": "समाचार",
+    "pos": "NOUN",
+    "rank": 686,
+    "is_function_word": false,
+    "source_form": "समाचार"
+  },
+  {
+    "lemma": "स्वीकार",
+    "pos": "NOUN",
+    "rank": 687,
+    "is_function_word": false,
+    "source_form": "स्वीकार"
+  },
+  {
+    "lemma": "अपराध",
+    "pos": "NOUN",
+    "rank": 688,
+    "is_function_word": false,
+    "source_form": "अपराध"
+  },
+  {
+    "lemma": "ऊर्जा",
+    "pos": "NOUN",
+    "rank": 689,
+    "is_function_word": false,
+    "source_form": "ऊर्जा"
+  },
+  {
+    "lemma": "कार",
+    "pos": "NOUN",
+    "rank": 690,
+    "is_function_word": false,
+    "source_form": "कार"
+  },
+  {
+    "lemma": "खाता",
+    "pos": "NOUN",
+    "rank": 691,
+    "is_function_word": false,
+    "source_form": "खाते"
+  },
+  {
+    "lemma": "खिलाडी",
+    "pos": "NOUN",
+    "rank": 692,
+    "is_function_word": false,
+    "source_form": "खिलाड़ी"
+  },
+  {
+    "lemma": "चीनी",
+    "pos": "ADJ",
+    "rank": 693,
+    "is_function_word": false,
+    "source_form": "चीनी"
+  },
+  {
+    "lemma": "जन",
+    "pos": "NOUN",
+    "rank": 694,
+    "is_function_word": false,
+    "source_form": "जन"
+  },
+  {
+    "lemma": "दस",
+    "pos": "NUM",
+    "rank": 695,
+    "is_function_word": false,
+    "source_form": "दस"
+  },
+  {
+    "lemma": "परमेश्वर",
+    "pos": "NOUN",
+    "rank": 696,
+    "is_function_word": false,
+    "source_form": "परमेश्वर"
+  },
+  {
+    "lemma": "प्रश्न",
+    "pos": "NOUN",
+    "rank": 697,
+    "is_function_word": false,
+    "source_form": "प्रश्न"
+  },
+  {
+    "lemma": "मुँह",
+    "pos": "NOUN",
+    "rank": 698,
+    "is_function_word": false,
+    "source_form": "मुँह"
+  },
+  {
+    "lemma": "मेहनत",
+    "pos": "NOUN",
+    "rank": 699,
+    "is_function_word": false,
+    "source_form": "मेहनत"
+  },
+  {
+    "lemma": "मोबाइल",
+    "pos": "NOUN",
+    "rank": 700,
+    "is_function_word": false,
+    "source_form": "मोबाइल"
+  },
+  {
+    "lemma": "यार",
+    "pos": "NOUN",
+    "rank": 701,
+    "is_function_word": false,
+    "source_form": "यार"
+  },
+  {
+    "lemma": "लंड",
+    "pos": "NOUN",
+    "rank": 702,
+    "is_function_word": false,
+    "source_form": "लंड"
+  },
+  {
+    "lemma": "ला",
+    "pos": "VERB",
+    "rank": 703,
+    "is_function_word": false,
+    "source_form": "लाने"
+  },
+  {
+    "lemma": "लोकसभा",
+    "pos": "NOUN",
+    "rank": 704,
+    "is_function_word": false,
+    "source_form": "लोकसभा"
+  },
+  {
+    "lemma": "वृद्धि",
+    "pos": "NOUN",
+    "rank": 705,
+    "is_function_word": false,
+    "source_form": "वृद्धि"
+  },
+  {
+    "lemma": "शुभ",
+    "pos": "ADJ",
+    "rank": 706,
+    "is_function_word": false,
+    "source_form": "शुभ"
+  },
+  {
+    "lemma": "संगीत",
+    "pos": "NOUN",
+    "rank": 707,
+    "is_function_word": false,
+    "source_form": "संगीत"
+  },
+  {
+    "lemma": "आवाज",
+    "pos": "NOUN",
+    "rank": 708,
+    "is_function_word": false,
+    "source_form": "आवाज़"
+  },
+  {
+    "lemma": "तुरंत",
+    "pos": "ADV",
+    "rank": 709,
+    "is_function_word": false,
+    "source_form": "तुरंत"
+  },
+  {
+    "lemma": "दिमाग",
+    "pos": "NOUN",
+    "rank": 710,
+    "is_function_word": false,
+    "source_form": "दिमाग"
+  },
+  {
+    "lemma": "पत्रकार",
+    "pos": "NOUN",
+    "rank": 711,
+    "is_function_word": false,
+    "source_form": "पत्रकार"
+  },
+  {
+    "lemma": "मार",
+    "pos": "PRON",
+    "rank": 712,
+    "is_function_word": true,
+    "source_form": "मारा"
+  },
+  {
+    "lemma": "राजधानी",
+    "pos": "NOUN",
+    "rank": 713,
+    "is_function_word": false,
+    "source_form": "राजधानी"
+  },
+  {
+    "lemma": "लाइन",
+    "pos": "NOUN",
+    "rank": 714,
+    "is_function_word": false,
+    "source_form": "लाइन"
+  },
+  {
+    "lemma": "विस्तार",
+    "pos": "NOUN",
+    "rank": 715,
+    "is_function_word": false,
+    "source_form": "विस्तार"
+  },
+  {
+    "lemma": "अथवा",
+    "pos": "CCONJ",
+    "rank": 716,
+    "is_function_word": true,
+    "source_form": "अथवा"
+  },
+  {
+    "lemma": "अनुभव",
+    "pos": "NOUN",
+    "rank": 717,
+    "is_function_word": false,
+    "source_form": "अनुभव"
+  },
+  {
+    "lemma": "इलाज",
+    "pos": "NOUN",
+    "rank": 718,
+    "is_function_word": false,
+    "source_form": "इलाज"
+  },
+  {
+    "lemma": "तुलना",
+    "pos": "NOUN",
+    "rank": 719,
+    "is_function_word": false,
+    "source_form": "तुलना"
+  },
+  {
+    "lemma": "तैयारी",
+    "pos": "NOUN",
+    "rank": 720,
+    "is_function_word": false,
+    "source_form": "तैयारी"
+  },
+  {
+    "lemma": "फ़िल्म",
+    "pos": "NOUN",
+    "rank": 721,
+    "is_function_word": false,
+    "source_form": "फ़िल्म"
+  },
+  {
+    "lemma": "बैठक",
+    "pos": "NOUN",
+    "rank": 722,
+    "is_function_word": false,
+    "source_form": "बैठक"
+  },
+  {
+    "lemma": "रन",
+    "pos": "NOUN",
+    "rank": 723,
+    "is_function_word": false,
+    "source_form": "रन"
+  },
+  {
+    "lemma": "लेख",
+    "pos": "VERB",
+    "rank": 724,
+    "is_function_word": false,
+    "source_form": "लेख"
+  },
+  {
+    "lemma": "विश्वविद्यालय",
+    "pos": "NOUN",
+    "rank": 725,
+    "is_function_word": false,
+    "source_form": "विश्वविद्यालय"
+  },
+  {
+    "lemma": "शराब",
+    "pos": "NOUN",
+    "rank": 726,
+    "is_function_word": false,
+    "source_form": "शराब"
+  },
+  {
+    "lemma": "सपना",
+    "pos": "NOUN",
+    "rank": 727,
+    "is_function_word": false,
+    "source_form": "सपना"
+  },
+  {
+    "lemma": "स्टेशन",
+    "pos": "NOUN",
+    "rank": 728,
+    "is_function_word": false,
+    "source_form": "स्टेशन"
+  },
+  {
+    "lemma": "हिन्द",
+    "pos": "ADV",
+    "rank": 729,
+    "is_function_word": false,
+    "source_form": "हिन्द"
+  },
+  {
+    "lemma": "आज़ादी",
+    "pos": "NOUN",
+    "rank": 730,
+    "is_function_word": false,
+    "source_form": "आज़ादी"
+  },
+  {
+    "lemma": "आयोजन",
+    "pos": "NOUN",
+    "rank": 731,
+    "is_function_word": false,
+    "source_form": "आयोजन"
+  },
+  {
+    "lemma": "ईश्वर",
+    "pos": "NOUN",
+    "rank": 732,
+    "is_function_word": false,
+    "source_form": "ईश्वर"
+  },
+  {
+    "lemma": "कवि",
+    "pos": "NOUN",
+    "rank": 733,
+    "is_function_word": false,
+    "source_form": "कवि"
+  },
+  {
+    "lemma": "क्षमता",
+    "pos": "NOUN",
+    "rank": 734,
+    "is_function_word": false,
+    "source_form": "क्षमता"
+  },
+  {
+    "lemma": "चोर",
+    "pos": "NOUN",
+    "rank": 735,
+    "is_function_word": false,
+    "source_form": "चोर"
+  },
+  {
+    "lemma": "झूठ",
+    "pos": "NOUN",
+    "rank": 736,
+    "is_function_word": false,
+    "source_form": "झूठ"
+  },
+  {
+    "lemma": "पहुंच",
+    "pos": "VERB",
+    "rank": 737,
+    "is_function_word": false,
+    "source_form": "पहुंच"
+  },
+  {
+    "lemma": "पेड",
+    "pos": "NOUN",
+    "rank": 738,
+    "is_function_word": false,
+    "source_form": "पेड़"
+  },
+  {
+    "lemma": "मित्र",
+    "pos": "NOUN",
+    "rank": 739,
+    "is_function_word": false,
+    "source_form": "मित्र"
+  },
+  {
+    "lemma": "विरोधी",
+    "pos": "ADJ",
+    "rank": 740,
+    "is_function_word": false,
+    "source_form": "विरोधी"
+  },
+  {
+    "lemma": "शिकायत",
+    "pos": "NOUN",
+    "rank": 741,
+    "is_function_word": false,
+    "source_form": "शिकायत"
+  },
+  {
+    "lemma": "सीधे",
+    "pos": "ADV",
+    "rank": 742,
+    "is_function_word": false,
+    "source_form": "सीधे"
+  },
+  {
+    "lemma": "स्थापना",
+    "pos": "NOUN",
+    "rank": 743,
+    "is_function_word": false,
+    "source_form": "स्थापना"
+  },
+  {
+    "lemma": "इच्छा",
+    "pos": "ADJ",
+    "rank": 744,
+    "is_function_word": false,
+    "source_form": "इच्छा"
+  },
+  {
+    "lemma": "उचित",
+    "pos": "ADJ",
+    "rank": 745,
+    "is_function_word": false,
+    "source_form": "उचित"
+  },
+  {
+    "lemma": "कार्यालय",
+    "pos": "NOUN",
+    "rank": 746,
+    "is_function_word": false,
+    "source_form": "कार्यालय"
+  },
+  {
+    "lemma": "काला",
+    "pos": "ADJ",
+    "rank": 747,
+    "is_function_word": false,
+    "source_form": "काला"
+  },
+  {
+    "lemma": "किन्तु",
+    "pos": "CCONJ",
+    "rank": 748,
+    "is_function_word": true,
+    "source_form": "किन्तु"
+  },
+  {
+    "lemma": "चीज",
+    "pos": "NOUN",
+    "rank": 749,
+    "is_function_word": false,
+    "source_form": "चीज"
+  },
+  {
+    "lemma": "चूत",
+    "pos": "NOUN",
+    "rank": 750,
+    "is_function_word": false,
+    "source_form": "चूत"
+  },
+  {
+    "lemma": "तेज",
+    "pos": "ADJ",
+    "rank": 751,
+    "is_function_word": false,
+    "source_form": "तेज"
+  },
+  {
+    "lemma": "दौर",
+    "pos": "NOUN",
+    "rank": 752,
+    "is_function_word": false,
+    "source_form": "दौर"
+  },
+  {
+    "lemma": "पवित्र",
+    "pos": "ADJ",
+    "rank": 753,
+    "is_function_word": false,
+    "source_form": "पवित्र"
+  },
+  {
+    "lemma": "प्रकृति",
+    "pos": "NOUN",
+    "rank": 754,
+    "is_function_word": false,
+    "source_form": "प्रकृति"
+  },
+  {
+    "lemma": "बजा",
+    "pos": "AUX",
+    "rank": 755,
+    "is_function_word": true,
+    "source_form": "बजाय"
+  },
+  {
+    "lemma": "मजबूत",
+    "pos": "ADJ",
+    "rank": 756,
+    "is_function_word": false,
+    "source_form": "मजबूत"
+  },
+  {
+    "lemma": "मालिक",
+    "pos": "NOUN",
+    "rank": 757,
+    "is_function_word": false,
+    "source_form": "मालिक"
+  },
+  {
+    "lemma": "शत",
+    "pos": "NOUN",
+    "rank": 758,
+    "is_function_word": false,
+    "source_form": "शत"
+  },
+  {
+    "lemma": "संभव",
+    "pos": "ADJ",
+    "rank": 759,
+    "is_function_word": false,
+    "source_form": "संभव"
+  },
+  {
+    "lemma": "साथी",
+    "pos": "NOUN",
+    "rank": 760,
+    "is_function_word": false,
+    "source_form": "साथी"
+  },
+  {
+    "lemma": "सीट",
+    "pos": "NOUN",
+    "rank": 761,
+    "is_function_word": false,
+    "source_form": "सीट"
+  },
+  {
+    "lemma": "उद्देश्य",
+    "pos": "NOUN",
+    "rank": 762,
+    "is_function_word": false,
+    "source_form": "उद्देश्य"
+  },
+  {
+    "lemma": "कला",
+    "pos": "NOUN",
+    "rank": 763,
+    "is_function_word": false,
+    "source_form": "कला"
+  },
+  {
+    "lemma": "गंभीर",
+    "pos": "ADJ",
+    "rank": 764,
+    "is_function_word": false,
+    "source_form": "गंभीर"
+  },
+  {
+    "lemma": "गाड़ी",
+    "pos": "NOUN",
+    "rank": 765,
+    "is_function_word": false,
+    "source_form": "गाड़ी"
+  },
+  {
+    "lemma": "नागरिक",
+    "pos": "NOUN",
+    "rank": 766,
+    "is_function_word": false,
+    "source_form": "नागरिक"
+  },
+  {
+    "lemma": "पेश",
+    "pos": "ADJ",
+    "rank": 767,
+    "is_function_word": false,
+    "source_form": "पेश"
+  },
+  {
+    "lemma": "भर",
+    "pos": "VERB",
+    "rank": 768,
+    "is_function_word": false,
+    "source_form": "भरा"
+  },
+  {
+    "lemma": "भैया",
+    "pos": "VERB",
+    "rank": 769,
+    "is_function_word": false,
+    "source_form": "भैया"
+  },
+  {
+    "lemma": "मस्जिद",
+    "pos": "NOUN",
+    "rank": 770,
+    "is_function_word": false,
+    "source_form": "मस्जिद"
+  },
+  {
+    "lemma": "मॉडल",
+    "pos": "NOUN",
+    "rank": 771,
+    "is_function_word": false,
+    "source_form": "मॉडल"
+  },
+  {
+    "lemma": "शिक्षक",
+    "pos": "NOUN",
+    "rank": 772,
+    "is_function_word": false,
+    "source_form": "शिक्षक"
+  },
+  {
+    "lemma": "सजा",
+    "pos": "NOUN",
+    "rank": 773,
+    "is_function_word": false,
+    "source_form": "सजा"
+  },
+  {
+    "lemma": "सुन्दर",
+    "pos": "ADV",
+    "rank": 774,
+    "is_function_word": false,
+    "source_form": "सुंदर"
+  },
+  {
+    "lemma": "हद",
+    "pos": "NOUN",
+    "rank": 775,
+    "is_function_word": false,
+    "source_form": "हद"
+  },
+  {
+    "lemma": "अतिरिक्त",
+    "pos": "NOUN",
+    "rank": 776,
+    "is_function_word": false,
+    "source_form": "अतिरिक्त"
+  },
+  {
+    "lemma": "अमेरिकी",
+    "pos": "ADJ",
+    "rank": 777,
+    "is_function_word": false,
+    "source_form": "अमेरिकी"
+  },
+  {
+    "lemma": "उधर",
+    "pos": "ADV",
+    "rank": 778,
+    "is_function_word": false,
+    "source_form": "उधर"
+  },
+  {
+    "lemma": "कडा",
+    "pos": "ADJ",
+    "rank": 779,
+    "is_function_word": false,
+    "source_form": "कड़ी"
+  },
+  {
+    "lemma": "गैर",
+    "pos": "ADJ",
+    "rank": 780,
+    "is_function_word": false,
+    "source_form": "गैर"
+  },
+  {
+    "lemma": "ग्रामीण",
+    "pos": "NOUN",
+    "rank": 781,
+    "is_function_word": false,
+    "source_form": "ग्रामीण"
+  },
+  {
+    "lemma": "जोर",
+    "pos": "NOUN",
+    "rank": 782,
+    "is_function_word": false,
+    "source_form": "जोर"
+  },
+  {
+    "lemma": "दावा",
+    "pos": "NOUN",
+    "rank": 783,
+    "is_function_word": false,
+    "source_form": "दावा"
+  },
+  {
+    "lemma": "नियम",
+    "pos": "NOUN",
+    "rank": 784,
+    "is_function_word": false,
+    "source_form": "नियम"
+  },
+  {
+    "lemma": "न्यायालय",
+    "pos": "NOUN",
+    "rank": 785,
+    "is_function_word": false,
+    "source_form": "न्यायालय"
+  },
+  {
+    "lemma": "बैठा",
+    "pos": "VERB",
+    "rank": 786,
+    "is_function_word": false,
+    "source_form": "बैठा"
+  },
+  {
+    "lemma": "मना",
+    "pos": "NOUN",
+    "rank": 787,
+    "is_function_word": false,
+    "source_form": "मना"
+  },
+  {
+    "lemma": "सुविधा",
+    "pos": "NOUN",
+    "rank": 788,
+    "is_function_word": false,
+    "source_form": "सुविधा"
+  },
+  {
+    "lemma": "हाँ",
+    "pos": "NOUN",
+    "rank": 789,
+    "is_function_word": false,
+    "source_form": "हां"
+  },
+  {
+    "lemma": "अनुवाद",
+    "pos": "NOUN",
+    "rank": 790,
+    "is_function_word": false,
+    "source_form": "अनुवाद"
+  },
+  {
+    "lemma": "आठ",
+    "pos": "NUM",
+    "rank": 791,
+    "is_function_word": false,
+    "source_form": "आठ"
+  },
+  {
+    "lemma": "आधारित",
+    "pos": "ADJ",
+    "rank": 792,
+    "is_function_word": false,
+    "source_form": "आधारित"
+  },
+  {
+    "lemma": "उदाहरण",
+    "pos": "NOUN",
+    "rank": 793,
+    "is_function_word": false,
+    "source_form": "उदाहरण"
+  },
+  {
+    "lemma": "कक्षा",
+    "pos": "NOUN",
+    "rank": 794,
+    "is_function_word": false,
+    "source_form": "कक्षा"
+  },
+  {
+    "lemma": "केस",
+    "pos": "NOUN",
+    "rank": 795,
+    "is_function_word": false,
+    "source_form": "केस"
+  },
+  {
+    "lemma": "छह",
+    "pos": "NUM",
+    "rank": 796,
+    "is_function_word": false,
+    "source_form": "छह"
+  },
+  {
+    "lemma": "नष्ट",
+    "pos": "ADJ",
+    "rank": 797,
+    "is_function_word": false,
+    "source_form": "नष्ट"
+  },
+  {
+    "lemma": "पालन",
+    "pos": "NOUN",
+    "rank": 798,
+    "is_function_word": false,
+    "source_form": "पालन"
+  },
+  {
+    "lemma": "बजट",
+    "pos": "NOUN",
+    "rank": 799,
+    "is_function_word": false,
+    "source_form": "बजट"
+  },
+  {
+    "lemma": "भेज",
+    "pos": "VERB",
+    "rank": 800,
+    "is_function_word": false,
+    "source_form": "भेजा"
+  },
+  {
+    "lemma": "सिस्टम",
+    "pos": "NOUN",
+    "rank": 801,
+    "is_function_word": false,
+    "source_form": "सिस्टम"
+  },
+  {
+    "lemma": "अवश्य",
+    "pos": "ADV",
+    "rank": 802,
+    "is_function_word": false,
+    "source_form": "अवश्य"
+  },
+  {
+    "lemma": "आसपास",
+    "pos": "ADV",
+    "rank": 803,
+    "is_function_word": false,
+    "source_form": "आसपास"
+  },
+  {
+    "lemma": "इसीलिए",
+    "pos": "PRON",
+    "rank": 804,
+    "is_function_word": true,
+    "source_form": "इसीलिए"
+  },
+  {
+    "lemma": "खोल",
+    "pos": "VERB",
+    "rank": 805,
+    "is_function_word": false,
+    "source_form": "खोल"
+  },
+  {
+    "lemma": "गला",
+    "pos": "NOUN",
+    "rank": 806,
+    "is_function_word": false,
+    "source_form": "गले"
+  },
+  {
+    "lemma": "चुप",
+    "pos": "ADJ",
+    "rank": 807,
+    "is_function_word": false,
+    "source_form": "चुप"
+  },
+  {
+    "lemma": "ज़िंदगी",
+    "pos": "NOUN",
+    "rank": 808,
+    "is_function_word": false,
+    "source_form": "ज़िंदगी"
+  },
+  {
+    "lemma": "नियमित",
+    "pos": "ADJ",
+    "rank": 809,
+    "is_function_word": false,
+    "source_form": "नियमित"
+  },
+  {
+    "lemma": "न्याय",
+    "pos": "NOUN",
+    "rank": 810,
+    "is_function_word": false,
+    "source_form": "न्याय"
+  },
+  {
+    "lemma": "बढ",
+    "pos": "VERB",
+    "rank": 811,
+    "is_function_word": false,
+    "source_form": "बढ़ा"
+  },
+  {
+    "lemma": "योगदान",
+    "pos": "NOUN",
+    "rank": 812,
+    "is_function_word": false,
+    "source_form": "योगदान"
+  },
+  {
+    "lemma": "रोजगार",
+    "pos": "NOUN",
+    "rank": 813,
+    "is_function_word": false,
+    "source_form": "रोजगार"
+  },
+  {
+    "lemma": "लड़का",
+    "pos": "NOUN",
+    "rank": 814,
+    "is_function_word": false,
+    "source_form": "लड़के"
+  },
+  {
+    "lemma": "वास्तव",
+    "pos": "NOUN",
+    "rank": 815,
+    "is_function_word": false,
+    "source_form": "वास्तव"
+  },
+  {
+    "lemma": "संदेश",
+    "pos": "NOUN",
+    "rank": 816,
+    "is_function_word": false,
+    "source_form": "संदेश"
+  },
+  {
+    "lemma": "सोचा",
+    "pos": "VERB",
+    "rank": 817,
+    "is_function_word": false,
+    "source_form": "सोचा"
+  },
+  {
+    "lemma": "सोशल",
+    "pos": "ADV",
+    "rank": 818,
+    "is_function_word": false,
+    "source_form": "सोशल"
+  },
+  {
+    "lemma": "कंप्यूटर",
+    "pos": "NOUN",
+    "rank": 819,
+    "is_function_word": false,
+    "source_form": "कंप्यूटर"
+  },
+  {
+    "lemma": "किताब",
+    "pos": "NOUN",
+    "rank": 820,
+    "is_function_word": false,
+    "source_form": "किताब"
+  },
+  {
+    "lemma": "खास",
+    "pos": "ADJ",
+    "rank": 821,
+    "is_function_word": false,
+    "source_form": "खास"
+  },
+  {
+    "lemma": "जवान",
+    "pos": "NOUN",
+    "rank": 822,
+    "is_function_word": false,
+    "source_form": "जवान"
+  },
+  {
+    "lemma": "डॉलर",
+    "pos": "NOUN",
+    "rank": 823,
+    "is_function_word": false,
+    "source_form": "डॉलर"
+  },
+  {
+    "lemma": "तोड",
+    "pos": "ADV",
+    "rank": 824,
+    "is_function_word": false,
+    "source_form": "तोड़"
+  },
+  {
+    "lemma": "दुकान",
+    "pos": "NOUN",
+    "rank": 825,
+    "is_function_word": false,
+    "source_form": "दुकान"
+  },
+  {
+    "lemma": "निधन",
+    "pos": "NOUN",
+    "rank": 826,
+    "is_function_word": false,
+    "source_form": "निधन"
+  },
+  {
+    "lemma": "निश्चित",
+    "pos": "ADJ",
+    "rank": 827,
+    "is_function_word": false,
+    "source_form": "निश्चित"
+  },
+  {
+    "lemma": "पकड",
+    "pos": "NOUN",
+    "rank": 828,
+    "is_function_word": false,
+    "source_form": "पकड़"
+  },
+  {
+    "lemma": "पढ़ा",
+    "pos": "NUM",
+    "rank": 829,
+    "is_function_word": false,
+    "source_form": "पढ़ाई"
+  },
+  {
+    "lemma": "प्रस्तुत",
+    "pos": "ADJ",
+    "rank": 830,
+    "is_function_word": false,
+    "source_form": "प्रस्तुत"
+  },
+  {
+    "lemma": "मुद्दा",
+    "pos": "NOUN",
+    "rank": 831,
+    "is_function_word": false,
+    "source_form": "मुद्दे"
+  },
+  {
+    "lemma": "राहत",
+    "pos": "NOUN",
+    "rank": 832,
+    "is_function_word": false,
+    "source_form": "राहत"
+  },
+  {
+    "lemma": "रोक",
+    "pos": "VERB",
+    "rank": 833,
+    "is_function_word": false,
+    "source_form": "रोकने"
+  },
+  {
+    "lemma": "संत",
+    "pos": "NOUN",
+    "rank": 834,
+    "is_function_word": false,
+    "source_form": "संत"
+  },
+  {
+    "lemma": "सदा",
+    "pos": "NOUN",
+    "rank": 835,
+    "is_function_word": false,
+    "source_form": "सदा"
+  },
+  {
+    "lemma": "समूह",
+    "pos": "NOUN",
+    "rank": 836,
+    "is_function_word": false,
+    "source_form": "समूह"
+  },
+  {
+    "lemma": "सहायक",
+    "pos": "NOUN",
+    "rank": 837,
+    "is_function_word": false,
+    "source_form": "सहायक"
+  },
+  {
+    "lemma": "हालत",
+    "pos": "NOUN",
+    "rank": 838,
+    "is_function_word": false,
+    "source_form": "हालत"
+  },
+  {
+    "lemma": "अंतर्गत",
+    "pos": "NOUN",
+    "rank": 839,
+    "is_function_word": false,
+    "source_form": "अंतर्गत"
+  },
+  {
+    "lemma": "आसान",
+    "pos": "ADJ",
+    "rank": 840,
+    "is_function_word": false,
+    "source_form": "आसान"
+  },
+  {
+    "lemma": "इक",
+    "pos": "NOUN",
+    "rank": 841,
+    "is_function_word": false,
+    "source_form": "इक"
+  },
+  {
+    "lemma": "कुत्ता",
+    "pos": "SCONJ",
+    "rank": 842,
+    "is_function_word": true,
+    "source_form": "कुत्ते"
+  },
+  {
+    "lemma": "क्यूँ",
+    "pos": "PRON",
+    "rank": 843,
+    "is_function_word": true,
+    "source_form": "क्यूँ"
+  },
+  {
+    "lemma": "परिषद",
+    "pos": "NOUN",
+    "rank": 844,
+    "is_function_word": false,
+    "source_form": "परिषद"
+  },
+  {
+    "lemma": "बच",
+    "pos": "VERB",
+    "rank": 845,
+    "is_function_word": false,
+    "source_form": "बचा"
+  },
+  {
+    "lemma": "बढा",
+    "pos": "VERB",
+    "rank": 846,
+    "is_function_word": false,
+    "source_form": "बढ़ाने"
+  },
+  {
+    "lemma": "ब्राह्मण",
+    "pos": "NOUN",
+    "rank": 847,
+    "is_function_word": false,
+    "source_form": "ब्राह्मण"
+  },
+  {
+    "lemma": "मानसिक",
+    "pos": "ADJ",
+    "rank": 848,
+    "is_function_word": false,
+    "source_form": "मानसिक"
+  },
+  {
+    "lemma": "वरना",
+    "pos": "SCONJ",
+    "rank": 849,
+    "is_function_word": true,
+    "source_form": "वरना"
+  },
+  {
+    "lemma": "व्यवहार",
+    "pos": "NOUN",
+    "rank": 850,
+    "is_function_word": false,
+    "source_form": "व्यवहार"
+  },
+  {
+    "lemma": "शिकार",
+    "pos": "NOUN",
+    "rank": 851,
+    "is_function_word": false,
+    "source_form": "शिकार"
+  },
+  {
+    "lemma": "समझा",
+    "pos": "VERB",
+    "rank": 852,
+    "is_function_word": false,
+    "source_form": "समझा"
+  },
+  {
+    "lemma": "अंग",
+    "pos": "NOUN",
+    "rank": 853,
+    "is_function_word": false,
+    "source_form": "अंग"
+  },
+  {
+    "lemma": "अनुमति",
+    "pos": "NOUN",
+    "rank": 854,
+    "is_function_word": false,
+    "source_form": "अनुमति"
+  },
+  {
+    "lemma": "आपसे",
+    "pos": "PRON",
+    "rank": 855,
+    "is_function_word": true,
+    "source_form": "आपसे"
+  },
+  {
+    "lemma": "आशा",
+    "pos": "NOUN",
+    "rank": 856,
+    "is_function_word": false,
+    "source_form": "आशा"
+  },
+  {
+    "lemma": "खर्च",
+    "pos": "NOUN",
+    "rank": 857,
+    "is_function_word": false,
+    "source_form": "खर्च"
+  },
+  {
+    "lemma": "गति",
+    "pos": "NOUN",
+    "rank": 858,
+    "is_function_word": false,
+    "source_form": "गति"
+  },
+  {
+    "lemma": "गिर",
+    "pos": "VERB",
+    "rank": 859,
+    "is_function_word": false,
+    "source_form": "गिर"
+  },
+  {
+    "lemma": "जानता",
+    "pos": "VERB",
+    "rank": 860,
+    "is_function_word": false,
+    "source_form": "जानता"
+  },
+  {
+    "lemma": "जिसमा",
+    "pos": "NOUN",
+    "rank": 861,
+    "is_function_word": false,
+    "source_form": "जिसमे"
+  },
+  {
+    "lemma": "दाम",
+    "pos": "NOUN",
+    "rank": 862,
+    "is_function_word": false,
+    "source_form": "दाम"
+  },
+  {
+    "lemma": "नियंत्रण",
+    "pos": "NOUN",
+    "rank": 863,
+    "is_function_word": false,
+    "source_form": "नियंत्रण"
+  },
+  {
+    "lemma": "पाप",
+    "pos": "ADV",
+    "rank": 864,
+    "is_function_word": false,
+    "source_form": "पाप"
+  },
+  {
+    "lemma": "प्रमाण",
+    "pos": "NOUN",
+    "rank": 865,
+    "is_function_word": false,
+    "source_form": "प्रमाण"
+  },
+  {
+    "lemma": "महत्व",
+    "pos": "NOUN",
+    "rank": 866,
+    "is_function_word": false,
+    "source_form": "महत्व"
+  },
+  {
+    "lemma": "मालूम",
+    "pos": "ADJ",
+    "rank": 867,
+    "is_function_word": false,
+    "source_form": "मालूम"
+  },
+  {
+    "lemma": "मुफ्त",
+    "pos": "ADJ",
+    "rank": 868,
+    "is_function_word": false,
+    "source_form": "मुफ्त"
+  },
+  {
+    "lemma": "मै",
+    "pos": "PRON",
+    "rank": 869,
+    "is_function_word": true,
+    "source_form": "मैने"
+  },
+  {
+    "lemma": "विकसित",
+    "pos": "ADJ",
+    "rank": 870,
+    "is_function_word": false,
+    "source_form": "विकसित"
+  },
+  {
+    "lemma": "शेष",
+    "pos": "ADJ",
+    "rank": 871,
+    "is_function_word": false,
+    "source_form": "शेष"
+  },
+  {
+    "lemma": "समस्त",
+    "pos": "DET",
+    "rank": 872,
+    "is_function_word": true,
+    "source_form": "समस्त"
+  },
+  {
+    "lemma": "सामग्री",
+    "pos": "NOUN",
+    "rank": 873,
+    "is_function_word": false,
+    "source_form": "सामग्री"
+  },
+  {
+    "lemma": "सार्वजनिक",
+    "pos": "ADJ",
+    "rank": 874,
+    "is_function_word": false,
+    "source_form": "सार्वजनिक"
+  },
+  {
+    "lemma": "सिर्फ़",
+    "pos": "PART",
+    "rank": 875,
+    "is_function_word": true,
+    "source_form": "सिर्फ़"
+  },
+  {
+    "lemma": "हृदय",
+    "pos": "NOUN",
+    "rank": 876,
+    "is_function_word": false,
+    "source_form": "हृदय"
+  },
+  {
+    "lemma": "आरोपी",
+    "pos": "NOUN",
+    "rank": 877,
+    "is_function_word": false,
+    "source_form": "आरोपी"
+  },
+  {
+    "lemma": "आस",
+    "pos": "NOUN",
+    "rank": 878,
+    "is_function_word": false,
+    "source_form": "आस"
+  },
+  {
+    "lemma": "इधर",
+    "pos": "ADV",
+    "rank": 879,
+    "is_function_word": false,
+    "source_form": "इधर"
+  },
+  {
+    "lemma": "उतना",
+    "pos": "ADJ",
+    "rank": 880,
+    "is_function_word": false,
+    "source_form": "उतना"
+  },
+  {
+    "lemma": "उत्पादन",
+    "pos": "NOUN",
+    "rank": 881,
+    "is_function_word": false,
+    "source_form": "उत्पादन"
+  },
+  {
+    "lemma": "खोज",
+    "pos": "NOUN",
+    "rank": 882,
+    "is_function_word": false,
+    "source_form": "खोज"
+  },
+  {
+    "lemma": "गा",
+    "pos": "VERB",
+    "rank": 883,
+    "is_function_word": false,
+    "source_form": "गाने"
+  },
+  {
+    "lemma": "तुम्ह",
+    "pos": "VERB",
+    "rank": 884,
+    "is_function_word": false,
+    "source_form": "तुम्हे"
+  },
+  {
+    "lemma": "पढ़",
+    "pos": "VERB",
+    "rank": 885,
+    "is_function_word": false,
+    "source_form": "पढ़ने"
+  },
+  {
+    "lemma": "फायदा",
+    "pos": "NOUN",
+    "rank": 886,
+    "is_function_word": false,
+    "source_form": "फायदा"
+  },
+  {
+    "lemma": "बचा",
+    "pos": "VERB",
+    "rank": 887,
+    "is_function_word": false,
+    "source_form": "बचाने"
+  },
+  {
+    "lemma": "बधाई",
+    "pos": "NOUN",
+    "rank": 888,
+    "is_function_word": false,
+    "source_form": "बधाई"
+  },
+  {
+    "lemma": "बराबर",
+    "pos": "ADV",
+    "rank": 889,
+    "is_function_word": false,
+    "source_form": "बराबर"
+  },
+  {
+    "lemma": "बीमारी",
+    "pos": "PRON",
+    "rank": 890,
+    "is_function_word": true,
+    "source_form": "बीमारी"
+  },
+  {
+    "lemma": "भ्रष्टाचार",
+    "pos": "NOUN",
+    "rank": 891,
+    "is_function_word": false,
+    "source_form": "भ्रष्टाचार"
+  },
+  {
+    "lemma": "मंत्रालय",
+    "pos": "NOUN",
+    "rank": 892,
+    "is_function_word": false,
+    "source_form": "मंत्रालय"
+  },
+  {
+    "lemma": "माह",
+    "pos": "NOUN",
+    "rank": 893,
+    "is_function_word": false,
+    "source_form": "माह"
+  },
+  {
+    "lemma": "विवाद",
+    "pos": "NOUN",
+    "rank": 894,
+    "is_function_word": false,
+    "source_form": "विवाद"
+  },
+  {
+    "lemma": "विशाल",
+    "pos": "ADJ",
+    "rank": 895,
+    "is_function_word": false,
+    "source_form": "विशाल"
+  },
+  {
+    "lemma": "संकट",
+    "pos": "NOUN",
+    "rank": 896,
+    "is_function_word": false,
+    "source_form": "संकट"
+  },
+  {
+    "lemma": "सामना",
+    "pos": "NOUN",
+    "rank": 897,
+    "is_function_word": false,
+    "source_form": "सामना"
+  },
+  {
+    "lemma": "हा",
+    "pos": "NOUN",
+    "rank": 898,
+    "is_function_word": false,
+    "source_form": "हा"
+  },
+  {
+    "lemma": "आजादी",
+    "pos": "NOUN",
+    "rank": 899,
+    "is_function_word": false,
+    "source_form": "आजादी"
+  },
+  {
+    "lemma": "ऑफिस",
+    "pos": "NOUN",
+    "rank": 900,
+    "is_function_word": false,
+    "source_form": "ऑफिस"
+  },
+  {
+    "lemma": "कार्यकर्ता",
+    "pos": "NOUN",
+    "rank": 901,
+    "is_function_word": false,
+    "source_form": "कार्यकर्ताओं"
+  },
+  {
+    "lemma": "जनरल",
+    "pos": "NOUN",
+    "rank": 902,
+    "is_function_word": false,
+    "source_form": "जनरल"
+  },
+  {
+    "lemma": "दान",
+    "pos": "NOUN",
+    "rank": 903,
+    "is_function_word": false,
+    "source_form": "दान"
+  },
+  {
+    "lemma": "दुख",
+    "pos": "NOUN",
+    "rank": 904,
+    "is_function_word": false,
+    "source_form": "दुख"
+  },
+  {
+    "lemma": "दुश्मन",
+    "pos": "NOUN",
+    "rank": 905,
+    "is_function_word": false,
+    "source_form": "दुश्मन"
+  },
+  {
+    "lemma": "नुकसान",
+    "pos": "NOUN",
+    "rank": 906,
+    "is_function_word": false,
+    "source_form": "नुकसान"
+  },
+  {
+    "lemma": "पढ़ा",
+    "pos": "VERB",
+    "rank": 907,
+    "is_function_word": false,
+    "source_form": "पढ़े"
+  },
+  {
+    "lemma": "प्राप्ति",
+    "pos": "NOUN",
+    "rank": 908,
+    "is_function_word": false,
+    "source_form": "प्राप्ति"
+  },
+  {
+    "lemma": "फेसबुक",
+    "pos": "NOUN",
+    "rank": 909,
+    "is_function_word": false,
+    "source_form": "फेसबुक"
+  },
+  {
+    "lemma": "बदलाव",
+    "pos": "NOUN",
+    "rank": 910,
+    "is_function_word": false,
+    "source_form": "बदलाव"
+  },
+  {
+    "lemma": "बिलकुल",
+    "pos": "ADV",
+    "rank": 911,
+    "is_function_word": false,
+    "source_form": "बिलकुल"
+  },
+  {
+    "lemma": "विराट",
+    "pos": "NOUN",
+    "rank": 912,
+    "is_function_word": false,
+    "source_form": "विराट"
+  },
+  {
+    "lemma": "संस्कृत",
+    "pos": "ADV",
+    "rank": 913,
+    "is_function_word": false,
+    "source_form": "संस्कृत"
+  },
+  {
+    "lemma": "समारोह",
+    "pos": "NOUN",
+    "rank": 914,
+    "is_function_word": false,
+    "source_form": "समारोह"
+  },
+  {
+    "lemma": "सम्मेलन",
+    "pos": "NOUN",
+    "rank": 915,
+    "is_function_word": false,
+    "source_form": "सम्मेलन"
+  },
+  {
+    "lemma": "सूर्य",
+    "pos": "NOUN",
+    "rank": 916,
+    "is_function_word": false,
+    "source_form": "सूर्य"
+  },
+  {
+    "lemma": "सैनिक",
+    "pos": "NOUN",
+    "rank": 917,
+    "is_function_word": false,
+    "source_form": "सैनिक"
+  },
+  {
+    "lemma": "असर",
+    "pos": "NOUN",
+    "rank": 918,
+    "is_function_word": false,
+    "source_form": "असर"
+  },
+  {
+    "lemma": "कार्रवाई",
+    "pos": "NOUN",
+    "rank": 919,
+    "is_function_word": false,
+    "source_form": "कार्रवाई"
+  },
+  {
+    "lemma": "खो",
+    "pos": "VERB",
+    "rank": 920,
+    "is_function_word": false,
+    "source_form": "खो"
+  },
+  {
+    "lemma": "गधा",
+    "pos": "NOUN",
+    "rank": 921,
+    "is_function_word": false,
+    "source_form": "गधे"
+  },
+  {
+    "lemma": "छूट",
+    "pos": "NOUN",
+    "rank": 922,
+    "is_function_word": false,
+    "source_form": "छूट"
+  },
+  {
+    "lemma": "तू",
+    "pos": "PRON",
+    "rank": 923,
+    "is_function_word": true,
+    "source_form": "तुमने"
+  },
+  {
+    "lemma": "दूसरा",
+    "pos": "NOUN",
+    "rank": 924,
+    "is_function_word": false,
+    "source_form": "दूसरों"
+  },
+  {
+    "lemma": "पृथ्वी",
+    "pos": "NOUN",
+    "rank": 925,
+    "is_function_word": false,
+    "source_form": "पृथ्वी"
+  },
+  {
+    "lemma": "प्रकाशित",
+    "pos": "ADJ",
+    "rank": 926,
+    "is_function_word": false,
+    "source_form": "प्रकाशित"
+  },
+  {
+    "lemma": "प्रसिद्ध",
+    "pos": "ADJ",
+    "rank": 927,
+    "is_function_word": false,
+    "source_form": "प्रसिद्ध"
+  },
+  {
+    "lemma": "प्रेस",
+    "pos": "NOUN",
+    "rank": 928,
+    "is_function_word": false,
+    "source_form": "प्रेस"
+  },
+  {
+    "lemma": "फैला",
+    "pos": "VERB",
+    "rank": 929,
+    "is_function_word": false,
+    "source_form": "फैला"
+  },
+  {
+    "lemma": "बेहद",
+    "pos": "ADV",
+    "rank": 930,
+    "is_function_word": false,
+    "source_form": "बेहद"
+  },
+  {
+    "lemma": "भवन",
+    "pos": "NOUN",
+    "rank": 931,
+    "is_function_word": false,
+    "source_form": "भवन"
+  },
+  {
+    "lemma": "भावना",
+    "pos": "NOUN",
+    "rank": 932,
+    "is_function_word": false,
+    "source_form": "भावना"
+  },
+  {
+    "lemma": "मीटर",
+    "pos": "NOUN",
+    "rank": 933,
+    "is_function_word": false,
+    "source_form": "मीटर"
+  },
+  {
+    "lemma": "यूँ",
+    "pos": "ADV",
+    "rank": 934,
+    "is_function_word": false,
+    "source_form": "यूँ"
+  },
+  {
+    "lemma": "योग्य",
+    "pos": "ADJ",
+    "rank": 935,
+    "is_function_word": false,
+    "source_form": "योग्य"
+  },
+  {
+    "lemma": "रहो",
+    "pos": "VERB",
+    "rank": 936,
+    "is_function_word": false,
+    "source_form": "रहो"
+  },
+  {
+    "lemma": "लौट",
+    "pos": "VERB",
+    "rank": 937,
+    "is_function_word": false,
+    "source_form": "लौट"
+  },
+  {
+    "lemma": "विद्यालय",
+    "pos": "NOUN",
+    "rank": 938,
+    "is_function_word": false,
+    "source_form": "विद्यालय"
+  },
+  {
+    "lemma": "शेयर",
+    "pos": "NOUN",
+    "rank": 939,
+    "is_function_word": false,
+    "source_form": "शेयर"
+  },
+  {
+    "lemma": "शोध",
+    "pos": "NOUN",
+    "rank": 940,
+    "is_function_word": false,
+    "source_form": "शोध"
+  },
+  {
+    "lemma": "समाधान",
+    "pos": "NOUN",
+    "rank": 941,
+    "is_function_word": false,
+    "source_form": "समाधान"
+  },
+  {
+    "lemma": "उत्तराखंड",
+    "pos": "NOUN",
+    "rank": 942,
+    "is_function_word": false,
+    "source_form": "उत्तराखंड"
+  },
+  {
+    "lemma": "जमा",
+    "pos": "ADJ",
+    "rank": 943,
+    "is_function_word": false,
+    "source_form": "जमा"
+  },
+  {
+    "lemma": "तीसरा",
+    "pos": "ADJ",
+    "rank": 944,
+    "is_function_word": false,
+    "source_form": "तीसरे"
+  },
+  {
+    "lemma": "देखा",
+    "pos": "ADJ",
+    "rank": 945,
+    "is_function_word": false,
+    "source_form": "देखी"
+  },
+  {
+    "lemma": "नामक",
+    "pos": "ADJ",
+    "rank": 946,
+    "is_function_word": false,
+    "source_form": "नामक"
+  },
+  {
+    "lemma": "विकेट",
+    "pos": "NOUN",
+    "rank": 947,
+    "is_function_word": false,
+    "source_form": "विकेट"
+  },
+  {
+    "lemma": "संस्था",
+    "pos": "NOUN",
+    "rank": 948,
+    "is_function_word": false,
+    "source_form": "संस्था"
+  },
+  {
+    "lemma": "सामान",
+    "pos": "NOUN",
+    "rank": 949,
+    "is_function_word": false,
+    "source_form": "सामान"
+  },
+  {
+    "lemma": "आय",
+    "pos": "NOUN",
+    "rank": 950,
+    "is_function_word": false,
+    "source_form": "आय"
+  },
+  {
+    "lemma": "आयी",
+    "pos": "NOUN",
+    "rank": 951,
+    "is_function_word": false,
+    "source_form": "आयी"
+  },
+  {
+    "lemma": "उद्योग",
+    "pos": "NOUN",
+    "rank": 952,
+    "is_function_word": false,
+    "source_form": "उद्योग"
+  },
+  {
+    "lemma": "ऐतिहासिक",
+    "pos": "ADJ",
+    "rank": 953,
+    "is_function_word": false,
+    "source_form": "ऐतिहासिक"
+  },
+  {
+    "lemma": "किलोमीटर",
+    "pos": "NOUN",
+    "rank": 954,
+    "is_function_word": false,
+    "source_form": "किलोमीटर"
+  },
+  {
+    "lemma": "गली",
+    "pos": "NOUN",
+    "rank": 955,
+    "is_function_word": false,
+    "source_form": "गली"
+  },
+  {
+    "lemma": "ग्रहण",
+    "pos": "NOUN",
+    "rank": 956,
+    "is_function_word": false,
+    "source_form": "ग्रहण"
+  },
+  {
+    "lemma": "चोरी",
+    "pos": "NOUN",
+    "rank": 957,
+    "is_function_word": false,
+    "source_form": "चोरी"
+  },
+  {
+    "lemma": "ज़रूर",
+    "pos": "ADV",
+    "rank": 958,
+    "is_function_word": false,
+    "source_form": "ज़रूर"
+  },
+  {
+    "lemma": "जीता",
+    "pos": "VERB",
+    "rank": 959,
+    "is_function_word": false,
+    "source_form": "जीता"
+  },
+  {
+    "lemma": "डे",
+    "pos": "NOUN",
+    "rank": 960,
+    "is_function_word": false,
+    "source_form": "डे"
+  },
+  {
+    "lemma": "तेजी",
+    "pos": "NOUN",
+    "rank": 961,
+    "is_function_word": false,
+    "source_form": "तेजी"
+  },
+  {
+    "lemma": "दबाव",
+    "pos": "NOUN",
+    "rank": 962,
+    "is_function_word": false,
+    "source_form": "दबाव"
+  },
+  {
+    "lemma": "निर्धारित",
+    "pos": "ADJ",
+    "rank": 963,
+    "is_function_word": false,
+    "source_form": "निर्धारित"
+  },
+  {
+    "lemma": "पंचायत",
+    "pos": "NOUN",
+    "rank": 964,
+    "is_function_word": false,
+    "source_form": "पंचायत"
+  },
+  {
+    "lemma": "प्रस्ताव",
+    "pos": "NOUN",
+    "rank": 965,
+    "is_function_word": false,
+    "source_form": "प्रस्ताव"
+  },
+  {
+    "lemma": "राशि",
+    "pos": "NOUN",
+    "rank": 966,
+    "is_function_word": false,
+    "source_form": "राशि"
+  },
+  {
+    "lemma": "लेखक",
+    "pos": "NOUN",
+    "rank": 967,
+    "is_function_word": false,
+    "source_form": "लेखक"
+  },
+  {
+    "lemma": "संस्थान",
+    "pos": "NOUN",
+    "rank": 968,
+    "is_function_word": false,
+    "source_form": "संस्थान"
+  },
+  {
+    "lemma": "अंक",
+    "pos": "NOUN",
+    "rank": 969,
+    "is_function_word": false,
+    "source_form": "अंक"
+  },
+  {
+    "lemma": "अकेला",
+    "pos": "ADJ",
+    "rank": 970,
+    "is_function_word": false,
+    "source_form": "अकेले"
+  },
+  {
+    "lemma": "कर्मचारी",
+    "pos": "NOUN",
+    "rank": 971,
+    "is_function_word": false,
+    "source_form": "कर्मचारियों"
+  },
+  {
+    "lemma": "जंगल",
+    "pos": "NOUN",
+    "rank": 972,
+    "is_function_word": false,
+    "source_form": "जंगल"
+  },
+  {
+    "lemma": "जगत",
+    "pos": "NOUN",
+    "rank": 973,
+    "is_function_word": false,
+    "source_form": "जगत"
+  },
+  {
+    "lemma": "जीत",
+    "pos": "VERB",
+    "rank": 974,
+    "is_function_word": false,
+    "source_form": "जीतने"
+  },
+  {
+    "lemma": "पर्यावरण",
+    "pos": "NOUN",
+    "rank": 975,
+    "is_function_word": false,
+    "source_form": "पर्यावरण"
+  },
+  {
+    "lemma": "पैर",
+    "pos": "NOUN",
+    "rank": 976,
+    "is_function_word": false,
+    "source_form": "पैर"
+  },
+  {
+    "lemma": "बदले",
+    "pos": "VERB",
+    "rank": 977,
+    "is_function_word": false,
+    "source_form": "बदले"
+  },
+  {
+    "lemma": "भक्त",
+    "pos": "NOUN",
+    "rank": 978,
+    "is_function_word": false,
+    "source_form": "भक्त"
+  },
+  {
+    "lemma": "मंच",
+    "pos": "NOUN",
+    "rank": 979,
+    "is_function_word": false,
+    "source_form": "मंच"
+  },
+  {
+    "lemma": "मना",
+    "pos": "VERB",
+    "rank": 980,
+    "is_function_word": false,
+    "source_form": "मनाया"
+  },
+  {
+    "lemma": "युवक",
+    "pos": "NOUN",
+    "rank": 981,
+    "is_function_word": false,
+    "source_form": "युवक"
+  },
+  {
+    "lemma": "शुद्ध",
+    "pos": "ADJ",
+    "rank": 982,
+    "is_function_word": false,
+    "source_form": "शुद्ध"
+  },
+  {
+    "lemma": "समर्पित",
+    "pos": "ADJ",
+    "rank": 983,
+    "is_function_word": false,
+    "source_form": "समर्पित"
+  },
+  {
+    "lemma": "हुया",
+    "pos": "NOUN",
+    "rank": 984,
+    "is_function_word": false,
+    "source_form": "हुये"
+  },
+  {
+    "lemma": "अज्ञात",
+    "pos": "ADJ",
+    "rank": 985,
+    "is_function_word": false,
+    "source_form": "अज्ञात"
+  },
+  {
+    "lemma": "आराम",
+    "pos": "NOUN",
+    "rank": 986,
+    "is_function_word": false,
+    "source_form": "आराम"
+  },
+  {
+    "lemma": "ऑनलाइन",
+    "pos": "NOUN",
+    "rank": 987,
+    "is_function_word": false,
+    "source_form": "ऑनलाइन"
+  },
+  {
+    "lemma": "कथा",
+    "pos": "SCONJ",
+    "rank": 988,
+    "is_function_word": true,
+    "source_form": "कथा"
+  },
+  {
+    "lemma": "किनारा",
+    "pos": "NOUN",
+    "rank": 989,
+    "is_function_word": false,
+    "source_form": "किनारे"
+  },
+  {
+    "lemma": "गुप्त",
+    "pos": "ADJ",
+    "rank": 990,
+    "is_function_word": false,
+    "source_form": "गुप्त"
+  },
+  {
+    "lemma": "घायल",
+    "pos": "ADJ",
+    "rank": 991,
+    "is_function_word": false,
+    "source_form": "घायल"
+  },
+  {
+    "lemma": "चौधरी",
+    "pos": "NOUN",
+    "rank": 992,
+    "is_function_word": false,
+    "source_form": "चौधरी"
+  },
+  {
+    "lemma": "दवा",
+    "pos": "NOUN",
+    "rank": 993,
+    "is_function_word": false,
+    "source_form": "दवा"
+  },
+  {
+    "lemma": "देखे",
+    "pos": "VERB",
+    "rank": 994,
+    "is_function_word": false,
+    "source_form": "देखिए"
+  },
+  {
+    "lemma": "पर्व",
+    "pos": "NOUN",
+    "rank": 995,
+    "is_function_word": false,
+    "source_form": "पर्व"
+  },
+  {
+    "lemma": "पुस्तक",
+    "pos": "NOUN",
+    "rank": 996,
+    "is_function_word": false,
+    "source_form": "पुस्तक"
+  },
+  {
+    "lemma": "भक्ति",
+    "pos": "NOUN",
+    "rank": 997,
+    "is_function_word": false,
+    "source_form": "भक्ति"
+  },
+  {
+    "lemma": "भाभी",
+    "pos": "PART",
+    "rank": 998,
+    "is_function_word": true,
+    "source_form": "भाभी"
+  },
+  {
+    "lemma": "रानी",
+    "pos": "NOUN",
+    "rank": 999,
+    "is_function_word": false,
+    "source_form": "रानी"
+  },
+  {
+    "lemma": "संपत्ति",
+    "pos": "NOUN",
+    "rank": 1000,
+    "is_function_word": false,
+    "source_form": "संपत्ति"
+  },
+  {
+    "lemma": "सक",
+    "pos": "PRON",
+    "rank": 1001,
+    "is_function_word": true,
+    "source_form": "सका"
+  },
+  {
+    "lemma": "समझ",
+    "pos": "VERB",
+    "rank": 1002,
+    "is_function_word": false,
+    "source_form": "समझने"
+  },
+  {
+    "lemma": "सम्मानित",
+    "pos": "ADJ",
+    "rank": 1003,
+    "is_function_word": false,
+    "source_form": "सम्मानित"
+  },
+  {
+    "lemma": "सिद्ध",
+    "pos": "ADJ",
+    "rank": 1004,
+    "is_function_word": false,
+    "source_form": "सिद्ध"
+  },
+  {
+    "lemma": "अंतर",
+    "pos": "NOUN",
+    "rank": 1005,
+    "is_function_word": false,
+    "source_form": "अंतर"
+  },
+  {
+    "lemma": "आकार",
+    "pos": "NOUN",
+    "rank": 1006,
+    "is_function_word": false,
+    "source_form": "आकार"
+  },
+  {
+    "lemma": "आदर्श",
+    "pos": "ADJ",
+    "rank": 1007,
+    "is_function_word": false,
+    "source_form": "आदर्श"
+  },
+  {
+    "lemma": "कर",
+    "pos": "PART",
+    "rank": 1008,
+    "is_function_word": true,
+    "source_form": "करवाया"
+  },
+  {
+    "lemma": "ख़ुद",
+    "pos": "PRON",
+    "rank": 1009,
+    "is_function_word": true,
+    "source_form": "ख़ुद"
+  },
+  {
+    "lemma": "खूबसूरत",
+    "pos": "ADJ",
+    "rank": 1010,
+    "is_function_word": false,
+    "source_form": "खूबसूरत"
+  },
+  {
+    "lemma": "गठबंधन",
+    "pos": "NOUN",
+    "rank": 1011,
+    "is_function_word": false,
+    "source_form": "गठबंधन"
+  },
+  {
+    "lemma": "घरेलू",
+    "pos": "ADJ",
+    "rank": 1012,
+    "is_function_word": false,
+    "source_form": "घरेलू"
+  },
+  {
+    "lemma": "टिकट",
+    "pos": "NOUN",
+    "rank": 1013,
+    "is_function_word": false,
+    "source_form": "टिकट"
+  },
+  {
+    "lemma": "ट्वीट",
+    "pos": "NOUN",
+    "rank": 1014,
+    "is_function_word": false,
+    "source_form": "ट्वीट"
+  },
+  {
+    "lemma": "दूरी",
+    "pos": "NOUN",
+    "rank": 1015,
+    "is_function_word": false,
+    "source_form": "दूरी"
+  },
+  {
+    "lemma": "दृष्टि",
+    "pos": "NOUN",
+    "rank": 1016,
+    "is_function_word": false,
+    "source_form": "दृष्टि"
+  },
+  {
+    "lemma": "दैनिक",
+    "pos": "NOUN",
+    "rank": 1017,
+    "is_function_word": false,
+    "source_form": "दैनिक"
+  },
+  {
+    "lemma": "पूछ",
+    "pos": "NOUN",
+    "rank": 1018,
+    "is_function_word": false,
+    "source_form": "पूछ"
+  },
+  {
+    "lemma": "प्रार्थना",
+    "pos": "NOUN",
+    "rank": 1019,
+    "is_function_word": false,
+    "source_form": "प्रार्थना"
+  },
+  {
+    "lemma": "प्रिय",
+    "pos": "ADJ",
+    "rank": 1020,
+    "is_function_word": false,
+    "source_form": "प्रिय"
+  },
+  {
+    "lemma": "प्रेरित",
+    "pos": "ADJ",
+    "rank": 1021,
+    "is_function_word": false,
+    "source_form": "प्रेरित"
+  },
+  {
+    "lemma": "बलात्कार",
+    "pos": "NOUN",
+    "rank": 1022,
+    "is_function_word": false,
+    "source_form": "बलात्कार"
+  },
+  {
+    "lemma": "मतदान",
+    "pos": "NOUN",
+    "rank": 1023,
+    "is_function_word": false,
+    "source_form": "मतदान"
+  },
+  {
+    "lemma": "मान",
+    "pos": "ADJ",
+    "rank": 1024,
+    "is_function_word": false,
+    "source_form": "माने"
+  },
+  {
+    "lemma": "माल",
+    "pos": "NOUN",
+    "rank": 1025,
+    "is_function_word": false,
+    "source_form": "माल"
+  },
+  {
+    "lemma": "मुद्रा",
+    "pos": "NOUN",
+    "rank": 1026,
+    "is_function_word": false,
+    "source_form": "मुद्रा"
+  },
+  {
+    "lemma": "यानि",
+    "pos": "SCONJ",
+    "rank": 1027,
+    "is_function_word": true,
+    "source_form": "यानी"
+  },
+  {
+    "lemma": "लंबा",
+    "pos": "ADJ",
+    "rank": 1028,
+    "is_function_word": false,
+    "source_form": "लंबे"
+  },
+  {
+    "lemma": "लड",
+    "pos": "VERB",
+    "rank": 1029,
+    "is_function_word": false,
+    "source_form": "लड़"
+  },
+  {
+    "lemma": "वास्तविक",
+    "pos": "NOUN",
+    "rank": 1030,
+    "is_function_word": false,
+    "source_form": "वास्तविक"
+  },
+  {
+    "lemma": "संस्कार",
+    "pos": "NOUN",
+    "rank": 1031,
+    "is_function_word": false,
+    "source_form": "संस्कार"
+  },
+  {
+    "lemma": "स्टार",
+    "pos": "NOUN",
+    "rank": 1032,
+    "is_function_word": false,
+    "source_form": "स्टार"
+  },
+  {
+    "lemma": "स्थल",
+    "pos": "NOUN",
+    "rank": 1033,
+    "is_function_word": false,
+    "source_form": "स्थल"
+  },
+  {
+    "lemma": "हाई",
+    "pos": "NOUN",
+    "rank": 1034,
+    "is_function_word": false,
+    "source_form": "हाई"
+  },
+  {
+    "lemma": "अंतरराष्ट्रीय",
+    "pos": "ADJ",
+    "rank": 1035,
+    "is_function_word": false,
+    "source_form": "अंतरराष्ट्रीय"
+  },
+  {
+    "lemma": "अचानक",
+    "pos": "ADV",
+    "rank": 1036,
+    "is_function_word": false,
+    "source_form": "अचानक"
+  },
+  {
+    "lemma": "अति",
+    "pos": "ADV",
+    "rank": 1037,
+    "is_function_word": false,
+    "source_form": "अति"
+  },
+  {
+    "lemma": "अवैध",
+    "pos": "ADJ",
+    "rank": 1038,
+    "is_function_word": false,
+    "source_form": "अवैध"
+  },
+  {
+    "lemma": "कमाई",
+    "pos": "NOUN",
+    "rank": 1039,
+    "is_function_word": false,
+    "source_form": "कमाई"
+  },
+  {
+    "lemma": "किरदार",
+    "pos": "NOUN",
+    "rank": 1040,
+    "is_function_word": false,
+    "source_form": "किरदार"
+  },
+  {
+    "lemma": "खे",
+    "pos": "NOUN",
+    "rank": 1041,
+    "is_function_word": false,
+    "source_form": "खेती"
+  },
+  {
+    "lemma": "जीना",
+    "pos": "VERB",
+    "rank": 1042,
+    "is_function_word": false,
+    "source_form": "जीने"
+  },
+  {
+    "lemma": "ज्यादातर",
+    "pos": "ADJ",
+    "rank": 1043,
+    "is_function_word": false,
+    "source_form": "ज्यादातर"
+  },
+  {
+    "lemma": "पंडित",
+    "pos": "NOUN",
+    "rank": 1044,
+    "is_function_word": false,
+    "source_form": "पंडित"
+  },
+  {
+    "lemma": "पहुँच",
+    "pos": "VERB",
+    "rank": 1045,
+    "is_function_word": false,
+    "source_form": "पहुँच"
+  },
+  {
+    "lemma": "फ्री",
+    "pos": "NOUN",
+    "rank": 1046,
+    "is_function_word": false,
+    "source_form": "फ्री"
+  },
+  {
+    "lemma": "बम",
+    "pos": "NOUN",
+    "rank": 1047,
+    "is_function_word": false,
+    "source_form": "बम"
+  },
+  {
+    "lemma": "बीवी",
+    "pos": "NOUN",
+    "rank": 1048,
+    "is_function_word": false,
+    "source_form": "बीवी"
+  },
+  {
+    "lemma": "लिंक",
+    "pos": "NOUN",
+    "rank": 1049,
+    "is_function_word": false,
+    "source_form": "लिंक"
+  },
+  {
+    "lemma": "विरुद्ध",
+    "pos": "ADP",
+    "rank": 1050,
+    "is_function_word": true,
+    "source_form": "विरुद्ध"
+  },
+  {
+    "lemma": "संकेत",
+    "pos": "NOUN",
+    "rank": 1051,
+    "is_function_word": false,
+    "source_form": "संकेत"
+  },
+  {
+    "lemma": "संरक्षण",
+    "pos": "NOUN",
+    "rank": 1052,
+    "is_function_word": false,
+    "source_form": "संरक्षण"
+  },
+  {
+    "lemma": "सलाह",
+    "pos": "NOUN",
+    "rank": 1053,
+    "is_function_word": false,
+    "source_form": "सलाह"
+  },
+  {
+    "lemma": "सीरी",
+    "pos": "NOUN",
+    "rank": 1054,
+    "is_function_word": false,
+    "source_form": "सीरीज"
+  },
+  {
+    "lemma": "हालात",
+    "pos": "NOUN",
+    "rank": 1055,
+    "is_function_word": false,
+    "source_form": "हालात"
+  },
+  {
+    "lemma": "हिंसा",
+    "pos": "NOUN",
+    "rank": 1056,
+    "is_function_word": false,
+    "source_form": "हिंसा"
+  },
+  {
+    "lemma": "अध्याय",
+    "pos": "NOUN",
+    "rank": 1057,
+    "is_function_word": false,
+    "source_form": "अध्याय"
+  },
+  {
+    "lemma": "अन्दर",
+    "pos": "PART",
+    "rank": 1058,
+    "is_function_word": true,
+    "source_form": "अन्दर"
+  },
+  {
+    "lemma": "अभिनेता",
+    "pos": "NOUN",
+    "rank": 1059,
+    "is_function_word": false,
+    "source_form": "अभिनेता"
+  },
+  {
+    "lemma": "अवधि",
+    "pos": "NOUN",
+    "rank": 1060,
+    "is_function_word": false,
+    "source_form": "अवधि"
+  },
+  {
+    "lemma": "आसमान",
+    "pos": "NOUN",
+    "rank": 1061,
+    "is_function_word": false,
+    "source_form": "आसमान"
+  },
+  {
+    "lemma": "कोटि",
+    "pos": "SCONJ",
+    "rank": 1062,
+    "is_function_word": true,
+    "source_form": "कोटि"
+  },
+  {
+    "lemma": "ग्रुप",
+    "pos": "NOUN",
+    "rank": 1063,
+    "is_function_word": false,
+    "source_form": "ग्रुप"
+  },
+  {
+    "lemma": "चाँद",
+    "pos": "NOUN",
+    "rank": 1064,
+    "is_function_word": false,
+    "source_form": "चाँद"
+  },
+  {
+    "lemma": "ढंग",
+    "pos": "NOUN",
+    "rank": 1065,
+    "is_function_word": false,
+    "source_form": "ढंग"
+  },
+  {
+    "lemma": "प्रबंधन",
+    "pos": "NOUN",
+    "rank": 1066,
+    "is_function_word": false,
+    "source_form": "प्रबंधन"
+  },
+  {
+    "lemma": "फसल",
+    "pos": "NOUN",
+    "rank": 1067,
+    "is_function_word": false,
+    "source_form": "फसल"
+  },
+  {
+    "lemma": "भरोसा",
+    "pos": "NOUN",
+    "rank": 1068,
+    "is_function_word": false,
+    "source_form": "भरोसा"
+  },
+  {
+    "lemma": "मी",
+    "pos": "NOUN",
+    "rank": 1069,
+    "is_function_word": false,
+    "source_form": "मी"
+  },
+  {
+    "lemma": "मेडिकल",
+    "pos": "NOUN",
+    "rank": 1070,
+    "is_function_word": false,
+    "source_form": "मेडिकल"
+  },
+  {
+    "lemma": "मौके",
+    "pos": "NOUN",
+    "rank": 1071,
+    "is_function_word": false,
+    "source_form": "मौके"
+  },
+  {
+    "lemma": "लोकप्रिय",
+    "pos": "ADJ",
+    "rank": 1072,
+    "is_function_word": false,
+    "source_form": "लोकप्रिय"
+  },
+  {
+    "lemma": "वादा",
+    "pos": "NOUN",
+    "rank": 1073,
+    "is_function_word": false,
+    "source_form": "वादा"
+  },
+  {
+    "lemma": "सचिव",
+    "pos": "NOUN",
+    "rank": 1074,
+    "is_function_word": false,
+    "source_form": "सचिव"
+  },
+  {
+    "lemma": "सत्र",
+    "pos": "NOUN",
+    "rank": 1075,
+    "is_function_word": false,
+    "source_form": "सत्र"
+  },
+  {
+    "lemma": "सुन",
+    "pos": "VERB",
+    "rank": 1076,
+    "is_function_word": false,
+    "source_form": "सुनने"
+  },
+  {
+    "lemma": "हट",
+    "pos": "VERB",
+    "rank": 1077,
+    "is_function_word": false,
+    "source_form": "हटा"
+  },
+  {
+    "lemma": "अर्थव्यवस्था",
+    "pos": "SCONJ",
+    "rank": 1078,
+    "is_function_word": true,
+    "source_form": "अर्थव्यवस्था"
+  },
+  {
+    "lemma": "उत्पन्न",
+    "pos": "ADJ",
+    "rank": 1079,
+    "is_function_word": false,
+    "source_form": "उत्पन्न"
+  },
+  {
+    "lemma": "कमजोर",
+    "pos": "ADJ",
+    "rank": 1080,
+    "is_function_word": false,
+    "source_form": "कमजोर"
+  },
+  {
+    "lemma": "के",
+    "pos": "VERB",
+    "rank": 1081,
+    "is_function_word": false,
+    "source_form": "कीजिए"
+  },
+  {
+    "lemma": "गुण",
+    "pos": "NOUN",
+    "rank": 1082,
+    "is_function_word": false,
+    "source_form": "गुण"
+  },
+  {
+    "lemma": "चला",
+    "pos": "VERB",
+    "rank": 1083,
+    "is_function_word": false,
+    "source_form": "चलाने"
+  },
+  {
+    "lemma": "टिप्पणी",
+    "pos": "NOUN",
+    "rank": 1084,
+    "is_function_word": false,
+    "source_form": "टिप्पणी"
+  },
+  {
+    "lemma": "तत्व",
+    "pos": "NOUN",
+    "rank": 1085,
+    "is_function_word": false,
+    "source_form": "तत्व"
+  },
+  {
+    "lemma": "त्याग",
+    "pos": "NOUN",
+    "rank": 1086,
+    "is_function_word": false,
+    "source_form": "त्याग"
+  },
+  {
+    "lemma": "धमकी",
+    "pos": "NOUN",
+    "rank": 1087,
+    "is_function_word": false,
+    "source_form": "धमकी"
+  },
+  {
+    "lemma": "पीड़ित",
+    "pos": "ADJ",
+    "rank": 1088,
+    "is_function_word": false,
+    "source_form": "पीड़ित"
+  },
+  {
+    "lemma": "प्रेरणा",
+    "pos": "NOUN",
+    "rank": 1089,
+    "is_function_word": false,
+    "source_form": "प्रेरणा"
+  },
+  {
+    "lemma": "बिन",
+    "pos": "NOUN",
+    "rank": 1090,
+    "is_function_word": false,
+    "source_form": "बिन"
+  },
+  {
+    "lemma": "मिशन",
+    "pos": "NOUN",
+    "rank": 1091,
+    "is_function_word": false,
+    "source_form": "मिशन"
+  },
+  {
+    "lemma": "विकल्प",
+    "pos": "NOUN",
+    "rank": 1092,
+    "is_function_word": false,
+    "source_form": "विकल्प"
+  },
+  {
+    "lemma": "विज्ञापन",
+    "pos": "NOUN",
+    "rank": 1093,
+    "is_function_word": false,
+    "source_form": "विज्ञापन"
+  },
+  {
+    "lemma": "सप्ताह",
+    "pos": "NOUN",
+    "rank": 1094,
+    "is_function_word": false,
+    "source_form": "सप्ताह"
+  },
+  {
+    "lemma": "सीख",
+    "pos": "NOUN",
+    "rank": 1095,
+    "is_function_word": false,
+    "source_form": "सीख"
+  },
+  {
+    "lemma": "सीधा",
+    "pos": "ADV",
+    "rank": 1096,
+    "is_function_word": false,
+    "source_form": "सीधा"
+  },
+  {
+    "lemma": "स्वस्थ",
+    "pos": "ADJ",
+    "rank": 1097,
+    "is_function_word": false,
+    "source_form": "स्वस्थ"
+  },
+  {
+    "lemma": "हल",
+    "pos": "NOUN",
+    "rank": 1098,
+    "is_function_word": false,
+    "source_form": "हल"
+  },
+  {
+    "lemma": "अतः",
+    "pos": "CCONJ",
+    "rank": 1099,
+    "is_function_word": true,
+    "source_form": "अतः"
+  },
+  {
+    "lemma": "आधुनिक",
+    "pos": "ADJ",
+    "rank": 1100,
+    "is_function_word": false,
+    "source_form": "आधुनिक"
+  },
+  {
+    "lemma": "आयु",
+    "pos": "NOUN",
+    "rank": 1101,
+    "is_function_word": false,
+    "source_form": "आयु"
+  },
+  {
+    "lemma": "आसानी",
+    "pos": "NOUN",
+    "rank": 1102,
+    "is_function_word": false,
+    "source_form": "आसानी"
+  },
+  {
+    "lemma": "इंतजार",
+    "pos": "NOUN",
+    "rank": 1103,
+    "is_function_word": false,
+    "source_form": "इंतजार"
+  },
+  {
+    "lemma": "औरत",
+    "pos": "PART",
+    "rank": 1104,
+    "is_function_word": true,
+    "source_form": "औरत"
+  },
+  {
+    "lemma": "खरीद",
+    "pos": "VERB",
+    "rank": 1105,
+    "is_function_word": false,
+    "source_form": "खरीद"
+  },
+  {
+    "lemma": "तलाश",
+    "pos": "NOUN",
+    "rank": 1106,
+    "is_function_word": false,
+    "source_form": "तलाश"
+  },
+  {
+    "lemma": "दुःख",
+    "pos": "NOUN",
+    "rank": 1107,
+    "is_function_word": false,
+    "source_form": "दुःख"
+  },
+  {
+    "lemma": "निवेश",
+    "pos": "NOUN",
+    "rank": 1108,
+    "is_function_word": false,
+    "source_form": "निवेश"
+  },
+  {
+    "lemma": "प्रणाली",
+    "pos": "NOUN",
+    "rank": 1109,
+    "is_function_word": false,
+    "source_form": "प्रणाली"
+  },
+  {
+    "lemma": "मजा",
+    "pos": "NOUN",
+    "rank": 1110,
+    "is_function_word": false,
+    "source_form": "मजा"
+  },
+  {
+    "lemma": "महात्मा",
+    "pos": "NOUN",
+    "rank": 1111,
+    "is_function_word": false,
+    "source_form": "महात्मा"
+  },
+  {
+    "lemma": "माहौल",
+    "pos": "NOUN",
+    "rank": 1112,
+    "is_function_word": false,
+    "source_form": "माहौल"
+  },
+  {
+    "lemma": "यहीं",
+    "pos": "PRON",
+    "rank": 1113,
+    "is_function_word": true,
+    "source_form": "यहीं"
+  },
+  {
+    "lemma": "यूनिवर्सिटी",
+    "pos": "NOUN",
+    "rank": 1114,
+    "is_function_word": false,
+    "source_form": "यूनिवर्सिटी"
+  },
+  {
+    "lemma": "लाइव",
+    "pos": "NOUN",
+    "rank": 1115,
+    "is_function_word": false,
+    "source_form": "लाइव"
+  },
+  {
+    "lemma": "वरिष्ठ",
+    "pos": "ADJ",
+    "rank": 1116,
+    "is_function_word": false,
+    "source_form": "वरिष्ठ"
+  },
+  {
+    "lemma": "शुरु",
+    "pos": "NOUN",
+    "rank": 1117,
+    "is_function_word": false,
+    "source_form": "शुरु"
+  },
+  {
+    "lemma": "सक्षम",
+    "pos": "ADJ",
+    "rank": 1118,
+    "is_function_word": false,
+    "source_form": "सक्षम"
+  },
+  {
+    "lemma": "सरल",
+    "pos": "ADJ",
+    "rank": 1119,
+    "is_function_word": false,
+    "source_form": "सरल"
+  },
+  {
+    "lemma": "सह",
+    "pos": "ADJ",
+    "rank": 1120,
+    "is_function_word": false,
+    "source_form": "सह"
+  },
+  {
+    "lemma": "सिटी",
+    "pos": "NOUN",
+    "rank": 1121,
+    "is_function_word": false,
+    "source_form": "सिटी"
+  },
+  {
+    "lemma": "अपील",
+    "pos": "NOUN",
+    "rank": 1122,
+    "is_function_word": false,
+    "source_form": "अपील"
+  },
+  {
+    "lemma": "आबादी",
+    "pos": "NOUN",
+    "rank": 1123,
+    "is_function_word": false,
+    "source_form": "आबादी"
+  },
+  {
+    "lemma": "इंच",
+    "pos": "NOUN",
+    "rank": 1124,
+    "is_function_word": false,
+    "source_form": "इंच"
+  },
+  {
+    "lemma": "उपाय",
+    "pos": "NOUN",
+    "rank": 1125,
+    "is_function_word": false,
+    "source_form": "उपाय"
+  },
+  {
+    "lemma": "एकता",
+    "pos": "NOUN",
+    "rank": 1126,
+    "is_function_word": false,
+    "source_form": "एकता"
+  },
+  {
+    "lemma": "खेत",
+    "pos": "NOUN",
+    "rank": 1127,
+    "is_function_word": false,
+    "source_form": "खेत"
+  },
+  {
+    "lemma": "गर्म",
+    "pos": "ADJ",
+    "rank": 1128,
+    "is_function_word": false,
+    "source_form": "गर्म"
+  },
+  {
+    "lemma": "चोट",
+    "pos": "NOUN",
+    "rank": 1129,
+    "is_function_word": false,
+    "source_form": "चोट"
+  },
+  {
+    "lemma": "जज",
+    "pos": "NOUN",
+    "rank": 1130,
+    "is_function_word": false,
+    "source_form": "जज"
+  },
+  {
+    "lemma": "डिजिटल",
+    "pos": "NOUN",
+    "rank": 1131,
+    "is_function_word": false,
+    "source_form": "डिजिटल"
+  },
+  {
+    "lemma": "तमाम",
+    "pos": "DET",
+    "rank": 1132,
+    "is_function_word": true,
+    "source_form": "तमाम"
+  },
+  {
+    "lemma": "दीदी",
+    "pos": "VERB",
+    "rank": 1133,
+    "is_function_word": false,
+    "source_form": "दीदी"
+  },
+  {
+    "lemma": "दौरा",
+    "pos": "NOUN",
+    "rank": 1134,
+    "is_function_word": false,
+    "source_form": "दौरे"
+  },
+  {
+    "lemma": "परम",
+    "pos": "NOUN",
+    "rank": 1135,
+    "is_function_word": false,
+    "source_form": "परम"
+  },
+  {
+    "lemma": "फाइनल",
+    "pos": "NOUN",
+    "rank": 1136,
+    "is_function_word": false,
+    "source_form": "फाइनल"
+  },
+  {
+    "lemma": "रक्त",
+    "pos": "NOUN",
+    "rank": 1137,
+    "is_function_word": false,
+    "source_form": "रक्त"
+  },
+  {
+    "lemma": "लागत",
+    "pos": "NOUN",
+    "rank": 1138,
+    "is_function_word": false,
+    "source_form": "लागत"
+  },
+  {
+    "lemma": "लिंग",
+    "pos": "NOUN",
+    "rank": 1139,
+    "is_function_word": false,
+    "source_form": "लिंग"
+  },
+  {
+    "lemma": "व्यक्त",
+    "pos": "ADJ",
+    "rank": 1140,
+    "is_function_word": false,
+    "source_form": "व्यक्त"
+  },
+  {
+    "lemma": "शर्म",
+    "pos": "NOUN",
+    "rank": 1141,
+    "is_function_word": false,
+    "source_form": "शर्म"
+  },
+  {
+    "lemma": "शहीद",
+    "pos": "ADJ",
+    "rank": 1142,
+    "is_function_word": false,
+    "source_form": "शहीद"
+  },
+  {
+    "lemma": "संबंधी",
+    "pos": "ADJ",
+    "rank": 1143,
+    "is_function_word": false,
+    "source_form": "संबंधी"
+  },
+  {
+    "lemma": "हाउस",
+    "pos": "NOUN",
+    "rank": 1144,
+    "is_function_word": false,
+    "source_form": "हाउस"
+  },
+  {
+    "lemma": "होटल",
+    "pos": "NOUN",
+    "rank": 1145,
+    "is_function_word": false,
+    "source_form": "होटल"
+  },
+  {
+    "lemma": "अगली",
+    "pos": "ADJ",
+    "rank": 1146,
+    "is_function_word": false,
+    "source_form": "अगली"
+  },
+  {
+    "lemma": "कपडा",
+    "pos": "NOUN",
+    "rank": 1147,
+    "is_function_word": false,
+    "source_form": "कपड़े"
+  },
+  {
+    "lemma": "गोल",
+    "pos": "ADJ",
+    "rank": 1148,
+    "is_function_word": false,
+    "source_form": "गोल"
+  },
+  {
+    "lemma": "घाट",
+    "pos": "NOUN",
+    "rank": 1149,
+    "is_function_word": false,
+    "source_form": "घाट"
+  },
+  {
+    "lemma": "चयन",
+    "pos": "NOUN",
+    "rank": 1150,
+    "is_function_word": false,
+    "source_form": "चयन"
+  },
+  {
+    "lemma": "चिकित्सा",
+    "pos": "NOUN",
+    "rank": 1151,
+    "is_function_word": false,
+    "source_form": "चिकित्सा"
+  },
+  {
+    "lemma": "चित्र",
+    "pos": "NOUN",
+    "rank": 1152,
+    "is_function_word": false,
+    "source_form": "चित्र"
+  },
+  {
+    "lemma": "जरा",
+    "pos": "PART",
+    "rank": 1153,
+    "is_function_word": true,
+    "source_form": "जरा"
+  },
+  {
+    "lemma": "जिम्मेदार",
+    "pos": "ADJ",
+    "rank": 1154,
+    "is_function_word": false,
+    "source_form": "जिम्मेदार"
+  },
+  {
+    "lemma": "दोबारा",
+    "pos": "ADV",
+    "rank": 1155,
+    "is_function_word": false,
+    "source_form": "दोबारा"
+  },
+  {
+    "lemma": "पीढी",
+    "pos": "NOUN",
+    "rank": 1156,
+    "is_function_word": false,
+    "source_form": "पीढ़ी"
+  },
+  {
+    "lemma": "प्रणाम",
+    "pos": "NOUN",
+    "rank": 1157,
+    "is_function_word": false,
+    "source_form": "प्रणाम"
+  },
+  {
+    "lemma": "प्रतीक",
+    "pos": "ADJ",
+    "rank": 1158,
+    "is_function_word": false,
+    "source_form": "प्रतीक"
+  },
+  {
+    "lemma": "बुरा",
+    "pos": "ADJ",
+    "rank": 1159,
+    "is_function_word": false,
+    "source_form": "बुरी"
+  },
+  {
+    "lemma": "बोल",
+    "pos": "NOUN",
+    "rank": 1160,
+    "is_function_word": false,
+    "source_form": "बोलता"
+  },
+  {
+    "lemma": "मान्यता",
+    "pos": "NOUN",
+    "rank": 1161,
+    "is_function_word": false,
+    "source_form": "मान्यता"
+  },
+  {
+    "lemma": "वाहन",
+    "pos": "NOUN",
+    "rank": 1162,
+    "is_function_word": false,
+    "source_form": "वाहन"
+  },
+  {
+    "lemma": "विधान",
+    "pos": "NOUN",
+    "rank": 1163,
+    "is_function_word": false,
+    "source_form": "विधान"
+  },
+  {
+    "lemma": "शांत",
+    "pos": "ADJ",
+    "rank": 1164,
+    "is_function_word": false,
+    "source_form": "शांत"
+  },
+  {
+    "lemma": "श्रेणी",
+    "pos": "NOUN",
+    "rank": 1165,
+    "is_function_word": false,
+    "source_form": "श्रेणी"
+  },
+  {
+    "lemma": "संबोधित",
+    "pos": "ADJ",
+    "rank": 1166,
+    "is_function_word": false,
+    "source_form": "संबोधित"
+  },
+  {
+    "lemma": "सक्रिय",
+    "pos": "ADJ",
+    "rank": 1167,
+    "is_function_word": false,
+    "source_form": "सक्रिय"
+  },
+  {
+    "lemma": "साफ",
+    "pos": "ADJ",
+    "rank": 1168,
+    "is_function_word": false,
+    "source_form": "साफ़"
+  },
+  {
+    "lemma": "सुपर",
+    "pos": "NOUN",
+    "rank": 1169,
+    "is_function_word": false,
+    "source_form": "सुपर"
+  },
+  {
+    "lemma": "अर्थात",
+    "pos": "SCONJ",
+    "rank": 1170,
+    "is_function_word": true,
+    "source_form": "अर्थात"
+  },
+  {
+    "lemma": "आखिरी",
+    "pos": "ADJ",
+    "rank": 1171,
+    "is_function_word": false,
+    "source_form": "आखिरी"
+  },
+  {
+    "lemma": "इत्यादि",
+    "pos": "SCONJ",
+    "rank": 1172,
+    "is_function_word": true,
+    "source_form": "इत्यादि"
+  },
+  {
+    "lemma": "उतार",
+    "pos": "NOUN",
+    "rank": 1173,
+    "is_function_word": false,
+    "source_form": "उतार"
+  },
+  {
+    "lemma": "उत्पाद",
+    "pos": "NOUN",
+    "rank": 1174,
+    "is_function_word": false,
+    "source_form": "उत्पाद"
+  },
+  {
+    "lemma": "करोगे",
+    "pos": "VERB",
+    "rank": 1175,
+    "is_function_word": false,
+    "source_form": "करोगे"
+  },
+  {
+    "lemma": "घाटी",
+    "pos": "NOUN",
+    "rank": 1176,
+    "is_function_word": false,
+    "source_form": "घाटी"
+  },
+  {
+    "lemma": "चुन",
+    "pos": "VERB",
+    "rank": 1177,
+    "is_function_word": false,
+    "source_form": "चुना"
+  },
+  {
+    "lemma": "दाल",
+    "pos": "NOUN",
+    "rank": 1178,
+    "is_function_word": false,
+    "source_form": "दाल"
+  },
+  {
+    "lemma": "पदक",
+    "pos": "NOUN",
+    "rank": 1179,
+    "is_function_word": false,
+    "source_form": "पदक"
+  },
+  {
+    "lemma": "बढ़ावा",
+    "pos": "NOUN",
+    "rank": 1180,
+    "is_function_word": false,
+    "source_form": "बढ़ावा"
+  },
+  {
+    "lemma": "बाढ़",
+    "pos": "NOUN",
+    "rank": 1181,
+    "is_function_word": false,
+    "source_form": "बाढ़"
+  },
+  {
+    "lemma": "बिहारी",
+    "pos": "ADJ",
+    "rank": 1182,
+    "is_function_word": false,
+    "source_form": "बिहारी"
+  },
+  {
+    "lemma": "भाषण",
+    "pos": "NOUN",
+    "rank": 1183,
+    "is_function_word": false,
+    "source_form": "भाषण"
+  },
+  {
+    "lemma": "मशहूर",
+    "pos": "ADJ",
+    "rank": 1184,
+    "is_function_word": false,
+    "source_form": "मशहूर"
+  },
+  {
+    "lemma": "मशीन",
+    "pos": "NOUN",
+    "rank": 1185,
+    "is_function_word": false,
+    "source_form": "मशीन"
+  },
+  {
+    "lemma": "मूर्ति",
+    "pos": "NOUN",
+    "rank": 1186,
+    "is_function_word": false,
+    "source_form": "मूर्ति"
+  },
+  {
+    "lemma": "रिश्ता",
+    "pos": "NOUN",
+    "rank": 1187,
+    "is_function_word": false,
+    "source_form": "रिश्ते"
+  },
+  {
+    "lemma": "लक्षण",
+    "pos": "NOUN",
+    "rank": 1188,
+    "is_function_word": false,
+    "source_form": "लक्षण"
+  },
+  {
+    "lemma": "वितरण",
+    "pos": "NOUN",
+    "rank": 1189,
+    "is_function_word": false,
+    "source_form": "वितरण"
+  },
+  {
+    "lemma": "विमान",
+    "pos": "NOUN",
+    "rank": 1190,
+    "is_function_word": false,
+    "source_form": "विमान"
+  },
+  {
+    "lemma": "वैज्ञानिक",
+    "pos": "NOUN",
+    "rank": 1191,
+    "is_function_word": false,
+    "source_form": "वैज्ञानिक"
+  },
+  {
+    "lemma": "समेत",
+    "pos": "ADP",
+    "rank": 1192,
+    "is_function_word": true,
+    "source_form": "समेत"
+  },
+  {
+    "lemma": "स्त्री",
+    "pos": "NOUN",
+    "rank": 1193,
+    "is_function_word": false,
+    "source_form": "स्त्री"
+  },
+  {
+    "lemma": "अभिनेत्री",
+    "pos": "NOUN",
+    "rank": 1194,
+    "is_function_word": false,
+    "source_form": "अभिनेत्री"
+  },
+  {
+    "lemma": "आदत",
+    "pos": "NOUN",
+    "rank": 1195,
+    "is_function_word": false,
+    "source_form": "आदत"
+  },
+  {
+    "lemma": "आवास",
+    "pos": "NOUN",
+    "rank": 1196,
+    "is_function_word": false,
+    "source_form": "आवास"
+  },
+  {
+    "lemma": "उपचार",
+    "pos": "NOUN",
+    "rank": 1197,
+    "is_function_word": false,
+    "source_form": "उपचार"
+  },
+  {
+    "lemma": "खतरा",
+    "pos": "NOUN",
+    "rank": 1198,
+    "is_function_word": false,
+    "source_form": "खतरा"
+  },
+  {
+    "lemma": "खुल",
+    "pos": "VERB",
+    "rank": 1199,
+    "is_function_word": false,
+    "source_form": "खुले"
+  },
+  {
+    "lemma": "चरित्र",
+    "pos": "NOUN",
+    "rank": 1200,
+    "is_function_word": false,
+    "source_form": "चरित्र"
+  }
+]

@@ -1,0 +1,2782 @@
+[
+  {
+    "form": "का",
+    "reason": "duplicate:के"
+  },
+  {
+    "form": "हैं",
+    "reason": "duplicate:है"
+  },
+  {
+    "form": "किया",
+    "reason": "duplicate:कर"
+  },
+  {
+    "form": "ये",
+    "reason": "duplicate:यह"
+  },
+  {
+    "form": "करने",
+    "reason": "duplicate:कर"
+  },
+  {
+    "form": "थे",
+    "reason": "duplicate:था"
+  },
+  {
+    "form": "थी",
+    "reason": "duplicate:था"
+  },
+  {
+    "form": "भारत",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "किसी",
+    "reason": "duplicate:कोई"
+  },
+  {
+    "form": "वह",
+    "reason": "duplicate:वह"
+  },
+  {
+    "form": "करते",
+    "reason": "duplicate:कर"
+  },
+  {
+    "form": "रही",
+    "reason": "duplicate:रह"
+  },
+  {
+    "form": "होता",
+    "reason": "duplicate:हो"
+  },
+  {
+    "form": "अपनी",
+    "reason": "duplicate:अपना"
+  },
+  {
+    "form": "हुआ",
+    "reason": "duplicate:हो"
+  },
+  {
+    "form": "हुए",
+    "reason": "duplicate:हो"
+  },
+  {
+    "form": "जा",
+    "reason": "duplicate:जा"
+  },
+  {
+    "form": "जाता",
+    "reason": "duplicate:जा"
+  },
+  {
+    "form": "करना",
+    "reason": "duplicate:कर"
+  },
+  {
+    "form": "होगा",
+    "reason": "duplicate:हो"
+  },
+  {
+    "form": "गई",
+    "reason": "duplicate:जा"
+  },
+  {
+    "form": "दे",
+    "reason": "duplicate:दे"
+  },
+  {
+    "form": "होने",
+    "reason": "duplicate:हो"
+  },
+  {
+    "form": "उनके",
+    "reason": "duplicate:वह"
+  },
+  {
+    "form": "करता",
+    "reason": "duplicate:कर"
+  },
+  {
+    "form": "करें",
+    "reason": "duplicate:कर"
+  },
+  {
+    "form": "आ",
+    "reason": "elision-fragment"
+  },
+  {
+    "form": "इन",
+    "reason": "duplicate:यह"
+  },
+  {
+    "form": "इसके",
+    "reason": "duplicate:यह"
+  },
+  {
+    "form": "होती",
+    "reason": "duplicate:हो"
+  },
+  {
+    "form": "उसके",
+    "reason": "duplicate:वह"
+  },
+  {
+    "form": "हुई",
+    "reason": "duplicate:हो"
+  },
+  {
+    "form": "दी",
+    "reason": "duplicate:दे"
+  },
+  {
+    "form": "मुझे",
+    "reason": "duplicate:मैं"
+  },
+  {
+    "form": "उन्होंने",
+    "reason": "duplicate:वह"
+  },
+  {
+    "form": "मेरे",
+    "reason": "duplicate:मैं"
+  },
+  {
+    "form": "मोदी",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "लोगों",
+    "reason": "duplicate:लोग"
+  },
+  {
+    "form": "वे",
+    "reason": "duplicate:वह"
+  },
+  {
+    "form": "आपको",
+    "reason": "duplicate:आप"
+  },
+  {
+    "form": "उसे",
+    "reason": "duplicate:वह"
+  },
+  {
+    "form": "सकते",
+    "reason": "duplicate:सक"
+  },
+  {
+    "form": "उन्हें",
+    "reason": "duplicate:वह"
+  },
+  {
+    "form": "लिया",
+    "reason": "duplicate:ले"
+  },
+  {
+    "form": "अपना",
+    "reason": "duplicate:अपना"
+  },
+  {
+    "form": "ले",
+    "reason": "duplicate:ले"
+  },
+  {
+    "form": "पास",
+    "reason": "pos:X"
+  },
+  {
+    "form": "हमारे",
+    "reason": "duplicate:हम"
+  },
+  {
+    "form": "आपके",
+    "reason": "duplicate:आप"
+  },
+  {
+    "form": "मेरी",
+    "reason": "duplicate:मैं"
+  },
+  {
+    "form": "तुम",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "वाली",
+    "reason": "duplicate:वाला"
+  },
+  {
+    "form": "दिल्ली",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "उनकी",
+    "reason": "duplicate:वह"
+  },
+  {
+    "form": "दिल",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "होते",
+    "reason": "duplicate:हो"
+  },
+  {
+    "form": "जाती",
+    "reason": "duplicate:जा"
+  },
+  {
+    "form": "जाते",
+    "reason": "duplicate:जा"
+  },
+  {
+    "form": "इसे",
+    "reason": "duplicate:यह"
+  },
+  {
+    "form": "1",
+    "reason": "non-alphabetic"
+  },
+  {
+    "form": "वाला",
+    "reason": "duplicate:वाला"
+  },
+  {
+    "form": "सिंह",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "😂",
+    "reason": "non-alphabetic"
+  },
+  {
+    "form": "जय",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "2",
+    "reason": "non-alphabetic"
+  },
+  {
+    "form": "देने",
+    "reason": "duplicate:दे"
+  },
+  {
+    "form": "दोनों",
+    "reason": "duplicate:दो"
+  },
+  {
+    "form": "लेकर",
+    "reason": "duplicate:ले"
+  },
+  {
+    "form": "the",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "मेरा",
+    "reason": "duplicate:मैं"
+  },
+  {
+    "form": "of",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "इसका",
+    "reason": "duplicate:यह"
+  },
+  {
+    "form": "करो",
+    "reason": "duplicate:कर"
+  },
+  {
+    "form": "कहते",
+    "reason": "duplicate:कह"
+  },
+  {
+    "form": "होगी",
+    "reason": "duplicate:हो"
+  },
+  {
+    "form": "इसी",
+    "reason": "duplicate:यह"
+  },
+  {
+    "form": "उसकी",
+    "reason": "duplicate:वह"
+  },
+  {
+    "form": "कांग्रेस",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "बन",
+    "reason": "duplicate:बन"
+  },
+  {
+    "form": "जाए",
+    "reason": "duplicate:जा"
+  },
+  {
+    "form": "हमें",
+    "reason": "duplicate:हम"
+  },
+  {
+    "form": "उत्तर",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "करके",
+    "reason": "duplicate:कर"
+  },
+  {
+    "form": "यही",
+    "reason": "duplicate:यह"
+  },
+  {
+    "form": "गयी",
+    "reason": "duplicate:जा"
+  },
+  {
+    "form": "मैंने",
+    "reason": "duplicate:मैं"
+  },
+  {
+    "form": "लिये",
+    "reason": "duplicate:ले"
+  },
+  {
+    "form": "करे",
+    "reason": "duplicate:कर"
+  },
+  {
+    "form": "बड़ा",
+    "reason": "duplicate:बड़ा"
+  },
+  {
+    "form": "बड़े",
+    "reason": "duplicate:बड़ा"
+  },
+  {
+    "form": "आपकी",
+    "reason": "duplicate:आप"
+  },
+  {
+    "form": "देते",
+    "reason": "duplicate:दे"
+  },
+  {
+    "form": "हमारी",
+    "reason": "duplicate:हम"
+  },
+  {
+    "form": "3",
+    "reason": "non-alphabetic"
+  },
+  {
+    "form": "उनका",
+    "reason": "duplicate:वह"
+  },
+  {
+    "form": "जाना",
+    "reason": "duplicate:जान"
+  },
+  {
+    "form": "यहां",
+    "reason": "duplicate:यहाँ"
+  },
+  {
+    "form": "राम",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "पाकिस्तान",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "हूं",
+    "reason": "duplicate:है"
+  },
+  {
+    "form": "करती",
+    "reason": "duplicate:कर"
+  },
+  {
+    "form": "जाएगा",
+    "reason": "duplicate:जा"
+  },
+  {
+    "form": "उसने",
+    "reason": "duplicate:वह"
+  },
+  {
+    "form": "आने",
+    "reason": "duplicate:आ"
+  },
+  {
+    "form": "उन",
+    "reason": "duplicate:वह"
+  },
+  {
+    "form": "पूरा",
+    "reason": "duplicate:पूरा"
+  },
+  {
+    "form": "होना",
+    "reason": "duplicate:हो"
+  },
+  {
+    "form": "ऐसी",
+    "reason": "duplicate:ऐसा"
+  },
+  {
+    "form": "करेंगे",
+    "reason": "duplicate:कर"
+  },
+  {
+    "form": "इसमें",
+    "reason": "duplicate:यह"
+  },
+  {
+    "form": "5",
+    "reason": "non-alphabetic"
+  },
+  {
+    "form": "उसका",
+    "reason": "duplicate:वह"
+  },
+  {
+    "form": "ए",
+    "reason": "elision-fragment"
+  },
+  {
+    "form": "4",
+    "reason": "non-alphabetic"
+  },
+  {
+    "form": "बनाने",
+    "reason": "duplicate:बन"
+  },
+  {
+    "form": "लगे",
+    "reason": "duplicate:लग"
+  },
+  {
+    "form": "आपका",
+    "reason": "duplicate:आप"
+  },
+  {
+    "form": "सकती",
+    "reason": "duplicate:सक"
+  },
+  {
+    "form": "गांधी",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "दें",
+    "reason": "duplicate:दे"
+  },
+  {
+    "form": "देखा",
+    "reason": "duplicate:देख"
+  },
+  {
+    "form": "देना",
+    "reason": "duplicate:दे"
+  },
+  {
+    "form": "पूरे",
+    "reason": "duplicate:पूरा"
+  },
+  {
+    "form": "देता",
+    "reason": "duplicate:दे"
+  },
+  {
+    "form": "वही",
+    "reason": "duplicate:वह"
+  },
+  {
+    "form": "and",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "in",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "कह",
+    "reason": "duplicate:कह"
+  },
+  {
+    "form": "जनता",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "भाजपा",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "मिला",
+    "reason": "duplicate:मिल"
+  },
+  {
+    "form": "आई",
+    "reason": "duplicate:आ"
+  },
+  {
+    "form": "किए",
+    "reason": "duplicate:कर"
+  },
+  {
+    "form": "गये",
+    "reason": "duplicate:जा"
+  },
+  {
+    "form": "तू",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "इसकी",
+    "reason": "duplicate:यह"
+  },
+  {
+    "form": "बिहार",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "हमारा",
+    "reason": "duplicate:हम"
+  },
+  {
+    "form": "जिसमें",
+    "reason": "duplicate:जो"
+  },
+  {
+    "form": "दिए",
+    "reason": "duplicate:दे"
+  },
+  {
+    "form": "आता",
+    "reason": "duplicate:आ"
+  },
+  {
+    "form": "जिसे",
+    "reason": "duplicate:जो"
+  },
+  {
+    "form": "तेरी",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "प्रधानमंत्री",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "रह",
+    "reason": "duplicate:रह"
+  },
+  {
+    "form": "आए",
+    "reason": "duplicate:आ"
+  },
+  {
+    "form": "किस",
+    "reason": "duplicate:कौन"
+  },
+  {
+    "form": "बच्चों",
+    "reason": "duplicate:बच्चा"
+  },
+  {
+    "form": "राहुल",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "लेने",
+    "reason": "duplicate:ले"
+  },
+  {
+    "form": "हमने",
+    "reason": "duplicate:हम"
+  },
+  {
+    "form": "होंगे",
+    "reason": "duplicate:हो"
+  },
+  {
+    "form": "कहना",
+    "reason": "duplicate:कह"
+  },
+  {
+    "form": "चला",
+    "reason": "duplicate:चल"
+  },
+  {
+    "form": "राष्ट्रीय",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "6",
+    "reason": "non-alphabetic"
+  },
+  {
+    "form": "अच्छे",
+    "reason": "duplicate:अच्छा"
+  },
+  {
+    "form": "आपने",
+    "reason": "duplicate:आप"
+  },
+  {
+    "form": "इससे",
+    "reason": "duplicate:यह"
+  },
+  {
+    "form": "उसी",
+    "reason": "duplicate:वह"
+  },
+  {
+    "form": "रहते",
+    "reason": "duplicate:रह"
+  },
+  {
+    "form": "ली",
+    "reason": "duplicate:ले"
+  },
+  {
+    "form": "वालों",
+    "reason": "duplicate:वाला"
+  },
+  {
+    "form": "हिंदी",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "अच्छी",
+    "reason": "duplicate:अच्छा"
+  },
+  {
+    "form": "जिसके",
+    "reason": "duplicate:जो"
+  },
+  {
+    "form": "द",
+    "reason": "elision-fragment"
+  },
+  {
+    "form": "मिले",
+    "reason": "duplicate:मिल"
+  },
+  {
+    "form": "लग",
+    "reason": "duplicate:लग"
+  },
+  {
+    "form": "विश्व",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "सा",
+    "reason": "duplicate:सा"
+  },
+  {
+    "form": "a",
+    "reason": "elision-fragment"
+  },
+  {
+    "form": "मुख्यमंत्री",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "आती",
+    "reason": "duplicate:आ"
+  },
+  {
+    "form": "बने",
+    "reason": "duplicate:बन"
+  },
+  {
+    "form": "रहता",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "आते",
+    "reason": "duplicate:आ"
+  },
+  {
+    "form": "कुमार",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "लगी",
+    "reason": "duplicate:लग"
+  },
+  {
+    "form": "7",
+    "reason": "non-alphabetic"
+  },
+  {
+    "form": "8",
+    "reason": "non-alphabetic"
+  },
+  {
+    "form": "अमेरिका",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "चीन",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "जिससे",
+    "reason": "duplicate:जो"
+  },
+  {
+    "form": "देखने",
+    "reason": "duplicate:देख"
+  },
+  {
+    "form": "लेते",
+    "reason": "duplicate:ले"
+  },
+  {
+    "form": "सके",
+    "reason": "duplicate:सक"
+  },
+  {
+    "form": "खान",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "नया",
+    "reason": "duplicate:नया"
+  },
+  {
+    "form": "होकर",
+    "reason": "duplicate:हो"
+  },
+  {
+    "form": "राजस्थान",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "लाल",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "to",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "किये",
+    "reason": "duplicate:कर"
+  },
+  {
+    "form": "देंगे",
+    "reason": "duplicate:दे"
+  },
+  {
+    "form": "यादव",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "रहने",
+    "reason": "duplicate:रह"
+  },
+  {
+    "form": "नए",
+    "reason": "duplicate:नया"
+  },
+  {
+    "form": "बीजेपी",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "hindi",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "जाएगी",
+    "reason": "duplicate:जा"
+  },
+  {
+    "form": "जिले",
+    "reason": "duplicate:जिला"
+  },
+  {
+    "form": "बताया",
+    "reason": "duplicate:बता"
+  },
+  {
+    "form": "सारी",
+    "reason": "duplicate:सारा"
+  },
+  {
+    "form": "थीं",
+    "reason": "duplicate:था"
+  },
+  {
+    "form": "मिली",
+    "reason": "duplicate:मिल"
+  },
+  {
+    "form": "i",
+    "reason": "elision-fragment"
+  },
+  {
+    "form": "केंद्र",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "जाये",
+    "reason": "duplicate:जा"
+  },
+  {
+    "form": "9",
+    "reason": "non-alphabetic"
+  },
+  {
+    "form": "इंडिया",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "दूसरी",
+    "reason": "duplicate:दूसरा"
+  },
+  {
+    "form": "कश्मीर",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "तेरा",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "पूर्ण",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "महिलाओं",
+    "reason": "duplicate:महिला"
+  },
+  {
+    "form": "रख",
+    "reason": "duplicate:रख"
+  },
+  {
+    "form": "करेगा",
+    "reason": "duplicate:कर"
+  },
+  {
+    "form": "कितने",
+    "reason": "duplicate:कितना"
+  },
+  {
+    "form": "लेना",
+    "reason": "duplicate:ले"
+  },
+  {
+    "form": "news",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "अगस्त",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "आये",
+    "reason": "duplicate:आ"
+  },
+  {
+    "form": "चाहता",
+    "reason": "duplicate:चाह"
+  },
+  {
+    "form": "चुके",
+    "reason": "duplicate:चुक"
+  },
+  {
+    "form": "बनी",
+    "reason": "duplicate:बन"
+  },
+  {
+    "form": "लोगो",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "अंग्रेजी",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "चले",
+    "reason": "duplicate:चल"
+  },
+  {
+    "form": "जिसने",
+    "reason": "duplicate:जो"
+  },
+  {
+    "form": "देखते",
+    "reason": "duplicate:देख"
+  },
+  {
+    "form": "राज",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "पंजाब",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "रखने",
+    "reason": "duplicate:रख"
+  },
+  {
+    "form": "रहेगा",
+    "reason": "duplicate:रह"
+  },
+  {
+    "form": "वहाँ",
+    "reason": "duplicate:वहाँ"
+  },
+  {
+    "form": "हों",
+    "reason": "duplicate:हो"
+  },
+  {
+    "form": "इनके",
+    "reason": "duplicate:यह"
+  },
+  {
+    "form": "उनको",
+    "reason": "duplicate:वह"
+  },
+  {
+    "form": "उससे",
+    "reason": "duplicate:वह"
+  },
+  {
+    "form": "छोटी",
+    "reason": "duplicate:छोटा"
+  },
+  {
+    "form": "मार्च",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "केजरीवाल",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "मिलने",
+    "reason": "duplicate:मिल"
+  },
+  {
+    "form": "रहती",
+    "reason": "duplicate:रह"
+  },
+  {
+    "form": "राष्ट्रपति",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "लगाया",
+    "reason": "duplicate:लगा"
+  },
+  {
+    "form": "ई",
+    "reason": "elision-fragment"
+  },
+  {
+    "form": "दिनों",
+    "reason": "duplicate:दिन"
+  },
+  {
+    "form": "मिलेगा",
+    "reason": "duplicate:मिल"
+  },
+  {
+    "form": "रखना",
+    "reason": "duplicate:रख"
+  },
+  {
+    "form": "गाँव",
+    "reason": "duplicate:गाँव"
+  },
+  {
+    "form": "जिसका",
+    "reason": "duplicate:जो"
+  },
+  {
+    "form": "पैसा",
+    "reason": "duplicate:पैसा"
+  },
+  {
+    "form": "दिवस",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "देखकर",
+    "reason": "duplicate:देख"
+  },
+  {
+    "form": "पहला",
+    "reason": "duplicate:पहला"
+  },
+  {
+    "form": "बनने",
+    "reason": "duplicate:बन"
+  },
+  {
+    "form": "शिव",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "for",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "उसमें",
+    "reason": "duplicate:वह"
+  },
+  {
+    "form": "गुजरात",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "पी",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "बोला",
+    "reason": "duplicate:बोला"
+  },
+  {
+    "form": "कही",
+    "reason": "duplicate:कह"
+  },
+  {
+    "form": "नरेंद्र",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "राष्ट्र",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "संयुक्त",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "जाएंगे",
+    "reason": "duplicate:जा"
+  },
+  {
+    "form": "🙏",
+    "reason": "non-alphabetic"
+  },
+  {
+    "form": "इनकी",
+    "reason": "duplicate:यह"
+  },
+  {
+    "form": "चलते",
+    "reason": "duplicate:चल"
+  },
+  {
+    "form": "जाओ",
+    "reason": "duplicate:जा"
+  },
+  {
+    "form": "बनाए",
+    "reason": "duplicate:बना"
+  },
+  {
+    "form": "महान",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "रक्षा",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "up",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "कहने",
+    "reason": "duplicate:कह"
+  },
+  {
+    "form": "जिसकी",
+    "reason": "duplicate:जो"
+  },
+  {
+    "form": "बंगाल",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "रहना",
+    "reason": "duplicate:रह"
+  },
+  {
+    "form": "on",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "कविता",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "कहता",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "दूसरा",
+    "reason": "duplicate:दूसरा"
+  },
+  {
+    "form": "देवी",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "देशों",
+    "reason": "duplicate:देश"
+  },
+  {
+    "form": "रहें",
+    "reason": "duplicate:रह"
+  },
+  {
+    "form": "शब्दों",
+    "reason": "duplicate:शब्द"
+  },
+  {
+    "form": "इंसान",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "चलता",
+    "reason": "duplicate:चल"
+  },
+  {
+    "form": "नज़र",
+    "reason": "duplicate:नजर"
+  },
+  {
+    "form": "मिलती",
+    "reason": "duplicate:मिल"
+  },
+  {
+    "form": "मोदीजी",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "शाह",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "उसको",
+    "reason": "duplicate:वह"
+  },
+  {
+    "form": "कितनी",
+    "reason": "duplicate:कितना"
+  },
+  {
+    "form": "पड़े",
+    "reason": "duplicate:पड़"
+  },
+  {
+    "form": "मध्य",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "मुंबई",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "उनसे",
+    "reason": "duplicate:वह"
+  },
+  {
+    "form": "क्रिकेट",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "बल",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "मानव",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "लिख",
+    "reason": "duplicate:लिख"
+  },
+  {
+    "form": "🚩",
+    "reason": "non-alphabetic"
+  },
+  {
+    "form": "किसानों",
+    "reason": "duplicate:किसान"
+  },
+  {
+    "form": "कृष्ण",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "ज़्यादा",
+    "reason": "duplicate:ज्यादा"
+  },
+  {
+    "form": "पा",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "भविष्य",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "सबको",
+    "reason": "duplicate:सब"
+  },
+  {
+    "form": "सारा",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "जुलाई",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "देकर",
+    "reason": "duplicate:दे"
+  },
+  {
+    "form": "देखना",
+    "reason": "duplicate:देख"
+  },
+  {
+    "form": "देगा",
+    "reason": "duplicate:दे"
+  },
+  {
+    "form": "महाराष्ट्र",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "रखते",
+    "reason": "duplicate:रख"
+  },
+  {
+    "form": "लखनऊ",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "लगाने",
+    "reason": "duplicate:लगा"
+  },
+  {
+    "form": "सुन",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "🇮🇳",
+    "reason": "non-alphabetic"
+  },
+  {
+    "form": "अप्रैल",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "क",
+    "reason": "elision-fragment"
+  },
+  {
+    "form": "चली",
+    "reason": "duplicate:चल"
+  },
+  {
+    "form": "भूमिका",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "विजय",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "शर्मा",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "by",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "इन्हें",
+    "reason": "duplicate:यह"
+  },
+  {
+    "form": "करनी",
+    "reason": "duplicate:कर"
+  },
+  {
+    "form": "छोटा",
+    "reason": "duplicate:छोटा"
+  },
+  {
+    "form": "पेट",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "मिलकर",
+    "reason": "duplicate:मिल"
+  },
+  {
+    "form": "लें",
+    "reason": "duplicate:ले"
+  },
+  {
+    "form": "हरियाणा",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "is",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "जिन",
+    "reason": "duplicate:जो"
+  },
+  {
+    "form": "मुझसे",
+    "reason": "duplicate:मैं"
+  },
+  {
+    "form": "सुना",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "स्वामी",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "ऐ",
+    "reason": "elision-fragment"
+  },
+  {
+    "form": "गंगा",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "जाकर",
+    "reason": "duplicate:जा"
+  },
+  {
+    "form": "जिन्हें",
+    "reason": "duplicate:जो"
+  },
+  {
+    "form": "जिन्होंने",
+    "reason": "duplicate:जो"
+  },
+  {
+    "form": "दक्षिण",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "पड़",
+    "reason": "duplicate:पड़"
+  },
+  {
+    "form": "महादेव",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "सालों",
+    "reason": "duplicate:साल"
+  },
+  {
+    "form": "इनका",
+    "reason": "duplicate:यह"
+  },
+  {
+    "form": "कहां",
+    "reason": "duplicate:कहाँ"
+  },
+  {
+    "form": "गूगल",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "चलो",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "पाने",
+    "reason": "duplicate:पा"
+  },
+  {
+    "form": "प्रकाश",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "राज्यों",
+    "reason": "duplicate:राज्य"
+  },
+  {
+    "form": "रे",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "संसद",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "सत्य",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "आकर",
+    "reason": "duplicate:आ"
+  },
+  {
+    "form": "आनंद",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "एस",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "जिनके",
+    "reason": "duplicate:जो"
+  },
+  {
+    "form": "नेताओं",
+    "reason": "duplicate:नेता"
+  },
+  {
+    "form": "बुरा",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "bjp",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "india",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "आना",
+    "reason": "duplicate:आ"
+  },
+  {
+    "form": "मई",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "रहेंगे",
+    "reason": "duplicate:रह"
+  },
+  {
+    "form": "हाथों",
+    "reason": "duplicate:हाथ"
+  },
+  {
+    "form": "आर",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "प्रधान",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "प्रसाद",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "बनाई",
+    "reason": "duplicate:बना"
+  },
+  {
+    "form": "बनाना",
+    "reason": "duplicate:बना"
+  },
+  {
+    "form": "मुंह",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "रोड",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "वर्षों",
+    "reason": "duplicate:वर्ष"
+  },
+  {
+    "form": "पड़ी",
+    "reason": "duplicate:पड"
+  },
+  {
+    "form": "विदेश",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "वीर",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "चाय",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "टी",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "फरवरी",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "मिलते",
+    "reason": "duplicate:मिल"
+  },
+  {
+    "form": "मैदान",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "हिसाब",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "l",
+    "reason": "elision-fragment"
+  },
+  {
+    "form": "छत्तीसगढ़",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "बोलते",
+    "reason": "duplicate:बोल"
+  },
+  {
+    "form": "हमले",
+    "reason": "duplicate:हमला"
+  },
+  {
+    "form": "चाहती",
+    "reason": "duplicate:चाह"
+  },
+  {
+    "form": "जून",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "बातों",
+    "reason": "duplicate:बात"
+  },
+  {
+    "form": "यू",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "यूपी",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "रिकॉर्ड",
+    "reason": "pos:X"
+  },
+  {
+    "form": "🤣",
+    "reason": "non-alphabetic"
+  },
+  {
+    "form": "आएगा",
+    "reason": "duplicate:आ"
+  },
+  {
+    "form": "आओ",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "क्षेत्रों",
+    "reason": "duplicate:क्षेत्र"
+  },
+  {
+    "form": "सितंबर",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "more",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "अ",
+    "reason": "elision-fragment"
+  },
+  {
+    "form": "अमित",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "कर्म",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "बच्चा",
+    "reason": "duplicate:बच्चा"
+  },
+  {
+    "form": "साहित्य",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "सोने",
+    "reason": "duplicate:सो"
+  },
+  {
+    "form": "हु",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "अक्टूबर",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "आवाज",
+    "reason": "duplicate:आवाज"
+  },
+  {
+    "form": "ओ",
+    "reason": "elision-fragment"
+  },
+  {
+    "form": "कपूर",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "कृपा",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "जनवरी",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "बनाकर",
+    "reason": "duplicate:बना"
+  },
+  {
+    "form": "मा",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "मानना",
+    "reason": "duplicate:मान"
+  },
+  {
+    "form": "राह",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "रुपए",
+    "reason": "duplicate:रुपया"
+  },
+  {
+    "form": "लगते",
+    "reason": "duplicate:लग"
+  },
+  {
+    "form": "लिखी",
+    "reason": "duplicate:लिख"
+  },
+  {
+    "form": "aap",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "video",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "पटना",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "पीएम",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "बैठ",
+    "reason": "duplicate:बैठ"
+  },
+  {
+    "form": "मानते",
+    "reason": "duplicate:मान"
+  },
+  {
+    "form": "मामला",
+    "reason": "duplicate:मामला"
+  },
+  {
+    "form": "मिट्टी",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "२",
+    "reason": "non-alphabetic"
+  },
+  {
+    "form": "करेगी",
+    "reason": "duplicate:कर"
+  },
+  {
+    "form": "केंद्रीय",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "चारों",
+    "reason": "duplicate:चार"
+  },
+  {
+    "form": "जम्मू",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "डी",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "तुम्हारा",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "पश्चिम",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "लेंगे",
+    "reason": "duplicate:ले"
+  },
+  {
+    "form": "http",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "इनमें",
+    "reason": "duplicate:यह"
+  },
+  {
+    "form": "इसको",
+    "reason": "duplicate:यह"
+  },
+  {
+    "form": "चलने",
+    "reason": "duplicate:चल"
+  },
+  {
+    "form": "दिखाया",
+    "reason": "duplicate:दिखा"
+  },
+  {
+    "form": "पढ़",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "फर्क",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "बिल",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "बोलने",
+    "reason": "duplicate:बोल"
+  },
+  {
+    "form": "महाराज",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "ला",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "सबका",
+    "reason": "duplicate:सब"
+  },
+  {
+    "form": "https",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "कराने",
+    "reason": "duplicate:करा"
+  },
+  {
+    "form": "काले",
+    "reason": "duplicate:काला"
+  },
+  {
+    "form": "चक्कर",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "धारा",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "फिल्मों",
+    "reason": "duplicate:फिल्म"
+  },
+  {
+    "form": "मारने",
+    "reason": "duplicate:मार"
+  },
+  {
+    "form": "रास्ते",
+    "reason": "duplicate:रास्ता"
+  },
+  {
+    "form": "एम",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "कप",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "केरल",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "डाला",
+    "reason": "duplicate:डाल"
+  },
+  {
+    "form": "दिये",
+    "reason": "duplicate:दे"
+  },
+  {
+    "form": "पाते",
+    "reason": "duplicate:पा"
+  },
+  {
+    "form": "पुरानी",
+    "reason": "duplicate:पुराना"
+  },
+  {
+    "form": "मारे",
+    "reason": "duplicate:मार"
+  },
+  {
+    "form": "मित्रों",
+    "reason": "duplicate:मित्र"
+  },
+  {
+    "form": "रखी",
+    "reason": "duplicate:रख"
+  },
+  {
+    "form": "होनी",
+    "reason": "duplicate:हो"
+  },
+  {
+    "form": "with",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "टाइम",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "नवंबर",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "पाई",
+    "reason": "duplicate:पा"
+  },
+  {
+    "form": "रखे",
+    "reason": "duplicate:रख"
+  },
+  {
+    "form": "सुप्रीम",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "pm",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "इलाहाबाद",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "कहती",
+    "reason": "duplicate:कह"
+  },
+  {
+    "form": "छोड़कर",
+    "reason": "duplicate:छोड़"
+  },
+  {
+    "form": "दिख",
+    "reason": "duplicate:दिख"
+  },
+  {
+    "form": "निकले",
+    "reason": "duplicate:निकल"
+  },
+  {
+    "form": "पुरस्कार",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "लड़कियों",
+    "reason": "duplicate:लड़की"
+  },
+  {
+    "form": "वी",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "ह",
+    "reason": "elision-fragment"
+  },
+  {
+    "form": "होली",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "अरब",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "काट",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "केन्द्र",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "गाली",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "निगम",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "बनाये",
+    "reason": "duplicate:बना"
+  },
+  {
+    "form": "बाबू",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "भरी",
+    "reason": "duplicate:भर"
+  },
+  {
+    "form": "मिलेगी",
+    "reason": "duplicate:मिल"
+  },
+  {
+    "form": "लिखने",
+    "reason": "duplicate:लिख"
+  },
+  {
+    "form": "लिखे",
+    "reason": "duplicate:लिख"
+  },
+  {
+    "form": "समस्याओं",
+    "reason": "duplicate:समस्या"
+  },
+  {
+    "form": "हमसे",
+    "reason": "duplicate:हम"
+  },
+  {
+    "form": "हिंदुस्तान",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "from",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "you",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "इंडियन",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "उनमें",
+    "reason": "duplicate:वह"
+  },
+  {
+    "form": "कराया",
+    "reason": "duplicate:करा"
+  },
+  {
+    "form": "कार्यों",
+    "reason": "duplicate:कार्य"
+  },
+  {
+    "form": "कैंसर",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "नेपाल",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "बॉलीवुड",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "मामलों",
+    "reason": "duplicate:मामला"
+  },
+  {
+    "form": "रखता",
+    "reason": "duplicate:रख"
+  },
+  {
+    "form": "रोज़",
+    "reason": "duplicate:रोज"
+  },
+  {
+    "form": "😁",
+    "reason": "non-alphabetic"
+  },
+  {
+    "form": "at",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "read",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "अधिकारियों",
+    "reason": "duplicate:अधिकारी"
+  },
+  {
+    "form": "असम",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "इस्लाम",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "कल्याण",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "कैसी",
+    "reason": "duplicate:कैसा"
+  },
+  {
+    "form": "गाँधी",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "देव",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "पेट्रोल",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "मरने",
+    "reason": "duplicate:मर"
+  },
+  {
+    "form": "रहेगी",
+    "reason": "duplicate:रह"
+  },
+  {
+    "form": "लगने",
+    "reason": "duplicate:लग"
+  },
+  {
+    "form": "विचारों",
+    "reason": "duplicate:विचार"
+  },
+  {
+    "form": "सागर",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "😎",
+    "reason": "non-alphabetic"
+  },
+  {
+    "form": "इनको",
+    "reason": "duplicate:यह"
+  },
+  {
+    "form": "करवा",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "चाहिये",
+    "reason": "duplicate:चाहे"
+  },
+  {
+    "form": "जिनका",
+    "reason": "duplicate:जो"
+  },
+  {
+    "form": "दिसंबर",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "न्यूज़",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "रखें",
+    "reason": "duplicate:रख"
+  },
+  {
+    "form": "सदस्यों",
+    "reason": "duplicate:सदस्य"
+  },
+  {
+    "form": "सपने",
+    "reason": "duplicate:सपना"
+  },
+  {
+    "form": "अली",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "तुमसे",
+    "reason": "duplicate:तुम"
+  },
+  {
+    "form": "देवता",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "दोनो",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "बढ़ती",
+    "reason": "duplicate:बढ"
+  },
+  {
+    "form": "बे",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "रचना",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "रोटी",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "लाया",
+    "reason": "duplicate:ला"
+  },
+  {
+    "form": "सुनो",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "१",
+    "reason": "non-alphabetic"
+  },
+  {
+    "form": "0",
+    "reason": "non-alphabetic"
+  },
+  {
+    "form": "अशोक",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "कार्यकर्ता",
+    "reason": "duplicate:कार्यकर्ता"
+  },
+  {
+    "form": "जायेगी",
+    "reason": "duplicate:जाय"
+  },
+  {
+    "form": "जिनकी",
+    "reason": "duplicate:जो"
+  },
+  {
+    "form": "जैन",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "नेटवर्क",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "भला",
+    "reason": "duplicate:भला"
+  },
+  {
+    "form": "राव",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "लगाए",
+    "reason": "duplicate:लगा"
+  },
+  {
+    "form": "विधि",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "हजारों",
+    "reason": "duplicate:हजार"
+  },
+  {
+    "form": "हनुमान",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "जयपुर",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "नेशनल",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "बताओ",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "बताते",
+    "reason": "duplicate:बता"
+  },
+  {
+    "form": "बदला",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "युग",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "रस",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "लूट",
+    "reason": "pos:X"
+  },
+  {
+    "form": "विष्णु",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "सलमान",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "गृह",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "जिनमें",
+    "reason": "duplicate:जो"
+  },
+  {
+    "form": "ठाकुर",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "बनाते",
+    "reason": "duplicate:बना"
+  },
+  {
+    "form": "मंडल",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "लेती",
+    "reason": "duplicate:ले"
+  },
+  {
+    "form": "शेर",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "hai",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "कबीर",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "कर्नाटक",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "कर्मचारी",
+    "reason": "duplicate:कर्मचारी"
+  },
+  {
+    "form": "कहे",
+    "reason": "duplicate:कह"
+  },
+  {
+    "form": "गणेश",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "चलेगा",
+    "reason": "duplicate:चल"
+  },
+  {
+    "form": "जाएं",
+    "reason": "duplicate:जा"
+  },
+  {
+    "form": "जानने",
+    "reason": "duplicate:जान"
+  },
+  {
+    "form": "देखे",
+    "reason": "duplicate:देख"
+  },
+  {
+    "form": "पटेल",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "बच",
+    "reason": "duplicate:बच"
+  },
+  {
+    "form": "बदलने",
+    "reason": "duplicate:बदल"
+  },
+  {
+    "form": "बनता",
+    "reason": "duplicate:बन"
+  },
+  {
+    "form": "भुगतान",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "लोकतंत्र",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "सपा",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "इंग्लैंड",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "किसने",
+    "reason": "duplicate:कौन"
+  },
+  {
+    "form": "टू",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "नयी",
+    "reason": "duplicate:नया"
+  },
+  {
+    "form": "निकला",
+    "reason": "duplicate:निकल"
+  },
+  {
+    "form": "पापा",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "भेज",
+    "reason": "duplicate:भेज"
+  },
+  {
+    "form": "मध्यप्रदेश",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "लंबी",
+    "reason": "duplicate:लंबा"
+  },
+  {
+    "form": "लालू",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "शहरों",
+    "reason": "duplicate:शहर"
+  },
+  {
+    "form": "अटल",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "उर्दू",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "कंपनियों",
+    "reason": "duplicate:कंपनी"
+  },
+  {
+    "form": "जितनी",
+    "reason": "duplicate:जितना"
+  },
+  {
+    "form": "टूट",
+    "reason": "pos:X"
+  },
+  {
+    "form": "तीनों",
+    "reason": "duplicate:तीन"
+  },
+  {
+    "form": "भरे",
+    "reason": "duplicate:भर"
+  },
+  {
+    "form": "मुसलमानों",
+    "reason": "duplicate:मुसलमान"
+  },
+  {
+    "form": "लगाकर",
+    "reason": "duplicate:लगा"
+  },
+  {
+    "form": "सबके",
+    "reason": "duplicate:सब"
+  },
+  {
+    "form": "सीएम",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "😆",
+    "reason": "non-alphabetic"
+  },
+  {
+    "form": "अजीब",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "आएगी",
+    "reason": "duplicate:आ"
+  },
+  {
+    "form": "काली",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "खड़ी",
+    "reason": "duplicate:खड़ा"
+  },
+  {
+    "form": "चलती",
+    "reason": "duplicate:चल"
+  },
+  {
+    "form": "चुनावों",
+    "reason": "duplicate:चुनाव"
+  },
+  {
+    "form": "चेहरा",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "ज़रा",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "जायेंगे",
+    "reason": "duplicate:जाय"
+  },
+  {
+    "form": "प्रियंका",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "मोहम्मद",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "समझते",
+    "reason": "duplicate:समझ"
+  },
+  {
+    "form": "सूरज",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "हिस्से",
+    "reason": "duplicate:हिस्सा"
+  },
+  {
+    "form": "अखिलेश",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "कोड",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "पहुंचे",
+    "reason": "duplicate:पहुंच"
+  },
+  {
+    "form": "बताने",
+    "reason": "duplicate:बता"
+  },
+  {
+    "form": "बनना",
+    "reason": "duplicate:बन"
+  },
+  {
+    "form": "भारती",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "मंगल",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "युवाओं",
+    "reason": "duplicate:युवा"
+  },
+  {
+    "form": "लड़का",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "लाखों",
+    "reason": "duplicate:लाख"
+  },
+  {
+    "form": "वेतन",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "शंकर",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "संजय",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "me",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "इंतज़ार",
+    "reason": "duplicate:इंतजार"
+  },
+  {
+    "form": "कठिन",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "नये",
+    "reason": "duplicate:नया"
+  },
+  {
+    "form": "प्राकृतिक",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "बनेगा",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "भाषाओं",
+    "reason": "duplicate:भाषा"
+  },
+  {
+    "form": "मजबूर",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "मुक्ति",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "र",
+    "reason": "elision-fragment"
+  },
+  {
+    "form": "समाजवादी",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "स्कूलों",
+    "reason": "duplicate:स्कूल"
+  },
+  {
+    "form": "हज़ार",
+    "reason": "duplicate:हजार"
+  },
+  {
+    "form": "😊",
+    "reason": "non-alphabetic"
+  },
+  {
+    "form": "or",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "s",
+    "reason": "elision-fragment"
+  },
+  {
+    "form": "अनिल",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "अर्जुन",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "आएंगे",
+    "reason": "duplicate:आ"
+  },
+  {
+    "form": "आदिवासी",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "आश्रम",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "उप",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "नेहरू",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "बोलना",
+    "reason": "duplicate:बोल"
+  },
+  {
+    "form": "बोलो",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "रूस",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "वर्ल्ड",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "सितम्बर",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "सोनिया",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "this",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "जीव",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "परियोजना",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "मोहब्बत",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "यानि",
+    "reason": "duplicate:यानि"
+  },
+  {
+    "form": "राजीव",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "रो",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "लगाते",
+    "reason": "duplicate:लगा"
+  },
+  {
+    "form": "d",
+    "reason": "elision-fragment"
+  },
+  {
+    "form": "u",
+    "reason": "elision-fragment"
+  },
+  {
+    "form": "अकाउंट",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "अमर",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "अयोध्या",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "आहार",
+    "reason": "pos:PROPN"
+  },
+  {
+    "form": "कोलकाता",
+    "reason": "pos:PROPN"
+  }
+]
