@@ -4,7 +4,14 @@
 **Date:** 2026-08-01
 **Requirements:** FR-14 (purchase an additional language), FR-15 (restore purchases),
 FR-1/FR-2 (lock state, free launch language)
-**Status:** **SHELVED 2026-08-01 — do not implement yet.** The design below is
+**Status:** **UNSHELVED 2026-08-01.** Phase 12 landed the real Hindi pack, so there
+is something to sell. The API notes below were re-verified against the **iOS 26.5
+SDK itself** (not the docs site) on 2026-08-01 — see "API re-verification" at the
+end. Nothing in the design changed. Plan:
+[`../plans/2026-08-01-storekit-monetization.md`](../plans/2026-08-01-storekit-monetization.md).
+
+*Original shelving note, kept because the reasoning is what reordered the phases:*
+**SHELVED 2026-08-01 — do not implement yet.** The design below is
 approved and still stands; what changed is when it can happen.
 
 Phase 11 needs something to sell, and the app ships exactly one pack. Decision 0
@@ -288,3 +295,35 @@ servers rather than only the local test configuration.
 - [Offering, completing, and restoring in-app purchases](https://developer.apple.com/documentation/storekit/offering-completing-and-restoring-in-app-purchases)
 - [`SKTestSession`](https://developer.apple.com/documentation/storekittest/sktestsession)
 - [What's new in StoreKit and In-App Purchase — WWDC25](https://developer.apple.com/videos/play/wwdc2025/241/)
+
+## API re-verification — 2026-08-01
+
+Checked against `iPhoneOS26.5.sdk`'s `StoreKit.swiftinterface` and
+`StoreKitTest.swiftinterface` directly. Apple's documentation site renders through
+JavaScript and cannot be read by fetch, so the SDK is both the more reliable and the
+more authoritative source — it is what the compiler enforces.
+
+**Nothing in this design needed to change.** Findings:
+
+- `Transaction.currentEntitlements` (the plural static var this design uses) is
+  **not** deprecated. The Sources note above was right: the `deprecated: 18.4`
+  attribute belongs to the singular `currentEntitlement(for:)`.
+- iOS 18.4 added a *third* form, `Transaction.currentEntitlements(for productID:)`.
+  It is unusable here — the deployment target is iOS 17.0 — and unnecessary, since
+  the refresh iterates all entitlements anyway.
+- `Transaction.updates`, `AppStore.sync()`, `Product.products(for:)` and
+  `Product.PurchaseResult`'s three cases are unchanged and current.
+- `Product.purchase(options:)` is `@MainActor`. Awaiting it from a nonisolated async
+  context is legal; the compiler inserts the hop.
+- `Product.PurchaseError` gained `.paymentMethodBindingConfigurationRequired` in
+  26.5. It needs no special handling — it falls through the generic failure path.
+- `SKTestSession` is current and `NS_SWIFT_SENDABLE`.
+  `setSimulatedError(_:forAPI:)` is live; `failTransactionsEnabled`, `failureError`
+  and the ObjC `buyProduct(productIdentifier:)` are all deprecated.
+- WWDC26's StoreKit additions — multi-user subscriptions, Group Purchases,
+  commitment plans, in-app offer-code redemption — are entirely subscription-side.
+  None of them touch a one-time non-consumable.
+- **The iOS 26.x `currentEntitlements`-empty bug is still open**, with fresh reports
+  against Xcode 26.4 / iOS 26.4.1 in May 2026: production-only, not reproducible in
+  sandbox. Decision 4's additive-only refresh is reinforced rather than obsolete —
+  and note the corollary, that it cannot be exercised before release.
