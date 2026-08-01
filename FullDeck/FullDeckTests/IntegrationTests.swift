@@ -84,6 +84,7 @@ func bundledHindiPackIsLocked() async throws {
     let viewModel = LanguageSelectionViewModel(
         packStore: dependencies.packStore,
         entitlements: NoPurchasesEntitlementStore(),
+        purchases: NoPurchasesService(),
         defaults: defaults)
 
     await viewModel.load()

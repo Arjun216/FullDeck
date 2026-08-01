@@ -99,12 +99,21 @@ func makeStudyViewModel(
 ///
 /// `@unchecked Sendable` is honest here: it is mutated only from the main actor
 /// inside tests, and a lock in a test double would be ceremony proving nothing.
-final class FakePurchaseService: PurchaseService, @unchecked Sendable {
+///
+/// Conforms to both ports, like `StoreKitPurchaseService` does, so a test can
+/// pass one object as `purchases` *and* `entitlements` — which is what makes a
+/// restore observably change what `isUnlocked` answers.
+final class FakePurchaseService: PurchaseService, EntitlementStore, @unchecked Sendable {
     var priceToReturn: String? = "$0.99"
     var priceError: Error?
     var outcomeToReturn: PurchaseOutcome = .purchased
     var purchaseError: Error?
     var restoreError: Error?
+    /// What a successful restore will turn up, mirroring the real adapter's
+    /// cache gaining entries once `AppStore.sync()` lands.
+    var unlockedAfterRestore: Set<String> = []
+
+    private var unlocked: Set<String> = []
 
     private(set) var purchaseCount = 0
     private(set) var restoreCount = 0
@@ -125,5 +134,10 @@ final class FakePurchaseService: PurchaseService, @unchecked Sendable {
     func restore() async throws {
         restoreCount += 1
         if let restoreError { throw restoreError }
+        unlocked = unlockedAfterRestore
+    }
+
+    func isUnlocked(_ languageCode: LanguageCode) -> Bool {
+        unlocked.contains(languageCode.rawValue)
     }
 }

@@ -13,6 +13,7 @@ struct AppDependencies {
     let speech: SpeechService
     let clock: DayClock
     let entitlements: EntitlementStore
+    let purchases: PurchaseService
     let scheduler = Scheduler()
     let sessionBuilder = SessionBuilder()
 
@@ -33,7 +34,8 @@ struct AppDependencies {
             reviewStore: SwiftDataReviewStore(modelContainer: container),
             speech: AVSpeechService(),
             clock: SystemDayClock(),
-            entitlements: NoPurchasesEntitlementStore())
+            entitlements: NoPurchasesEntitlementStore(),
+            purchases: NoPurchasesService())
     }
 
     /// Throws rather than crashes: opening the SwiftData store can fail on a full

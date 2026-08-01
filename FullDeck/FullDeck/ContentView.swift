@@ -30,7 +30,8 @@ struct ContentView: View {
         _selectionViewModel = State(
             initialValue: LanguageSelectionViewModel(
                 packStore: dependencies.packStore,
-                entitlements: dependencies.entitlements))
+                entitlements: dependencies.entitlements,
+                purchases: dependencies.purchases))
     }
 
     var body: some View {
