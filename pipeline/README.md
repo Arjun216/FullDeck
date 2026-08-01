@@ -5,9 +5,10 @@ Turns a language code into a schema-valid language pack: frequency-ranked lemmas
 every rule in [`docs/language-pack-schema.md`](../docs/language-pack-schema.md) §7 before it is
 written out.
 
-Adding a language should be *running this*, not writing app code. The per-language knobs are a
-table entry (`LANGUAGE_RULES` in `words.py`, `SpacyAnalyzer.MODELS`, `LANGUAGE_NAMES`); everything
-else is language-agnostic.
+Adding a language is *running this*, not writing app code — measured across two languages, and
+true: Hindi cost zero lines of app logic. Inside the pipeline the story is weaker than "a table
+entry", and the second language is what showed it. See "Adding a language" below, and
+[`docs/phase-12-verdict.md`](../docs/phase-12-verdict.md).
 
 ## Setup
 
@@ -28,6 +29,7 @@ No API key, anywhere. Sentences come from Claude either through the **Claude Cod
 produce the same files, so you can mix them freely.
 
 ```sh
+uv run packgen models hi     # pinned UDPipe model -> work/models/  (UDPipe languages only)
 uv run packgen words fr      # wordfreq + spaCy   -> work/fr/candidates.json  (+ rejected.json)
 uv run packgen prompts fr    # candidates         -> work/fr/prompts/NNN.md
 uv run packgen generate fr   # prompts            -> work/fr/responses/NNN.json   [or paste by hand]
@@ -124,11 +126,27 @@ Rule tests run against a fake analyzer with a fixed lexicon so they stay fast an
 
 ## Adding a language
 
-1. `SpacyAnalyzer.MODELS[code]` — the spaCy model, added as a pinned wheel in `pyproject.toml`.
-2. `LANGUAGE_RULES[code]` — the cleaning knobs (real one-letter words, elision suffixes). Start
-   empty and read `rejected.json` to see what the language actually needs.
-3. `LANGUAGE_NAMES[code]` — the display name.
-4. Run the four stages.
+**Step 0 decides how much work the rest is: does a POS-tagging model exist for the language?**
+spaCy covers French. It publishes no Hindi pipeline with a tagger at all, so Hindi needed
+`UDPipeAnalyzer` — a second backend class, not a table row. Check before promising anyone a
+timeline.
 
-Hindi is Phase 12, and is expected to need more work at step 2 than French did — weaker NLP
-tooling and richer morphology is exactly why it was chosen as the architecture test.
+1. **The model.** spaCy: a pinned wheel in `pyproject.toml` plus `SpacyAnalyzer.MODELS[code]`.
+   UDPipe: a `RemoteModel` in `UDPipeAnalyzer.MODELS[code]` with its URL and SHA-256, fetched
+   with `uv run packgen models <code>`. Neither exists for your language? That is a new backend
+   implementing the `Analyzer` protocol, and it is the real cost.
+2. `ANALYZERS[code]` — which backend the language uses. One row.
+3. `LANGUAGE_RULES[code]` — the cleaning knobs (real one-letter words, elision suffixes). Start
+   empty and read `rejected.json` to see what the language actually needs. Hindi found two
+   script-level surprises there; both were invisible until that file was read.
+4. `LANGUAGE_NAMES[code]` — the display name.
+5. `LEMMA_NORMALIZERS[code]` — **only if** the tagger's lemma convention differs from the
+   dictionary's. Tag one inflected sentence and read the lemmas: UD Hindi returns the bare verb
+   stem `कर` where the pack cites the infinitive `करना`, and §6 compares those as strings. Left
+   unreconciled it cost 333 violations on a 1000-word pack. French needs none of this, because
+   spaCy's French lemma already is the infinitive.
+6. Run the stages.
+
+The measured cost of the second language is in
+[`docs/phase-12-verdict.md`](../docs/phase-12-verdict.md): zero lines of app logic, one new
+backend class in the pipeline, nine documented §6 waivers.
