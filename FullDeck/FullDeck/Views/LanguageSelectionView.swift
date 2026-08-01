@@ -120,14 +120,15 @@ struct LanguageSelectionView: View {
                     Image(systemName: "checkmark")
                 }
             }
+            // Must be on the label's content, not on the Button: a Button's hit
+            // area is whatever its label draws, and this HStack draws only the
+            // name and the trailing glyph. The `Spacer()` between them is empty,
+            // so taps there hit nothing. `हिन्दी` is a short word, which left
+            // most of that row dead while the wider `Français` above it still
+            // caught taps — the same code looking broken on one row only.
+            .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
-        // The label is an HStack whose only opaque parts are the name and the
-        // trailing glyph; the gap between them has no content to hit-test
-        // against, so taps there fall through. Harmless on the active row,
-        // which reacts anyway — but a locked row shows a padlock and no
-        // checkmark, leaving most of its width dead.
-        .contentShape(Rectangle())
         // Deliberately NOT .disabled(). SwiftUI dims a disabled row, which took the
         // locked language's name to 3.33:1 against the warm background — under the
         // 4.5:1 AA floor, and caught by the audit. FR-1 is enforced where it belongs,
