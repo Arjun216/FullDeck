@@ -18,6 +18,15 @@ design), Opus earns its cost.
 **Branch state:** `storekit-monetization` is pushed and not yet merged. Phase 13
 should start from a merged `main`.
 
+**Start from [`docs/known-issues.md`](known-issues.md)** — every defect, gap and
+deliberate compromise in the project, with IDs. Phase 13's `test-plan.md` should
+reference them rather than re-deriving the list. The short version: the defects
+are small and latent; the risk is that the purchase chain has never reached
+Apple's servers (U-1), the app has never been run on its own iOS 17 minimum
+(U-2), both performance NFRs are unmeasured (U-3, U-4), and 1000 Hindi sentences
+are unread (U-8). FR-13, FR-17 and FR-18 are on the books with no code — decide
+deliberately whether they ship or get cut.
+
 **Before shipping, someone has to do the App Store Connect work** —
 [`docs/app-store-connect-setup.md`](app-store-connect-setup.md) is the
 step-by-step. Nothing in Phase 11 was proved against Apple's servers; the

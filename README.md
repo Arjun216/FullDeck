@@ -12,7 +12,9 @@ no gamification, and a deliberate ending when all 1000 words are learned.
 > left is Phase 13 (QA + the edge-case matrix) and Phase 14 (release docs), plus
 > the App Store Connect setup in
 > [`docs/app-store-connect-setup.md`](docs/app-store-connect-setup.md) — nothing
-> has been proved against Apple's servers yet.
+> has been proved against Apple's servers yet. Everything known to be broken,
+> unverified, or deliberately compromised is catalogued in
+> [`docs/known-issues.md`](docs/known-issues.md).
 
 ## Architecture
 
