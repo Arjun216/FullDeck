@@ -1,221 +1,369 @@
 {
-  "sourceLanguage" : "en",
-  "strings" : {
-    "Languages" : {
-      "localizations" : {
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Idiomas" } }
-      }
-    },
-    "Study" : {
-      "localizations" : {
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Estudiar" } }
-      }
-    },
-    "Progress" : {
-      "localizations" : {
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Progreso" } }
-      }
-    },
-    "Choose a language" : {
-      "localizations" : {
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Elige un idioma" } }
-      }
-    },
-    "Pick a language on the Languages tab to start." : {
-      "localizations" : {
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Elige un idioma en la pestaña Idiomas para empezar."
+  "sourceLanguage": "en",
+  "strings": {
+    "%@, active language": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@, idioma activo"
           }
         }
       }
     },
-    "Something went wrong" : {
-      "localizations" : {
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Algo salió mal" } }
-      }
-    },
-    "%@, locked" : {
-      "localizations" : {
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "%@, bloqueado" } }
-      }
-    },
-    "%@, active language" : {
-      "localizations" : {
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "%@, idioma activo" } }
-      }
-    },
-    "%lld" : {
-      "comment" : "LearningProgressView's raw learned-count readout; no translation needed."
-    },
-    "of %lld words learned" : {
-      "localizations" : {
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "de %lld palabras aprendidas" } }
-      }
-    },
-    "Every word. That's the whole deck." : {
-      "localizations" : {
-        "es" : {
-          "stringUnit" : { "state" : "translated", "value" : "Todas las palabras. El mazo completo." }
-        }
-      }
-    },
-    "%lld of %lld words learned" : {
-      "localizations" : {
-        "es" : {
-          "stringUnit" : { "state" : "translated", "value" : "%lld de %lld palabras aprendidas" }
-        }
-      }
-    },
-    "%lld of %lld" : {
-      "localizations" : {
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "%lld de %lld" } }
-      }
-    },
-    "Card %lld of %lld" : {
-      "localizations" : {
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Tarjeta %lld de %lld" } }
-      }
-    },
-    "Hear the word" : {
-      "localizations" : {
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Escuchar la palabra" } }
-      }
-    },
-    "Hear the word %@" : {
-      "localizations" : {
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Escuchar la palabra %@" } }
-      }
-    },
-    "Reveal" : {
-      "localizations" : {
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Mostrar" } }
-      }
-    },
-    "Shows the answer" : {
-      "localizations" : {
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Muestra la respuesta" } }
-      }
-    },
-    "Audio unavailable on this device." : {
-      "localizations" : {
-        "es" : {
-          "stringUnit" : { "state" : "translated", "value" : "Audio no disponible en este dispositivo." }
-        }
-      }
-    },
-    "Hear the sentence" : {
-      "localizations" : {
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Escuchar la oración" } }
-      }
-    },
-    "Hear the example sentence" : {
-      "localizations" : {
-        "es" : {
-          "stringUnit" : { "state" : "translated", "value" : "Escuchar la oración de ejemplo" }
-        }
-      }
-    },
-    "Knew it!" : {
-      "localizations" : {
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "¡Lo sabía!" } }
-      }
-    },
-    "Let's try this again" : {
-      "localizations" : {
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Volvamos a intentarlo" } }
-      }
-    },
-    "You're caught up" : {
-      "localizations" : {
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Estás al día" } }
-      }
-    },
-    "Next review %@." : {
-      "localizations" : {
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Próximo repaso %@." } }
-      }
-    },
-    "Nothing is due right now." : {
-      "localizations" : {
-        "es" : {
-          "stringUnit" : { "state" : "translated", "value" : "No hay nada pendiente ahora mismo." }
-        }
-      }
-    },
-    "You've learned all the words in this language." : {
-      "localizations" : {
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Has aprendido todas las palabras de este idioma."
+    "%@, locked": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@, bloqueado"
           }
         }
       }
     },
-    "Add another language — $0.99" : {
-      "localizations" : {
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Añadir otro idioma — 0,99 $" } }
-      }
+    "%lld": {
+      "comment": "LearningProgressView's raw learned-count readout; no translation needed."
     },
-    "Opens the languages list" : {
-      "localizations" : {
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Abre la lista de idiomas" } }
-      }
-    },
-    "Couldn't load the available languages." : {
-      "localizations" : {
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "No se pudieron cargar los idiomas disponibles."
+    "%lld of %lld": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld de %lld"
           }
         }
       }
     },
-    "Couldn't load this language." : {
-      "localizations" : {
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "No se pudo cargar este idioma." } }
-      }
-    },
-    "Couldn't save your progress." : {
-      "localizations" : {
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "No se pudo guardar tu progreso." } }
-      }
-    },
-    "Couldn't load your progress." : {
-      "localizations" : {
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "No se pudo cargar tu progreso." } }
-      }
-    },
-    "Couldn't open your saved progress." : {
-      "localizations" : {
-        "es" : {
-          "stringUnit" : { "state" : "translated", "value" : "No se pudo abrir tu progreso guardado." }
-        }
-      }
-    },
-    "This language needs an app update." : {
-      "localizations" : {
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Este idioma necesita una actualización de la app."
+    "%lld of %lld words learned": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld de %lld palabras aprendidas"
           }
         }
       }
     },
-    "This language's data couldn't be read. Try reinstalling the app." : {
-      "localizations" : {
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "No se pudieron leer los datos de este idioma. Intenta reinstalar la app."
+    "Add another language — $0.99": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Añadir otro idioma — 0,99 $"
+          }
+        }
+      }
+    },
+    "Audio unavailable on this device.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Audio no disponible en este dispositivo."
+          }
+        }
+      }
+    },
+    "Card %lld of %lld": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tarjeta %lld de %lld"
+          }
+        }
+      }
+    },
+    "Choose a language": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Elige un idioma"
+          }
+        }
+      }
+    },
+    "Coming soon": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Próximamente"
+          }
+        }
+      }
+    },
+    "Couldn't load the available languages.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pudieron cargar los idiomas disponibles."
+          }
+        }
+      }
+    },
+    "Couldn't load this language.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pudo cargar este idioma."
+          }
+        }
+      }
+    },
+    "Couldn't load your progress.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pudo cargar tu progreso."
+          }
+        }
+      }
+    },
+    "Couldn't open your saved progress.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pudo abrir tu progreso guardado."
+          }
+        }
+      }
+    },
+    "Couldn't save your progress.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pudo guardar tu progreso."
+          }
+        }
+      }
+    },
+    "Every word. That's the whole deck.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Todas las palabras. El mazo completo."
+          }
+        }
+      }
+    },
+    "Hear the example sentence": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Escuchar la oración de ejemplo"
+          }
+        }
+      }
+    },
+    "Hear the sentence": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Escuchar la oración"
+          }
+        }
+      }
+    },
+    "Hear the word": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Escuchar la palabra"
+          }
+        }
+      }
+    },
+    "Hear the word %@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Escuchar la palabra %@"
+          }
+        }
+      }
+    },
+    "Knew it!": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¡Lo sabía!"
+          }
+        }
+      }
+    },
+    "Languages": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Idiomas"
+          }
+        }
+      }
+    },
+    "Let's try this again": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Volvamos a intentarlo"
+          }
+        }
+      }
+    },
+    "Next review %@.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Próximo repaso %@."
+          }
+        }
+      }
+    },
+    "Nothing is due right now.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No hay nada pendiente ahora mismo."
+          }
+        }
+      }
+    },
+    "Opens the languages list": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abre la lista de idiomas"
+          }
+        }
+      }
+    },
+    "Pick a language on the Languages tab to start.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Elige un idioma en la pestaña Idiomas para empezar."
+          }
+        }
+      }
+    },
+    "Progress": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Progreso"
+          }
+        }
+      }
+    },
+    "Reveal": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostrar"
+          }
+        }
+      }
+    },
+    "Shows the answer": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Muestra la respuesta"
+          }
+        }
+      }
+    },
+    "Something went wrong": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Algo salió mal"
+          }
+        }
+      }
+    },
+    "Study": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Estudiar"
+          }
+        }
+      }
+    },
+    "This language needs an app update.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Este idioma necesita una actualización de la app."
+          }
+        }
+      }
+    },
+    "This language's data couldn't be read. Try reinstalling the app.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pudieron leer los datos de este idioma. Intenta reinstalar la app."
+          }
+        }
+      }
+    },
+    "You're caught up": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Estás al día"
+          }
+        }
+      }
+    },
+    "You've learned all the words in this language.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Has aprendido todas las palabras de este idioma."
+          }
+        }
+      }
+    },
+    "of %lld words learned": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "de %lld palabras aprendidas"
           }
         }
       }
     }
   },
-  "version" : "1.0"
+  "version": "1.0"
 }
