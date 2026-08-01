@@ -12,6 +12,9 @@ dependencies = [
     "jsonschema>=4.23.0",
     "fr-core-news-md",
     "click>=8.4.2",
+    # Hindi. spaCy publishes no Hindi pipeline with a POS tagger at all, so the
+    # second language needs a second NLP backend -- see UDPipeAnalyzer.
+    "ufal.udpipe>=1.4.0.1",
 ]
 
 [project.scripts]

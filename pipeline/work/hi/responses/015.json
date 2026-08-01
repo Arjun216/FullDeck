@@ -1,0 +1,61 @@
+I'll work through each word, checking lemma/POS correctness and building compliant example sentences from the allowed word list.
+
+A few flags before the data:
+- **लंड** (702) and **चूट** (750) are vulgar slang (crude terms for genitalia). I'm marking these `PROPN` to drop them from the teachable list rather than generate example sentences for profanity — let me know if you actually want vulgar/slang words included in the deck and I'll redo them properly.
+- **हिन्द** (729) at this frequency is essentially a proper noun for "India" (as in the phrase "जय हिन्द"), not a common vocabulary word, so I'm marking it `PROPN` to drop as well.
+- Corrected mistagged lemmas: `मारा`→**मारना** (VERB, not PRON), `लेख`→NOUN (not VERB), `लाने`→**लाना** (VERB), `पहुंच`→**पहुँचना** (VERB), `इच्छा`→NOUN (not ADJ).
+
+```json
+[
+  {"rank": 701, "lemma": "यार", "pos": "NOUN", "display": "यार", "gloss": "friend, buddy", "register": "casual", "example": "मेरा यार अच्छा है।"},
+  {"rank": 702, "lemma": "लंड", "pos": "PROPN", "display": "लंड", "gloss": "vulgar slang; dropped", "register": "casual", "example": ""},
+  {"rank": 703, "lemma": "लाना", "pos": "VERB", "display": "लाना", "gloss": "to bring", "register": "neutral", "example": "मुझे पानी लाना है।"},
+  {"rank": 704, "lemma": "लोकसभा", "pos": "NOUN", "display": "लोकसभा", "gloss": "Lok Sabha, lower house of parliament", "register": "formal", "example": "वह लोकसभा में है।"},
+  {"rank": 705, "lemma": "वृद्धि", "pos": "NOUN", "display": "वृद्धि", "gloss": "growth, increase", "register": "formal", "example": "कीमत में वृद्धि हुई।"},
+  {"rank": 706, "lemma": "शुभ", "pos": "ADJ", "display": "शुभ", "gloss": "auspicious", "register": "formal", "example": "यह शुभ दिन है।"},
+  {"rank": 707, "lemma": "संगीत", "pos": "NOUN", "display": "संगीत", "gloss": "music", "register": "neutral", "example": "मुझे संगीत पसंद है।"},
+  {"rank": 708, "lemma": "आवाज़", "pos": "NOUN", "display": "आवाज़", "gloss": "voice, sound", "register": "neutral", "example": "उसकी आवाज़ अच्छी है।"},
+  {"rank": 709, "lemma": "तुरंत", "pos": "ADV", "display": "तुरंत", "gloss": "immediately", "register": "neutral", "example": "वह तुरंत आया।"},
+  {"rank": 710, "lemma": "दिमाग", "pos": "NOUN", "display": "दिमाग", "gloss": "brain, mind", "register": "casual", "example": "मेरा दिमाग काम नहीं करता।"},
+  {"rank": 711, "lemma": "पत्रकार", "pos": "NOUN", "display": "पत्रकार", "gloss": "journalist", "register": "neutral", "example": "वह एक पत्रकार है।"},
+  {"rank": 712, "lemma": "मारना", "pos": "VERB", "display": "मारना", "gloss": "to hit; to kill", "register": "neutral", "example": "उसने उसे मारा।"},
+  {"rank": 713, "lemma": "राजधानी", "pos": "NOUN", "display": "राजधानी", "gloss": "capital city", "register": "neutral", "example": "दिल्ली भारत की राजधानी है।"},
+  {"rank": 714, "lemma": "लाइन", "pos": "NOUN", "display": "लाइन", "gloss": "line", "register": "neutral", "example": "लाइन में खड़े रहो।"},
+  {"rank": 715, "lemma": "विस्तार", "pos": "NOUN", "display": "विस्तार", "gloss": "expansion", "register": "formal", "example": "व्यापार का विस्तार हुआ।"},
+  {"rank": 716, "lemma": "अथवा", "pos": "CCONJ", "display": "अथवा", "gloss": "or", "register": "formal", "example": "यह अथवा वह लो।"},
+  {"rank": 717, "lemma": "अनुभव", "pos": "NOUN", "display": "अनुभव", "gloss": "experience", "register": "neutral", "example": "मुझे अच्छा अनुभव हुआ।"},
+  {"rank": 718, "lemma": "इलाज", "pos": "NOUN", "display": "इलाज", "gloss": "treatment, cure", "register": "neutral", "example": "उसका इलाज हुआ।"},
+  {"rank": 719, "lemma": "तुलना", "pos": "NOUN", "display": "तुलना", "gloss": "comparison", "register": "neutral", "example": "यह तुलना ठीक नहीं है।"},
+  {"rank": 720, "lemma": "तैयारी", "pos": "NOUN", "display": "तैयारी", "gloss": "preparation", "register": "neutral", "example": "परीक्षा की तैयारी करो।"},
+  {"rank": 721, "lemma": "फ़िल्म", "pos": "NOUN", "display": "फ़िल्म", "gloss": "film, movie", "register": "neutral", "example": "मुझे यह फ़िल्म पसंद है।"},
+  {"rank": 722, "lemma": "बैठक", "pos": "NOUN", "display": "बैठक", "gloss": "meeting", "register": "formal", "example": "आज बैठक है।"},
+  {"rank": 723, "lemma": "रन", "pos": "NOUN", "display": "रन", "gloss": "run (cricket)", "register": "casual", "example": "टीम ने रन बनाए।"},
+  {"rank": 724, "lemma": "लेख", "pos": "NOUN", "display": "लेख", "gloss": "article, essay", "register": "neutral", "example": "यह लेख अच्छा है।"},
+  {"rank": 725, "lemma": "विश्वविद्यालय", "pos": "NOUN", "display": "विश्वविद्यालय", "gloss": "university", "register": "formal", "example": "वह विश्वविद्यालय जाता है।"},
+  {"rank": 726, "lemma": "शराब", "pos": "NOUN", "display": "शराब", "gloss": "alcohol, liquor", "register": "casual", "example": "उसे शराब पसंद नहीं है।"},
+  {"rank": 727, "lemma": "सपना", "pos": "NOUN", "display": "सपना", "gloss": "dream", "register": "neutral", "example": "मेरा एक सपना है।"},
+  {"rank": 728, "lemma": "स्टेशन", "pos": "NOUN", "display": "स्टेशन", "gloss": "station", "register": "neutral", "example": "वह स्टेशन गया।"},
+  {"rank": 729, "lemma": "हिन्द", "pos": "PROPN", "display": "हिन्द", "gloss": "India (poetic); dropped", "register": "formal", "example": ""},
+  {"rank": 730, "lemma": "आज़ादी", "pos": "NOUN", "display": "आज़ादी", "gloss": "freedom, independence", "register": "neutral", "example": "यह आज़ादी का दिन है।"},
+  {"rank": 731, "lemma": "आयोजन", "pos": "NOUN", "display": "आयोजन", "gloss": "event, organizing", "register": "formal", "example": "यह आयोजन बड़ा है।"},
+  {"rank": 732, "lemma": "ईश्वर", "pos": "NOUN", "display": "ईश्वर", "gloss": "God", "register": "formal", "example": "ईश्वर सब जानता है।"},
+  {"rank": 733, "lemma": "कवि", "pos": "NOUN", "display": "कवि", "gloss": "poet", "register": "neutral", "example": "वह एक कवि है।"},
+  {"rank": 734, "lemma": "क्षमता", "pos": "NOUN", "display": "क्षमता", "gloss": "capacity, ability", "register": "formal", "example": "उसकी क्षमता अच्छी है।"},
+  {"rank": 735, "lemma": "चोर", "pos": "NOUN", "display": "चोर", "gloss": "thief", "register": "casual", "example": "वह चोर है।"},
+  {"rank": 736, "lemma": "झूठ", "pos": "NOUN", "display": "झूठ", "gloss": "lie, falsehood", "register": "neutral", "example": "यह झूठ है।"},
+  {"rank": 737, "lemma": "पहुँचना", "pos": "VERB", "display": "पहुँचना", "gloss": "to arrive, reach", "register": "neutral", "example": "वह घर पहुंचा।"},
+  {"rank": 738, "lemma": "पेड़", "pos": "NOUN", "display": "पेड़", "gloss": "tree", "register": "neutral", "example": "यह पेड़ बड़ा है।"},
+  {"rank": 739, "lemma": "मित्र", "pos": "NOUN", "display": "मित्र", "gloss": "friend", "register": "formal", "example": "वह मेरा मित्र है।"},
+  {"rank": 740, "lemma": "विरोधी", "pos": "ADJ", "display": "विरोधी", "gloss": "opposing, opponent", "register": "neutral", "example": "विरोधी पार्टी आई।"},
+  {"rank": 741, "lemma": "शिकायत", "pos": "NOUN", "display": "शिकायत", "gloss": "complaint", "register": "neutral", "example": "मुझे शिकायत है।"},
+  {"rank": 742, "lemma": "सीधे", "pos": "ADV", "display": "सीधे", "gloss": "directly, straight", "register": "neutral", "example": "वह सीधे गया।"},
+  {"rank": 743, "lemma": "स्थापना", "pos": "NOUN", "display": "स्थापना", "gloss": "establishment, founding", "register": "formal", "example": "इसकी स्थापना कब हुई?"},
+  {"rank": 744, "lemma": "इच्छा", "pos": "NOUN", "display": "इच्छा", "gloss": "wish, desire", "register": "neutral", "example": "मेरी इच्छा है।"},
+  {"rank": 745, "lemma": "उचित", "pos": "ADJ", "display": "उचित", "gloss": "proper, appropriate", "register": "formal", "example": "यह उचित नहीं है।"},
+  {"rank": 746, "lemma": "कार्यालय", "pos": "NOUN", "display": "कार्यालय", "gloss": "office", "register": "formal", "example": "वह कार्यालय गया।"},
+  {"rank": 747, "lemma": "काला", "pos": "ADJ", "display": "काला", "gloss": "black", "register": "neutral", "example": "यह काला है।"},
+  {"rank": 748, "lemma": "किन्तु", "pos": "CCONJ", "display": "किन्तु", "gloss": "but", "register": "formal", "example": "वह अच्छा है किन्तु छोटा है।"},
+  {"rank": 749, "lemma": "चीज़", "pos": "NOUN", "display": "चीज़", "gloss": "thing", "register": "neutral", "example": "यह अच्छी चीज़ है।"},
+  {"rank": 750, "lemma": "चूत", "pos": "PROPN", "display": "चूत", "gloss": "vulgar slang; dropped", "register": "casual", "example": ""}
+]
+```

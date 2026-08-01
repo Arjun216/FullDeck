@@ -250,13 +250,16 @@ binary", so no requirement changes.
 
 ---
 
-> **Reordered 2026-08-01: Phase 12 runs before Phase 11.** Monetization needs a
-> second pack to sell, and the app ships one. Selling a language whose pack does
-> not exist would let a purchase succeed and unlock nothing. Phase 11's design is
-> written and approved in
-> `docs/superpowers/specs/2026-08-01-storekit-monetization-design.md` and shelved
-> there until Hindi is real. Until then the Languages screen shows a
-> non-purchasable "coming soon" row.
+> **Reordered 2026-08-01: Phase 12 ran before Phase 11, and is now complete.**
+> Monetization needed a second pack to sell. Hindi is real — 1000 words, shipped
+> locked — so Phase 11 unshelves now:
+> `docs/superpowers/specs/2026-08-01-storekit-monetization-design.md`. **Re-verify
+> its StoreKit API notes first** (last checked 2026-08-01).
+>
+> Until Phase 11 lands, Hindi shows as **locked with no way to unlock it**.
+> `LanguageSelectionViewModel.select` refuses locked packs, so this is safe, but
+> it is a worse user-facing state than the "coming soon" row it replaced. The two
+> phases should land close together.
 
 ## PHASE 11 — Monetization (StoreKit 2) with Sandbox + StoreKit Testing
 
@@ -280,19 +283,26 @@ Confirm the StoreKit 2 APIs you're using are current before committing. Explain 
 
 *Artifact: a second pack integrated with (ideally) zero app-code change — the real test of the core design goal.*
 
-> **Now runs before Phase 11** (reordered 2026-08-01), and starts with a problem
-> the pipeline hides well. `LANGUAGE_RULES` has an `"hi"` entry and
-> `SpacyAnalyzer.MODELS` maps it to `xx_sent_ud_sm`, which reads as Hindi support.
-> It is not: that model is absent from `pipeline/pyproject.toml`, so
-> `packgen words hi` fails immediately, and it is a *sentence segmenter* with no
-> POS tagger and no lemmatizer, while `words.py:82` reads `token.lemma_` and
-> `token.pos_` off it. spaCy publishes no Hindi pipeline with POS.
+> **Phase complete 2026-08-01.** Full verdict:
+> [`docs/phase-12-verdict.md`](phase-12-verdict.md). The headline:
 >
-> Picking the replacement — a new NLP dependency such as stanza, or moving
-> lemma/POS tagging into the Claude prompts, which already correct both for
-> French — is the first decision of this phase. It is also the first honest
-> answer to this phase's own question: the app code did not leak, but the
-> *pipeline's* per-language abstraction did.
+> - **App code: one file, +6/−29, and all six insertions are comments.** 29 of the
+>   deletions remove the `comingSoon` placeholder. Exactly one behavioural line
+>   changed, and it was a latent Phase 8 accessibility bug that Hindi merely
+>   exposed. Nothing in `Packages/`. **ADR-004 holds for the app layer.**
+> - **Pipeline: three files, +262/−15** — a new `UDPipeAnalyzer` backend, the
+>   `ANALYZERS` table, `packgen models`, and two correctness fixes. spaCy
+>   publishes no Hindi POS model at all, so the honest restatement is: adding a
+>   language is a table entry *provided a tagging model exists for it*.
+> - **Nine §6 waivers** against French's one — but a different kind. French's was
+>   unsatisfiable; all nine of Hindi's are *unverifiable*: correct sentences whose
+>   target word the tagger cannot recognise.
+>
+> Two findings the design missed, both invisible from the 15-word sample it was
+> written against: `words.py` discarded 2707 of Hindi's top 3000 forms because
+> Devanagari vowels are Unicode *marks*, not letters; and the tagger cites verbs
+> by stem (`कर`) where the pack cites the infinitive (`करना`), which alone
+> accounted for 333 of the first-run violations.
 
 ```
 Time to prove the central architectural claim: adding a language should require no app-code changes. Using the Phase 6 pipeline, generate a pack for Hindi (spec D5 — chosen deliberately because its weaker NLP tooling and richer morphology stress the pipeline). Help me integrate it.

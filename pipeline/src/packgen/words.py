@@ -12,8 +12,10 @@ a table entry, not a new code path.
 
 from __future__ import annotations
 
+import unicodedata
 from dataclasses import dataclass
 
+from packgen.analyze import Analyzer
 from packgen.rules import CLOSED_CLASS, ENTRY_POS
 
 
@@ -47,14 +49,22 @@ class LanguageRules:
 
 LANGUAGE_RULES = {
     "fr": LanguageRules(one_letter_words=frozenset({"a", "à", "y"}), drop_suffixes=("qu",)),
-    "hi": LanguageRules(),
+    # Devanagari has no elision, so the length-1 rule is inherited from French and
+    # fires on real letters. Of the 12 single-codepoint forms inside the top 1200,
+    # only these two are unambiguously words: `न` (not/nor, raw rank 46) and `व`
+    # (and, formal, raw rank 115). The rest are bare letters, and the tagger cannot
+    # tell the difference -- it calls `ई` a NOUN and `ह` a NUM. `आ` and `ए` are
+    # left out on purpose: `आ` is an inflected form whose real lemma (`आना`) is
+    # already a candidate, and `ए` is more often the letter's name than the
+    # vocative particle.
+    "hi": LanguageRules(one_letter_words=frozenset({"न", "व"})),
 }
 
 
 def build_candidates(
     language_code: str,
     *,
-    nlp,
+    analyzer: Analyzer,
     pool: int = 3000,
     limit: int = 1000,
 ) -> tuple[list[Candidate], list[Rejection]]:
@@ -62,6 +72,11 @@ def build_candidates(
 
     `pool` is the buffer above `limit` -- roughly a third of the raw list is noise
     or a duplicate lemma, so 3000 raw forms comfortably yields 1000 lemmas.
+
+    The tagger arrives as an `Analyzer`, not a spaCy pipeline: Hindi's backend is
+    UDPipe, which has no `nlp.pipe`. One form at a time gives up spaCy's batching
+    -- ponytail: a few tens of seconds on a stage that runs once per language,
+    against a second code path forever.
     """
     from wordfreq import top_n_list
 
@@ -72,14 +87,19 @@ def build_candidates(
     rejections: list[Rejection] = []
     seen: set[tuple[str, str]] = set()
 
-    for form, doc in zip(forms, nlp.pipe(forms), strict=True):
+    for form in forms:
         reason = _reject_reason(form, rules)
         if reason:
             rejections.append(Rejection(form, reason))
             continue
 
-        token = doc[0]
-        lemma, pos = token.lemma_.strip(), token.pos_
+        tokens = analyzer.analyze(form)
+        if not tokens:
+            rejections.append(Rejection(form, "no-tokens"))
+            continue
+
+        token = tokens[0]
+        lemma, pos = token.lemma.strip(), token.pos
         if pos not in ENTRY_POS:
             rejections.append(Rejection(form, f"pos:{pos}"))
             continue
@@ -133,8 +153,12 @@ def suspicious_lemmas(pack: dict) -> list[str]:
 
 def _reject_reason(form: str, rules: LanguageRules) -> str | None:
     # Non-alphabetic first, so a stray digit is labelled for what it is rather
-    # than swept up by the one-letter rule.
-    if not all(ch.isalpha() or ch in "-'’" for ch in form):
+    # than swept up by the one-letter rule. "Alphabetic" has to include combining
+    # marks: Devanagari writes its vowels as marks (`ा` Mc, `्` Mn), so a plain
+    # isalpha() test rejects `के` -- the most frequent word in Hindi -- as junk.
+    if not all(
+        ch.isalpha() or unicodedata.category(ch) in ("Mn", "Mc") or ch in "-'’" for ch in form
+    ):
         return "non-alphabetic"
     if len(form) == 1 and form not in rules.one_letter_words:
         return "elision-fragment"

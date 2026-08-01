@@ -61,6 +61,44 @@ func bundledFrenchPackLoads() async throws {
     #expect(pack.words.first?.rank == 1)
 }
 
+@Test("FR-1 the bundled Hindi pack loads and reports 1000 words")
+@MainActor
+func bundledHindiPackLoads() async throws {
+    let dependencies = try AppDependencies.make(
+        packsDirectory: AppDependencies.bundledPacksDirectory, inMemory: true)
+
+    let pack = try await dependencies.packStore.loadPack(LanguageCode("hi"))
+
+    #expect(pack.wordCount == 1000)
+    #expect(pack.words.count == 1000)
+}
+
+@Test("FR-2 Hindi ships locked: the manifest, not app code, decides what is free")
+@MainActor
+func bundledHindiPackIsLocked() async throws {
+    let dependencies = try AppDependencies.make(
+        packsDirectory: AppDependencies.bundledPacksDirectory, inMemory: true)
+    // A throwaway suite, matching LanguageSelectionViewModelTests: `select()`
+    // persists, and this must not leak into the simulator's real defaults.
+    let defaults = UserDefaults(suiteName: "com.fulldeck.tests.hindi.\(UUID().uuidString)")!
+    let viewModel = LanguageSelectionViewModel(
+        packStore: dependencies.packStore,
+        entitlements: NoPurchasesEntitlementStore(),
+        defaults: defaults)
+
+    await viewModel.load()
+
+    guard case .ready(let options) = viewModel.state else {
+        Issue.record("expected .ready, got \(viewModel.state)")
+        return
+    }
+    let hindi = try #require(options.first { $0.descriptor.languageCode == LanguageCode("hi") })
+    #expect(!hindi.isUnlocked)
+    // And selecting it must not start a session (FR-1).
+    viewModel.select(hindi)
+    #expect(viewModel.activeLanguage != LanguageCode("hi"))
+}
+
 @Test("FR-9 grades persist through the real store and survive a relaunch")
 @MainActor
 func gradesPersistAcrossRelaunch() async throws {

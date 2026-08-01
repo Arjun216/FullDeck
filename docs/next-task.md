@@ -12,73 +12,57 @@ design), Opus earns its cost.
 
 ## Right now
 
-**Task:** Phase 12 — Hindi: fix the pipeline's Hindi path, generate the
-pack, deliver the architecture-validation verdict
-**Model:** Opus 5 for the verdict, Sonnet 5 for the pipeline runs
-**Why Opus for the verdict:** ADR-004's central claim ("adding a language
-means adding a data pack, never writing new app code") gets its only real
-test here. That is a judgment call, not a diff.
+**Task:** Phase 11 — StoreKit 2 monetization. Unshelve
+`docs/superpowers/specs/2026-08-01-storekit-monetization-design.md` and
+**re-verify its StoreKit API notes before writing the plan** (last
+checked 2026-08-01; the spec already flags an open iOS 26.x bug where
+`currentEntitlements` returns empty for valid non-consumables, which is
+why its entitlement refresh is additive-only).
+**Model:** Opus 5 to re-check the design, Sonnet 5 for execution.
 
-**Phases 11 and 12 swapped on 2026-08-01.** Monetization needs something
-to sell and the app ships one pack; Hindi has to be real first. The
-StoreKit design is written and approved but **shelved** —
-`docs/superpowers/specs/2026-08-01-storekit-monetization-design.md`,
-which carries the reasoning at the top. Unshelve it once the Hindi pack
-exists, and re-verify its StoreKit API notes first (checked 2026-08-01).
+**Ship Phase 11 soon.** Hindi now shows as **locked with no way to unlock
+it** — safe, since `select()` refuses locked packs, but a worse state
+than the "coming soon" row it replaced.
 
-**Start here: the pipeline's Hindi path does not work.** It reads as
-though it does, which is the trap. `LANGUAGE_RULES` has an `"hi"` entry
-and `SpacyAnalyzer.MODELS` maps it to `xx_sent_ud_sm`, but that model is
-absent from `pipeline/pyproject.toml`, so `packgen words hi` fails at
-once — and it is a *sentence segmenter* with no POS tagger and no
-lemmatizer, while `words.py:82` reads `token.lemma_` and `token.pos_` off
-it. spaCy publishes no Hindi pipeline with POS. Choosing the replacement
-(a new NLP dependency such as stanza, or moving lemma/POS tagging into
-the Claude prompts, which already correct both for French) **is** the
-first real decision of Phase 12, and it is exactly the kind of leak
-ADR-004 is meant to surface.
+**Phase 12 is done (2026-08-01).** Hindi ships: 1000 words, locked.
+Verdict in [`docs/phase-12-verdict.md`](phase-12-verdict.md) — read that
+rather than re-deriving it. ADR-004 held for the app layer: one file
+changed, +6/−29, all six insertions comments, nothing in `Packages/`.
 
-The Languages screen meanwhile carries a non-purchasable
-"हिन्दी — Coming soon" row. It is presentation copy in
-`LanguageSelectionView`, not manifest data, because `availablePacks()`
-returns packs that exist. Delete the `comingSoon` constant when the real
-pack lands.
+Four things worth not rediscovering:
 
-**Phase 10.5 is done.** All three parts shipped: the binary recall
-scale, the warm token layer, and swipe to grade.
+- **The pipeline's "adding a language is a table entry" claim is now
+  qualified**, and `pipeline/README.md` says so. It is a table entry
+  *provided a POS-tagging model exists for the language*. spaCy publishes
+  none for Hindi, so Phase 12 wrote a whole second backend
+  (`UDPipeAnalyzer`) before any table row meant anything. Check step 0
+  first for language three.
+- **`words.py`'s "alphabetic" test was Latin-script-specific.** Devanagari
+  writes vowels as combining marks (Mn/Mc), which `str.isalpha()` calls
+  non-letters — it discarded 2707 of Hindi's top 3000 forms, `के`
+  included. Fixed in the shared rule. `rejected.json` is where this kind
+  of thing surfaces; read it before trusting a candidate list.
+- **Taggers and dictionaries can disagree about what a lemma is.** UD
+  Hindi cites verbs by bare stem (`कर`), the pack by infinitive (`करना`),
+  and §6 compares them as strings — 333 of the first-run violations, one
+  cause. `LEMMA_NORMALIZERS` in `analyze.py` reconciles it per language.
+  French needed none, which is why this stayed hidden for a whole
+  language.
+- **`.disabled()` fails WCAG on the warm background.** SwiftUI dims a
+  disabled row: the locked `हिन्दी` label measured 3.33:1 against
+  `AppBackground`, under the 4.5:1 floor, where `Français` sits at
+  16.86:1. Latent since Phase 8 — French is never locked, so no locked
+  row ever existed to expose it. The locked row is now a normal enabled
+  button; FR-1 is enforced in `select()`, and Phase 11 needs it tappable
+  anyway for the purchase sheet.
 
-Part 3 shipped: swipe right commits `recalled`, left commits `forgot`,
-past a quarter of the card's width. The card tracks the finger with an
-offset and a slight tilt, and springs back below threshold. Both buttons
-are untouched and remain the accessible path — the swipe is an
-accelerator, never the only way. The commit rule lives in `CardSwipe`
-rather than the view, so its threshold is unit-tested at the exact
-boundary (75 points commits, 74 does not) — something an XCUITest swipe
-cannot express. The card also finally got a surface, which is what
-consumes `AppSurface` and `AppSeparator`.
-
-Two things worth not rediscovering:
-
-- The drag gesture is attached **unconditionally** and made inert until
-  the card is revealed, rather than attached only when revealed. Both
-  halves matter. Gating the *grade* keeps FR-5 honest — otherwise the
-  swipe is a second path around `reveal()`. Gating by *attachment*
-  instead looks equivalent and is not: an unattached gesture lets the
-  drag fall through to the `TabView`, which yanks the learner to another
-  tab the moment they swipe a beat too early. Found by driving it in the
-  simulator; no test caught it.
-- `performAudit`'s contrast exclusion is **gone**, and `AccentFill`
-  (`#B45309`, the same in both appearances) is why. A prominent fill
-  under a white label and an accent used as text have opposite contrast
-  requirements — one token cannot serve both. `AccentColor`'s dark value
-  has to stay bright to work as text on the dark background (8.15:1),
-  and white on that is 2.15:1. The audit now runs unfiltered.
+Nine §6 waivers, all documented in `pipeline/work/hi/exceptions.json` and
+printed on every `pack` run. They are *unverifiable*, not unsatisfiable:
+correct Hindi sentences whose target word UDPipe cannot recognise
+(nukta-stripped lemmas, dropped imperatives, collapsed causatives).
 
 `AccentText` still has no consumer. It is the text-safe accent for
 whenever something needs one.
-
-**Next:** Phase 12 (Hindi), then Phase 11 (StoreKit) once there is a
-second pack to sell. Phase 10.5 is closed.
 
 **Carried forward from Phase 10:** the completion screen
 (`StudyView.completionView`) and the caught-up screen
@@ -92,8 +76,9 @@ Type walkthrough) also still need Arjun on a real device.
 
 | # | Task | Model | Effort |
 |---|---|---|---|
-| 1 | Phase 11 design — unshelve the StoreKit spec, re-verify its API notes | Opus 5 | xhigh |
-| 2 | Phase 11 execution (StoreKitTest, sandbox) | Sonnet 5 | default |
+| 1 | Phase 13 — QA, edge-case matrix, `docs/test-plan.md` | Sonnet 5 | default |
+| 2 | Phase 13 — human read of the 1000 Hindi sentences (D4 review) | Sonnet 5 | default |
+| 3 | Phase 14 — release docs, checklists, `MAINTENANCE.md` | Sonnet 5 | default |
 
 Switching happens at the plan boundary, never mid-execution. Writing the plan is the
 expensive thinking; executing it is cheap. Two model changes per phase, both at a
@@ -112,11 +97,11 @@ natural session break.
 | 10.5 | ~~Warm minimal token layer~~ | ~~Sonnet 5~~ | ~~default~~ | Done 2026-07-31 |
 | 10.5 | ~~Swipe to grade~~ | ~~Sonnet 5~~ | ~~default~~ | Done 2026-07-31 |
 | — | ~~Hindi "coming soon" row~~ | ~~Sonnet 5~~ | ~~default~~ | Done 2026-08-01 |
-| 12 | Fix the pipeline's Hindi tagger — new dependency, or tag in the prompts | Opus 5 | high | No spaCy Hindi POS model exists; the choice is the first ADR-004 stress test |
-| 12 | Pack generation runs | Sonnet 5 | default | Pipeline does the work |
-| 12 | Hindi verdict — is the abstraction leaking? | Opus 5 | high | Central architectural claim (ADR-004), judgment call |
-| 11 | ~~StoreKit design + state machine~~ | ~~Opus 5~~ | ~~xhigh~~ | Written 2026-08-01, **shelved** until a second pack exists |
-| 11 | Execution | Sonnet 5 | default | StoreKitTest gates it. Needs Phase 12 first |
+| 12 | ~~Fix the pipeline's Hindi tagger~~ | ~~Opus 5~~ | ~~high~~ | Done 2026-08-01 — UDPipe backend; no spaCy Hindi POS model exists |
+| 12 | ~~Pack generation runs~~ | ~~Sonnet 5~~ | ~~default~~ | Done 2026-08-01 — 1000 words, 9 waivers |
+| 12 | ~~Hindi verdict — is the abstraction leaking?~~ | ~~Opus 5~~ | ~~high~~ | Done 2026-08-01 — `docs/phase-12-verdict.md` |
+| 11 | StoreKit design — unshelve, re-verify the API notes | Opus 5 | xhigh | Written 2026-08-01; APIs need a re-check before the plan |
+| 11 | Execution | Sonnet 5 | default | StoreKitTest gates it. Phase 12 is done, so this is unblocked |
 | 13 | QA, edge-case matrix, `docs/test-plan.md` | Sonnet 5 | default | Broad but enumerable |
 | 14 | Release docs, checklists, `MAINTENANCE.md` | Sonnet 5 | default | Writing, not deciding |
 | — | Running gates, reading test output | Haiku 4.5 | — | Mechanical |

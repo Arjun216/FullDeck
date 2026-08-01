@@ -114,23 +114,29 @@ final class FullDeckUITests: XCTestCase {
             "Session restarted after a tab switch. Hierarchy:\n\(app.debugDescription)")
     }
 
-    /// The Languages screen announces Hindi without offering it. The row must be
-    /// visible but not selectable — a tappable "coming soon" would be a promise
-    /// the app can't keep.
+    /// The Languages screen lists Hindi as a real, locked pack. It must be visible
+    /// and must not be selectable — Phase 11 is what makes it buyable.
     @MainActor
-    func testComingSoonLanguageIsShownButNotSelectable() throws {
+    func testFR1LockedLanguageIsListedButNotSelectable() throws {
         let app = XCUIApplication()
         app.launch()
 
-        let hindi = app.staticTexts.matching(
-            NSPredicate(format: "label CONTAINS[c] %@", "Coming soon")).firstMatch
+        let hindi = app.buttons.matching(
+            NSPredicate(format: "label BEGINSWITH %@", "हिन्दी")).firstMatch
         XCTAssertTrue(
             hindi.waitForExistence(timeout: 15),
-            "No coming-soon row. Hierarchy:\n\(app.debugDescription)")
-        // It is a plain row, not a Button — nothing to tap.
-        XCTAssertFalse(
-            app.buttons.matching(NSPredicate(format: "label CONTAINS[c] %@", "Coming soon"))
-                .firstMatch.exists)
+            "No Hindi row. Hierarchy:\n\(app.debugDescription)")
+        XCTAssertEqual(hindi.label, "हिन्दी, locked")
+
+        // Tap it. The row is deliberately not `.disabled()` — that dimmed the label
+        // below the contrast floor — so the real assertion is on the outcome, not on
+        // the styling: selecting a locked pack must not make it the active language.
+        hindi.tap()
+        XCTAssertEqual(
+            app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "हिन्दी"))
+                .firstMatch.label,
+            "हिन्दी, locked",
+            "a locked pack became active. Hierarchy:\n\(app.debugDescription)")
     }
 
     /// NFR-4, NFR-5, NFR-6: Xcode's built-in accessibility audit on each core

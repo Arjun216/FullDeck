@@ -84,16 +84,6 @@
         }
       }
     },
-    "Coming soon": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Próximamente"
-          }
-        }
-      }
-    },
     "Couldn't load the available languages.": {
       "localizations": {
         "es": {

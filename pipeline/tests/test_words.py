@@ -7,28 +7,31 @@ dropped, what gets merged, how ranks are assigned) are checked deterministically
 
 from __future__ import annotations
 
+from packgen.analyze import Token
 from packgen.words import build_candidates
 
 
-class StubToken:
-    def __init__(self, lemma: str, pos: str) -> None:
-        self.lemma_, self.pos_ = lemma, pos
+class StubAnalyzer:
+    """Stands in for a tagger: form -> (lemma, POS), one token per form.
 
+    A form mapped to `None` produces no tokens at all -- what a real tokenizer
+    does with a form it cannot segment.
+    """
 
-class StubNLP:
-    """Stands in for a loaded spaCy pipeline: form -> (lemma, POS)."""
-
-    def __init__(self, tags: dict[str, tuple[str, str]]) -> None:
+    def __init__(self, tags: dict[str, tuple[str, str] | None]) -> None:
         self.tags = tags
 
-    def pipe(self, forms):
-        for form in forms:
-            yield [StubToken(*self.tags.get(form, (form, "NOUN")))]
+    def analyze(self, sentence: str) -> list[Token]:
+        tagged = self.tags.get(sentence, (sentence, "NOUN"))
+        if tagged is None:
+            return []
+        lemma, pos = tagged
+        return [Token(sentence, lemma, pos)]
 
 
-def build(monkeypatch, forms, tags, **kwargs):
-    monkeypatch.setattr("wordfreq.top_n_list", lambda lang, n: forms[:n])
-    return build_candidates("fr", nlp=StubNLP(tags), pool=len(forms), **kwargs)
+def build(monkeypatch, forms, tags, lang="fr", **kwargs):
+    monkeypatch.setattr("wordfreq.top_n_list", lambda language, n: forms[:n])
+    return build_candidates(lang, analyzer=StubAnalyzer(tags), pool=len(forms), **kwargs)
 
 
 def test_elision_fragments_and_junk_are_dropped(monkeypatch):
@@ -88,6 +91,34 @@ def test_ranks_are_contiguous_from_one_and_stop_at_the_limit(monkeypatch):
     candidates, _ = build(monkeypatch, forms, {"de": ("de", "ADP")}, limit=3)
     assert [c.rank for c in candidates] == [1, 2, 3]
     assert [c.lemma for c in candidates] == ["de", "chat", "chien"]
+
+
+def test_devanagari_words_are_not_mistaken_for_junk(monkeypatch):
+    """FR-6 Devanagari vowel signs and virama are Unicode marks, not letters.
+
+    `str.isalpha()` is False for `ा` (Mc) and `्` (Mn), so the plain-alpha test
+    threw away 2707 of Hindi's top 3000 forms -- including `के`, the single most
+    frequent word in the language.
+    """
+    forms = ["के", "अच्छा", "नहीं", "घर", "😂", "3"]
+    candidates, rejections = build(monkeypatch, forms, {}, lang="hi")
+
+    assert [c.source_form for c in candidates] == ["के", "अच्छा", "नहीं", "घर"]
+    assert {r.form: r.reason for r in rejections} == {
+        "😂": "non-alphabetic",
+        "3": "non-alphabetic",
+    }
+
+
+def test_a_form_the_tagger_returns_nothing_for_is_rejected(monkeypatch):
+    """NFR-10 an untokenizable form must be recorded, not crash on tokens[0].
+
+    The form has to be one `_reject_reason` lets through, or this would prove the
+    cleaning rules rather than the empty-token guard.
+    """
+    candidates, rejections = build(monkeypatch, ["vide", "chat"], {"vide": None})
+    assert [c.lemma for c in candidates] == ["chat"]
+    assert [r.reason for r in rejections] == ["no-tokens"]
 
 
 def test_invented_lemmas_are_flagged_for_review():

@@ -423,6 +423,7 @@ dependencies = [
     { name = "fr-core-news-md" },
     { name = "jsonschema" },
     { name = "spacy" },
+    { name = "ufal-udpipe" },
     { name = "wordfreq" },
 ]
 
@@ -439,6 +440,7 @@ requires-dist = [
     { name = "fr-core-news-md", url = "https://github.com/explosion/spacy-models/releases/download/fr_core_news_md-3.8.0/fr_core_news_md-3.8.0-py3-none-any.whl" },
     { name = "jsonschema", specifier = ">=4.23.0" },
     { name = "spacy", specifier = ">=3.8.0" },
+    { name = "ufal-udpipe", specifier = ">=1.4.0.1" },
     { name = "wordfreq", specifier = ">=3.1.1" },
 ]
 
@@ -855,6 +857,23 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/55/e3/70399cb7dd41c10ac53367ae42139cf4b1ca5f36bb3dc6c9d33acdb43655/typing_inspection-0.4.2.tar.gz", hash = "sha256:ba561c48a67c5958007083d386c3295464928b01faa735ab8547c5692e87f464", size = 75949, upload-time = "2025-10-01T02:14:41.687Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/dc/9b/47798a6c91d8bdb567fe2698fe81e0c6b7cb7ef4d13da4114b41d239f65d/typing_inspection-0.4.2-py3-none-any.whl", hash = "sha256:4ed1cacbdc298c220f1bd249ed5287caa16f34d44ef4e9c3d0cbad5b521545e7", size = 14611, upload-time = "2025-10-01T02:14:40.154Z" },
+]
+
+[[package]]
+name = "ufal-udpipe"
+version = "1.4.0.1"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/9a/5d/b72d4bdaa70f2ed9880aaa7484e2e4072b063ea3b744318117ae51f50c46/ufal_udpipe-1.4.0.1.tar.gz", hash = "sha256:42b3c19888f3228ffb6d91c0991c949e378c5dafecc12008c089a1f4182357d7", size = 356800, upload-time = "2025-11-20T19:31:06.498Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/29/3a/22775a053ac192182759cf1fe1ba1fcaad3a62e95905404c8c1daf85b875/ufal_udpipe-1.4.0.1-cp312-cp312-macosx_10_13_x86_64.whl", hash = "sha256:d40321caff2baaf58d0fa5bd232847ed420788d59e2f023bcae55092a9fab364", size = 895445, upload-time = "2025-11-20T19:32:47.618Z" },
+    { url = "https://files.pythonhosted.org/packages/52/f8/923f8130c884e867ecb6d43e54350a532543fded362b0e9d964e21a20e2b/ufal_udpipe-1.4.0.1-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:0a1bfea0a3ba8bfefe00a80d91cdb1e35764bd207f3887326deb4035336c9f97", size = 862824, upload-time = "2025-11-20T19:32:49.83Z" },
+    { url = "https://files.pythonhosted.org/packages/20/3d/edf052113e4e09d90d1de50369c4bfbdef911949d5a5e105c18d6f04ab37/ufal_udpipe-1.4.0.1-cp312-cp312-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:9273023f60994314324b2fadd10b70d44bc58d6c4a8fbfe0870d58e51b38f9f5", size = 876953, upload-time = "2025-11-20T19:32:52.084Z" },
+    { url = "https://files.pythonhosted.org/packages/13/01/53170afceb3a50a397c6f8e1f9386c4138a4dc454f8bd82c4aa36eaec1aa/ufal_udpipe-1.4.0.1-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:df35f60a741e3de2fda6f2a35e52940b1f46905a9cfccb3ed754447b0a5f14e3", size = 953780, upload-time = "2025-11-20T19:32:54.427Z" },
+    { url = "https://files.pythonhosted.org/packages/61/f2/108c0d8353d87c198063064de6dfe284893f0a38c66dec38d436e991fea9/ufal_udpipe-1.4.0.1-cp312-cp312-musllinux_1_2_aarch64.whl", hash = "sha256:37743c44b7ad77715eeac2be411c8add21cf2f159392f4727d2cffed02c66362", size = 1882704, upload-time = "2025-11-20T19:32:58.652Z" },
+    { url = "https://files.pythonhosted.org/packages/2b/bd/5f3d8cd99af77e877e520609504fb03c6899b71f5092bf9feed7a4bfa60f/ufal_udpipe-1.4.0.1-cp312-cp312-musllinux_1_2_x86_64.whl", hash = "sha256:4245f4ee698a18d74ad908cf0ad45373c7178e20ffdf71b121e5e36bb424c55a", size = 2003991, upload-time = "2025-11-20T19:33:02.467Z" },
+    { url = "https://files.pythonhosted.org/packages/78/88/e8e2a1341afee331f37bf81469a5b1a291b1a606ae80f33f08b0ade00ed8/ufal_udpipe-1.4.0.1-cp312-cp312-win32.whl", hash = "sha256:9d7826a95c6c3e49727e45976df2428ae2cb9302a07c1bf6e2721a0fe22f16b8", size = 721753, upload-time = "2025-11-20T19:33:05.087Z" },
+    { url = "https://files.pythonhosted.org/packages/04/e5/c3ee5f8fc497bf31176bf5e11e9dcdbe1f10fa39bb33dba35104d6f981e1/ufal_udpipe-1.4.0.1-cp312-cp312-win_amd64.whl", hash = "sha256:2dca7fcd2de1364ae72a0430eb629c58998c25c3e8f020676670d2e4f3a3a8c3", size = 875169, upload-time = "2025-11-20T19:33:07.513Z" },
+    { url = "https://files.pythonhosted.org/packages/8e/e9/598a4e57eaf99a0b76efefa50f7bfcd135fdc82ccfc9588a13c7d69f329e/ufal_udpipe-1.4.0.1-cp312-cp312-win_arm64.whl", hash = "sha256:a6c3d1301b424794bdf292df90b080f89267170ea3b6642fa812e2ba8f4935ea", size = 1013413, upload-time = "2025-11-20T19:33:10.708Z" },
 ]
 
 [[package]]

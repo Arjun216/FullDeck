@@ -1,0 +1,12 @@
+{
+  "_note": "Nine VR-10 waivers, all one shape: the Hindi sentence is correct and genuinely uses its target word, but UDPipe cannot report a lemma that matches the pack's. These are tagger limitations, not content compromises. Accepted 2026-08-01 (Phase 12), pending the Phase 13 human review. Compare French, which needed one waiver -- fr:se:PRON -- for a genuinely unsatisfiable §6 constraint. None of these nine is unsatisfiable; they are unverifiable.",
+  "hi:लगना:VERB": "'मुझे ऐसा लगा।' uses लगना correctly. UDPipe lemmatizes the perfective लगा to लगा, which normalizes to लगाना ('to apply') -- a different verb that shares this exact form with लगना ('to seem'). No tagger resolves that from one clause.",
+  "hi:तू:PRON": "'तुझे क्या चाहिए?' uses तू's oblique form तुझे. UDPipe lemmatizes it to तैं, an archaic base form the pack does not and should not use as a headword.",
+  "hi:तुम्हारा:DET": "'यह तुम्हारी जिंदगी है।' uses the feminine तुम्हारी, which UDPipe leaves unlemmatized, so it never reduces to the masculine citation form तुम्हारा.",
+  "hi:जुड़ना:VERB": "'वे जुड़े हैं।' uses जुड़ना correctly. UDPipe deletes the nukta (U+093C) from the lemma while keeping it in the surface form, so जुड़े lemmatizes to जुड and never matches जुड़ना. Affects every ड़/ढ़ verb -- see also बढ़ना and लड़ना.",
+  "hi:बढ़ना:VERB": "'पानी बढ़ा।' uses बढ़ना correctly. Same nukta deletion as जुड़ना: the lemma comes back as बढ, without the U+093C the surface form carries.",
+  "hi:लड़ना:VERB": "'वे लड़ रहे हैं।' uses लड़ना correctly. Same nukta deletion as जुड़ना: लड़ lemmatizes to लड.",
+  "hi:तोड़ना:VERB": "'उसे मत तोड़ो।' uses तोड़ना correctly. UDPipe drops तोड़ो from its output altogether -- the sentence tokenizes to वह and मत only -- so there is nothing left to match the target against.",
+  "hi:रहना:VERB": "'यहाँ रहो।' uses रहना correctly. UDPipe drops रहो from its output altogether; only यहाँ survives tokenization. Same failure as तोड़ना, on an imperative.",
+  "hi:करवाना:VERB": "'उसने काम करवाया।' uses the causative करवाना correctly. UDPipe collapses करवाया to the base कर, which normalizes to करना -- the causative distinction is lost by the tagger, not by the sentence."
+}

@@ -1,5 +1,6 @@
 """packgen CLI.
 
+    packgen models hi       # pinned UDPipe model -> work/models/
     packgen words fr        # wordfreq + spaCy   -> work/fr/candidates.json
     packgen prompts fr      # candidates         -> work/fr/prompts/NNN.md
     packgen generate fr     # prompts            -> work/fr/responses/NNN.json
@@ -28,7 +29,7 @@ import sys
 from datetime import date
 from pathlib import Path
 
-from packgen.analyze import SpacyAnalyzer
+from packgen.analyze import UDPipeAnalyzer, download_model, make_analyzer
 from packgen.generate import assemble_pack, parse_response, render_prompt
 from packgen.validate import Profile, validate_pack
 from packgen.words import Candidate, build_candidates, suspicious_lemmas
@@ -50,6 +51,9 @@ def main(argv: list[str] | None = None) -> int:
     p_words.add_argument(
         "--limit", type=int, default=1200, help="candidates to keep (buffer > 1000)"
     )
+
+    p_models = sub.add_parser("models", help="download the pinned NLP model for a language")
+    p_models.add_argument("language")
 
     p_prompts = sub.add_parser("prompts", help="write paste-ready batch prompts")
     p_prompts.add_argument("language")
@@ -83,6 +87,7 @@ def main(argv: list[str] | None = None) -> int:
 
     args = parser.parse_args(argv)
     return {
+        "models": cmd_models,
         "words": cmd_words,
         "prompts": cmd_prompts,
         "generate": cmd_generate,
@@ -94,12 +99,25 @@ def main(argv: list[str] | None = None) -> int:
 # --- stages -----------------------------------------------------------------
 
 
-def cmd_words(args) -> int:
-    import spacy
-
+def cmd_models(args) -> int:
     lang = args.language
-    nlp = spacy.load(SpacyAnalyzer.MODELS[lang], disable=["ner", "parser"])
-    candidates, rejections = build_candidates(lang, nlp=nlp, pool=args.pool, limit=args.limit)
+    spec = UDPipeAnalyzer.MODELS.get(lang)
+    if spec is None:
+        print(
+            f"no downloadable model for {lang!r} "
+            f"(spaCy languages install theirs from pyproject.toml)",
+            file=sys.stderr,
+        )
+        return 1
+    print(f"{spec.filename} -> {download_model(spec)}")
+    return 0
+
+
+def cmd_words(args) -> int:
+    lang = args.language
+    candidates, rejections = build_candidates(
+        lang, analyzer=make_analyzer(lang), pool=args.pool, limit=args.limit
+    )
 
     out = WORK / lang
     out.mkdir(parents=True, exist_ok=True)
@@ -271,7 +289,7 @@ def cmd_pack(args) -> int:
     exceptions = _load_exceptions(WORK / lang / EXCEPTIONS)
     report = validate_pack(
         pack,
-        analyzer=SpacyAnalyzer(lang),
+        analyzer=make_analyzer(lang),
         profile=Profile(args.profile),
         exceptions=exceptions,
     )
@@ -321,7 +339,7 @@ def cmd_validate(args) -> int:
     pack = json.loads(args.path.read_text(encoding="utf-8"))
     report = validate_pack(
         pack,
-        analyzer=SpacyAnalyzer(pack.get("language_code", "")),
+        analyzer=make_analyzer(pack.get("language_code", "")),
         profile=Profile(args.profile),
         exceptions=_load_exceptions(args.exceptions) if args.exceptions else None,
     )

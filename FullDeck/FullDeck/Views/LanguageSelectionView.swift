@@ -26,40 +26,12 @@ struct LanguageSelectionView: View {
                 ForEach(options) { option in
                     languageRow(option)
                 }
-                comingSoonSection
             }
             // A List paints its own background over the one set on the
             // NavigationStack content; hiding it lets the warm base show.
             .scrollContentBackground(.hidden)
         case .failed(let message):
             ErrorStateView(message: message)
-        }
-    }
-
-    /// Languages that are announced but not yet built.
-    ///
-    /// Deliberately *not* a `manifest.json` entry: `availablePacks()` returns packs
-    /// that exist, and an entry with no pack file would push "a pack that isn't
-    /// there" into `PackDescriptor`, the loader and the validator. This is
-    /// presentation copy. Delete it when the Hindi pack lands (Phase 12).
-    private static let comingSoon = ["हिन्दी"]
-
-    @ViewBuilder
-    private var comingSoonSection: some View {
-        Section {
-            ForEach(Self.comingSoon, id: \.self) { name in
-                HStack {
-                    Text(name)
-                    Spacer()
-                    Text("Coming soon")
-                        .font(.footnote)
-                }
-                // One element, so VoiceOver reads "हिन्दी, coming soon" rather
-                // than stopping on each half separately.
-                .accessibilityElement(children: .combine)
-                .foregroundStyle(Color.textSecondary)
-                .listRowBackground(Color.appBackground)
-            }
         }
     }
 
@@ -88,7 +60,12 @@ struct LanguageSelectionView: View {
             }
         }
         .buttonStyle(.plain)
-        .disabled(!option.isUnlocked)
+        // Deliberately NOT .disabled(). SwiftUI dims a disabled row, which took the
+        // locked language's name to 3.33:1 against the warm background — under the
+        // 4.5:1 AA floor, and caught by the audit. FR-1 is enforced where it belongs,
+        // in `select()`, which refuses a locked pack; the lock icon and the "locked"
+        // accessibility label carry the state. Phase 11 needs this row tappable
+        // anyway, to open the purchase sheet.
         .accessibilityLabel(accessibilityLabel(for: option))
         // Rows are opaque by default and would punch system-grey holes
         // in the warm background.
