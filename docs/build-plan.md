@@ -234,10 +234,12 @@ Not in the original plan. Added after reviewing the app on device.
 
 Spec: `docs/superpowers/specs/2026-07-28-binary-recall-and-warm-ui-design.md`
 
-1. **Binary recall scale** — `Grade` reduces from four cases to `forgot` /
+1. ~~**Binary recall scale**~~ — `Grade` reduces from four cases to `forgot` /
    `recalled`; `recalled` gains a positive ease delta so ease can recover.
-2. **Warm minimal token layer** — semantic colorsets and a spacing scale,
+   Done 2026-07-29.
+2. ~~**Warm minimal token layer**~~ — semantic colorsets and a spacing scale,
    replacing the empty `AccentColor` that left every control system blue.
+   Done 2026-07-31.
 3. **Swipe to grade** — right for recalled, left for forgot, with both buttons
    retained as the accessible path.
 

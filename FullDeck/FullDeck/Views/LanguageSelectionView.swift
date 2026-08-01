@@ -9,6 +9,8 @@ struct LanguageSelectionView: View {
     var body: some View {
         NavigationStack {
             content
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(Color.appBackground)
                 .navigationTitle("Languages")
                 .task { await viewModel.load() }
         }
@@ -25,18 +27,21 @@ struct LanguageSelectionView: View {
                     viewModel.select(option)
                 } label: {
                     HStack {
-                        // Default Button styling tints this system blue, which
-                        // fails WCAG AA contrast at body text size (caught by
-                        // the accessibility audit) — the checkmark already
+                        // Default Button styling tints this with the accent,
+                        // which fails WCAG AA contrast at body text size
+                        // (caught by the audit) — the checkmark already
                         // carries the "selected" signal, so this text doesn't
                         // need to borrow the accent color too.
                         Text(option.descriptor.displayName)
-                            .foregroundStyle(.primary)
+                            .foregroundStyle(Color.textPrimary)
                         Spacer()
                         if !option.isUnlocked {
                             Image(systemName: "lock.fill")
-                                .foregroundStyle(.secondary)
+                                .foregroundStyle(Color.textSecondary)
                         } else if isActive(option) {
+                            // Left untinted on purpose: it picks up the warm
+                            // AccentColor, which is the intent, and as a glyph
+                            // it's a graphical object held to 3:1, not 4.5:1.
                             Image(systemName: "checkmark")
                         }
                     }
@@ -44,7 +49,13 @@ struct LanguageSelectionView: View {
                 .buttonStyle(.plain)
                 .disabled(!option.isUnlocked)
                 .accessibilityLabel(accessibilityLabel(for: option))
+                // Rows are opaque by default and would punch system-grey holes
+                // in the warm background.
+                .listRowBackground(Color.appBackground)
             }
+            // A List paints its own background over the one set on the
+            // NavigationStack content; hiding it lets the warm base show.
+            .scrollContentBackground(.hidden)
         case .failed(let message):
             ErrorStateView(message: message)
         }
