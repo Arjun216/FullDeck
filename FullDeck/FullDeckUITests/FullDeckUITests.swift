@@ -114,6 +114,25 @@ final class FullDeckUITests: XCTestCase {
             "Session restarted after a tab switch. Hierarchy:\n\(app.debugDescription)")
     }
 
+    /// The Languages screen announces Hindi without offering it. The row must be
+    /// visible but not selectable — a tappable "coming soon" would be a promise
+    /// the app can't keep.
+    @MainActor
+    func testComingSoonLanguageIsShownButNotSelectable() throws {
+        let app = XCUIApplication()
+        app.launch()
+
+        let hindi = app.staticTexts.matching(
+            NSPredicate(format: "label CONTAINS[c] %@", "Coming soon")).firstMatch
+        XCTAssertTrue(
+            hindi.waitForExistence(timeout: 15),
+            "No coming-soon row. Hierarchy:\n\(app.debugDescription)")
+        // It is a plain row, not a Button — nothing to tap.
+        XCTAssertFalse(
+            app.buttons.matching(NSPredicate(format: "label CONTAINS[c] %@", "Coming soon"))
+                .firstMatch.exists)
+    }
+
     /// NFR-4, NFR-5, NFR-6: Xcode's built-in accessibility audit on each core
     /// screen. Catches missing labels, insufficient contrast, and clipping at
     /// large Dynamic Type sizes automatically, on every push. What it *can't*

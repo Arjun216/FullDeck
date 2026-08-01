@@ -250,6 +250,14 @@ binary", so no requirement changes.
 
 ---
 
+> **Reordered 2026-08-01: Phase 12 runs before Phase 11.** Monetization needs a
+> second pack to sell, and the app ships one. Selling a language whose pack does
+> not exist would let a purchase succeed and unlock nothing. Phase 11's design is
+> written and approved in
+> `docs/superpowers/specs/2026-08-01-storekit-monetization-design.md` and shelved
+> there until Hindi is real. Until then the Languages screen shows a
+> non-purchasable "coming soon" row.
+
 ## PHASE 11 — Monetization (StoreKit 2) with Sandbox + StoreKit Testing
 
 *Artifact: purchase flow behind the Phase 8 lock protocol, tested with StoreKit's test tooling and sandbox.*
@@ -271,6 +279,20 @@ Confirm the StoreKit 2 APIs you're using are current before committing. Explain 
 ## PHASE 12 — Second Language: Architecture Validation (Hindi)
 
 *Artifact: a second pack integrated with (ideally) zero app-code change — the real test of the core design goal.*
+
+> **Now runs before Phase 11** (reordered 2026-08-01), and starts with a problem
+> the pipeline hides well. `LANGUAGE_RULES` has an `"hi"` entry and
+> `SpacyAnalyzer.MODELS` maps it to `xx_sent_ud_sm`, which reads as Hindi support.
+> It is not: that model is absent from `pipeline/pyproject.toml`, so
+> `packgen words hi` fails immediately, and it is a *sentence segmenter* with no
+> POS tagger and no lemmatizer, while `words.py:82` reads `token.lemma_` and
+> `token.pos_` off it. spaCy publishes no Hindi pipeline with POS.
+>
+> Picking the replacement — a new NLP dependency such as stanza, or moving
+> lemma/POS tagging into the Claude prompts, which already correct both for
+> French — is the first decision of this phase. It is also the first honest
+> answer to this phase's own question: the app code did not leak, but the
+> *pipeline's* per-language abstraction did.
 
 ```
 Time to prove the central architectural claim: adding a language should require no app-code changes. Using the Phase 6 pipeline, generate a pack for Hindi (spec D5 — chosen deliberately because its weaker NLP tooling and richer morphology stress the pipeline). Help me integrate it.
