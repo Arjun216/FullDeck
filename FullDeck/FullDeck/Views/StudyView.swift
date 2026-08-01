@@ -111,7 +111,16 @@ struct StudyView: View {
                     .foregroundStyle(Color.textPrimary)
             }
         }
-        .padding()
+        // Two paddings, two jobs: the inner one is the card's own gutter, the
+        // outer one the margin between the card and the screen edge.
+        .padding(Spacing.lg)
+        .frame(maxWidth: .infinity)
+        .background(
+            RoundedRectangle(cornerRadius: Spacing.md, style: .continuous)
+                .fill(Color.appSurface)
+                .stroke(Color.appSeparator, lineWidth: 1)
+        )
+        .padding(Spacing.md)
     }
 
     @ViewBuilder
