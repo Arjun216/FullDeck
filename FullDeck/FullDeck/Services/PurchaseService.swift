@@ -7,7 +7,11 @@ import Foundation
 /// `SpeechService` set in Phase 8. Domain never learns that buying exists: it
 /// needs `isUnlocked`, which `EntitlementStore` already gives it, and adding a
 /// purchase port to Domain would widen its surface for no domain consumer.
-protocol PurchaseService: Sendable {
+/// `nonisolated` because the app target sets `SWIFT_DEFAULT_ACTOR_ISOLATION =
+/// MainActor`, which would otherwise pin this port to the main actor. Nothing
+/// here needs it — the StoreKit adapter's cache is lock-backed, and its
+/// `Transaction.updates` loop has no business running on main.
+nonisolated protocol PurchaseService: Sendable {
     /// Fires every time the entitlement set changes — a purchase, a late
     /// `pending` approval, a revocation, or the launch refresh landing.
     ///
@@ -29,20 +33,25 @@ protocol PurchaseService: Sendable {
 
 /// Cancelling is not an error, so it is an outcome rather than a thrown failure
 /// (spec Decision 3: the sheet returns to the price silently).
-enum PurchaseOutcome: Equatable {
+///
+/// `nonisolated` because the app target sets `SWIFT_DEFAULT_ACTOR_ISOLATION =
+/// MainActor`, which would otherwise main-actor-isolate even this enum's
+/// synthesized `Equatable` — and the StoreKit adapter compares outcomes off the
+/// main actor. The same applies to the other types in this file.
+nonisolated enum PurchaseOutcome: Equatable {
     case purchased
     case cancelled
     case pending
 }
 
-enum PurchaseFailure: Error, Equatable {
+nonisolated enum PurchaseFailure: Error, Equatable {
     case productUnavailable
     /// `VerificationResult.unverified`. Treated as a failure, never as success.
     case unverified
     case storeError
 }
 
-enum ProductIdentifier {
+nonisolated enum ProductIdentifier {
     static let prefix = "arjunpathak.FullDeck.language."
 
     static func forLanguage(_ code: LanguageCode) -> String { prefix + code.rawValue }
@@ -60,7 +69,7 @@ enum ProductIdentifier {
 /// The pre-StoreKit stub, kept for `AppDependencies.make` (integration tests must
 /// not reach the store) and SwiftUI previews. Its counterpart
 /// `NoPurchasesEntitlementStore` lives in `StubEntitlementStore.swift`.
-struct NoPurchasesService: PurchaseService {
+nonisolated struct NoPurchasesService: PurchaseService {
     var entitlementChanges: AsyncStream<Void> { AsyncStream { $0.finish() } }
     func price(for languageCode: LanguageCode) async throws -> String? { nil }
     func purchase(_ languageCode: LanguageCode) async throws -> PurchaseOutcome {
