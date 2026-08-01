@@ -45,7 +45,12 @@ def test_nfr10_the_pipeline_outlives_a_garbage_collection(udpipe_hi):
 
 
 def test_fr6_a_hindi_sentence_tokenizes_into_lemmas_and_tags(udpipe_hi):
-    """FR-6 the §6 check needs lemma + POS for every word of a sentence."""
+    """FR-6 the §6 check needs lemma + POS for every word of a sentence.
+
+    `है` comes back as `होना`, not `है`: UD Hindi lemmatizes to the bare stem and
+    the pack cites the infinitive, so the analyzer reconciles the two. See
+    normalize_lemma.
+    """
     tokens = [t for t in udpipe_hi.analyze("यह एक अच्छा घर है।") if t.pos != "PUNCT"]
-    assert [t.lemma for t in tokens] == ["यह", "एक", "अच्छा", "घर", "है"]
+    assert [t.lemma for t in tokens] == ["यह", "एक", "अच्छा", "घर", "होना"]
     assert [t.pos for t in tokens] == ["PRON", "NUM", "ADJ", "NOUN", "AUX"]

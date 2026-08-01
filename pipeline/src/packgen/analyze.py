@@ -120,6 +120,38 @@ def _sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
+# UD Hindi lemmatizes verbs to the bare stem (`कर`), while dictionaries -- and so
+# the pack, and so Claude's corrected lemma -- cite the infinitive (`करना`). Same
+# word, two conventions, and §6 compares them as strings: without reconciling
+# them, `करता` in a sentence reads as a word the learner has never met, which
+# fails both the target-presence rule and the frequency rule. Measured on the real
+# 1000-word pack: 333 violations become 55.
+#
+# French needs none of this -- spaCy's French lemma already IS the infinitive,
+# which is why this only surfaced with the second language.
+_HINDI_SUPPLETIVE = {"है": "होना", "था": "होना", "हूँ": "होना", "हो": "होना"}
+
+
+def _hindi_lemma(lemma: str, pos: str) -> str:
+    if pos not in ("VERB", "AUX"):
+        return lemma
+    if lemma in _HINDI_SUPPLETIVE:
+        return _HINDI_SUPPLETIVE[lemma]
+    return lemma if lemma.endswith("ना") else lemma + "ना"
+
+
+LEMMA_NORMALIZERS = {"hi": _hindi_lemma}
+
+
+def normalize_lemma(language_code: str, lemma: str, pos: str) -> str:
+    """Reconcile the tagger's lemma convention with the pack's, per language.
+
+    A no-op for any language whose tagger already agrees with the dictionary.
+    """
+    normalizer = LEMMA_NORMALIZERS.get(language_code)
+    return normalizer(lemma, pos) if normalizer else lemma
+
+
 def parse_conllu(conllu: str) -> list[Token]:
     """CoNLL-U text -> tokens. Pure, so the parsing rules are testable with no model.
 
@@ -208,7 +240,10 @@ class UDPipeAnalyzer:
         conllu = self._pipeline.process(sentence, error)
         if error.occurred():
             raise RuntimeError(f"UDPipe failed on {sentence!r}: {error.message}")
-        return parse_conllu(conllu)
+        return [
+            Token(t.text, normalize_lemma(self.language_code, t.lemma, t.pos), t.pos)
+            for t in parse_conllu(conllu)
+        ]
 
 
 # The one place a language maps to an NLP backend. Adding a language is a row

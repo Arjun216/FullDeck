@@ -14,6 +14,7 @@ from packgen.analyze import (
     UDPipeAnalyzer,
     download_model,
     make_analyzer,
+    normalize_lemma,
     parse_conllu,
 )
 
@@ -67,6 +68,37 @@ def test_nfr10_an_unregistered_language_says_what_to_add():
     """NFR-10 the failure names the table to edit rather than an AttributeError later."""
     with pytest.raises(LookupError, match="ANALYZERS"):
         make_analyzer("xx")
+
+
+# --- lemma conventions ------------------------------------------------------
+
+
+@pytest.mark.parametrize(
+    ("lemma", "pos", "expected"),
+    [
+        ("कर", "VERB", "करना"),  # stem -> infinitive, the dictionary citation form
+        ("जा", "VERB", "जाना"),
+        ("दे", "VERB", "देना"),
+        ("करना", "VERB", "करना"),  # already an infinitive: left alone
+        ("है", "AUX", "होना"),  # suppletive: no amount of suffixing gets there
+        ("था", "AUX", "होना"),
+        ("घर", "NOUN", "घर"),  # only verbs are cited by infinitive
+        ("के", "ADP", "के"),
+    ],
+)
+def test_fr6_hindi_verb_lemmas_are_normalized_to_the_infinitive(lemma, pos, expected):
+    """FR-6 UD Hindi lemmatizes verbs to the bare stem; dictionaries cite the
+    infinitive, and so does the pack. §6 compares those two by string, so without
+    this the checker cannot see that `करता` is a form of `करना` -- it read as a
+    word the learner has never met, failing both the target-presence rule and the
+    frequency rule. Measured on the real pack: 333 violations become 55.
+    """
+    assert normalize_lemma("hi", lemma, pos) == expected
+
+
+def test_fr6_a_language_with_no_convention_clash_is_untouched():
+    """FR-6 French needs none of this -- spaCy's French lemma IS the infinitive."""
+    assert normalize_lemma("fr", "parl", "VERB") == "parl"
 
 
 # --- pinned model downloads -------------------------------------------------
