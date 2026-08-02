@@ -9,7 +9,7 @@
       }
     ]
   },
-  "identifier" : "5C8B2A41",
+  "identifier" : "A0D5543B",
   "nonRenewingSubscriptions" : [
 
   ],
@@ -17,7 +17,7 @@
     {
       "displayPrice" : "0.99",
       "familyShareable" : false,
-      "internalID" : "6740261931",
+      "internalID" : "42C19F32",
       "localizations" : [
         {
           "description" : "All 1000 words in Hindi.",
@@ -31,65 +31,24 @@
     }
   ],
   "settings" : {
-    "_applicationInternalID" : "1000000001",
-    "_developerTeamID" : "0000000000",
+    "_askToBuyEnabled" : false,
+    "_billingGracePeriodEnabled" : false,
+    "_billingIssuesEnabled" : false,
+    "_disableDialogs" : false,
     "_failTransactionsEnabled" : false,
-    "_lastSynchronizedDate" : 0,
     "_locale" : "en_US",
+    "_renewalBillingIssuesEnabled" : false,
     "_storefront" : "USA",
     "_storeKitErrors" : [
-      {
-        "current" : null,
-        "enabled" : false,
-        "name" : "Load Products"
-      },
-      {
-        "current" : null,
-        "enabled" : false,
-        "name" : "Purchase"
-      },
-      {
-        "current" : null,
-        "enabled" : false,
-        "name" : "Verification"
-      },
-      {
-        "current" : null,
-        "enabled" : false,
-        "name" : "App Store Sync"
-      },
-      {
-        "current" : null,
-        "enabled" : false,
-        "name" : "Subscription Status"
-      },
-      {
-        "current" : null,
-        "enabled" : false,
-        "name" : "App Transaction"
-      },
-      {
-        "current" : null,
-        "enabled" : false,
-        "name" : "Manage Subscriptions Sheet"
-      },
-      {
-        "current" : null,
-        "enabled" : false,
-        "name" : "Refund Request Sheet"
-      },
-      {
-        "current" : null,
-        "enabled" : false,
-        "name" : "Offer Code Redeem Sheet"
-      }
-    ]
+
+    ],
+    "_timeRate" : 0
   },
   "subscriptionGroups" : [
 
   ],
   "version" : {
-    "major" : 4,
+    "major" : 5,
     "minor" : 0
   }
 }

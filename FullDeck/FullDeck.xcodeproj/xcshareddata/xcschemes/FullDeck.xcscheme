@@ -54,7 +54,7 @@
          </TestableReference>
       </Testables>
       <StoreKitConfigurationFileReference
-         identifier = "../../../FullDeckTests/FullDeck.storekit">
+         identifier = "../../FullDeckTests/FullDeck.storekit">
       </StoreKitConfigurationFileReference>
    </TestAction>
    <LaunchAction
@@ -79,7 +79,7 @@
          </BuildableReference>
       </BuildableProductRunnable>
       <StoreKitConfigurationFileReference
-         identifier = "../../../FullDeckTests/FullDeck.storekit">
+         identifier = "../../FullDeckTests/FullDeck.storekit">
       </StoreKitConfigurationFileReference>
    </LaunchAction>
    <ProfileAction

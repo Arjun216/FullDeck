@@ -11,33 +11,37 @@ private final class BundleMarker {}
 
 /// Is there a working StoreKit test environment in this process?
 ///
-/// **Xcode 26 regression:** `xcodebuild test` from the command line never pushes
-/// the scheme's `StoreKitConfigurationFileReference` to the simulator's
-/// `storekitd`, so the whole StoreKit test facility is inert. Nothing reports
-/// this: `SKTestSession(contentsOf:)` does not throw — it does not throw on
-/// deliberately invalid JSON either, which is how long it took to find — every
-/// product lookup simply returns empty, and `buyProduct` fails `.notEntitled`.
+/// **The answer, settled 2026-08-02: it is the runtime.** On an **iOS 18.5**
+/// simulator this suite runs against a real store and five of its six tests
+/// pass. On **iOS 26.5** every `SKTestSession` call fails with
+/// `SKInternalErrorDomain Code=3` — "Error saving configuration file" — so the
+/// store stays empty, `price` returns nil and `purchase` throws
+/// `.productUnavailable`. Same code, same `.storekit` file, same command.
 ///
-/// **The runtime is not the variable.** First diagnosed as iOS-26.5-specific, on
-/// reports that iOS 18 runtimes were unaffected. Retested 2026-08-01 on an
-/// installed iOS 18.5 simulator (`iPhone 16`): identical skip.
+/// Getting here took three wrong turns worth not repeating:
 ///
-/// **What the failures actually are** (2026-08-02, guard removed so the tests
-/// run): `price` returns nil, `purchase` throws `.productUnavailable`, and
-/// `restore` throws `.notEntitled`. Two of the six pass — both of those assert
-/// on *absence*, so an empty store satisfies them, which is worth remembering
-/// before reading any green here as meaningful. The store is empty, not broken.
+/// 1. **The old guard queried before any session existed.** `.enabled` is a
+///    trait, evaluated before the suite's `init()` — and `init()` is where the
+///    session is created. So it could only pass via the scheme, and it skipped
+///    in the Xcode IDE for the same reason it skipped from the CLI, which made
+///    an IDE run look like evidence when it was not. It now builds a session
+///    first and holds it past the `await`.
+/// 2. **The `.storekit` file was schema version 4**, hand-written from a public
+///    example. Xcode 26 writes version 5. Regenerating it changed nothing, but
+///    the committed file is now Xcode's own output.
+/// 3. **The scheme's `StoreKitConfigurationFileReference` had one `../` too
+///    many** and had never resolved since Phase 11. Fixing it changed nothing
+///    here — `SKTestSession(contentsOf:)` loads the file by URL out of the test
+///    bundle and never consults the scheme — but it is what the *app* uses when
+///    you ⌘R with a test store, so it was genuinely broken.
 ///
-/// This probe creates the session **first**, because the scheme's configuration
-/// alone does not populate the store from the command line. The original version
-/// queried before any session existed, so it could only ever pass via the scheme
-/// — and it therefore skipped in the Xcode IDE too, hiding whether the IDE
-/// works at all. That question is still open.
+/// Two of the six pass even against a dead store, because both assert on
+/// *absence*. Don't read those greens as coverage.
 ///
-/// So this suite skips rather than failing, on the same principle as the
-/// pipeline's UDPipe tests skipping when the 25 MB model is not downloaded: an
-/// absent environment is not a broken adapter. The tests are real and they run
-/// the moment the environment does.
+/// The suite skips rather than fails when the environment is dead, on the same
+/// principle as the pipeline's UDPipe tests skipping without their model: an
+/// absent environment is not a broken adapter. To see the underlying errors
+/// instead of a skip, comment out the `.enabled` argument below.
 private func storeKitTestEnvironmentIsAvailable() async -> Bool {
     guard
         let url = Bundle(for: BundleMarker.self).url(
