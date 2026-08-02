@@ -12,6 +12,13 @@ struct SettingsView: View {
 
     var body: some View {
         Form {
+            Section("Study") {
+                Stepper(value: $viewModel.newWordsPerDay, in: SettingsViewModel.capRange) {
+                    Text("New words per day: \(viewModel.newWordsPerDay)")
+                        .foregroundStyle(Color.textPrimary)
+                }
+            }
+            .listRowBackground(Color.appBackground)
             CreditsSection(viewModel: credits)
         }
         // A Form paints its own background over the one set below it, the same

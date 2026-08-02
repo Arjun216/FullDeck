@@ -61,6 +61,13 @@ struct ContentView: View {
         .task(id: selectionViewModel.activeLanguage) {
             makeViewModels(for: selectionViewModel.activeLanguage)
         }
+        // Assign rather than rebuild. The `.task(id:)` above rebuilds
+        // StudyViewModel when the language changes, and doing that for a cap
+        // edit would throw away whatever session the learner is in the middle
+        // of (FR-4 takes effect from the next session, not mid-deck).
+        .onChange(of: settingsViewModel.newWordsPerDay) { _, cap in
+            studyViewModel?.newWordCap = cap
+        }
     }
 
     private func makeViewModels(for language: LanguageCode?) {
@@ -74,7 +81,8 @@ struct ContentView: View {
             reviewStore: dependencies.reviewStore,
             scheduler: dependencies.scheduler,
             sessionBuilder: dependencies.sessionBuilder,
-            speech: dependencies.speech, clock: dependencies.clock)
+            speech: dependencies.speech, clock: dependencies.clock,
+            newWordCap: settingsViewModel.newWordsPerDay)
         progressViewModel = ProgressViewModel(
             languageCode: language, packStore: dependencies.packStore,
             reviewStore: dependencies.reviewStore)
