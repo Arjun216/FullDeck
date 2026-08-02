@@ -36,7 +36,8 @@ struct ContentView: View {
                 purchases: dependencies.purchases))
         // Not rebuilt per body evaluation, for the same reason as the others:
         // it owns preferences the learner is editing.
-        _settingsViewModel = State(initialValue: SettingsViewModel())
+        _settingsViewModel = State(
+            initialValue: SettingsViewModel(notifications: dependencies.notifications))
         _creditsViewModel = State(
             initialValue: CreditsViewModel(packStore: dependencies.packStore))
     }

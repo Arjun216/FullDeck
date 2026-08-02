@@ -43,7 +43,11 @@ struct CreditsSection: View {
             Text(credit.languages.joined(separator: ", "))
                 .font(.headline)
                 .foregroundStyle(Color.textPrimary)
-            Text("Word list from \(credit.sourceName). \(credit.attribution).")
+            // The attribution string verbatim, with nothing added. It already
+            // names the source and the licence, and it is the text the licence
+            // requires — wrapping it in a sentence of ours produced "CC-BY-SA
+            // 4.0.." on screen and said "wordfreq" twice.
+            Text(credit.attribution)
                 .foregroundStyle(Color.textPrimary)
             if let url = LicenseLink.url(for: credit.license) {
                 Link(credit.license, destination: url)

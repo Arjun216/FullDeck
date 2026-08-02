@@ -119,6 +119,22 @@ final class SettingsViewModel {
             localized: "Notifications are turned off for Full Deck in Settings.")
     }
 
+    /// `DatePicker` binds to a `Date`, while this type stores hour/minute so no
+    /// test ever needs the wall clock (`scripts/determinism-check.sh`). The day
+    /// is arbitrary and never read — only the time components are.
+    var reminderDate: Date {
+        Calendar.current.date(
+            from: DateComponents(
+                year: 2000, month: 1, day: 1, hour: reminderHour, minute: reminderMinute))
+            ?? Date(timeIntervalSince1970: 0)
+    }
+
+    func setReminderTime(from date: Date) async {
+        let components = Calendar.current.dateComponents([.hour, .minute], from: date)
+        await setReminderTime(
+            hour: components.hour ?? reminderHour, minute: components.minute ?? reminderMinute)
+    }
+
     private func schedule() async {
         do {
             try await notifications.scheduleDailyReminder(

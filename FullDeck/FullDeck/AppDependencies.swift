@@ -14,6 +14,7 @@ struct AppDependencies {
     let clock: DayClock
     let entitlements: EntitlementStore
     let purchases: PurchaseService
+    let notifications: NotificationScheduler
     let scheduler = Scheduler()
     let sessionBuilder = SessionBuilder()
 
@@ -32,7 +33,8 @@ struct AppDependencies {
     static func make(
         packsDirectory: URL, inMemory: Bool,
         entitlements: EntitlementStore = NoPurchasesEntitlementStore(),
-        purchases: PurchaseService = NoPurchasesService()
+        purchases: PurchaseService = NoPurchasesService(),
+        notifications: NotificationScheduler = NoNotificationScheduler()
     ) throws -> AppDependencies {
         let container = try SwiftDataReviewStore.makeContainer(inMemory: inMemory)
         return AppDependencies(
@@ -41,7 +43,8 @@ struct AppDependencies {
             speech: AVSpeechService(),
             clock: SystemDayClock(),
             entitlements: entitlements,
-            purchases: purchases)
+            purchases: purchases,
+            notifications: notifications)
     }
 
     /// Xcode sets this in the host process for *unit* tests only. A UI test
@@ -105,7 +108,8 @@ struct AppDependencies {
                     packs: [code: pack]),
                 reviewStore: InMemoryReviewStore(seed: [learned]),
                 speech: AVSpeechService(), clock: SystemDayClock(),
-                entitlements: NoPurchasesEntitlementStore(), purchases: NoPurchasesService())
+                entitlements: NoPurchasesEntitlementStore(), purchases: NoPurchasesService(),
+                notifications: NoNotificationScheduler())
         }
     #endif
 
@@ -125,6 +129,7 @@ struct AppDependencies {
         if !isHostingUnitTests { store.start() }
         return try make(
             packsDirectory: bundledPacksDirectory, inMemory: false,
-            entitlements: store, purchases: store)
+            entitlements: store, purchases: store,
+            notifications: UNNotificationScheduler())
     }
 }
