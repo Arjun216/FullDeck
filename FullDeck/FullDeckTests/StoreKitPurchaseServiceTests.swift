@@ -18,20 +18,39 @@ private final class BundleMarker {}
 /// deliberately invalid JSON either, which is how long it took to find — every
 /// product lookup simply returns empty, and `buyProduct` fails `.notEntitled`.
 ///
-/// **The runtime is not the variable; the command line is.** This was first
-/// diagnosed as iOS-26.5-specific, on reports that iOS 18 runtimes were
-/// unaffected. Retested 2026-08-01 on an installed iOS 18.5 simulator
-/// (`iPhone 16`): all six still skip. Running from the Xcode IDE is the only
-/// known way to exercise them.
+/// **The runtime is not the variable.** First diagnosed as iOS-26.5-specific, on
+/// reports that iOS 18 runtimes were unaffected. Retested 2026-08-01 on an
+/// installed iOS 18.5 simulator (`iPhone 16`): identical skip.
+///
+/// **What the failures actually are** (2026-08-02, guard removed so the tests
+/// run): `price` returns nil, `purchase` throws `.productUnavailable`, and
+/// `restore` throws `.notEntitled`. Two of the six pass — both of those assert
+/// on *absence*, so an empty store satisfies them, which is worth remembering
+/// before reading any green here as meaningful. The store is empty, not broken.
+///
+/// This probe creates the session **first**, because the scheme's configuration
+/// alone does not populate the store from the command line. The original version
+/// queried before any session existed, so it could only ever pass via the scheme
+/// — and it therefore skipped in the Xcode IDE too, hiding whether the IDE
+/// works at all. That question is still open.
 ///
 /// So this suite skips rather than failing, on the same principle as the
 /// pipeline's UDPipe tests skipping when the 25 MB model is not downloaded: an
 /// absent environment is not a broken adapter. The tests are real and they run
 /// the moment the environment does.
 private func storeKitTestEnvironmentIsAvailable() async -> Bool {
+    guard
+        let url = Bundle(for: BundleMarker.self).url(
+            forResource: "FullDeck", withExtension: "storekit"),
+        let session = try? SKTestSession(contentsOf: url)
+    else { return false }
     let id = ProductIdentifier.forLanguage(LanguageCode("hi"))
-    guard let products = try? await Product.products(for: [id]) else { return false }
-    return !products.isEmpty
+    let products = try? await Product.products(for: [id])
+    // Touch `session` *after* the await so ARC cannot release it mid-query —
+    // a released session tears the store down and the probe answers its own
+    // question wrong.
+    session.disableDialogs = true
+    return !(products ?? []).isEmpty
 }
 
 /// Framework glue, so these are written alongside the adapter rather than before
@@ -39,6 +58,10 @@ private func storeKitTestEnvironmentIsAvailable() async -> Bool {
 ///
 /// `.serialized` because `SKTestSession` is process-wide state: two of these
 /// running at once would see each other's transactions.
+///
+/// To see a real failure instead of a skip — the only way to learn *why* the
+/// store is empty — comment out the `.enabled` argument below. Expect
+/// `.productUnavailable` / `.notEntitled` while the environment is inert.
 @Suite(
     "StoreKit adapter", .serialized,
     .enabled("no StoreKit test environment in this process — see the note above") {
