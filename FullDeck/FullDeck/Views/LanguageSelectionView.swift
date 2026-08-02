@@ -7,6 +7,7 @@ struct LanguageSelectionView: View {
     let viewModel: LanguageSelectionViewModel
     let purchases: PurchaseService
     let settingsViewModel: SettingsViewModel
+    let creditsViewModel: CreditsViewModel
 
     /// `Option` is already `Identifiable`, so it doubles as the sheet's item.
     @State private var purchasing: LanguageSelectionViewModel.Option?
@@ -96,7 +97,7 @@ struct LanguageSelectionView: View {
     /// comment — and beside Restore, which made the same call for E-2.
     private var settingsRow: some View {
         NavigationLink {
-            SettingsView(viewModel: settingsViewModel)
+            SettingsView(viewModel: settingsViewModel, credits: creditsViewModel)
         } label: {
             Text("Settings")
                 .foregroundStyle(Color.textPrimary)

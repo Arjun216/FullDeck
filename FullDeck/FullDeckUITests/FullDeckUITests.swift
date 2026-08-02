@@ -289,6 +289,15 @@ final class FullDeckUITests: XCTestCase {
         XCTAssertTrue(
             app.navigationBars["Settings"].waitForExistence(timeout: 10),
             "Settings did not push its screen. Hierarchy:\n\(app.debugDescription)")
+
+        // The licence condition itself: the attribution has to be *visible*,
+        // not merely present in a pack file.
+        let attribution = app.staticTexts.containing(
+            NSPredicate(format: "label CONTAINS %@", "wordfreq")
+        ).firstMatch
+        XCTAssertTrue(
+            attribution.waitForExistence(timeout: 10),
+            "no wordfreq attribution on Settings. Hierarchy:\n\(app.debugDescription)")
     }
 }
 

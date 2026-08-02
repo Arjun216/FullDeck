@@ -8,14 +8,19 @@ struct SettingsView: View {
     /// `@Bindable`, not `let`: `@Observable` types need it to hand out the
     /// `$viewModel.property` bindings the controls take.
     @Bindable var viewModel: SettingsViewModel
+    let credits: CreditsViewModel
 
     var body: some View {
         Form {
+            CreditsSection(viewModel: credits)
         }
         // A Form paints its own background over the one set below it, the same
         // way the Languages List does.
         .scrollContentBackground(.hidden)
         .background(Color.appBackground)
         .navigationTitle("Settings")
+        // On the Form, not on the Section: a Section is a layout container, not
+        // a reliable host for a lifecycle modifier.
+        .task { await credits.load() }
     }
 }
