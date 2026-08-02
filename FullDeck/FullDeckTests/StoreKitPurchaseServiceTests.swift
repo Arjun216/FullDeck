@@ -154,8 +154,23 @@ struct StoreKitPurchaseServiceTests {
         // The revocation arrives through Transaction.updates. Wait on the change
         // stream rather than sleeping — determinism-check forbids sleeps, and a
         // sleep long enough to be reliable is a slow test besides.
-        var changes = service.entitlementChanges.makeAsyncIterator()
-        await changes.next()
+        //
+        // Wait for the *transition*, not for a state and not for "the next
+        // event". AsyncStream buffers, and by now it holds two stale snapshots:
+        // an empty one from `start()`'s launch refresh, and `{hi}` from the
+        // purchase. "Next event" is the empty one, so the original assertion ran
+        // before the refund — that was D-2. But "first snapshot without Hindi"
+        // is *also* the empty one, because not-yet-bought and refunded look
+        // identical as states. Only having seen Hindi present and then absent
+        // means the revocation actually landed.
+        var sawItUnlocked = false
+        for await unlocked in service.entitlementChanges {
+            if unlocked.contains(hindi) {
+                sawItUnlocked = true
+            } else if sawItUnlocked {
+                break
+            }
+        }
 
         #expect(!service.isUnlocked(hindi))
     }

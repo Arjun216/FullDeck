@@ -47,45 +47,34 @@ re-derived view state, or serialize `load()` behind a single in-flight task.
 **Not yet reproduced** — found by reading, not by a failing test. A regression
 test comes first, per `CLAUDE.md`.
 
-### D-2 · `entitlementChanges` says *that* something changed, never *what* — CONFIRMED
-**Upgraded from "latent hazard" to a confirmed failure on 2026-08-02.** It has a
-reproducing test.
+### D-2 · `entitlementChanges` carried no identity — FIXED 2026-08-02
+The stream was `AsyncStream<Void>`. It is now `AsyncStream<Set<LanguageCode>>`,
+emitting the whole unlocked set on every change, so a waiter can wait for the
+state it wants instead of for "something happened". The adapter's cache became
+`Set<LanguageCode>` at the same time, which deleted the `rawValue` juggling — the
+fix is a smaller file than the bug was.
 
-Two separate weaknesses in one `AsyncStream`:
+`revocationRelocks` now passes; the whole suite is **6 of 6 on iOS 18.5**.
 
-**It buffers, and carries no identity.** The stream is unbounded, so elements
-yielded before anyone iterates are queued and handed over instantly. Waiting for
-"the next change" is therefore satisfiable by a change that already happened.
-That is precisely what breaks `revocationRelocks` on iOS 18.5:
+**Two things learned in the fixing, both worth keeping:**
 
-```
-StoreKitPurchaseServiceTests.swift:160: Expectation failed:
-  !(service.isUnlocked(hindi) → true)
-```
+*Carrying state is necessary but not sufficient.* The first attempt waited for
+`!unlocked.contains(hindi)` and still failed — because `start()`'s launch refresh
+publishes an **empty** set before the purchase, and *not yet bought* is
+indistinguishable from *refunded* as a state. The test has to wait for the
+**transition**: Hindi seen present, then absent.
 
-`start()` yields, `purchase()` yields via `record()`'s `defer` — both before the
-test builds its iterator. `await changes.next()` returns one of those stale
-events immediately, and the assertion runs before the refund is processed.
+*The buffering is the real hazard.* `AsyncStream` queues elements yielded before
+anyone iterates, so by the time a test starts reading there are already stale
+snapshots waiting. Any future "wait for a change" code has the same trap.
 
-**It is single-consumer.** `AsyncStream` delivers each element to exactly one
-iterator. One view consumes it today, so that part is still latent — but add a
-second observer and the two will *split* events rather than both receiving them.
+**Still open, still latent:** the stream is single-consumer. `AsyncStream` hands
+each element to exactly one iterator, one view reads it today, and a second
+observer would split events rather than both receiving them. Not fixed —
+one reader, and a broadcast for a hypothetical second is not worth building yet.
 
-**Production is tolerant of the first problem, which is why nothing user-facing
-broke.** `LanguageSelectionView` reloads on *any* event, so a stale one costs a
-harmless extra `load()`. It does, however, make **D-1** more likely by firing
-more concurrent reloads.
-
-**Where:** [StoreKitPurchaseService.swift:22](../FullDeck/FullDeck/Services/StoreKitPurchaseService.swift:22)
-**Fix shape:** have the stream carry what changed — the language code, or the
-whole entitlement set — so a waiter can wait for the event it actually wants.
-That fixes the test honestly and removes D-1's sharpest edge. Do **not** fix it
-by draining the buffer in the test; that hides the design problem in the one
-place currently proving it exists.
-
-> Recorded because I got this wrong: I first called D-2 a hypothetical and
-> recommended leaving it under YAGNI. It was already breaking a test — which
-> nobody could see, because the test was being skipped.
+**Where:** [PurchaseService.swift:32](../FullDeck/FullDeck/Services/PurchaseService.swift:32),
+[StoreKitPurchaseService.swift](../FullDeck/FullDeck/Services/StoreKitPurchaseService.swift)
 
 ### D-3 · `record()` finishes a transaction before deciding whether it is ours
 `await transaction.finish()` runs before the `guard let code =
@@ -304,6 +293,33 @@ Filtered `xcodebuild` output is what hid the diagnosis for two days: the
 `[SKTestSession] Error saving configuration file` lines were printed on every
 run, and every grep dropped them.
 
+### E-5 · The first StoreKit purchase in a process costs minutes — NOT FIXED
+`purchaseUnlocks` takes **91–324 seconds**. Measured across four runs on iOS 18.5:
+
+```
+baseline                    236 s / 91 s   (two clones, same run)
+app's listener removed      324 s / 119 s
+```
+
+**A 2.6× spread on identical code**, and removing the app's competing
+`Transaction.updates` listener made no difference — that hypothesis is dead, and
+the variance is larger than any effect a single before/after run could detect.
+
+It is **the first purchase in the process**, not purchasing generally:
+`purchaseFailureThrows` runs the same `service.purchase()` path in 4–9 s, and
+`revocationRelocks` completes a *successful* purchase in 5–13 s. Everything after
+the first one is fast. That is a one-time initialization cost inside StoreKit,
+in the same family as E-1, and not something this project's code causes or can
+remove.
+
+**Practical consequence:** the adapter suite cannot go in a per-push gate. It
+already skips on iOS 26.5 (E-1); if an iOS 18 destination is ever added, exclude
+this suite from it and run it on demand or nightly instead.
+
+**Do not "fix" this by replacing `product.purchase()` with
+`session.buyProduct()`** — that would make the test fast by no longer testing the
+adapter's purchase path, which is the one thing it exists to cover.
+
 ### E-2 · iOS 26 toolbar titles are not Dynamic Type scalable
 The accessibility audit fails them outright: "user will not be able to change the
 font size of this SwiftUI.AccessibilityNode". Reproduced with a bare
@@ -352,25 +368,13 @@ xcodebuild test -project FullDeck/FullDeck.xcodeproj -scheme FullDeck \
 ```
 
 **Adding an iOS 18 destination to CI would close this and serve U-2 at the same
-time** — 18.x is far nearer the iOS 17.0 minimum we claim than 26.5 is. Two
-things block it: D-2 (CI goes red on arrival) and **C-5** (one test takes
-minutes). Fix both first.
+time** — 18.x is far nearer the iOS 17.0 minimum we claim than 26.5 is. D-2 no
+longer blocks it (fixed, 6 of 6 pass). **E-5 still does**: one test takes minutes
+and cannot sit in a per-push gate, so such a destination must exclude this suite
+or run it on a separate schedule.
 
 Note two of the six pass against a *dead* store too, because both assert on
 absence. Those greens are not coverage.
-
-### C-5 · `purchaseUnlocks` takes minutes, and the time is not stable
-Measured on iOS 18.5 across three runs: **259 s, 78 s, 236 s**. Every other test
-in the suite finishes in under a second.
-
-`session.disableDialogs = true` is set in `init()`, so the purchase sheet should
-not be blocking — but a 3× spread on the same assertion is the shape of a
-timeout being waited out, not of work being done.
-
-**This blocks the iOS 18 CI destination on its own**, separately from D-2: a
-four-minute test that varies by 3× cannot go in a per-push gate. Diagnose it
-before adding the destination, not after.
-**Where:** [StoreKitPurchaseServiceTests.swift:107](../FullDeck/FullDeckTests/StoreKitPurchaseServiceTests.swift:107)
 
 ### C-2 · Nine requirement IDs have no named test — and that is a floor, not a count
 `scripts/trace-requirements.sh` reports **21/30**. Untested: `FR-13`, `FR-18`,

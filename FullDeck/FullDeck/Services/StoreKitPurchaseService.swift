@@ -17,9 +17,9 @@ import os
 /// `NSLock` because it is generic over its state and genuinely `Sendable`, so
 /// this type needs no `@unchecked`.
 nonisolated final class StoreKitPurchaseService: PurchaseService, EntitlementStore {
-    private let unlocked = OSAllocatedUnfairLock(initialState: Set<String>())
-    private let continuation: AsyncStream<Void>.Continuation
-    let entitlementChanges: AsyncStream<Void>
+    private let unlocked = OSAllocatedUnfairLock(initialState: Set<LanguageCode>())
+    private let continuation: AsyncStream<Set<LanguageCode>>.Continuation
+    let entitlementChanges: AsyncStream<Set<LanguageCode>>
 
     /// Held for the process lifetime and never cancelled: a purchase can complete
     /// while the app is backgrounded, and this is what delivers it afterwards.
@@ -51,7 +51,13 @@ nonisolated final class StoreKitPurchaseService: PurchaseService, EntitlementSto
     // MARK: - EntitlementStore
 
     func isUnlocked(_ languageCode: LanguageCode) -> Bool {
-        unlocked.withLock { $0.contains(languageCode.rawValue) }
+        unlocked.withLock { $0.contains(languageCode) }
+    }
+
+    /// Every yield carries the whole set, so a waiter can wait for the state it
+    /// wants rather than for "something changed" — see the port's doc comment.
+    private func publish() {
+        continuation.yield(unlocked.withLock { $0 })
     }
 
     // MARK: - PurchaseService
@@ -104,9 +110,9 @@ nonisolated final class StoreKitPurchaseService: PurchaseService, EntitlementSto
                 transaction.revocationDate == nil,
                 let code = ProductIdentifier.languageCode(from: transaction.productID)
             else { continue }
-            unlocked.withLock { _ = $0.insert(code.rawValue) }
+            unlocked.withLock { _ = $0.insert(code) }
         }
-        continuation.yield()
+        publish()
     }
 
     private func apply(_ result: VerificationResult<StoreKit.Transaction>) async {
@@ -117,16 +123,16 @@ nonisolated final class StoreKitPurchaseService: PurchaseService, EntitlementSto
     /// The one place a language enters or leaves the cache. A non-nil
     /// `revocationDate` is the *only* signal that removes one.
     private func record(_ transaction: StoreKit.Transaction) async {
-        defer { continuation.yield() }
+        defer { publish() }
         await transaction.finish()
         guard let code = ProductIdentifier.languageCode(from: transaction.productID) else {
             return  // Someone else's product on the same account.
         }
         unlocked.withLock {
             if transaction.revocationDate == nil {
-                _ = $0.insert(code.rawValue)
+                _ = $0.insert(code)
             } else {
-                _ = $0.remove(code.rawValue)
+                _ = $0.remove(code)
             }
         }
     }

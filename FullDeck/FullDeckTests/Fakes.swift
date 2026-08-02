@@ -118,7 +118,7 @@ final class FakePurchaseService: PurchaseService, EntitlementStore, @unchecked S
     private(set) var purchaseCount = 0
     private(set) var restoreCount = 0
 
-    let entitlementChanges: AsyncStream<Void> = AsyncStream { $0.finish() }
+    let entitlementChanges: AsyncStream<Set<LanguageCode>> = AsyncStream { $0.finish() }
 
     func price(for languageCode: LanguageCode) async throws -> String? {
         if let priceError { throw priceError }

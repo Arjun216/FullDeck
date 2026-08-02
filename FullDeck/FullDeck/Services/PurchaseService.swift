@@ -12,13 +12,24 @@ import Foundation
 /// here needs it — the StoreKit adapter's cache is lock-backed, and its
 /// `Transaction.updates` loop has no business running on main.
 nonisolated protocol PurchaseService: Sendable {
-    /// Fires every time the entitlement set changes — a purchase, a late
-    /// `pending` approval, a revocation, or the launch refresh landing.
+    /// Emits the **full set of unlocked languages** every time it changes — a
+    /// purchase, a late `pending` approval, a revocation, or the launch refresh
+    /// landing.
     ///
     /// The launch refresh is async and can finish *after* the Languages screen
     /// has already loaded. Without this the learner sees a language they paid
     /// for still wearing a padlock until they navigate away and back.
-    var entitlementChanges: AsyncStream<Void> { get }
+    ///
+    /// It carries the set rather than `Void` because the stream buffers: events
+    /// yielded before anyone iterates are queued and delivered instantly, so
+    /// "await the next change" can be satisfied by a change that already
+    /// happened. With the set attached, a waiter can wait for the state it
+    /// actually wants instead of for the next notification of any kind.
+    ///
+    /// Still single-consumer — `AsyncStream` hands each element to exactly one
+    /// iterator. One view reads it today. A second observer would split events
+    /// rather than both receiving them, and nothing enforces that.
+    var entitlementChanges: AsyncStream<Set<LanguageCode>> { get }
 
     /// StoreKit's localized display price, or nil when the store has no such
     /// product. Never a hardcoded "$0.99" — the price is per-storefront.
@@ -70,7 +81,7 @@ nonisolated enum ProductIdentifier {
 /// not reach the store) and SwiftUI previews. Its counterpart
 /// `NoPurchasesEntitlementStore` lives in `StubEntitlementStore.swift`.
 nonisolated struct NoPurchasesService: PurchaseService {
-    var entitlementChanges: AsyncStream<Void> { AsyncStream { $0.finish() } }
+    var entitlementChanges: AsyncStream<Set<LanguageCode>> { AsyncStream { $0.finish() } }
     func price(for languageCode: LanguageCode) async throws -> String? { nil }
     func purchase(_ languageCode: LanguageCode) async throws -> PurchaseOutcome {
         throw PurchaseFailure.productUnavailable

@@ -44,13 +44,26 @@ struct AppDependencies {
             purchases: purchases)
     }
 
+    /// Xcode sets this in the host process for *unit* tests only. A UI test
+    /// launches the app as a separate process without it, which is exactly the
+    /// distinction `live()` needs.
+    private static var isHostingUnitTests: Bool {
+        ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil
+    }
+
     /// Throws rather than crashes: opening the SwiftData store can fail on a full
     /// or corrupt disk, and NFR-10 forbids a crash on bad data.
     static func live() throws -> AppDependencies {
         // One object behind both ports, so there is exactly one entitlement
         // cache rather than two that can disagree.
         let store = StoreKitPurchaseService()
-        store.start()
+        // Unit tests are hosted *inside* this app process, so without this guard
+        // the app's own `Transaction.updates` listener runs alongside the
+        // `SKTestSession` a test creates: two entitlement caches, and two
+        // `finish()` calls racing for every transaction the test buys. UI tests
+        // launch the app for real and never set this variable, so they still get
+        // the listener they are there to exercise.
+        if !isHostingUnitTests { store.start() }
         return try make(
             packsDirectory: bundledPacksDirectory, inMemory: false,
             entitlements: store, purchases: store)
