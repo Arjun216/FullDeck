@@ -268,6 +268,28 @@ final class FullDeckUITests: XCTestCase {
         XCTAssertTrue(tabBar.buttons["Idiomas"].exists)
         XCTAssertTrue(tabBar.buttons["Progreso"].exists)
     }
+
+    /// FR-16's acceptance is *reachability*, not content — a ViewModel test
+    /// cannot prove a screen can be got to. This is the half that was missing
+    /// as N-4, and the half a green traceability report claimed was covered.
+    @MainActor
+    func testFR16SettingsIsReachableFromLanguages() throws {
+        let app = XCUIApplication()
+        app.launch()
+
+        let tabBar = app.tabBars.firstMatch
+        XCTAssertTrue(tabBar.buttons["Languages"].waitForExistence(timeout: 15))
+
+        let settings = app.buttons["Settings"]
+        XCTAssertTrue(
+            settings.waitForExistence(timeout: 15),
+            "no Settings row on the Languages screen. Hierarchy:\n\(app.debugDescription)")
+        settings.tap()
+
+        XCTAssertTrue(
+            app.navigationBars["Settings"].waitForExistence(timeout: 10),
+            "Settings did not push its screen. Hierarchy:\n\(app.debugDescription)")
+    }
 }
 
 extension FullDeckUITests {

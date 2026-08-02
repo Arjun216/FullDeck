@@ -6,6 +6,7 @@ import SwiftUI
 struct LanguageSelectionView: View {
     let viewModel: LanguageSelectionViewModel
     let purchases: PurchaseService
+    let settingsViewModel: SettingsViewModel
 
     /// `Option` is already `Identifiable`, so it doubles as the sheet's item.
     @State private var purchasing: LanguageSelectionViewModel.Option?
@@ -63,6 +64,7 @@ struct LanguageSelectionView: View {
                     languageRow(option)
                 }
                 restoreRow
+                settingsRow
             }
             // A List paints its own background over the one set on the
             // NavigationStack content; hiding it lets the warm base show.
@@ -87,6 +89,18 @@ struct LanguageSelectionView: View {
                 .foregroundStyle(Color.textPrimary)
         }
         .buttonStyle(.plain)
+        .listRowBackground(Color.appBackground)
+    }
+
+    /// A row rather than a toolbar item, for the reason in `SettingsView`'s
+    /// comment — and beside Restore, which made the same call for E-2.
+    private var settingsRow: some View {
+        NavigationLink {
+            SettingsView(viewModel: settingsViewModel)
+        } label: {
+            Text("Settings")
+                .foregroundStyle(Color.textPrimary)
+        }
         .listRowBackground(Color.appBackground)
     }
 

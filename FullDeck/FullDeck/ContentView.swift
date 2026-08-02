@@ -16,6 +16,7 @@ struct ContentView: View {
     let dependencies: AppDependencies
 
     @State private var selectionViewModel: LanguageSelectionViewModel
+    @State private var settingsViewModel: SettingsViewModel
     @State private var selectedTab: Tab = .languages
     // Owned here rather than rebuilt inside the tab bodies: a ViewModel
     // constructed per body evaluation is a new object on every re-render, which
@@ -32,12 +33,16 @@ struct ContentView: View {
                 packStore: dependencies.packStore,
                 entitlements: dependencies.entitlements,
                 purchases: dependencies.purchases))
+        // Not rebuilt per body evaluation, for the same reason as the others:
+        // it owns preferences the learner is editing.
+        _settingsViewModel = State(initialValue: SettingsViewModel())
     }
 
     var body: some View {
         TabView(selection: $selectedTab) {
             LanguageSelectionView(
-                viewModel: selectionViewModel, purchases: dependencies.purchases
+                viewModel: selectionViewModel, purchases: dependencies.purchases,
+                settingsViewModel: settingsViewModel
             )
             .tabItem { Label("Languages", systemImage: "globe") }
             .tag(Tab.languages)
