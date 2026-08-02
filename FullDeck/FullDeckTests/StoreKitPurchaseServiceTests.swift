@@ -74,6 +74,11 @@ private func storeKitTestEnvironmentIsAvailable() async -> Bool {
 struct StoreKitPurchaseServiceTests {
     let hindi = LanguageCode("hi")
 
+    /// A product of ours that is not a language unlock. There is no such product
+    /// in the real catalogue yet — it exists in `FullDeck.storekit` so a test can
+    /// reach the one branch of `record()` that has to *decline* a transaction.
+    static let nonLanguageProductID = "arjunpathak.FullDeck.notALanguage"
+
     /// A stored property, not a local in each test. `SKTestSession` configures
     /// the process's StoreKit environment only for as long as it is alive, and
     /// `_ = try makeSession()` releases it immediately — after which
@@ -139,6 +144,39 @@ struct StoreKitPurchaseServiceTests {
 
         await #expect(throws: (any Error).self) { try await service.purchase(hindi) }
         #expect(!service.isUnlocked(hindi))
+    }
+
+    /// D-3. `finish()` is a claim of responsibility: it tells StoreKit the
+    /// transaction has been dealt with and stops it being re-delivered. Claiming
+    /// that before deciding whether the product is one we handle means the day a
+    /// second product type exists, its purchase is consumed by code that ignores
+    /// it — and it looks to the buyer like money that vanished.
+    @Test(
+        "FR-14 a transaction that is not a language unlock is left unfinished",
+        .timeLimit(.minutes(5)))
+    func nonLanguageTransactionIsNotFinished() async throws {
+        let service = StoreKitPurchaseService()
+        service.start()
+
+        _ = try await session.buyProduct(identifier: Self.nonLanguageProductID)
+
+        // `record()` publishes in a `defer`, so it publishes on the decline path
+        // too. Two events must land before the assertion means anything:
+        // `start()`'s launch refresh and the record itself, in either order.
+        var seen = 0
+        for await _ in service.entitlementChanges {
+            seen += 1
+            if seen == 2 { break }
+        }
+
+        var unfinished: [String] = []
+        for await result in StoreKit.Transaction.unfinished {
+            if case .verified(let transaction) = result {
+                unfinished.append(transaction.productID)
+            }
+        }
+
+        #expect(unfinished.contains(Self.nonLanguageProductID))
     }
 
     @Test("FR-14 a refunded language is dropped from the entitlement cache")
