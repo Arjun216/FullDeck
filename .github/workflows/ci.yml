@@ -160,8 +160,20 @@ jobs:
             exit 1
           fi
           echo "Using simulator: $DEVICE"
+          # Print the runtimes. known-issues.md's C-1 asserted this job lands on
+          # iOS 26.5 — which decides whether the StoreKit adapter suite runs or
+          # skips here (E-1) — and nobody had ever checked. Assume it once more
+          # and the next person inherits the same guess.
+          echo "--- installed iOS runtimes ---"
+          xcrun simctl list runtimes | grep -i ios || true
+
+          # The StoreKit adapter suite is excluded on purpose, not by accident:
+          # E-5 makes the first purchase in a process cost 91-324 s, which cannot
+          # sit in a per-push gate. It runs from .github/workflows/storekit-adapter.yml
+          # on demand instead.
           xcodebuild test \
             -project FullDeck/FullDeck.xcodeproj \
             -scheme FullDeck \
             -destination "platform=iOS Simulator,name=$DEVICE" \
+            -skip-testing:FullDeckTests/StoreKitPurchaseServiceTests \
             CODE_SIGNING_ALLOWED=NO

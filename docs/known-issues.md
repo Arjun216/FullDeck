@@ -18,6 +18,12 @@ Each entry has an ID. Phase 13's `docs/test-plan.md` should reference them.
 | **C** | Test-coverage gap. |
 | **W** | Content waiver. |
 
+**Read E-6 first. CI has not executed since 2026-08-01** — GitHub rejects every
+job on a billing failure, three seconds in, before any step. The last green run
+predates Phase 11. Everything since has been verified locally and by nothing
+else, so "CI is green" is currently unavailable information rather than a pass.
+Clearing it needs Arjun, not an agent.
+
 **Every D is now closed** (D-1 through D-5, all fixed 2026-08-02). The section is
 kept rather than deleted: each entry records what the bug taught, and three of
 them taught something about the *tests* rather than the code.
@@ -383,6 +389,36 @@ this suite from it and run it on demand or nightly instead.
 `session.buyProduct()`** — that would make the test fast by no longer testing the
 adapter's purchase path, which is the one thing it exists to cover.
 
+### E-6 · CI has not run since 2026-08-01 — GitHub billing, and it needs you
+Every workflow run since **2026-08-01T21:39Z** has failed, and none of them
+reached a step. The jobs are rejected before they start:
+
+> The job was not started because recent account payments have failed or your
+> spending limit needs to be increased. Please check the 'Billing & plans'
+> section in your settings.
+
+**The last green run was 2026-08-01T18:04Z — the Phase 12 merge.** Everything
+after it has been gated by nothing:
+
+- **Phase 11 (StoreKit) has never had a CI run at all.** It merged on 2026-08-02.
+- The D-1/D-3/D-4 fixes, the C-3 audit work, and the C-4 rewrite have only ever
+  been run locally.
+
+Nothing is wrong with the workflow — it fails identically on `main` and on every
+branch, on both jobs, three seconds in. **Only Arjun can clear it**, in GitHub's
+Billing & plans settings. Until then, treat "CI is green" as unavailable
+information rather than as a pass, and run the gates locally:
+
+```sh
+swift test --package-path Packages/Domain && swift test --package-path Packages/Data
+xcodebuild test -project FullDeck/FullDeck.xcodeproj -scheme FullDeck \
+  -destination 'platform=iOS Simulator,name=iPhone 17'
+swiftlint lint --strict && scripts/determinism-check.sh
+```
+
+This is also why **C-1 cannot be closed yet**: its wiring is verified locally and
+cannot be verified where it actually has to work.
+
 ### E-2 · iOS 26 toolbar titles are not Dynamic Type scalable
 The accessibility audit fails them outright: "user will not be able to change the
 font size of this SwiftUI.AccessibilityNode". Reproduced with a bare
@@ -408,10 +444,31 @@ Swift warning is suppressed.
 
 ## C — Test-coverage gaps
 
-### C-1 · The StoreKit suite skips on iOS 26.5, so CI never runs it
-CI picks the newest runtime, which is 26.5, where E-1 makes the environment
-dead — so the guard skips all seven on every push. **The adapter therefore has no
-coverage in CI**, though it has full coverage locally.
+### C-1 · The adapter has no CI coverage — WIRED 2026-08-02, unverifiable until E-6 clears
+**The stated cause of this entry was wrong, and was never measured.** It claimed
+CI picks iOS 26.5 and the suite therefore skips on every push. CI runs on
+`macos-15` using the runner's *default* Xcode, whose simulator runtime is iOS
+18.x — where the suite runs rather than skips. Nobody had checked either way, and
+the old logs have expired, so the real answer is still unknown.
+
+What is now known is worse: **CI has not executed since 2026-08-01 (E-6)**, so
+the suite has never run in CI for a reason that has nothing to do with runtimes.
+Phase 11 landed after the last green run. The main job now prints
+`xcrun simctl list runtimes` so the first run that does complete answers this
+instead of the next person guessing again.
+
+Wiring, both verified locally against the exact commands, neither verifiable in
+CI until billing clears:
+
+- The per-push job passes `-skip-testing:FullDeckTests/StoreKitPurchaseServiceTests`.
+  E-5's 91–324 s first purchase cannot sit in a per-push gate.
+- A new dispatch-only workflow, [`storekit-adapter.yml`](../.github/workflows/storekit-adapter.yml),
+  runs *only* that suite, and **only on an iOS 18.x destination**. No cron:
+  a nightly schedule spends macOS minutes (billed 10×) every night whether the
+  adapter changed or not, which is a poor trade against an account that is
+  already over its limit.
+- **It fails rather than skips when no iOS 18 runtime exists.** A skip reports
+  green, and a green that proves nothing is the disease this entry describes.
 
 **On iOS 18.5, seven of seven pass** (2026-08-02):
 
