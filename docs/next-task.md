@@ -16,8 +16,10 @@ design), Opus earns its cost.
 **Model:** Sonnet 5.
 
 **Branch state:** Phase 11 is merged (PR #8, 2026-08-02). `main` is the place to
-branch from. The bug-fix session takes D-1, D-3 and D-4 from the list below;
-D-2 and the scheme-path bug (D-5) are already fixed.
+branch from. **The bug-fix session is done: D-1, D-3 and D-4 are fixed
+(2026-08-02), joining D-2 and D-5. Every defect in `known-issues.md` is closed**,
+and the StoreKit suite is 7 of 7 on iOS 18.5. Nothing in the D section is
+outstanding — start Phase 13 from the U, N and C sections instead.
 
 **Start from [`docs/known-issues.md`](known-issues.md)** — every defect, gap and
 deliberate compromise in the project, with IDs. Phase 13's `test-plan.md` should
@@ -35,7 +37,19 @@ FR-16 in the same container. FR-17 needs `StatsService`, which `architecture.md`
 §3 names and nobody wrote. This is closer to its own phase than a Phase 13 tail —
 plan it as one.
 
-**The bugs are going to a separate session.** Don't start them here.
+**Three things the bug session learned about this repo's tests**, all costly to
+rediscover:
+
+- **`-only-testing:` needs the Swift Testing function's parentheses.** Without
+  them nothing matches and `xcodebuild` still prints `** TEST SUCCEEDED **`. A
+  green that arrives before the fix should be checked with
+  `xcrun xcresulttool get test-results tests --path <bundle>`.
+- **`Task.yield()` cannot hold a concurrency race open.** It let the whole
+  competing `load()` run to completion, and the test passed against the unfixed
+  code. Park the suspension explicitly on a continuation — `GatedPackStore` in
+  `LanguageSelectionViewModelTests.swift` is the pattern.
+- **In the StoreKit suite a timeout looks exactly like a deadlock.** E-5's
+  first-purchase cost is minutes; bound new tests there at 5 minutes, not 1.
 
 **Before shipping, someone has to do the App Store Connect work** —
 [`docs/app-store-connect-setup.md`](app-store-connect-setup.md) is the

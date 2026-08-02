@@ -18,6 +18,10 @@ Each entry has an ID. Phase 13's `docs/test-plan.md` should reference them.
 | **C** | Test-coverage gap. |
 | **W** | Content waiver. |
 
+**Every D is now closed** (D-1 through D-5, all fixed 2026-08-02). The section is
+kept rather than deleted: each entry records what the bug taught, and three of
+them taught something about the *tests* rather than the code.
+
 The biggest thing on this page is not any single row. It is that **the entire
 purchase chain has never touched Apple's servers** (U-1), and **the app has never
 been run on its own minimum OS** (U-2).
@@ -29,23 +33,43 @@ does not exist.
 
 ## D — Defects
 
-### D-1 · Restore's before/after comparison can race with its own reload
-`LanguageSelectionViewModel.restore()` snapshots `unlockedCodes()`, calls
-`purchases.restore()`, calls `load()`, then compares. But
-`StoreKitPurchaseService.refreshEntitlements()` yields on `entitlementChanges`
-*during* `purchases.restore()`, and `LanguageSelectionView`'s second `.task`
-answers that by calling `load()` too. Two `load()` calls interleave at their
-await points.
+All five are fixed. Kept for the reasoning, and because two of them were only
+ever *found* by reading rather than by a test — which is the argument for keeping
+this page at all.
 
-**Consequence is bounded:** both write identical data, so nothing corrupts. The
-comparison can read the other load's result and show — or fail to show — "No
-previous purchases found." wrongly.
+### D-1 · Restore's before/after comparison raced its own reload — FIXED 2026-08-02
+`restore()` derived its before-snapshot from `state` via a `unlockedCodes()`
+method that answered `[]` for every state but `.ready` — including the
+`.loading` any concurrent reload passes through. And one genuinely is
+concurrent: `StoreKitPurchaseService.refreshEntitlements()` yields on
+`entitlementChanges` *during* `purchases.restore()`, and `LanguageSelectionView`'s
+second `.task` answers that by calling `load()`.
 
-**Where:** [LanguageSelectionViewModel.swift:78](../FullDeck/FullDeck/ViewModels/LanguageSelectionViewModel.swift:78)
-**Fix shape:** have `restore()` compare against the entitlement set rather than
-re-derived view state, or serialize `load()` behind a single in-flight task.
-**Not yet reproduced** — found by reading, not by a failing test. A regression
-test comes first, per `CLAUDE.md`.
+So a restore that found nothing read `before == []`, then `after == {fr}`, and
+**silently swallowed "No previous purchases found."** — the learner taps Restore
+and the screen says nothing at all.
+
+The snapshot is now a stored `unlockedCodes` property written by each successful
+`load()`, so it never passes through a false empty. The *after* read was never at
+risk: `await load()` returns and the comparison runs with no suspension between.
+
+**Two things learned, both worth keeping:**
+
+*`Task.yield()` cannot hold a race window open.* The first attempt started a
+reload in a `Task` and yielded once — the reload ran to **completion**, `state`
+was `.ready`, and the test passed against the unfixed code. A diagnostic
+`#expect(state == .loading)` is what proved the window never opened. The test now
+uses a `GatedPackStore` that parks `availablePacks()` on a continuation until
+released.
+
+*A passing `xcodebuild` run can mean zero tests ran.* `-only-testing:` needs the
+Swift Testing function's **parentheses** — `.../restoreIsNotFooledByAConcurrentReload()`.
+Without them nothing matches, and it still prints `** TEST SUCCEEDED **`. Verify
+with `xcrun xcresulttool get test-results tests --path <bundle>` when a red is
+expected and green appears.
+
+**Where:** [LanguageSelectionViewModel.swift:31](../FullDeck/FullDeck/ViewModels/LanguageSelectionViewModel.swift:31)
+**Test:** `FR-15 a reload landing mid-restore doesn't swallow the no-purchases message`
 
 ### D-2 · `entitlementChanges` carried no identity — FIXED 2026-08-02
 The stream was `AsyncStream<Void>`. It is now `AsyncStream<Set<LanguageCode>>`,
@@ -76,16 +100,32 @@ one reader, and a broadcast for a hypothetical second is not worth building yet.
 **Where:** [PurchaseService.swift:32](../FullDeck/FullDeck/Services/PurchaseService.swift:32),
 [StoreKitPurchaseService.swift](../FullDeck/FullDeck/Services/StoreKitPurchaseService.swift)
 
-### D-3 · `record()` finishes a transaction before deciding whether it is ours
-`await transaction.finish()` runs before the `guard let code =
-ProductIdentifier.languageCode(...)`. A transaction for a product of ours that is
-not a language unlock gets marked handled by code that then ignores it.
+### D-3 · `record()` finished a transaction before deciding whether it was ours — FIXED 2026-08-02
+`await transaction.finish()` ran before the `guard let code =
+ProductIdentifier.languageCode(...)`, so a transaction for a product of ours that
+is not a language unlock was marked handled by code that then ignored it. Harmless
+while there is only one product; the day a second exists it is a purchase that
+vanishes.
 
-**Harmless today** — there are no non-language products. It becomes a real bug the
-day one is added, and it will look like a purchase that vanished.
+`finish()` now sits **after** the guard. Finishing is a claim of responsibility —
+it is what stops StoreKit re-delivering — so declining to finish is the honest
+answer for a transaction nobody has handled, and re-delivery is how a later
+version gets its chance.
 
-**Where:** [StoreKitPurchaseService.swift:119](../FullDeck/FullDeck/Services/StoreKitPurchaseService.swift:119)
-**Fix shape:** move `finish()` after the guard, or finish explicitly in both branches.
+**Proven by a test that had to invent a product.** `FullDeck.storekit` gained
+`arjunpathak.FullDeck.notALanguage`, bought via `session.buyProduct` so it arrives
+through `Transaction.updates` — the only route into `record()` with a foreign
+product, since `purchase(_:)` builds its identifier from a language code and can
+never produce one. The assertion is that the transaction is still listed in
+`StoreKit.Transaction.unfinished`; against the old code that list came back empty.
+
+The test takes **~120–150 s**: it is the first purchase in the process, which is
+E-5, not a hang. The first attempt bounded it at `.timeLimit(.minutes(1))` and the
+timeout looked exactly like a deadlock — raising the bound to 5 minutes is what
+told the two apart.
+
+**Where:** [StoreKitPurchaseService.swift:125](../FullDeck/FullDeck/Services/StoreKitPurchaseService.swift:125)
+**Test:** `FR-14 a transaction that is not a language unlock is left unfinished`
 
 ### D-5 · The scheme's StoreKit config path never resolved — FIXED 2026-08-02
 `StoreKitConfigurationFileReference` was `../../../FullDeckTests/FullDeck.storekit`
@@ -105,19 +145,31 @@ and never consults the scheme — which is exactly why it stayed invisible.
 Fixed to `../../`. Verify with ⌘R: the purchase sheet should show $0.99 with no
 Apple Account prompt.
 
-### D-4 · "The store isn't reachable" is shown for a product that doesn't exist
-`PurchaseViewModel.loadProduct()` collapses *product not found* and *store
-unreachable* into one message. That collapse is deliberate and correct **for the
-learner** — the comment says so, and neither case is their fault.
+### D-4 · "The store isn't reachable" was indistinguishable from "no such product" — FIXED 2026-08-02
+`PurchaseViewModel.loadProduct()` used `try?`, which collapses a *thrown store
+error* and a *nil product* into the same branch. The collapse is deliberate and
+correct **for the learner** — neither case is their fault and neither is
+actionable — but it left nothing at all to tell them apart during App Store
+Connect setup, where an inactive Paid Applications agreement returns no products
+from a store that is perfectly reachable.
 
-It is misleading **for you**, during App Store Connect setup. An inactive Paid
-Applications agreement returns no products, and the app will say the store is
-unreachable when the store is perfectly reachable.
+**The shipped copy is unchanged.** The `try?` became a `do`/`catch` with an
+explicit `guard`, and the two branches now set `unavailableCause`
+(`.noSuchProduct` / `.storeError`) and log which one fired. Both still produce
+`.unavailable("The store isn't reachable right now.")`.
 
-**Where:** [PurchaseViewModel.swift:55](../FullDeck/FullDeck/ViewModels/PurchaseViewModel.swift:55)
-**Mitigation in place:** [`app-store-connect-setup.md`](app-store-connect-setup.md)
-leads with the agreement for exactly this reason. Consider a `#if DEBUG` branch
-that distinguishes the two, rather than changing the shipped copy.
+A `#if DEBUG` branch was considered and rejected: it would have made the shipped
+string the one path no test ever exercises. A property plus a log line keeps one
+code path and makes the distinction assertable — the two existing NFR-10 tests
+gained a cause assertion each rather than a new test appearing beside them.
+
+`os.Logger` is device-local and sends nothing anywhere, so this does not reopen
+**L-2**.
+
+**Where:** [PurchaseViewModel.swift:66](../FullDeck/FullDeck/ViewModels/PurchaseViewModel.swift:66)
+**Still true:** [`app-store-connect-setup.md`](app-store-connect-setup.md) leads
+with the agreement, and should keep doing so — a log line only helps someone who
+thinks to look at the console.
 
 ---
 
@@ -312,6 +364,17 @@ the first one is fast. That is a one-time initialization cost inside StoreKit,
 in the same family as E-1, and not something this project's code causes or can
 remove.
 
+**Confirmed independently 2026-08-02 by D-3's new test**, which does not use
+`product.purchase()` at all — `session.buyProduct()` alone. Run on its own it took
+**116–147 s**; run inside the full suite, after `purchaseUnlocks` has already paid
+the initialization cost, it took **2.7 s**. Same code, same store, 40×. Whatever
+this is, it is per-process and it is not the purchase API being called.
+
+**A timeout here looks exactly like a deadlock.** That test was first bounded at
+`.timeLimit(.minutes(1))` and failed at 60.000 s, which reads as a hang; raising
+the bound to 5 minutes is the only thing that distinguished the two. Bound new
+tests in this suite generously.
+
 **Practical consequence:** the adapter suite cannot go in a per-push gate. It
 already skips on iOS 26.5 (E-1); if an iOS 18 destination is ever added, exclude
 this suite from it and run it on demand or nightly instead.
@@ -347,11 +410,10 @@ Swift warning is suppressed.
 
 ### C-1 · The StoreKit suite skips on iOS 26.5, so CI never runs it
 CI picks the newest runtime, which is 26.5, where E-1 makes the environment
-dead — so the guard skips all six on every push. **The adapter therefore has no
-coverage in CI**, though it now has coverage locally.
+dead — so the guard skips all seven on every push. **The adapter therefore has no
+coverage in CI**, though it has full coverage locally.
 
-**On iOS 18.5, five of six pass** (2026-08-02) — the first execution these tests
-have ever had:
+**On iOS 18.5, seven of seven pass** (2026-08-02):
 
 ```
 ✔ FR-14 the localized price comes from StoreKit, never a literal
@@ -359,7 +421,8 @@ have ever had:
 ✔ FR-14 buying a language unlocks it
 ✔ FR-15 a purchase made before this install is restored
 ✔ NFR-10 a store error surfaces as a thrown failure, not a crash
-✘ FR-14 a refunded language is dropped from the entitlement cache   ← D-2
+✔ FR-14 a refunded language is dropped from the entitlement cache          (D-2)
+✔ FR-14 a transaction that is not a language unlock is left unfinished     (D-3)
 ```
 
 ```bash
@@ -369,11 +432,11 @@ xcodebuild test -project FullDeck/FullDeck.xcodeproj -scheme FullDeck \
 
 **Adding an iOS 18 destination to CI would close this and serve U-2 at the same
 time** — 18.x is far nearer the iOS 17.0 minimum we claim than 26.5 is. D-2 no
-longer blocks it (fixed, 6 of 6 pass). **E-5 still does**: one test takes minutes
-and cannot sit in a per-push gate, so such a destination must exclude this suite
-or run it on a separate schedule.
+longer blocks it. **E-5 still does**: one test takes minutes and cannot sit in a
+per-push gate, so such a destination must exclude this suite or run it on a
+separate schedule.
 
-Note two of the six pass against a *dead* store too, because both assert on
+Note two of the seven pass against a *dead* store too, because both assert on
 absence. Those greens are not coverage.
 
 ### C-2 · Nine requirement IDs have no named test — and that is a floor, not a count
@@ -435,10 +498,19 @@ A genuinely unsatisfiable §6 constraint.
 
 ## What this list says about the project
 
-The defects are small and mostly latent. The real risk is concentrated in **U**:
-the money path is unproven against Apple, the minimum OS is unproven at runtime,
-both performance NFRs are unmeasured, and 1000 sentences of Hindi are unread.
-U-1 and U-8 need a human, not an agent, and neither is small.
+The defects were small and mostly latent, and they are now all fixed. The real
+risk was never there — it is concentrated in **U**: the money path is unproven
+against Apple, the minimum OS is unproven at runtime, both performance NFRs are
+unmeasured, and 1000 sentences of Hindi are unread. U-1 and U-8 need a human, not
+an agent, and neither is small.
+
+Worth noting what closing the D section actually cost: three of the five bugs
+were straightforward once reproduced, and the *reproduction* was the whole job.
+`Task.yield()` did not hold a race window open (D-1), a `-only-testing:` id
+without parentheses reported success while running nothing (D-1), and a
+one-minute timeout was indistinguishable from a deadlock (D-3). In each case the
+first "passing" run was a lie, and the only thing that caught it was refusing to
+believe a green that arrived before the fix.
 
 **N-4 is the one that stops a release.** Four requirements have no implementation,
 and one of them is a licence condition. It went unnoticed because the pipeline
