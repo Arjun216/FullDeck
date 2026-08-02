@@ -1,7 +1,7 @@
 # Known issues
 
 Every defect, gap, and deliberate compromise in the project as of **2026-08-01**,
-after Phase 11. One place, so Phase 13 has a target list and Phase 14's
+after Phase 11, and kept current — last updated **2026-08-02**. One place, so Phase 13 has a target list and Phase 14's
 `MAINTENANCE.md` has something to inherit.
 
 Each entry has an ID. Phase 13's `docs/test-plan.md` should reference them.
@@ -47,16 +47,45 @@ re-derived view state, or serialize `load()` behind a single in-flight task.
 **Not yet reproduced** — found by reading, not by a failing test. A regression
 test comes first, per `CLAUDE.md`.
 
-### D-2 · `entitlementChanges` is a single-consumer stream with no guard
-`AsyncStream` delivers each element to exactly one iterator. One view consumes it
-today, so this is correct right now. Add a second observer — a Study-tab listener,
-a settings screen — and the two will *split* events rather than both receiving
-them, so one of them silently misses unlocks.
+### D-2 · `entitlementChanges` says *that* something changed, never *what* — CONFIRMED
+**Upgraded from "latent hazard" to a confirmed failure on 2026-08-02.** It has a
+reproducing test.
+
+Two separate weaknesses in one `AsyncStream`:
+
+**It buffers, and carries no identity.** The stream is unbounded, so elements
+yielded before anyone iterates are queued and handed over instantly. Waiting for
+"the next change" is therefore satisfiable by a change that already happened.
+That is precisely what breaks `revocationRelocks` on iOS 18.5:
+
+```
+StoreKitPurchaseServiceTests.swift:160: Expectation failed:
+  !(service.isUnlocked(hindi) → true)
+```
+
+`start()` yields, `purchase()` yields via `record()`'s `defer` — both before the
+test builds its iterator. `await changes.next()` returns one of those stale
+events immediately, and the assertion runs before the refund is processed.
+
+**It is single-consumer.** `AsyncStream` delivers each element to exactly one
+iterator. One view consumes it today, so that part is still latent — but add a
+second observer and the two will *split* events rather than both receiving them.
+
+**Production is tolerant of the first problem, which is why nothing user-facing
+broke.** `LanguageSelectionView` reloads on *any* event, so a stale one costs a
+harmless extra `load()`. It does, however, make **D-1** more likely by firing
+more concurrent reloads.
 
 **Where:** [StoreKitPurchaseService.swift:22](../FullDeck/FullDeck/Services/StoreKitPurchaseService.swift:22)
-**Fix shape:** if a second consumer is ever needed, this has to become a
-broadcast. Nothing enforces the single-consumer rule today, and the failure is
-silent, which is what makes it worth writing down.
+**Fix shape:** have the stream carry what changed — the language code, or the
+whole entitlement set — so a waiter can wait for the event it actually wants.
+That fixes the test honestly and removes D-1's sharpest edge. Do **not** fix it
+by draining the buffer in the test; that hides the design problem in the one
+place currently proving it exists.
+
+> Recorded because I got this wrong: I first called D-2 a hypothetical and
+> recommended leaving it under YAGNI. It was already breaking a test — which
+> nobody could see, because the test was being skipped.
 
 ### D-3 · `record()` finishes a transaction before deciding whether it is ours
 `await transaction.finish()` runs before the `guard let code =
@@ -68,6 +97,24 @@ day one is added, and it will look like a purchase that vanished.
 
 **Where:** [StoreKitPurchaseService.swift:119](../FullDeck/FullDeck/Services/StoreKitPurchaseService.swift:119)
 **Fix shape:** move `finish()` after the guard, or finish explicitly in both branches.
+
+### D-5 · The scheme's StoreKit config path never resolved — FIXED 2026-08-02
+`StoreKitConfigurationFileReference` was `../../../FullDeckTests/FullDeck.storekit`
+in both `TestAction` and `LaunchAction`, which resolves to
+`Language_App/FullDeckTests/`. The file is at `Language_App/FullDeck/FullDeckTests/`
+— one `../` too many, wrong since Phase 11.
+
+Xcode reports it as *"StoreKit Configuration file for scheme FullDeck can't be
+found"*. No filtered `xcodebuild` output ever showed it; Arjun found it in the IDE.
+
+**Consequence:** running the app (⌘R) never had a test store, so any manual
+purchase check would have hit the real App Store. It does **not** affect
+`StoreKitPurchaseServiceTests`, which loads the file by URL from the test bundle
+and never consults the scheme — which is exactly why it stayed invisible.
+
+**Where:** `FullDeck.xcodeproj/xcshareddata/xcschemes/FullDeck.xcscheme`
+Fixed to `../../`. Verify with ⌘R: the purchase sheet should show $0.99 with no
+Apple Account prompt.
 
 ### D-4 · "The store isn't reachable" is shown for a product that doesn't exist
 `PurchaseViewModel.loadProduct()` collapses *product not found* and *store
@@ -229,46 +276,33 @@ across `PurchaseService` are what the deferral costs.
 
 Not our code. Each one cost real time to diagnose, so each is written down.
 
-### E-1 · StoreKit testing is dead from the command line, on every runtime tried
-`xcodebuild test` never pushes the scheme's StoreKit configuration to the
-simulator's `storekitd`. It fails **silently**: `SKTestSession` does not throw —
-not even on deliberately invalid JSON — it hands back an empty store, so every
-product lookup returns nothing and `buyProduct` fails `.notEntitled`.
+### E-1 · `SKTestSession` is broken on iOS 26.5 — and works on 18.5
+Every `SKTestSession` call on an iOS 26.5 simulator fails with
+`SKInternalErrorDomain Code=3`, *"Error saving configuration file"*. The store
+never populates, so `price` returns nil and `purchase` throws
+`.productUnavailable`. On **iOS 18.5 the identical code, config and command
+work** — five of the six tests pass. Same bug signature is filed against
+Flutter's StoreKit plugin on 26.3/26.4.
 
-**Retested on iOS 18.5, 2026-08-01: all six still skip.** This was originally
-written up as an iOS 26.5 regression, on reports that iOS 18 runtimes were
-unaffected. That was wrong — the runtime is not the variable, the command line
-is. `-destination 'platform=iOS Simulator,name=iPhone 16,OS=18.5'` produced the
-identical skip, so **installing an older runtime does not help.**
+Nothing in this project causes it and nothing in this project fixes it. Run the
+suite on an 18.x simulator.
 
-**The skip guard was also asking the wrong question, which is why the IDE run
-proved nothing.** `.enabled` is a Swift Testing *trait*: it is evaluated before
-the suite's `init()` runs, and `init()` is where `SKTestSession` is created. So
-the guard queried the store before anything had loaded a product into it — it
-could only ever pass via the scheme's configuration, and it therefore skipped in
-the Xcode IDE for exactly the same reason it skipped from the command line.
-**An IDE run with the old guard tells you nothing.** Fixed 2026-08-02: the guard
-now builds a session first and holds it past the `await`.
+Three wrong turns on the way here, all worth not repeating:
 
-**With the guard removed entirely, the real failures are** (2026-08-02):
+1. **The skip guard queried before any session existed.** `.enabled` is a trait,
+   evaluated before the suite's `init()` — and `init()` is where the session is
+   created. So it could only ever pass via the scheme, which meant it skipped in
+   the Xcode IDE for the same reason it skipped from the CLI. **An IDE run with
+   that guard proved nothing**, and it is what made the runtime look innocent.
+2. **The `.storekit` file was schema version 4**, hand-written from a public
+   example; Xcode 26 writes version 5. Regenerating it changed no behaviour. The
+   committed file is now Xcode's own output regardless.
+3. **The scheme's config path had one `../` too many** and had never resolved
+   since Phase 11 — see D-5. Irrelevant to this suite, real for the app.
 
-```
-price(for: hindi)      -> nil          (expected "$0.99")
-purchase(hindi)        -> throws .productUnavailable
-restore()              -> throws .notEntitled
-```
-
-So the store is **empty, not broken** — every failure is "no such product". Note
-that **two of the six pass against an empty store**, because both assert on
-absence (`no product has no price`, `a store error throws`). Don't read that
-green as coverage.
-
-Creating the session by hand does not populate the store either, so the scheme
-configuration is not the only missing piece. Untried: the Xcode IDE **with the
-fixed guard**, and a `.storekit` file regenerated by Xcode rather than
-hand-written (`_developerTeamID` and `_applicationInternalID` in ours are
-placeholders copied from a public example).
-**Hours went into the `.storekit` file before the environment turned out to be the problem.**
+Filtered `xcodebuild` output is what hid the diagnosis for two days: the
+`[SKTestSession] Error saving configuration file` lines were printed on every
+run, and every grep dropped them.
 
 ### E-2 · iOS 26 toolbar titles are not Dynamic Type scalable
 The accessibility audit fails them outright: "user will not be able to change the
@@ -295,25 +329,34 @@ Swift warning is suppressed.
 
 ## C — Test-coverage gaps
 
-### C-1 · Six StoreKit adapter tests skip on every run, CLI and CI alike
-The consequence of E-1. `StoreKitPurchaseServiceTests` is the adapter's *only*
-coverage, and it does not run.
+### C-1 · The StoreKit suite skips on iOS 26.5, so CI never runs it
+CI picks the newest runtime, which is 26.5, where E-1 makes the environment
+dead — so the guard skips all six on every push. **The adapter therefore has no
+coverage in CI**, though it now has coverage locally.
 
-**Adding an iOS 18.5 runtime was tried on 2026-08-01 and did not fix it** — 82
-tests, 76 passed, the same 6 skipped. Open it in the Xcode IDE and run the suite
-there; that is the only untried lever. Until someone does, these six requirements
-have **no executed test anywhere**:
+**On iOS 18.5, five of six pass** (2026-08-02) — the first execution these tests
+have ever had:
 
 ```
-FR-14 buying a language unlocks it
-FR-14 a language with no product in the store has no price
-FR-14 the localized price comes from StoreKit, never a literal
-FR-14 a refunded language is dropped from the entitlement cache
-FR-15 a purchase made before this install is restored
-NFR-10 a store error surfaces as a thrown failure, not a crash
+✔ FR-14 the localized price comes from StoreKit, never a literal
+✔ FR-14 a language with no product in the store has no price
+✔ FR-14 buying a language unlocks it
+✔ FR-15 a purchase made before this install is restored
+✔ NFR-10 a store error surfaces as a thrown failure, not a crash
+✘ FR-14 a refunded language is dropped from the entitlement cache   ← D-2
 ```
 
-**Current suite: 89 total, 83 passed, 6 skipped** (whole scheme, iOS 26.5).
+```bash
+xcodebuild test -project FullDeck/FullDeck.xcodeproj -scheme FullDeck \
+  -destination 'platform=iOS Simulator,name=iPhone 16 Pro,OS=18.5'
+```
+
+**Adding an iOS 18 destination to CI would close this and serve U-2 at the same
+time** — 18.x is far nearer the iOS 17.0 minimum we claim than 26.5 is. Do it
+*after* D-2 is fixed, or CI goes red on arrival.
+
+Note two of the six pass against a *dead* store too, because both assert on
+absence. Those greens are not coverage.
 
 ### C-2 · Nine requirement IDs have no named test — and that is a floor, not a count
 `scripts/trace-requirements.sh` reports **21/30**. Untested: `FR-13`, `FR-18`,
