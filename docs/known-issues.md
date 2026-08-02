@@ -449,14 +449,47 @@ NFR-2/NFR-3/NFR-9 are unmeasured (see U), and NFR-1/NFR-7/NFR-8 are properties
 proven by code audit rather than by a test that could regress. The last group is
 the interesting one — an audit that isn't a test can rot.
 
-### C-3 · Two Study screens the audit has never seen
-`StudyView.completionView` and `StudyView.caughtUpView` are never reached by
-`testNFR4NFR5NFR6AccessibilityAuditOnCoreScreens` — they need a fully-learned or
-no-cards-due state the fixtures don't produce. Carried since Phase 10.
-**Where:** [StudyView.swift:266](../FullDeck/FullDeck/Views/StudyView.swift:266)
+### C-3 · Two Study screens the audit had never seen — CLOSED 2026-08-02, and they were hiding three defects
+`StudyView.completionView` and `StudyView.caughtUpView` were never reached by the
+audit, carried since Phase 10. Both now have one, and **the audit failed three
+times before it passed** — every one a real accessibility defect that had been
+shipping:
 
-The completion screen is the product's deliberate ending — the thing `CLAUDE.md`
-says matters — and it is the least-tested screen in the app.
+1. **The completion screen's "Add another language — $0.99" button clipped** at
+   larger Dynamic Type. A `Button("…")` string label stays on one line inside a
+   bordered button, and this is the app's longest button label. Fixed with an
+   explicit `Text` label and `fixedSize(horizontal: false, vertical: true)`.
+2. **The completion screen's "Next review …" line clipped** for the same reason
+   the card view already had a `ScrollView` — content taller than the screen at
+   AX sizes. `completionView` now scrolls too. The precedent and its comment
+   were nine lines away in the same file.
+3. **The caught-up screen's "Next review …" line failed contrast** — "Contrast
+   is not high enough … unless font size is larger". `ContentUnavailableView`
+   renders its description in `.secondary`, which is under AA on the warm
+   background. `completionView` already carried a comment about this exact
+   trap; `caughtUpView` never got the fix because *the system* supplied the
+   styling rather than this file.
+
+The two screens needed opposite things to reach. `caughtUp` is organic — grade a
+session to its end; day-granular scheduling (L-1) is what makes the loop
+terminate, since even a forgotten word returns tomorrow. `complete` is not
+reachable by tapping at all: FR-11 wants every word in the pack at `L`, a 14-day
+interval, against 1000 words and a real clock. It gets a `#if DEBUG` fixture
+wiring in `AppDependencies`, selected by a launch argument the app never sets
+itself, that swaps in a one-word `InMemoryPackStore` and a pre-seeded
+`InMemoryReviewStore`.
+
+**The lesson is the one C-3 predicted:** the least-audited screen in the app was
+the product's deliberate ending, and it was broken in two ways. Screens that
+require an unusual state are exactly the screens that rot.
+
+**Where:** [StudyView.swift:266](../FullDeck/FullDeck/Views/StudyView.swift:266),
+[AppDependencies.swift:56](../FullDeck/FullDeck/AppDependencies.swift:56)
+
+**Left alone deliberately:** `PurchaseSheet.buyButton` has the same
+one-line-label shape, but a shorter string, and it passes the audit today. It is
+not a shared code path with the completion button, so there is nothing to fix
+once; changing a passing screen on suspicion is how you break a passing screen.
 
 ### C-4 · The traceability report produced false greens — REWRITTEN 2026-08-02
 `scripts/trace-requirements.sh` counted an ID as covered if **any** test file
