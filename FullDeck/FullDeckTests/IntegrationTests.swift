@@ -17,7 +17,8 @@ import Testing
 @MainActor
 private func makeTempPacksDirectory(wordCount: Int) throws -> URL {
     let source = AppDependencies.bundledPacksDirectory.appending(path: "fr.pack.json")
-    var pack = try JSONSerialization.jsonObject(with: Data(contentsOf: source))
+    var pack =
+        try JSONSerialization.jsonObject(with: Data(contentsOf: source))
         as! [String: Any]
     let words = (pack["words"] as! [[String: Any]]).prefix(wordCount)
     pack["words"] = Array(words)
@@ -29,10 +30,12 @@ private func makeTempPacksDirectory(wordCount: Int) throws -> URL {
     try JSONSerialization.data(withJSONObject: pack)
         .write(to: directory.appending(path: "fr.pack.json"))
     try JSONSerialization.data(withJSONObject: [
-        "packs": [[
-            "language_code": "fr", "display_name": "Français",
-            "filename": "fr.pack.json", "unlocked_by_default": true,
-        ]]
+        "packs": [
+            [
+                "language_code": "fr", "display_name": "Français",
+                "filename": "fr.pack.json", "unlocked_by_default": true,
+            ]
+        ]
     ]).write(to: directory.appending(path: "manifest.json"))
     return directory
 }
@@ -84,6 +87,7 @@ func bundledHindiPackIsLocked() async throws {
     let viewModel = LanguageSelectionViewModel(
         packStore: dependencies.packStore,
         entitlements: NoPurchasesEntitlementStore(),
+        purchases: NoPurchasesService(),
         defaults: defaults)
 
     await viewModel.load()

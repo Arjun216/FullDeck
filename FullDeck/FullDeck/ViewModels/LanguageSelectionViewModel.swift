@@ -22,15 +22,21 @@ final class LanguageSelectionViewModel {
 
     private(set) var state: State = .loading
     private(set) var activeLanguage: LanguageCode?
+    private(set) var restoreMessage: String?
 
     private let packStore: PackStore
     private let entitlements: EntitlementStore
+    private let purchases: PurchaseService
     private let defaults: UserDefaults
     private static let activeLanguageKey = "activeLanguageCode"
 
-    init(packStore: PackStore, entitlements: EntitlementStore, defaults: UserDefaults = .standard) {
+    init(
+        packStore: PackStore, entitlements: EntitlementStore, purchases: PurchaseService,
+        defaults: UserDefaults = .standard
+    ) {
         self.packStore = packStore
         self.entitlements = entitlements
+        self.purchases = purchases
         self.defaults = defaults
     }
 
@@ -52,10 +58,52 @@ final class LanguageSelectionViewModel {
                 descriptors.contains(where: { $0.languageCode.rawValue == saved }) {
                 activeLanguage = LanguageCode(saved)
             }
+            // A revoked language must not stay active (spec Decision 4). Review
+            // history on disk is deliberately untouched — a re-purchase gets
+            // their progress back intact, and destroying it over a billing event
+            // would be unrecoverable if the refund turned out to be a mistake.
+            if let active = activeLanguage, !isUnlocked(active, in: descriptors) {
+                activeLanguage = nil
+                defaults.removeObject(forKey: Self.activeLanguageKey)
+            }
         } catch let error as PackLoadError {
             state = .failed(error.userMessage)
         } catch {
             state = .failed(String(localized: "Couldn't load the available languages."))
+        }
+    }
+
+    /// FR-15. A restore that worked speaks through the rows unlocking, so this
+    /// stays nil unless there is genuinely something to say.
+    func restore() async {
+        restoreMessage = nil
+        let before = unlockedCodes()
+        do {
+            try await purchases.restore()
+        } catch {
+            restoreMessage = String(localized: "Couldn't restore your purchases.")
+            return
+        }
+        await load()
+        // Comparing the unlocked set before and after is how the screen knows
+        // whether anything came back, without `PurchaseService` having to report
+        // per-language ownership it would only ever use here.
+        if unlockedCodes() == before {
+            restoreMessage = String(localized: "No previous purchases found.")
+        }
+    }
+
+    func clearRestoreMessage() { restoreMessage = nil }
+
+    private func unlockedCodes() -> Set<String> {
+        guard case .ready(let options) = state else { return [] }
+        return Set(options.filter(\.isUnlocked).map(\.id))
+    }
+
+    private func isUnlocked(_ code: LanguageCode, in descriptors: [PackDescriptor]) -> Bool {
+        descriptors.contains {
+            $0.languageCode == code
+                && ($0.unlockedByDefault || entitlements.isUnlocked($0.languageCode))
         }
     }
 

@@ -122,7 +122,8 @@ final class FullDeckUITests: XCTestCase {
         app.launch()
 
         let hindi = app.buttons.matching(
-            NSPredicate(format: "label BEGINSWITH %@", "हिन्दी")).firstMatch
+            NSPredicate(format: "label BEGINSWITH %@", "हिन्दी")
+        ).firstMatch
         XCTAssertTrue(
             hindi.waitForExistence(timeout: 15),
             "No Hindi row. Hierarchy:\n\(app.debugDescription)")
@@ -152,6 +153,20 @@ final class FullDeckUITests: XCTestCase {
         let tabBar = app.tabBars.firstMatch
         XCTAssertTrue(tabBar.buttons["Languages"].waitForExistence(timeout: 15))
         try performAudit(on: app)
+
+        // The purchase sheet — a whole screen the audit had never seen, and the
+        // one place the app asks for money. It reaches `unavailable` rather than
+        // `ready` here: `xcodebuild test` from the command line gives the app no
+        // StoreKit test environment on iOS 26.5 (see StoreKitPurchaseServiceTests).
+        // The chrome, the copy and the contrast are the same either way.
+        let hindi = app.buttons.matching(
+            NSPredicate(format: "label BEGINSWITH %@", "हिन्दी")
+        ).firstMatch
+        XCTAssertTrue(hindi.waitForExistence(timeout: 15))
+        hindi.tap()
+        XCTAssertTrue(app.buttons["Done"].waitForExistence(timeout: 10))
+        try performAudit(on: app)
+        app.buttons["Done"].tap()
 
         let french = frenchButton(in: app)
         XCTAssertTrue(french.waitForExistence(timeout: 15))
@@ -193,5 +208,28 @@ final class FullDeckUITests: XCTestCase {
             "Study tab did not render in Spanish. Hierarchy:\n\(app.debugDescription)")
         XCTAssertTrue(tabBar.buttons["Idiomas"].exists)
         XCTAssertTrue(tabBar.buttons["Progreso"].exists)
+    }
+}
+
+extension FullDeckUITests {
+    /// FR-14: tapping a locked row opens the purchase sheet. The sheet reaches
+    /// `unavailable` here rather than `ready` — `xcodebuild test` from the
+    /// command line does not give the app a StoreKit test environment on iOS
+    /// 26.5 (see StoreKitPurchaseServiceTests) — but that it *opens* and says
+    /// something honest is the behaviour under test.
+    @MainActor
+    func testFR14TappingALockedLanguageOpensThePurchaseSheet() throws {
+        let app = XCUIApplication()
+        app.launch()
+
+        let hindi = app.buttons.matching(
+            NSPredicate(format: "label BEGINSWITH %@", "हिन्दी")
+        ).firstMatch
+        XCTAssertTrue(hindi.waitForExistence(timeout: 15))
+        hindi.tap()
+
+        XCTAssertTrue(
+            app.buttons["Done"].waitForExistence(timeout: 10),
+            "no purchase sheet. Hierarchy:\n\(app.debugDescription)")
     }
 }

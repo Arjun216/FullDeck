@@ -64,6 +64,18 @@ The classic failure mode of AI agents + Xcode is the `.pbxproj` project file: an
 
 Instruct Claude in Phase 4 to scaffold this way. If a file ever does need manual registration in Xcode, do it by hand in Xcode rather than letting any tool edit `.pbxproj` — community consensus is unanimous on this.
 
+> **How this has actually played out (through Phase 12).** All three targets use
+> `PBXFileSystemSynchronizedRootGroup`, so no new source file has ever needed registering — they
+> are picked up from disk. The rule above has held with one narrow, agreed exception: **changing
+> the value of an existing build setting** is safe, because it adds no objects and no UUIDs.
+> `git log -- FullDeck/FullDeck.xcodeproj/project.pbxproj` shows five, none larger than eight
+> lines: the deployment target, isolated default value expressions,
+> `SWIFT_TREAT_WARNINGS_AS_ERRORS`, the Spanish region, and Phase 11's `OTHER_SWIFT_FLAGS` on
+> the test target. Show the diff and get it approved before writing one.
+> **Anything structural — a new target, a new file reference, a build phase — still goes through
+> the Xcode GUI.** Scheme changes (`FullDeck.xcscheme`, e.g. the StoreKit configuration
+> reference) are plain XML outside `.pbxproj` and edit safely.
+
 ## Optional power-up: XcodeBuildMCP
 
 [XcodeBuildMCP](https://github.com/cameroncooke/XcodeBuildMCP) is the de-facto MCP server for iOS work: it gives Claude Code structured tools to build, run on a simulator, read runtime logs, and take screenshots — instead of shelling out to `xcodebuild` and parsing text. Add it with:

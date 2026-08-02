@@ -123,11 +123,11 @@ func rankBelowOneIsRejected() async throws {
         to: directory.appendingPathComponent("zero-rank.pack.json"), atomically: true,
         encoding: .utf8)
     try """
-        {"packs": [{"language_code": "fr", "display_name": "Test", \
-        "filename": "zero-rank.pack.json", "unlocked_by_default": true}]}
-        """.write(
-            to: directory.appendingPathComponent("manifest.json"), atomically: true,
-            encoding: .utf8)
+    {"packs": [{"language_code": "fr", "display_name": "Test", \
+    "filename": "zero-rank.pack.json", "unlocked_by_default": true}]}
+    """.write(
+        to: directory.appendingPathComponent("manifest.json"), atomically: true,
+        encoding: .utf8)
     let store = JSONPackStore(packsDirectory: directory)
 
     do {
@@ -150,11 +150,11 @@ func emptyExampleIsRejected() async throws {
         to: directory.appendingPathComponent("empty-example.pack.json"), atomically: true,
         encoding: .utf8)
     try """
-        {"packs": [{"language_code": "fr", "display_name": "Test", \
-        "filename": "empty-example.pack.json", "unlocked_by_default": true}]}
-        """.write(
-            to: directory.appendingPathComponent("manifest.json"), atomically: true,
-            encoding: .utf8)
+    {"packs": [{"language_code": "fr", "display_name": "Test", \
+    "filename": "empty-example.pack.json", "unlocked_by_default": true}]}
+    """.write(
+        to: directory.appendingPathComponent("manifest.json"), atomically: true,
+        encoding: .utf8)
     let store = JSONPackStore(packsDirectory: directory)
 
     do {
@@ -188,11 +188,11 @@ func loadPackThrowsMalformedJSONForCorruptFile() async throws {
         to: directory.appendingPathComponent("broken.pack.json"), atomically: true,
         encoding: .utf8)
     try """
-        {"packs": [{"language_code": "fr", "display_name": "Test", \
-        "filename": "broken.pack.json", "unlocked_by_default": true}]}
-        """.write(
-            to: directory.appendingPathComponent("manifest.json"), atomically: true,
-            encoding: .utf8)
+    {"packs": [{"language_code": "fr", "display_name": "Test", \
+    "filename": "broken.pack.json", "unlocked_by_default": true}]}
+    """.write(
+        to: directory.appendingPathComponent("manifest.json"), atomically: true,
+        encoding: .utf8)
     let store = JSONPackStore(packsDirectory: directory)
 
     do {

@@ -134,12 +134,19 @@ change: it retints the tab bar, `.borderedProminent`, and every plain button at 
 | Token | Light | Dark | Use |
 |---|---|---|---|
 | `AccentColor` | `#D97706` | `#F59E0B` | fills, selected tab, prominent buttons |
-| `AccentText` | `#B45309` | `#FCD34D` | accent used *as text* |
+| `AccentText` | `#B45309` | `#FCD34D` | accent used *as text* — **removed 2026-08-01**, see below |
 | `Background` | `#FFFBEB` | `#1C1917` | screen base |
 | `Surface` | `#FFFFFF` | `#292524` | card / row |
 | `TextPrimary` | `#1C1917` | `#FAFAF9` | word, headings, body |
 | `TextSecondary` | `#57534E` | `#A8A29E` | part-of-speech tag, counters |
 | `Separator` | `#F5E9C8` | `#44403C` | hairlines |
+
+> **`AccentText` was deleted on 2026-08-01** and never had a consumer. The problem
+> it was designed for — amber failing WCAG AA as text — was solved instead by
+> `AccentFill` (`#B45309`, added in the swipe-to-grade pass) as the *fill* under
+> white button labels, at 5.02:1. Nothing in the app draws accent-coloured text.
+> The token is one `git revert` away if something ever needs it; a colour with no
+> caller is a decision waiting to be re-litigated, not an asset.
 
 ### Contrast, computed
 

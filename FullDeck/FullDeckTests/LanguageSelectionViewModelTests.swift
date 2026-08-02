@@ -27,7 +27,8 @@ private func makeSelectionViewModel(
 ) -> LanguageSelectionViewModel {
     LanguageSelectionViewModel(
         packStore: InMemoryPackStore(descriptors: descriptors, errorOverride: errorOverride),
-        entitlements: StubEntitlementStore(unlocked: unlocked), defaults: defaults)
+        entitlements: StubEntitlementStore(unlocked: unlocked), purchases: FakePurchaseService(),
+        defaults: defaults)
 }
 
 @Test("FR-1 the selection screen lists every available pack")
@@ -110,7 +111,8 @@ func activeLanguageIsRestoredOnNextLaunch() async {
     let packStore = InMemoryPackStore(descriptors: [frDescriptor()])
 
     let first = LanguageSelectionViewModel(
-        packStore: packStore, entitlements: StubEntitlementStore(), defaults: defaults)
+        packStore: packStore, entitlements: StubEntitlementStore(),
+        purchases: FakePurchaseService(), defaults: defaults)
     await first.load()
     guard case .ready(let options) = first.state, let option = options.first else {
         Issue.record("expected a ready state with one option")
@@ -119,7 +121,8 @@ func activeLanguageIsRestoredOnNextLaunch() async {
     first.select(option)
 
     let second = LanguageSelectionViewModel(
-        packStore: packStore, entitlements: StubEntitlementStore(), defaults: defaults)
+        packStore: packStore, entitlements: StubEntitlementStore(),
+        purchases: FakePurchaseService(), defaults: defaults)
     await second.load()
 
     #expect(second.activeLanguage == LanguageCode("fr"))
@@ -132,7 +135,7 @@ func unavailablePersistedLanguageIsNotRestored() async {
     defaults.set("hi", forKey: "activeLanguageCode")
     let viewModel = LanguageSelectionViewModel(
         packStore: InMemoryPackStore(descriptors: [frDescriptor()]),
-        entitlements: StubEntitlementStore(), defaults: defaults)
+        entitlements: StubEntitlementStore(), purchases: FakePurchaseService(), defaults: defaults)
 
     await viewModel.load()
 
@@ -148,4 +151,93 @@ func selectionSchemaVersionMismatchSurfacesUpdateMessage() async {
     await viewModel.load()
 
     #expect(viewModel.state == .failed("This language needs an app update."))
+}
+
+@Test("FR-14 a revoked language stops being the active one")
+@MainActor
+func revokedActiveLanguageIsCleared() async {
+    let defaults = emptyDefaults()
+    let packStore = InMemoryPackStore(descriptors: [frDescriptor(unlockedByDefault: false)])
+
+    let owned = LanguageSelectionViewModel(
+        packStore: packStore, entitlements: StubEntitlementStore(unlocked: ["fr"]),
+        purchases: FakePurchaseService(), defaults: defaults)
+    await owned.load()
+    guard case .ready(let options) = owned.state, let option = options.first else {
+        Issue.record("expected a ready state with one option")
+        return
+    }
+    owned.select(option)
+    #expect(owned.activeLanguage == LanguageCode("fr"))
+
+    // The refund lands: StoreKit reports an explicit revocationDate and the
+    // adapter drops it from the cache.
+    let afterRevocation = LanguageSelectionViewModel(
+        packStore: packStore, entitlements: StubEntitlementStore(unlocked: []),
+        purchases: FakePurchaseService(), defaults: defaults)
+    await afterRevocation.load()
+
+    #expect(afterRevocation.activeLanguage == nil)
+}
+
+@Test("FR-15 restoring asks the store for previous purchases")
+@MainActor
+func restoreAsksTheStore() async {
+    let purchases = FakePurchaseService()
+    let viewModel = LanguageSelectionViewModel(
+        packStore: InMemoryPackStore(descriptors: [frDescriptor(unlockedByDefault: false)]),
+        entitlements: StubEntitlementStore(unlocked: []),
+        purchases: purchases, defaults: emptyDefaults())
+    await viewModel.load()
+
+    await viewModel.restore()
+
+    #expect(purchases.restoreCount == 1)
+}
+
+@Test("FR-15 restoring with nothing to restore says so plainly")
+@MainActor
+func restoreWithNothingOwned() async {
+    let viewModel = LanguageSelectionViewModel(
+        packStore: InMemoryPackStore(descriptors: [frDescriptor(unlockedByDefault: false)]),
+        entitlements: StubEntitlementStore(unlocked: []),
+        purchases: FakePurchaseService(), defaults: emptyDefaults())
+    await viewModel.load()
+
+    await viewModel.restore()
+
+    #expect(viewModel.restoreMessage == "No previous purchases found.")
+}
+
+@Test("FR-15 a restore that finds a purchase speaks through the rows, not a message")
+@MainActor
+func restoreThatUnlocksSaysNothing() async {
+    // One object behind both ports, exactly as `AppDependencies.live()` wires
+    // it, so the restore genuinely changes what `isUnlocked` answers.
+    let purchases = FakePurchaseService()
+    purchases.unlockedAfterRestore = ["fr"]
+    let viewModel = LanguageSelectionViewModel(
+        packStore: InMemoryPackStore(descriptors: [frDescriptor(unlockedByDefault: false)]),
+        entitlements: purchases, purchases: purchases, defaults: emptyDefaults())
+    await viewModel.load()
+
+    await viewModel.restore()
+
+    #expect(viewModel.restoreMessage == nil)
+}
+
+@Test("NFR-10 a restore that cannot reach the store reports it")
+@MainActor
+func restoreFailureIsReported() async {
+    let purchases = FakePurchaseService()
+    purchases.restoreError = PurchaseFailure.storeError
+    let viewModel = LanguageSelectionViewModel(
+        packStore: InMemoryPackStore(descriptors: [frDescriptor(unlockedByDefault: false)]),
+        entitlements: StubEntitlementStore(unlocked: []),
+        purchases: purchases, defaults: emptyDefaults())
+    await viewModel.load()
+
+    await viewModel.restore()
+
+    #expect(viewModel.restoreMessage == "Couldn't restore your purchases.")
 }

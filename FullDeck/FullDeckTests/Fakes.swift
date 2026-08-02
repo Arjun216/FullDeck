@@ -93,3 +93,51 @@ func makeStudyViewModel(
         scheduler: Scheduler(), sessionBuilder: SessionBuilder(), speech: speech,
         clock: FixedDayClock(today: today), newWordCap: newWordCap)
 }
+
+/// Records what was asked of the store and returns whatever the test set up.
+/// A class, not a struct, so a test can read `purchaseCount` after the fact.
+///
+/// `@unchecked Sendable` is honest here: it is mutated only from the main actor
+/// inside tests, and a lock in a test double would be ceremony proving nothing.
+///
+/// Conforms to both ports, like `StoreKitPurchaseService` does, so a test can
+/// pass one object as `purchases` *and* `entitlements` — which is what makes a
+/// restore observably change what `isUnlocked` answers.
+final class FakePurchaseService: PurchaseService, EntitlementStore, @unchecked Sendable {
+    var priceToReturn: String? = "$0.99"
+    var priceError: Error?
+    var outcomeToReturn: PurchaseOutcome = .purchased
+    var purchaseError: Error?
+    var restoreError: Error?
+    /// What a successful restore will turn up, mirroring the real adapter's
+    /// cache gaining entries once `AppStore.sync()` lands.
+    var unlockedAfterRestore: Set<String> = []
+
+    private var unlocked: Set<String> = []
+
+    private(set) var purchaseCount = 0
+    private(set) var restoreCount = 0
+
+    let entitlementChanges: AsyncStream<Set<LanguageCode>> = AsyncStream { $0.finish() }
+
+    func price(for languageCode: LanguageCode) async throws -> String? {
+        if let priceError { throw priceError }
+        return priceToReturn
+    }
+
+    func purchase(_ languageCode: LanguageCode) async throws -> PurchaseOutcome {
+        purchaseCount += 1
+        if let purchaseError { throw purchaseError }
+        return outcomeToReturn
+    }
+
+    func restore() async throws {
+        restoreCount += 1
+        if let restoreError { throw restoreError }
+        unlocked = unlockedAfterRestore
+    }
+
+    func isUnlocked(_ languageCode: LanguageCode) -> Bool {
+        unlocked.contains(languageCode.rawValue)
+    }
+}

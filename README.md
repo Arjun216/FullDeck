@@ -5,8 +5,16 @@ using spaced repetition — and nothing else. First language (French) is free;
 each additional language is a one-time $0.99 unlock. No ads, no subscriptions,
 no gamification, and a deliberate ending when all 1000 words are learned.
 
-> **Status:** in active development. Currently Phase 4 (scaffolding) of a
-> 14-phase build — see [`docs/build-plan.md`](docs/build-plan.md).
+> **Status:** in active development. Phases 1–12 of a 14-phase build are done —
+> see [`docs/build-plan.md`](docs/build-plan.md) and
+> [`docs/next-task.md`](docs/next-task.md). The app studies, schedules, persists,
+> and sells: French ships free, Hindi ships as a $0.99 StoreKit unlock. What's
+> left is Phase 13 (QA + the edge-case matrix) and Phase 14 (release docs), plus
+> the App Store Connect setup in
+> [`docs/app-store-connect-setup.md`](docs/app-store-connect-setup.md) — nothing
+> has been proved against Apple's servers yet. Everything known to be broken,
+> unverified, or deliberately compromised is catalogued in
+> [`docs/known-issues.md`](docs/known-issues.md).
 
 ## Architecture
 
@@ -33,10 +41,11 @@ Presentation (SwiftUI views + @Observable ViewModels)   ← App target
 ## Repository layout
 
 ```
-Packages/Domain/     Pure-Swift domain package (SPM)
+Packages/Domain/     Pure-Swift domain package (SPM): scheduler, session builder, ports
 Packages/Data/       Persistence package (SPM), depends on Domain
-FullDeck/            The iOS app target (thin SwiftUI shell)   [added in the Xcode step]
-docs/                Requirements, architecture, ADRs, the pack schema
+FullDeck/            The iOS app target: SwiftUI views, ViewModels, StoreKit adapter
+pipeline/            Python content pipeline (uv): builds the language packs
+docs/                Requirements, architecture, ADRs, the pack schema, phase records
 fixtures/            Valid + invalid language-pack fixtures for validator tests
 schema/              JSON Schema for language packs
 scripts/             CI gate scripts (coverage, determinism, traceability)
@@ -65,9 +74,28 @@ xcodebuild test -project FullDeck/FullDeck.xcodeproj -scheme FullDeck \
 ## Lint & format
 
 ```sh
-swiftlint lint --strict                          # brew install swiftlint
-swift format lint --strict --recursive Packages  # Apple's formatter, bundled with the toolchain
-swift format --in-place --recursive Packages     # auto-fix
+swiftlint lint --strict                                   # brew install swiftlint; this is the gated lint
+swift format lint --strict --recursive Packages FullDeck  # Apple's formatter, bundled with the toolchain
+swift format --in-place --recursive Packages FullDeck     # auto-fix — but see below
+```
+
+The two tools disagree in one place, and **SwiftLint wins**: `swift format --in-place` moves the
+opening brace of a multi-line `if` condition onto its own line, which SwiftLint's `opening_brace`
+rule rejects. `LanguageSelectionViewModel.swift:55` is deliberately left in SwiftLint's shape, so
+`swift format lint` permanently reports one error there. Re-running `--in-place` will break the
+gated lint; revert that hunk if you do.
+
+## The content pipeline
+
+The language packs are generated, not hand-written — a Python project under
+`pipeline/` (uv) that ranks words by frequency, generates one example sentence
+per word, and machine-checks every pack rule before it ships. Full detail in
+[`pipeline/README.md`](pipeline/README.md).
+
+```sh
+uv sync --project pipeline
+uv run --project pipeline pytest
+uv run --project pipeline ruff format --check pipeline && uv run --project pipeline ruff check pipeline
 ```
 
 ## License & attribution

@@ -1,8 +1,10 @@
 # Architecture — "Top 1000 Words" (working title)
 
-**Phase:** 2 (System Design) · **Status:** Draft for review · **Date:** 2026-07-07
+**Written:** Phase 2 (2026-07-07) · **Status:** Accepted; kept current as the app is built ·
+**Last checked against the code:** 2026-08-01 (after Phase 11)
 
-This document is the system design. No production code yet. It realizes the hard rules in
+This document is the system design. It was written before any production code and has held:
+every layer below now exists, and the shape has not changed. It realizes the hard rules in
 `CLAUDE.md` (strict inward-only layering; pure, dependency-free domain; everything testable
 behind protocols) and the structure recommended in `docs/claude-code-xcode-setup.md`
 (Domain and Data as local Swift packages, a thin app target). Decisions that needed a
@@ -50,12 +52,18 @@ Language_App/
 │  └─ Data/                   SPM package · imports Domain
 │     ├─ Sources/Data/        JSON PackStore, SwiftData ReviewStore, mappers
 │     └─ Tests/DataTests/     Swift Testing · round-trips, fixture pack, error paths
-└─ App/ (Xcode app target, thin SwiftUI shell)
+└─ FullDeck/ (Xcode app target, thin SwiftUI shell)
    ├─ Views/                  SwiftUI views (thin)
    ├─ ViewModels/             @Observable, @MainActor
-   ├─ Services/               AVSpeechService (concrete TTS)
-   ├─ App.swift               @main entry + composition root (DI wiring)
-   └─ AppTests / AppUITests   ViewModel + integration (Swift Testing), UI (XCUITest)
+   ├─ Services/               Adapters for the two Presentation-owned ports:
+   │                          AVSpeechService (TTS), StoreKitPurchaseService
+   │                          (purchases + entitlements), plus their no-op stubs
+   ├─ DesignSystem/           Spacing scale, the swipe-commit rule (pure, tested)
+   ├─ Errors/                 PackLoadError → user-facing message mapping
+   ├─ FullDeckApp.swift       @main entry
+   ├─ AppDependencies.swift   Composition root (DI wiring)
+   └─ FullDeckTests / FullDeckUITests
+                              ViewModel + integration (Swift Testing), UI (XCUITest)
 ```
 
 > **SPM package** = a self-contained unit of Swift with its own `Package.swift` manifest and
@@ -103,10 +111,11 @@ protocol ReviewStore {
 protocol Clock { var today: Date { get } }
 
 // Is a language purchased/unlocked? Stubbed in Phase 8, StoreKit-backed in Phase 11 (FR-14).
+// Synchronous and non-throwing on purpose: it is read while drawing a list row.
 protocol EntitlementStore { func isUnlocked(_ language: LanguageCode) -> Bool }
 ```
 
-**Owned by Presentation** (Domain never knows about audio):
+**Owned by Presentation** (Domain never knows about audio or money):
 
 ```swift
 // Wraps on-device TTS (spec D3). Concrete: AVSpeechService (AVSpeechSynthesizer).
@@ -115,7 +124,26 @@ protocol SpeechService {
     func speak(_ text: String, language: LanguageCode) throws
     func stop()
 }
+
+// Buying a language (FR-14, FR-15). Concrete: StoreKitPurchaseService — the only
+// file in the app that imports StoreKit. It also implements EntitlementStore, so
+// one object answers both "is it unlocked?" and "unlock it"; `entitlementChanges`
+// is how an out-of-band unlock (a restore, an approved Ask-to-Buy) reaches the UI
+// without a relaunch. Fake-able in tests; the composition root's default is a
+// no-op so nothing but `live()` ever reaches the store.
+protocol PurchaseService: Sendable {
+    var entitlementChanges: AsyncStream<Void> { get }
+    func price(for language: LanguageCode) async throws -> String?
+    func purchase(_ language: LanguageCode) async throws -> PurchaseOutcome
+    func restore() async throws
+}
 ```
+
+> **Why the purchase port is owned by Presentation, not Domain:** the Domain's
+> question is "may this learner study Hindi?", which `EntitlementStore` already
+> answers. Buying is a UI flow with a UI state machine (`PurchaseViewModel`), and
+> the Domain stayed byte-for-byte unchanged through Phase 11 — the check that the
+> boundary is in the right place.
 
 **Pure Domain services** (not ports — plain testable types the ViewModel calls):
 - `Scheduler` — SM-2-style; `schedule(_ state:, grade:, today:) -> ReviewState`. Pure (Phase 5).
@@ -123,7 +151,7 @@ protocol SpeechService {
 - `StatsService` — computes progress from a pack + `ReviewStore.allStates(...)`: words-learned count (FR-10), the learning-over-time trend from per-word milestone dates (FR-17), and hardest-words ranking by ease factor (FR-18). Pure; needs no new port.
 
 ### How a study session wires together
-1. **Composition root** (`App.swift`) constructs the concrete adapters — `JSONPackStore`, `SwiftDataReviewStore`, `AVSpeechService`, and the Phase 8 entitlement stub — and injects them into the ViewModel via its initializer.
+1. **Composition root** (`AppDependencies.live()`) constructs the concrete adapters — `JSONPackStore`, `SwiftDataReviewStore`, `AVSpeechService`, and one `StoreKitPurchaseService` passed as *both* the `EntitlementStore` and the `PurchaseService` — and injects them into the ViewModel via its initializer.
 
    > **Composition root** = the single place where concrete dependencies are created and wired. Everywhere else receives them through `init` (constructor injection). No singletons, no globals (`CLAUDE.md`), no DI framework needed.
 
@@ -137,12 +165,19 @@ protocol SpeechService {
 
 The 2026 baseline is Swift 6 with strict concurrency checking on.
 
-> **Where it is actually on (as of Phase 8):** the Domain and Data packages declare
+> **Where it is actually on (still true as of Phase 11):** the Domain and Data packages declare
 > `swiftLanguageModes: [.v6]`, so everything below is compiler-enforced there. The app target
-> still builds in Swift 5 mode with `SWIFT_APPROACHABLE_CONCURRENCY` and a `MainActor` default
-> isolation — migration aids, not complete data-race checking. Its `@MainActor @Observable`
-> ViewModels follow the model by construction, but nothing enforces it yet. Flipping the app
-> target to Swift 6 (and matching the test target's isolation default) is Phase 10 work.
+> still builds in Swift 5 mode with `SWIFT_APPROACHABLE_CONCURRENCY` and
+> `SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor` — migration aids, not complete data-race
+> checking. Its `@MainActor @Observable` ViewModels follow the model by construction, but
+> nothing enforces it yet. Flipping the app target to Swift 6 is **deferred to its own phase**
+> (`CLAUDE.md`), deliberately kept out of Phase 10 so each stays reviewable on its own.
+>
+> That default isolation has a sharp edge worth knowing: an *undecorated* type in the app
+> target is implicitly `@MainActor`, enums included. `PurchaseService`, its value types, and
+> `StoreKitPurchaseService` are all marked `nonisolated` for exactly this reason — a
+> lock-backed entitlement cache and a `Transaction.updates` loop must not be pinned to the
+> main actor.
 
 - **Domain** types are `Sendable` value types (structs/enums); `Scheduler`/`SessionBuilder` are synchronous pure functions — trivially concurrency-safe.
 - **ViewModels** are `@MainActor @Observable` — UI state is always touched on the main thread.
@@ -162,7 +197,7 @@ The 2026 baseline is Swift 6 with strict concurrency checking on.
 | [ADR-001](adr/ADR-001-persistence.md) | Persistence: JSON+Codable for read-only packs; **SwiftData** for the mutable progress store; both behind repository ports. |
 | [ADR-002](adr/ADR-002-ui-architecture.md) | UI pattern: **MVVM with `@Observable`**, thin views, constructor-injected ViewModels; no Coordinator/TCA. |
 | [ADR-003](adr/ADR-003-testing-frameworks.md) | Tests: **Swift Testing** for unit/integration; **XCUITest** for UI; snapshot via `swift-snapshot-testing` if adopted in Phase 13. |
-| [ADR-004](adr/ADR-004-language-pack-format.md) | Packs: **versioned JSON** conforming to the Phase 3 schema, bundled as resources, discovered via a manifest, updated by app release. |
+| [ADR-004](adr/ADR-004-language-pack-format.md) | Packs: **versioned JSON** conforming to the Phase 3 schema, bundled as resources, discovered via a manifest, updated by app release. Validated by adding a second language in Phase 12 — verdict in [`phase-12-verdict.md`](phase-12-verdict.md). |
 
 ---
 

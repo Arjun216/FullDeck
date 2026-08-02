@@ -75,7 +75,7 @@ func languagePackRoundTrip() {
     let words = [
         WordEntry(
             id: WordID("fr:le:DET"), lemma: "le", display: "le", pos: .det, rank: 1,
-            register: .neutral, isFunctionWord: true, gloss: nil, example: "Le chat.", aliases: []),
+            register: .neutral, isFunctionWord: true, gloss: nil, example: "Le chat.", aliases: [])
     ]
     let pack = LanguagePack(
         schemaVersion: 1, packVersion: "0.1.0", languageCode: LanguageCode("fr"),
