@@ -226,6 +226,66 @@ func restoreThatUnlocksSaysNothing() async {
     #expect(viewModel.restoreMessage == nil)
 }
 
+/// A `PackStore` that can park one `availablePacks()` call until the test lets
+/// it through. `Task.yield()` is not enough to hold a reload open — it lets the
+/// whole thing run to completion — so the suspension has to be explicit.
+private actor GatedPackStore: PackStore {
+    private let descriptors: [PackDescriptor]
+    private var parkNext = false
+    private var parked: CheckedContinuation<Void, Never>?
+
+    init(descriptors: [PackDescriptor]) { self.descriptors = descriptors }
+
+    /// Arms the gate: the next call parks instead of returning.
+    func armGate() { parkNext = true }
+
+    var isHoldingACall: Bool { parked != nil }
+
+    func openGate() {
+        parked?.resume()
+        parked = nil
+    }
+
+    func availablePacks() async throws -> [PackDescriptor] {
+        if parkNext {
+            parkNext = false
+            await withCheckedContinuation { parked = $0 }
+        }
+        return descriptors
+    }
+
+    func loadPack(_ languageCode: LanguageCode) async throws -> LanguagePack {
+        throw PackLoadError.fileNotFound(languageCode: languageCode)
+    }
+}
+
+@Test("FR-15 a reload landing mid-restore doesn't swallow the no-purchases message")
+@MainActor
+func restoreIsNotFooledByAConcurrentReload() async {
+    // D-1. `LanguageSelectionView` runs two tasks: one calls `load()` on
+    // appearance, the other calls it for every `entitlementChanges` element —
+    // and `refreshEntitlements()` publishes one *during* `purchases.restore()`.
+    // So a reload is genuinely in flight when `restore()` takes its snapshot.
+    let packStore = GatedPackStore(descriptors: [frDescriptor()])
+    let viewModel = LanguageSelectionViewModel(
+        packStore: packStore, entitlements: StubEntitlementStore(unlocked: []),
+        purchases: FakePurchaseService(), defaults: emptyDefaults())
+    await viewModel.load()
+
+    await packStore.armGate()
+    let reload = Task { await viewModel.load() }
+    while await !packStore.isHoldingACall { await Task.yield() }
+    #expect(viewModel.state == .loading, "the race window never opened")
+
+    await viewModel.restore()
+    await packStore.openGate()
+    await reload.value
+
+    // French is unlocked by default and the store turned up nothing new, so
+    // there is genuinely nothing to report.
+    #expect(viewModel.restoreMessage == "No previous purchases found.")
+}
+
 @Test("NFR-10 a restore that cannot reach the store reports it")
 @MainActor
 func restoreFailureIsReported() async {

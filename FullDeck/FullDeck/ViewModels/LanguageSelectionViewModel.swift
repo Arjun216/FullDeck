@@ -24,6 +24,16 @@ final class LanguageSelectionViewModel {
     private(set) var activeLanguage: LanguageCode?
     private(set) var restoreMessage: String?
 
+    /// The unlocked set as of the last *successful* `load()`.
+    ///
+    /// Held here rather than re-derived from `state`, which answers empty for
+    /// every state but `.ready` — including the `.loading` that any concurrent
+    /// reload passes through. One genuinely is concurrent: the real adapter's
+    /// `refreshEntitlements()` publishes an entitlement change *during*
+    /// `purchases.restore()`, and the view reloads on it, so `restore()`'s
+    /// before-snapshot could read empty and swallow its own message (D-1).
+    private var unlockedCodes: Set<String> = []
+
     private let packStore: PackStore
     private let entitlements: EntitlementStore
     private let purchases: PurchaseService
@@ -44,13 +54,14 @@ final class LanguageSelectionViewModel {
         state = .loading
         do {
             let descriptors = try await packStore.availablePacks()
-            state = .ready(
-                descriptors.map { descriptor in
-                    Option(
-                        descriptor: descriptor,
-                        isUnlocked: descriptor.unlockedByDefault
-                            || entitlements.isUnlocked(descriptor.languageCode))
-                })
+            let options = descriptors.map { descriptor in
+                Option(
+                    descriptor: descriptor,
+                    isUnlocked: descriptor.unlockedByDefault
+                        || entitlements.isUnlocked(descriptor.languageCode))
+            }
+            unlockedCodes = Set(options.filter(\.isUnlocked).map(\.id))
+            state = .ready(options)
             // Honored only if the pack is still listed: a pack removed between
             // launches must not leave the app pointing at nothing (FR-9).
             if activeLanguage == nil,
@@ -77,7 +88,7 @@ final class LanguageSelectionViewModel {
     /// stays nil unless there is genuinely something to say.
     func restore() async {
         restoreMessage = nil
-        let before = unlockedCodes()
+        let before = unlockedCodes
         do {
             try await purchases.restore()
         } catch {
@@ -87,18 +98,16 @@ final class LanguageSelectionViewModel {
         await load()
         // Comparing the unlocked set before and after is how the screen knows
         // whether anything came back, without `PurchaseService` having to report
-        // per-language ownership it would only ever use here.
-        if unlockedCodes() == before {
+        // per-language ownership it would only ever use here. A reload that
+        // failed has nothing to say about purchases — the error state is already
+        // on screen, and a second alert over it would only add noise.
+        guard case .ready = state else { return }
+        if unlockedCodes == before {
             restoreMessage = String(localized: "No previous purchases found.")
         }
     }
 
     func clearRestoreMessage() { restoreMessage = nil }
-
-    private func unlockedCodes() -> Set<String> {
-        guard case .ready(let options) = state else { return [] }
-        return Set(options.filter(\.isUnlocked).map(\.id))
-    }
 
     private func isUnlocked(_ code: LanguageCode, in descriptors: [PackDescriptor]) -> Bool {
         descriptors.contains {
