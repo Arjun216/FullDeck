@@ -39,6 +39,11 @@ func missingProductIsUnavailable() async {
     await viewModel.loadProduct()
 
     #expect(viewModel.state == .unavailable("The store isn't reachable right now."))
+    // D-4. The learner sees one message for both causes, deliberately. Setting
+    // App Store Connect up is the case where they are not the same thing: an
+    // inactive Paid Applications agreement returns no products from a store
+    // that is perfectly reachable.
+    #expect(viewModel.unavailableCause == .noSuchProduct)
 }
 
 @Test("NFR-10 a store error is the same state as a missing product")
@@ -51,6 +56,7 @@ func storeErrorIsUnavailable() async {
     await viewModel.loadProduct()
 
     #expect(viewModel.state == .unavailable("The store isn't reachable right now."))
+    #expect(viewModel.unavailableCause == .storeError)
 }
 
 @Test("FR-14 a verified purchase unlocks the language")

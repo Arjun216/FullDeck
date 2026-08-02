@@ -1,6 +1,7 @@
 import Domain
 import Foundation
 import Observation
+import os
 
 /// The purchase state machine (spec Decision 3). Knows nothing about StoreKit —
 /// it talks to `PurchaseService`, which is why every transition below is testable
@@ -24,7 +25,19 @@ final class PurchaseViewModel {
         case unavailable(String)
     }
 
+    /// Which of the two causes `.unavailable` collapsed. The learner is shown one
+    /// message for both on purpose; this is for whoever is setting up App Store
+    /// Connect, where they are very different problems (D-4).
+    enum UnavailableCause: Equatable {
+        /// The store answered, and has no such product. During setup this almost
+        /// always means the Paid Applications agreement is not active.
+        case noSuchProduct
+        /// The store could not be asked at all.
+        case storeError
+    }
+
     private(set) var state: State = .idle
+    private(set) var unavailableCause: UnavailableCause?
 
     /// Set once a purchase lands, so the Languages screen knows to reload and
     /// drop the padlock.
@@ -32,6 +45,10 @@ final class PurchaseViewModel {
 
     let languageCode: LanguageCode
     let displayName: String
+
+    /// Device-local only — `os.Logger` writes to the unified log and sends
+    /// nothing anywhere, so this does not reopen L-2 (no analytics, no telemetry).
+    private static let log = Logger(subsystem: "arjunpathak.FullDeck", category: "purchase")
 
     private let purchases: PurchaseService
     /// Held apart from `state` so a retry out of `.failed` still knows the price
@@ -50,14 +67,40 @@ final class PurchaseViewModel {
 
     func loadProduct() async {
         state = .loadingProduct
+        unavailableCause = nil
         // A missing product and an unreachable store are the same thing to the
-        // learner: they cannot buy right now, and neither is their fault.
-        guard let fetched = try? await purchases.price(for: languageCode) else {
-            state = .unavailable(String(localized: "The store isn't reachable right now."))
-            return
+        // learner: they cannot buy right now, and neither is their fault. So the
+        // copy stays one message. They are *not* the same thing to whoever is
+        // setting App Store Connect up — an inactive Paid Applications agreement
+        // returns no products from a store that is perfectly reachable, and the
+        // old `try?` collapsed both into "isn't reachable" with nothing to tell
+        // them apart (D-4). The cause is recorded and logged instead.
+        do {
+            guard let fetched = try await purchases.price(for: languageCode) else {
+                Self.log.error(
+                    """
+                    No store product for \(self.languageCode.rawValue, privacy: .public) — \
+                    check that the Paid Applications agreement is active and the product \
+                    is Ready to Submit.
+                    """)
+                markUnavailable(.noSuchProduct)
+                return
+            }
+            price = fetched
+            state = .ready(price: fetched)
+        } catch {
+            Self.log.error(
+                """
+                Could not reach the store for \(self.languageCode.rawValue, privacy: .public): \
+                \(error, privacy: .public)
+                """)
+            markUnavailable(.storeError)
         }
-        price = fetched
-        state = .ready(price: fetched)
+    }
+
+    private func markUnavailable(_ cause: UnavailableCause) {
+        unavailableCause = cause
+        state = .unavailable(String(localized: "The store isn't reachable right now."))
     }
 
     func buy() async {
