@@ -332,24 +332,16 @@ coverage, and this is recorded as such rather than claimed otherwise.
 
 ## Traceability
 
-**C-4 is still open**, and this spec assumes nothing about it. The rewrite of
-`scripts/trace-requirements.sh` was designed and evidenced on 2026-08-02 but not
-written; what follows describes the report as it exists today.
+FR-16 currently shows as covered by two pipeline tests naming it, for the
+pack-metadata half. Gaining an app-layer test clears the pipeline-only warning on
+its own — the flag doing the job it was added for.
 
-FR-16 currently counts as covered because two pipeline tests name it, for the
-pack-metadata half. Gaining an app-layer test does not change that count — it was
-already green. The report will look identical before and after the licence
-blocker is fixed, which is the whole of C-4 in one line.
-
-FR-4 is the harder case, and the one this spec surfaced: it is named by both app
-and Domain tests, all of which cover cap *enforcement*, while the *adjustability*
-clause had no implementation at all. The layer-aware reporting sketched for C-4
-would **not** have caught it either — FR-4 has app-layer tests. Only reading an
-acceptance criterion against the code does.
-
-That is worth stating plainly: two requirements were found half-unimplemented in
-two days, and neither was findable by any automated check the project has or has
-designed. Whatever C-4's rewrite ends up printing, it is a floor.
+FR-4 is the more interesting case, and the one this spec surfaced: it is named by
+both app and Domain tests, all of which cover cap *enforcement*, while the
+*adjustability* clause had no implementation at all. **No layer heuristic catches
+that** — only reading the acceptance criterion against the code does. It is the
+concrete argument for the traceability report's rewritten framing: every number it
+prints is a floor.
 
 ## Out of scope
 

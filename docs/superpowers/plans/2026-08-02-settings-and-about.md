@@ -654,10 +654,7 @@ scripts/determinism-check.sh
 scripts/trace-requirements.sh
 ```
 
-Expected: 0 violations; determinism silent. `trace-requirements.sh` will print the
-**same** count as before — FR-16 was already counted covered on the strength of
-two pipeline tests, which is C-4 and is still open. An unchanged number here is
-the expected result, not a problem.
+Expected: 0 violations; determinism silent; FR-16 no longer flagged pipeline-only.
 
 - [ ] **Step 12: Commit**
 
@@ -1538,8 +1535,7 @@ Expected: PASS. If contrast fails on a control, fix the colour — do not filter
 - [ ] **Step 3: Update `docs/known-issues.md`**
 
 - Mark **N-1** (FR-13) and **N-4** (FR-16) as FIXED 2026-08-02, keeping the entries with what they taught.
-- Under **N**, add the FR-4 finding: the adjustability clause had no implementation, it was found by reading the acceptance criterion against the code, and nothing automated would have caught it — not today's report, and not the layer-aware version designed for C-4, since FR-4 has app-layer tests.
-- Under **C**, strengthen C-4 with the FR-4 case: two half-unimplemented requirements found in two days, neither findable by any check the project has or has designed.
+- Under **N**, add the FR-4 finding: the adjustability clause had no implementation, it was found by reading the acceptance criterion against the code, and no layer heuristic catches that shape.
 - Update the page's opening summary — "the one that blocks shipping outright is N-4" is no longer true.
 - Add to **C**: `UNNotificationScheduler` has no unit test, deliberately, with the reasoning from its doc comment.
 - Note that **N-2** (FR-17) and **N-3** (FR-18) remain, and are part B.
