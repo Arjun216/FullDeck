@@ -15,11 +15,31 @@ design), Opus earns its cost.
 **Task:** Phase 13 — QA and the edge-case matrix, `docs/test-plan.md`.
 **Model:** Sonnet 5.
 
-**Branch state:** Phase 11 is merged (PR #8, 2026-08-02). `main` is the place to
-branch from. **The bug-fix session is done: D-1, D-3 and D-4 are fixed
-(2026-08-02), joining D-2 and D-5. Every defect in `known-issues.md` is closed**,
-and the StoreKit suite is 7 of 7 on iOS 18.5. Nothing in the D section is
-outstanding — start Phase 13 from the U, N and C sections instead.
+**CI has not run since 2026-08-01 — see E-6, and it needs you.** GitHub rejects
+every job three seconds in, before any step: *"recent account payments have
+failed or your spending limit needs to be increased."* The last green run was
+the Phase 12 merge, so **Phase 11 has never been through CI**, and neither has
+any of the work below. All of it is verified locally and by nothing else. This
+is the cheapest high-value thing on the page to fix, and only you can do it.
+
+**Branch state:** Phase 11 is merged (PR #8, 2026-08-02). Branch
+`fix/known-issues-defects` is off `main` and carries six commits, unmerged:
+
+- **D-1, D-3, D-4 fixed** (2026-08-02), joining D-2 and D-5. **The D section is
+  closed.** StoreKit suite is 7 of 7 on iOS 18.5.
+- **C-4** — the traceability matcher no longer counts a doc comment as a test,
+  reports evidence by layer, and warns on app requirements with pipeline-only
+  evidence. FR-16 is flagged, which is the shape that hid N-4. Self-test gated
+  in CI.
+- **C-3 closed, and it was hiding three real accessibility defects** on the
+  completion and caught-up screens — two clipped at large Dynamic Type, one
+  under the AA contrast floor. All shipping until now.
+- **C-1 wired** (per-push skip + a dispatch-only adapter workflow), and its
+  stated cause corrected: it claimed CI lands on iOS 26.5, which was never
+  measured and is probably wrong. Cannot be closed until E-6 clears.
+
+Remaining: **N-1…N-4** (N-4 is the licence blocker), **C-2** (follows from N),
+and the **U** block, most of which needs you on a device rather than an agent.
 
 **Start from [`docs/known-issues.md`](known-issues.md)** — every defect, gap and
 deliberate compromise in the project, with IDs. Phase 13's `test-plan.md` should
