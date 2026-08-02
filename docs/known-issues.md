@@ -458,20 +458,33 @@ no-cards-due state the fixtures don't produce. Carried since Phase 10.
 The completion screen is the product's deliberate ending — the thing `CLAUDE.md`
 says matters — and it is the least-tested screen in the app.
 
-### C-4 · The traceability report produces false greens
-`scripts/trace-requirements.sh` counts an ID as covered if **any** test file
-anywhere names it — one mention is enough, and Python pipeline tests count.
-A requirement with several acceptance clauses goes green when one clause is
-tested.
+### C-4 · The traceability report produced false greens — REWRITTEN 2026-08-02
+`scripts/trace-requirements.sh` counted an ID as covered if **any** test file
+anywhere named it. Two mechanisms, both now closed:
 
-That is how N-4 stayed invisible: FR-16 is named by two pipeline tests covering
-the pack-metadata half, so the report calls it covered while the credits screen
-it also requires does not exist. FR-17 is the same shape — two Domain tests name
-it for milestone-date plumbing; the trend view was never built.
+1. **A doc comment counted as a test.** `NFR-4`, `NFR-5`, `NFR-6` and `NFR-12`
+   were "covered" by a single comment line in `FullDeckUITests.swift`. Deleting
+   that comment would have dropped the number without changing one test.
+2. **It could not see XCTest at all.** A Swift identifier cannot contain a
+   hyphen, so `testNFR4NFR5NFR6AccessibilityAudit...` — the real audit — never
+   matched, and the comment above it was the only evidence there was.
 
-**So 21/30 overstates coverage, and by an unknown amount.** The script is
-report-only and never gates, which limits the damage, but it cannot be read as
-"9 gaps" — it means *at least* 9. Anything the trend report says is a floor.
+The matcher now requires the ID to *start a test's display name*, in the three
+spellings the frameworks allow (`@Test("FR-8 …")`, a pytest docstring, and the
+unhyphenated XCTest identifier). It reports which **layers** name each ID, and
+warns when a requirement whose text says "the app" is named only by pipeline
+tests — **which is exactly the shape that hid N-4**, and FR-16 is flagged today.
+
+`--self-test` runs the matcher against inline fixtures and is gated in CI. It
+fails against the old matcher on both mechanisms, which is how it was verified.
+
+**The headline is still 21/30, and that is the honest outcome:** the same 21 IDs
+are named, but four of them now rest on a test rather than on prose. The report
+no longer calls itself coverage — a requirement with several acceptance clauses
+is still "named" by a test covering one of them, so **every number it prints is
+a floor.** That limitation cannot be automated away and is now stated in the
+output rather than in this file only.
+
 **Where:** [trace-requirements.sh](../scripts/trace-requirements.sh)
 
 ---

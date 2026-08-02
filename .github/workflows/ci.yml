@@ -104,6 +104,11 @@ jobs:
       # Fails if any test reads wall-clock time or uses unseeded randomness.
       - name: Determinism check
         run: scripts/determinism-check.sh
+      # The traceability report is advisory, but its *matcher* is not: matching a
+      # bare ID anywhere in a file is what let a doc comment count as a test and
+      # made the old report lie (C-4). This gate keeps the matcher honest.
+      - name: Requirements traceability — matcher self-test
+        run: scripts/trace-requirements.sh --self-test
       # Reports which FR-/NFR- IDs still lack a naming test. Report only — never fails.
       - name: Requirements traceability (report only)
         run: scripts/trace-requirements.sh
