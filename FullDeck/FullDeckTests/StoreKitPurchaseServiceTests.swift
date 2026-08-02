@@ -11,14 +11,18 @@ private final class BundleMarker {}
 
 /// Is there a working StoreKit test environment in this process?
 ///
-/// **Xcode 26 / iOS 26.5 regression:** `xcodebuild test` from the command line
-/// never pushes the scheme's `StoreKitConfigurationFileReference` to the
-/// simulator's `storekitd`, so the whole StoreKit test facility is inert.
-/// Nothing reports this: `SKTestSession(contentsOf:)` does not throw — it does
-/// not throw on deliberately invalid JSON either, which is how long it took to
-/// find — every product lookup simply returns empty, and `buyProduct` fails with
-/// `.notEntitled`. Running the same tests from the Xcode IDE is unaffected, and
-/// so is any simulator on an iOS 18 runtime.
+/// **Xcode 26 regression:** `xcodebuild test` from the command line never pushes
+/// the scheme's `StoreKitConfigurationFileReference` to the simulator's
+/// `storekitd`, so the whole StoreKit test facility is inert. Nothing reports
+/// this: `SKTestSession(contentsOf:)` does not throw — it does not throw on
+/// deliberately invalid JSON either, which is how long it took to find — every
+/// product lookup simply returns empty, and `buyProduct` fails `.notEntitled`.
+///
+/// **The runtime is not the variable; the command line is.** This was first
+/// diagnosed as iOS-26.5-specific, on reports that iOS 18 runtimes were
+/// unaffected. Retested 2026-08-01 on an installed iOS 18.5 simulator
+/// (`iPhone 16`): all six still skip. Running from the Xcode IDE is the only
+/// known way to exercise them.
 ///
 /// So this suite skips rather than failing, on the same principle as the
 /// pipeline's UDPipe tests skipping when the 25 MB model is not downloaded: an

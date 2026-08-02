@@ -265,12 +265,14 @@ binary", so no requirement changes.
 >
 > Three things a future session should not have to rediscover:
 >
-> - **StoreKit testing is broken from the command line on iOS 26.5.**
+> - **StoreKit testing is broken from the command line, on every runtime tried.**
 >   `xcodebuild test` never pushes the scheme's StoreKit configuration to the
 >   simulator's `storekitd`, and it fails *silently* — `SKTestSession` does not
 >   throw, not even on deliberately invalid JSON, it just hands back an empty
->   store. `StoreKitPurchaseServiceTests` detects this and skips. Run it from the
->   Xcode IDE, or on an iOS 18 runtime, to actually exercise those six tests.
+>   store. `StoreKitPurchaseServiceTests` detects this and skips. First written up
+>   as iOS-26.5-specific; retested on iOS 18.5 (2026-08-01) and all six still
+>   skip, so the runtime is not the variable. The Xcode IDE is the only untried
+>   lever.
 > - **iOS 26 toolbar titles are not Dynamic Type scalable**, and the audit fails
 >   them outright. Both Restore and the sheet's Done moved out of toolbars
 >   because of it. Don't put user-facing text in a toolbar on this OS.

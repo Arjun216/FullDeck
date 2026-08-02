@@ -22,6 +22,9 @@ The biggest thing on this page is not any single row. It is that **the entire
 purchase chain has never touched Apple's servers** (U-1), and **the app has never
 been run on its own minimum OS** (U-2).
 
+The one that blocks shipping outright is **N-4**: the CC-BY-SA 4.0 credits screen
+does not exist.
+
 ---
 
 ## D — Defects
@@ -162,13 +165,41 @@ comment says Phase 9 would decide when to use it. Phase 9 didn't. No `StatsServi
 type was ever written, despite `architecture.md` §3 listing one.
 
 ### N-3 · FR-18, hardest words
-Not built. The Progress screen renders learned-of-total and nothing else — which
-is a defensible reading of "do one thing well", but the requirement is still on
-the books.
+Not built. The Progress screen renders learned-of-total and nothing else. The
+ranking data already exists — `ReviewState.easeFactor` is stored per word — so
+this is a view and a pure ranking function, not new persistence.
 
-> **These three are a scope decision, not a backlog.** FR-17 and FR-18 both risk
-> the progress screen drifting toward the engagement dashboards §4 of the
-> requirements explicitly rules out. Decide deliberately; don't let them rot.
+### N-4 · FR-16, the credits screen — and it is a licence obligation
+**Zero references to FR-16 in any Swift file, and there is no credits or about
+view.** `FullDeck/FullDeck/Views/` contains five files: error state, language
+selection, progress, purchase sheet, study. None of them shows attribution.
+
+The pack-metadata half *is* done and tested — `PackValidator` rejects a
+wordfreq-derived pack whose attribution omits CC-BY-SA 4.0, and `generate`
+stamps the credit. That is what makes this easy to miss.
+
+**This is not a feature preference.** wordfreq's data is CC-BY-SA 4.0;
+`CLAUDE.md` records attribution as required "in pack metadata **and the app's
+credits**", and FR-16's acceptance criterion says a credits screen must be
+reachable from the app. Shipping without it is a licence violation, not a gap.
+
+> **Scope decision, made 2026-08-01: all four ship.** FR-13, FR-17 and FR-18 are
+> in; FR-16 was never optional. Two consequences worth stating before anyone
+> starts:
+>
+> 1. **There is no settings surface in the app.** Three tabs, no fourth screen,
+>    no toolbar entry point. FR-13 needs somewhere to toggle the reminder and
+>    pick a time, and FR-16 needs somewhere to put credits. They want the same
+>    container — design it once.
+> 2. **FR-17 and FR-18 both land on the Progress screen**, which currently shows
+>    one number. §4 of the requirements rules out activity dashboards
+>    (time-spent, review counts, streak chains); FR-17's own text says the trend
+>    is reconstructed from milestone dates, *not* a study-activity log. Build to
+>    that line.
+>
+> This is more work than it looks: a new screen, a notification permission flow,
+> `StatsService` (named in `architecture.md` §3, never written), and two progress
+> views. Closer to its own phase than a Phase 13 tail.
 
 ---
 
@@ -198,14 +229,20 @@ across `PurchaseService` are what the deferral costs.
 
 Not our code. Each one cost real time to diagnose, so each is written down.
 
-### E-1 · StoreKit testing is dead from the command line on iOS 26.5
+### E-1 · StoreKit testing is dead from the command line, on every runtime tried
 `xcodebuild test` never pushes the scheme's StoreKit configuration to the
 simulator's `storekitd`. It fails **silently**: `SKTestSession` does not throw —
 not even on deliberately invalid JSON — it hands back an empty store, so every
 product lookup returns nothing and `buyProduct` fails `.notEntitled`.
 
-Xcode's IDE and iOS 18 runtimes are unaffected; only 26.5 is installed here.
-`StoreKitPurchaseServiceTests` detects this and skips (see C-1).
+**Retested on iOS 18.5, 2026-08-01: all six still skip.** This was originally
+written up as an iOS 26.5 regression, on reports that iOS 18 runtimes were
+unaffected. That was wrong — the runtime is not the variable, the command line
+is. `-destination 'platform=iOS Simulator,name=iPhone 16,OS=18.5'` produced the
+identical skip, so **installing an older runtime does not help.**
+
+The **Xcode IDE** is the only remaining known lever, and it is untried.
+`StoreKitPurchaseServiceTests` detects the dead environment and skips (see C-1).
 **Hours went into the `.storekit` file before the environment turned out to be the problem.**
 
 ### E-2 · iOS 26 toolbar titles are not Dynamic Type scalable
@@ -233,15 +270,30 @@ Swift warning is suppressed.
 
 ## C — Test-coverage gaps
 
-### C-1 · Six StoreKit adapter tests skip on every CI run
+### C-1 · Six StoreKit adapter tests skip on every run, CLI and CI alike
 The consequence of E-1. `StoreKitPurchaseServiceTests` is the adapter's *only*
-coverage, and it does not run. Run it from the Xcode IDE, or add an iOS 18
-simulator runtime.
-**Current suite: 89 total, 83 passed, 6 skipped.**
+coverage, and it does not run.
 
-### C-2 · Nine requirement IDs have no named test
+**Adding an iOS 18.5 runtime was tried on 2026-08-01 and did not fix it** — 82
+tests, 76 passed, the same 6 skipped. Open it in the Xcode IDE and run the suite
+there; that is the only untried lever. Until someone does, these six requirements
+have **no executed test anywhere**:
+
+```
+FR-14 buying a language unlocks it
+FR-14 a language with no product in the store has no price
+FR-14 the localized price comes from StoreKit, never a literal
+FR-14 a refunded language is dropped from the entitlement cache
+FR-15 a purchase made before this install is restored
+NFR-10 a store error surfaces as a thrown failure, not a crash
+```
+
+**Current suite: 89 total, 83 passed, 6 skipped** (whole scheme, iOS 26.5).
+
+### C-2 · Nine requirement IDs have no named test — and that is a floor, not a count
 `scripts/trace-requirements.sh` reports **21/30**. Untested: `FR-13`, `FR-18`,
-`NFR-1`, `NFR-2`, `NFR-3`, `NFR-7`, `NFR-8`, `NFR-9`, `NFR-11`.
+`NFR-1`, `NFR-2`, `NFR-3`, `NFR-7`, `NFR-8`, `NFR-9`, `NFR-11`. See **C-4** for
+why the real number is worse.
 
 Three groups, and they need different answers: FR-13/FR-18 are unbuilt (see N),
 NFR-2/NFR-3/NFR-9 are unmeasured (see U), and NFR-1/NFR-7/NFR-8 are properties
@@ -256,6 +308,22 @@ no-cards-due state the fixtures don't produce. Carried since Phase 10.
 
 The completion screen is the product's deliberate ending — the thing `CLAUDE.md`
 says matters — and it is the least-tested screen in the app.
+
+### C-4 · The traceability report produces false greens
+`scripts/trace-requirements.sh` counts an ID as covered if **any** test file
+anywhere names it — one mention is enough, and Python pipeline tests count.
+A requirement with several acceptance clauses goes green when one clause is
+tested.
+
+That is how N-4 stayed invisible: FR-16 is named by two pipeline tests covering
+the pack-metadata half, so the report calls it covered while the credits screen
+it also requires does not exist. FR-17 is the same shape — two Domain tests name
+it for milestone-date plumbing; the trend view was never built.
+
+**So 21/30 overstates coverage, and by an unknown amount.** The script is
+report-only and never gates, which limits the damage, but it cannot be read as
+"9 gaps" — it means *at least* 9. Anything the trend report says is a floor.
+**Where:** [trace-requirements.sh](../scripts/trace-requirements.sh)
 
 ---
 
@@ -284,6 +352,10 @@ A genuinely unsatisfiable §6 constraint.
 The defects are small and mostly latent. The real risk is concentrated in **U**:
 the money path is unproven against Apple, the minimum OS is unproven at runtime,
 both performance NFRs are unmeasured, and 1000 sentences of Hindi are unread.
+U-1 and U-8 need a human, not an agent, and neither is small.
 
-Phase 13 is scoped almost exactly to that list, which is a good sign — but U-1 and
-U-8 need a human, not an agent, and neither is small.
+**N-4 is the one that stops a release.** Four requirements have no implementation,
+and one of them is a licence condition. It went unnoticed because the pipeline
+tests name FR-16 and the traceability report therefore called it covered (C-4) —
+which is the most useful thing on this page: a green gate hid a shipping blocker,
+and the only reason it surfaced was grepping the view files by hand.

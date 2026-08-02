@@ -24,8 +24,17 @@ reference them rather than re-deriving the list. The short version: the defects
 are small and latent; the risk is that the purchase chain has never reached
 Apple's servers (U-1), the app has never been run on its own iOS 17 minimum
 (U-2), both performance NFRs are unmeasured (U-3, U-4), and 1000 Hindi sentences
-are unread (U-8). FR-13, FR-17 and FR-18 are on the books with no code — decide
-deliberately whether they ship or get cut.
+are unread (U-8).
+
+**Scope decided 2026-08-01: FR-13, FR-16, FR-17 and FR-18 all ship.** None has an
+implementation today. **FR-16 is the blocker** — the CC-BY-SA 4.0 credits screen
+is a licence obligation, not a feature, and the app has no view that shows
+attribution. FR-13 needs a settings surface that also does not exist; put it and
+FR-16 in the same container. FR-17 needs `StatsService`, which `architecture.md`
+§3 names and nobody wrote. This is closer to its own phase than a Phase 13 tail —
+plan it as one.
+
+**The bugs are going to a separate session.** Don't start them here.
 
 **Before shipping, someone has to do the App Store Connect work** —
 [`docs/app-store-connect-setup.md`](app-store-connect-setup.md) is the
@@ -43,9 +52,10 @@ things worth not rediscovering:
   doesn't throw, not even on deliberately invalid JSON — it hands back an
   empty store, so every product lookup returns nothing and `buyProduct`
   fails `.notEntitled`. `StoreKitPurchaseServiceTests` detects this and
-  skips its six tests. Run them from the Xcode IDE or on an iOS 18
-  runtime. Hours went into the `.storekit` file before the environment
-  turned out to be the problem.
+  skips its six tests. **Retested on iOS 18.5 (2026-08-01): all six still
+  skip**, so the runtime is not the variable — the command line is. The
+  Xcode IDE is the only untried lever. Hours went into the `.storekit`
+  file before the environment turned out to be the problem.
 - **iOS 26 toolbar titles aren't Dynamic Type scalable**, and the
   accessibility audit fails them: "user will not be able to change the
   font size of this SwiftUI.AccessibilityNode". Reproduced with a bare

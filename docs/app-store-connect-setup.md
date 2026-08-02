@@ -101,8 +101,10 @@ it is load-bearing, and it must not be "simplified" into a wholesale cache repla
 does not push the scheme's StoreKit configuration to the simulator's `storekitd`, so
 `SKTestSession` silently yields an empty store — it does not even throw on
 deliberately invalid JSON. `StoreKitPurchaseServiceTests` skips itself when it
-detects this. Run it from the Xcode IDE, or on an iOS 18 simulator runtime, to
-actually exercise those six tests.
+detects this. **An iOS 18.5 runtime was tried on 2026-08-01 and did not help** —
+the runtime is not the variable, the command line is. Opening the project in the
+Xcode IDE and running the suite there is the only untried way to exercise those
+six tests.
 
 **Family Sharing is off.** It is an App Store Connect toggle, flippable later with no
 code change. It currently carries the same iOS 26.x entitlement regression, which is
