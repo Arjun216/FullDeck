@@ -32,8 +32,10 @@ The biggest thing on this page is not any single row. It is that **the entire
 purchase chain has never touched Apple's servers** (U-1), and **the app has never
 been run on its own minimum OS** (U-2).
 
-The one that blocks shipping outright is **N-4**: the CC-BY-SA 4.0 credits screen
-does not exist.
+**N-4 is closed (2026-08-02): the credits screen exists, and nothing on this page
+blocks a release outright any more.** N-1 closed with it. What remains under **N**
+is N-2 and N-3, the two Progress requirements, which are part B of the N-block and
+have their own spec still to be written.
 
 ---
 
@@ -248,9 +250,27 @@ These are in `docs/requirements.md` and have no code. Not bugs — decisions tha
 were never revisited. Each needs either an implementation or a scope cut before
 Phase 14 writes release notes claiming otherwise.
 
-### N-1 · FR-13, the optional daily reminder
-Zero code. No `UNUserNotificationCenter` reference anywhere in the repo. The one
-push notification `CLAUDE.md` permits, and it doesn't exist.
+### N-1 · FR-13, the optional daily reminder — FIXED 2026-08-02
+Built on the Settings screen, over a Presentation-owned `NotificationScheduler`
+port. `UNNotificationScheduler` is the only file importing `UserNotifications`.
+Eight behaviours are covered against a fake; one constant request identifier is
+what makes "exactly one reminder" true without bookkeeping.
+
+**The bug a fake could never have caught:** `.task` fires on *view* appearance,
+and the only way to revoke notification permission is to leave for iOS Settings
+and come back — which resumes the app without re-creating the view. The toggle
+therefore stayed on for a reminder that could no longer fire. Fixed with
+`onChange(of: scenePhase)`. A ViewModel test calls `refreshAuthorization()`
+itself and so can never tell you whether anything else does; only running it by
+hand does.
+
+**A false alarm worth recording too.** The first manual run looked like it had
+found exactly that bug — the toggle stayed on after "revoking" permission. It had
+not: the tap on iOS Settings' own switch never landed, so nothing was revoked and
+the app was right. Two subsequent taps at the same coordinates also silently did
+nothing; a short `touch_path` drag worked. **On this simulator a tap that misses
+and a feature that is broken look identical**, and the fix was only justified
+afterwards, on how `.task` works rather than on the observation.
 
 ### N-2 · FR-17, learning-over-time trend
 Model plumbing only — the milestone date exists on `ReviewState`
@@ -263,19 +283,37 @@ Not built. The Progress screen renders learned-of-total and nothing else. The
 ranking data already exists — `ReviewState.easeFactor` is stored per word — so
 this is a view and a pure ranking function, not new persistence.
 
-### N-4 · FR-16, the credits screen — and it is a licence obligation
-**Zero references to FR-16 in any Swift file, and there is no credits or about
-view.** `FullDeck/FullDeck/Views/` contains five files: error state, language
-selection, progress, purchase sheet, study. None of them shows attribution.
+### N-4 · FR-16, the credits screen — FIXED 2026-08-02
+**Was the one item on this page that stopped a release.** wordfreq's data is
+CC-BY-SA 4.0; `CLAUDE.md` requires attribution "in pack metadata **and the app's
+credits**", and FR-16's acceptance says a credits screen must be reachable from
+the app. The pack-metadata half had been enforced by `PackValidator` since Phase
+6 — which is precisely what made the missing half survive four phases.
 
-The pack-metadata half *is* done and tested — `PackValidator` rejects a
-wordfreq-derived pack whose attribution omits CC-BY-SA 4.0, and `generate`
-stamps the credit. That is what makes this easy to miss.
+Now a Credits section on the Settings screen, two taps from launch, reading each
+pack's own `PackSource` rather than a hardcoded string, so a third pack from a
+different source appears with no app code touched (ADR-004). Grouped by source,
+so two wordfreq packs render one credit naming both languages. The licence
+hyperlinks only when the string is recognised and degrades to plain text
+otherwise — text attribution alone satisfies CC-BY-SA.
 
-**This is not a feature preference.** wordfreq's data is CC-BY-SA 4.0;
-`CLAUDE.md` records attribution as required "in pack metadata **and the app's
-credits**", and FR-16's acceptance criterion says a credits screen must be
-reachable from the app. Shipping without it is a licence violation, not a gap.
+**Reachability is the acceptance criterion, and needed a UI test.** No ViewModel
+test can prove a screen can be got to, which is the shape of the original gap.
+
+### N-5 · FR-4's adjustable half had no implementation — FIXED 2026-08-02
+Found while writing the Settings spec, not by any tool. `SessionBuilder` and
+`StudyViewModel` both accepted `newWordCap`; `ContentView` never passed one, so
+`N` was permanently 10 and FR-4's "user-adjustable" clause was fiction.
+
+**Nothing automated would have caught this.** FR-4 is named by app *and* Domain
+tests — all covering cap *enforcement*. The layer-aware traceability report added
+for C-4 sees app-layer coverage and is satisfied. Only reading an acceptance
+criterion against the code finds it, which is also how N-4 surfaced. That is two
+half-unimplemented requirements found in two days by hand and none by machine;
+see C-4.
+
+FR-4's acceptance was amended at the same time, from "next day" to "next
+session" — see `docs/requirements.md` and Decision 7 of the spec.
 
 > **Scope decision, made 2026-08-01: all four ship.** FR-13, FR-17 and FR-18 are
 > in; FR-16 was never optional. Two consequences worth stating before anyone
@@ -294,6 +332,27 @@ reachable from the app. Shipping without it is a licence violation, not a gap.
 > This is more work than it looks: a new screen, a notification permission flow,
 > `StatsService` (named in `architecture.md` §3, never written), and two progress
 > views. Closer to its own phase than a Phase 13 tail.
+>
+> **Update 2026-08-02.** Split into two parts, and part A shipped: the Settings
+> screen carrying FR-16, FR-13 and FR-4's missing half
+> ([spec](superpowers/specs/2026-08-02-settings-and-about-design.md),
+> [plan](superpowers/plans/2026-08-02-settings-and-about.md)). Part B — FR-17,
+> FR-18 and `StatsService` — is untouched and needs its own spec. The two parts
+> share no types and touch different layers, which is why they were split.
+
+### N-6 · The app's display name is "FullDeck", not "Full Deck"
+`CLAUDE.md` records the user-facing name as **Full Deck**, set via the target's
+Display Name. No `INFOPLIST_KEY_CFBundleDisplayName` exists in the project, so
+iOS falls back to the bundle name: the Home Screen, the Settings app and the
+notification permission prompt all say "FullDeck".
+
+Caught because the permission prompt reads *"FullDeck" Would Like to Send You
+Notifications* while the app's own denial note says "Full Deck" — the two are
+visibly inconsistent on adjacent screens.
+
+**Not fixed here:** it is a `project.pbxproj` build-setting addition, and those
+go through Xcode rather than a text edit. One setting, `INFOPLIST_KEY_CFBundleDisplayName = "Full Deck"`,
+on all four configurations.
 
 ---
 
@@ -506,6 +565,24 @@ NFR-2/NFR-3/NFR-9 are unmeasured (see U), and NFR-1/NFR-7/NFR-8 are properties
 proven by code audit rather than by a test that could regress. The last group is
 the interesting one — an audit that isn't a test can rot.
 
+### C-6 · Settings was a screen the audit had never seen — CLOSED 2026-08-02, and it was hiding two defects
+Adding `SettingsView` to `testNFR4NFR5NFR6AccessibilityAuditOnCoreScreens` failed
+immediately, twice, and both were real:
+
+1. **Section headers.** SwiftUI's default header grey against the warm
+   `AppBackground` — *"Contrast is not high enough … unless font size is
+   larger"*. The project's own `TextSecondary` measures 7.36:1 there, so the fix
+   was to stop inheriting the system colour. Same family as L-5.
+2. **Links.** `AccentColor` (#D97706) failed outright on the licence link.
+   `AccentFill` (#B45309) measures 4.84:1 and passes — the substitution the
+   prominent buttons already made.
+
+The second one **also applied to the "Open Settings" link**, which the audit never
+reached because it renders only after a permission denial. It would have shipped
+failing. A screen entering the audit for the first time is worth more than the
+same screen re-audited, and this is the second time that has proved true — see
+C-3.
+
 ### C-3 · Two Study screens the audit had never seen — CLOSED 2026-08-02, and they were hiding three defects
 `StudyView.completionView` and `StudyView.caughtUpView` were never reached by the
 audit, carried since Phase 10. Both now have one, and **the audit failed three
@@ -576,6 +653,29 @@ a floor.** That limitation cannot be automated away and is now stated in the
 output rather than in this file only.
 
 **Where:** [trace-requirements.sh](../scripts/trace-requirements.sh)
+
+**Confirmed the hard way, 2026-08-02.** FR-16's pipeline-only flag cleared on its
+own when the credits screen landed — the warning working exactly as designed.
+Then **N-5 landed outside its reach entirely**: FR-4's adjustability clause had
+no implementation while FR-4 carried app *and* Domain tests for its enforcement
+clause, so every signal this script can produce was green. Two half-built
+requirements in two days, one caught by the layer heuristic and one invisible to
+it. The floor is real, and reading acceptance criteria against code is still the
+only thing that finds the second kind.
+
+### C-5 · `UNNotificationScheduler` has no automated test — deliberate
+Every method is a direct passthrough to `UNUserNotificationCenter`. A unit test
+would assert that Apple's framework was called, which is not a fact about this
+app. The FR-13 state machine above it is covered against a fake; the adapter is
+covered by the manual device run recorded in N-1.
+
+Same call as the thin half of `StoreKitPurchaseService`, and recorded here rather
+than left to look like coverage.
+
+**One path is still manually verified only:** the revoked-permission
+reconciliation. Driving iOS Settings from XCUITest to revoke a permission is
+brittle enough that it would cost more reliability than it buys. Re-run it by
+hand when `SettingsView`'s lifecycle modifiers change.
 
 ---
 

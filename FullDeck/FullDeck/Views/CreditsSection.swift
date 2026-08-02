@@ -22,7 +22,7 @@ struct CreditsSection: View {
     let viewModel: CreditsViewModel
 
     var body: some View {
-        Section("Credits") {
+        Section {
             switch viewModel.state {
             case .loading:
                 ProgressView()
@@ -34,6 +34,11 @@ struct CreditsSection: View {
                 Text(message)
                     .foregroundStyle(Color.textSecondary)
             }
+        } header: {
+            // Explicit colour rather than SwiftUI's default header grey, which
+            // fails the audit against the warm background — see SettingsView.
+            Text("Credits")
+                .foregroundStyle(Color.textSecondary)
         }
         .listRowBackground(Color.appBackground)
     }
@@ -50,7 +55,12 @@ struct CreditsSection: View {
             Text(credit.attribution)
                 .foregroundStyle(Color.textPrimary)
             if let url = LicenseLink.url(for: credit.license) {
+                // `.tint`, not the default accent: AccentColor (#D97706) fails
+                // the audit outright on the warm background, while AccentFill
+                // (#B45309) measures 4.84:1 there. Same substitution the
+                // prominent buttons already made.
                 Link(credit.license, destination: url)
+                    .tint(Color.accentFill)
             } else {
                 Text(credit.license)
                     .foregroundStyle(Color.textSecondary)

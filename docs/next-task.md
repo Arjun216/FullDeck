@@ -12,8 +12,31 @@ design), Opus earns its cost.
 
 ## Right now
 
-**Task:** Phase 13 — QA and the edge-case matrix, `docs/test-plan.md`.
-**Model:** Sonnet 5.
+**Task:** N-block **part B** — FR-17 (learning-over-time trend), FR-18 (hardest
+words), `StatsService`. Brainstorm it first: there is no spec yet, and part A's
+([spec](superpowers/specs/2026-08-02-settings-and-about-design.md)) is the shape
+to follow. Phase 13 (`docs/test-plan.md`) comes after.
+**Model:** Opus 5 for the spec, Sonnet 5 for the plan's execution.
+
+**Part A shipped 2026-08-02** on branch `feat/settings-and-about`, stacked on
+`fix/known-issues-defects`. The Settings screen exists, and with it **N-4 (the
+CC-BY-SA credits screen, the one release blocker), N-1 (the daily reminder), and
+FR-4's adjustable cap, which turned out never to have been implemented at all**.
+Nothing on `known-issues.md` blocks a release now.
+
+Three things from part A worth not rediscovering:
+
+- **`.task` does not fire when the app returns from the background.** Revoking
+  notification permission means leaving for iOS Settings, so the reconciliation
+  needs `onChange(of: scenePhase)` as well. No ViewModel test can catch it — such
+  a test calls the method itself and cannot know whether anything else does.
+- **A simulator tap that misses looks exactly like a broken feature.** Two taps
+  on iOS Settings' own switch silently did nothing and produced a confident,
+  wrong bug report; a short `touch_path` drag worked. Confirm the *precondition*
+  changed before believing the app is at fault.
+- **Adding a screen to the accessibility audit found two shipping contrast
+  defects**, one of them on a link the audit still cannot reach. Second time a
+  first-ever audit has paid for itself — see C-3 and C-6.
 
 **CI has not run since 2026-08-01 — see E-6, and it needs you.** GitHub rejects
 every job three seconds in, before any step: *"recent account payments have

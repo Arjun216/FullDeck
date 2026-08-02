@@ -154,6 +154,16 @@ final class FullDeckUITests: XCTestCase {
         XCTAssertTrue(tabBar.buttons["Languages"].waitForExistence(timeout: 15))
         try performAudit(on: app)
 
+        // Settings — a whole screen the audit had never seen, carrying a
+        // Stepper, a Toggle and a Link, none of which any other screen uses.
+        let settings = app.buttons["Settings"]
+        XCTAssertTrue(settings.waitForExistence(timeout: 15))
+        settings.tap()
+        XCTAssertTrue(app.navigationBars["Settings"].waitForExistence(timeout: 10))
+        try performAudit(on: app)
+        app.navigationBars["Settings"].buttons.firstMatch.tap()
+        XCTAssertTrue(tabBar.buttons["Languages"].waitForExistence(timeout: 15))
+
         // The purchase sheet — a whole screen the audit had never seen, and the
         // one place the app asks for money. It reaches `unavailable` rather than
         // `ready` here: `xcodebuild test` from the command line gives the app no

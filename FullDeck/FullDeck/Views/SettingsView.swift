@@ -20,7 +20,7 @@ struct SettingsView: View {
 
     var body: some View {
         Form {
-            Section("Reminder") {
+            Section {
                 // A computed Binding, not `$viewModel.isReminderOn`: the property
                 // is private(set) because turning it on is an async negotiation
                 // with iOS that can end in "no", not a value the view may assign.
@@ -43,16 +43,25 @@ struct SettingsView: View {
                     Text(note)
                         .foregroundStyle(Color.textSecondary)
                     if let url = URL(string: UIApplication.openSettingsURLString) {
+                        // Same contrast substitution as the licence link. The
+                        // audit never reached this one — it only renders once
+                        // permission is denied — so it would have shipped
+                        // failing.
                         Link("Open Settings", destination: url)
+                            .tint(Color.accentFill)
                     }
                 }
+            } header: {
+                sectionHeader("Reminder")
             }
             .listRowBackground(Color.appBackground)
-            Section("Study") {
+            Section {
                 Stepper(value: $viewModel.newWordsPerDay, in: SettingsViewModel.capRange) {
                     Text("New words per day: \(viewModel.newWordsPerDay)")
                         .foregroundStyle(Color.textPrimary)
                 }
+            } header: {
+                sectionHeader("Study")
             }
             .listRowBackground(Color.appBackground)
             CreditsSection(viewModel: credits)
@@ -73,5 +82,15 @@ struct SettingsView: View {
             guard phase == .active else { return }
             Task { await viewModel.refreshAuthorization() }
         }
+    }
+
+    /// SwiftUI's default section-header grey fails the accessibility audit on
+    /// the warm `AppBackground` — "Contrast is not high enough ... unless font
+    /// size is larger", caught the first time Settings was audited. The
+    /// project's own `TextSecondary` measures 7.36:1 there, so the fix is to
+    /// stop inheriting the system colour. Same family as L-5.
+    private func sectionHeader(_ title: LocalizedStringKey) -> some View {
+        Text(title)
+            .foregroundStyle(Color.textSecondary)
     }
 }
