@@ -15,8 +15,9 @@ design), Opus earns its cost.
 **Task:** Phase 13 — QA and the edge-case matrix, `docs/test-plan.md`.
 **Model:** Sonnet 5.
 
-**Branch state:** `storekit-monetization` is pushed and not yet merged. Phase 13
-should start from a merged `main`.
+**Branch state:** Phase 11 is merged (PR #8, 2026-08-02). `main` is the place to
+branch from. The bug-fix session takes D-1, D-3 and D-4 from the list below;
+D-2 and the scheme-path bug (D-5) are already fixed.
 
 **Start from [`docs/known-issues.md`](known-issues.md)** — every defect, gap and
 deliberate compromise in the project, with IDs. Phase 13's `test-plan.md` should
