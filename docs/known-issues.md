@@ -352,11 +352,25 @@ xcodebuild test -project FullDeck/FullDeck.xcodeproj -scheme FullDeck \
 ```
 
 **Adding an iOS 18 destination to CI would close this and serve U-2 at the same
-time** — 18.x is far nearer the iOS 17.0 minimum we claim than 26.5 is. Do it
-*after* D-2 is fixed, or CI goes red on arrival.
+time** — 18.x is far nearer the iOS 17.0 minimum we claim than 26.5 is. Two
+things block it: D-2 (CI goes red on arrival) and **C-5** (one test takes
+minutes). Fix both first.
 
 Note two of the six pass against a *dead* store too, because both assert on
 absence. Those greens are not coverage.
+
+### C-5 · `purchaseUnlocks` takes minutes, and the time is not stable
+Measured on iOS 18.5 across three runs: **259 s, 78 s, 236 s**. Every other test
+in the suite finishes in under a second.
+
+`session.disableDialogs = true` is set in `init()`, so the purchase sheet should
+not be blocking — but a 3× spread on the same assertion is the shape of a
+timeout being waited out, not of work being done.
+
+**This blocks the iOS 18 CI destination on its own**, separately from D-2: a
+four-minute test that varies by 3× cannot go in a per-push gate. Diagnose it
+before adding the destination, not after.
+**Where:** [StoreKitPurchaseServiceTests.swift:107](../FullDeck/FullDeckTests/StoreKitPurchaseServiceTests.swift:107)
 
 ### C-2 · Nine requirement IDs have no named test — and that is a floor, not a count
 `scripts/trace-requirements.sh` reports **21/30**. Untested: `FR-13`, `FR-18`,
