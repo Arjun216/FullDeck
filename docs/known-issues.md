@@ -250,6 +250,13 @@ These are in `docs/requirements.md` and have no code. Not bugs — decisions tha
 were never revisited. Each needs either an implementation or a scope cut before
 Phase 14 writes release notes claiming otherwise.
 
+**All closed as of 2026-08-02.** Every requirement in `docs/requirements.md` now
+has an implementation, and `architecture.md` §3's `StatsService` — named in
+Phase 9, written in neither — exists. The section stays because how these were
+*found* is the lesson: N-4 was a licence obligation the traceability report
+called covered, and N-5 was found by reading FR-4's acceptance criterion against
+the code. Neither was findable by any automated check this project has.
+
 ### N-1 · FR-13, the optional daily reminder — FIXED 2026-08-02
 Built on the Settings screen, over a Presentation-owned `NotificationScheduler`
 port. `UNNotificationScheduler` is the only file importing `UserNotifications`.
@@ -272,16 +279,49 @@ nothing; a short `touch_path` drag worked. **On this simulator a tap that misses
 and a feature that is broken look identical**, and the fix was only justified
 afterwards, on how `.task` works rather than on the observation.
 
-### N-2 · FR-17, learning-over-time trend
-Model plumbing only — the milestone date exists on `ReviewState`
-([Models.swift:53](../Packages/Domain/Sources/Domain/Models.swift:53)) and a
-comment says Phase 9 would decide when to use it. Phase 9 didn't. No `StatsService`
-type was ever written, despite `architecture.md` §3 listing one.
+### N-2 · FR-17, learning-over-time trend — FIXED 2026-08-02
+`StatsService.trend(states:today:)` — the type `architecture.md` §3 named in
+Phase 9 and nobody wrote — plus a Swift Charts section on Progress. Pure Domain,
+five tests, no new persistence: `firstReviewedDate` and `learnedDate` were
+already on `ReviewState`.
 
-### N-3 · FR-18, hardest words
-Not built. The Progress screen renders learned-of-total and nothing else. The
-ranking data already exists — `ReviewState.easeFactor` is stored per word — so
-this is a view and a pure ranking function, not new persistence.
+**Both curves are cumulative, and that was the decision.** FR-17 asks for words
+that have *moved into* learning and into learned, which is cumulative, so both
+rise and the gap between them is the in-flight set. Plotting the *currently*
+learning population instead would fall as words graduate — a line that drops
+when the learner succeeds, on the one screen whose point is the climb.
+
+**`learnedInLast` reads off the series**, never recomputes from the states, so
+the accessibility label and the curve cannot disagree. Both ends inclusive,
+which is what makes the 7-day figure match FR-17's own acceptance example.
+
+**The bug only running it could find:** the spec said hide the trend when the
+series is empty. After a first session every review shares one date, and a
+`LineMark` with a single x value draws no segment — so the section rendered
+axis labels around an empty plot. The rule is now "fewer than two days". The
+ViewModel test asserted the series was right, and it was; the series was never
+the problem.
+
+### N-3 · FR-18, hardest words — FIXED 2026-08-02
+`StatsService.hardestWords(in:states:limit:)`, five on the Progress screen,
+read-only. Five tests. No schema change.
+
+**Ease factor cannot answer "has this word ever been failed."** `Scheduler`
+adds **+0.05** on every pass, so a word that lapsed once and has since been
+recalled four times sits at exactly 2.50 — byte-identical to one never failed.
+FR-18 anticipates this in its own text ("ease factor; *optionally a lapse
+count*") and `ReviewState` has no lapse count.
+
+Decided: rank by ease ascending, surface only words below
+`ReviewState.startingEase`. That satisfies the acceptance as written — a
+never-failed word never drops below the start, so it is never surfaced — and a
+recovered word leaving the list is correct rather than lossy. FR-18 asks what
+the learner *finds* hard; a permanent record of old mistakes is closer to a
+shame list than to help.
+
+A `lapses: Int` field was rejected on cost: a Domain model change, a SwiftData
+migration, and every construction site including fixtures, to deliver behaviour
+we would then have to soften.
 
 ### N-4 · FR-16, the credits screen — FIXED 2026-08-02
 **Was the one item on this page that stopped a release.** wordfreq's data is
@@ -662,6 +702,35 @@ clause, so every signal this script can produce was green. Two half-built
 requirements in two days, one caught by the layer heuristic and one invisible to
 it. The floor is real, and reading acceptance criteria against code is still the
 only thing that finds the second kind.
+
+### C-7 · The trend chart is on an audited screen the audit cannot reach
+`testNFR4NFR5NFR6AccessibilityAuditOnCoreScreens` visits Progress and **passed
+first time** when FR-17 and FR-18 landed. That green is not evidence about the
+chart, because the chart was not on screen.
+
+The trend renders only with **two or more days** of milestones, and a UI test
+runs inside one day. Hardest words needs at least one *forgot* grade, which this
+method never performs — it may appear if another test in the same run happens to
+have graded one, which is worse than never, because then the coverage is
+incidental and silent.
+
+So the two new sections carry the audit's most valuable property — being looked
+at by a machine on every push — for neither of them. That is C-3's shape exactly:
+*screens that require an unusual state are exactly the screens that rot*, and
+this one was created the same day C-3 closed.
+
+Not fixed here, because the honest fix is the one C-3 used: a `#if DEBUG`
+fixture selected by a launch argument, seeding a review store with milestones
+across several days and one lapsed word. That is real work and it belongs to
+whoever next touches the audit rather than being bolted onto this change.
+
+**What passed instead:** the Domain series and ranking are covered by ten tests,
+and the chart's colours were chosen against the audit's own thresholds up front
+(Decision 6) rather than corrected after a failure. Neither is a substitute for
+the audit having seen it.
+
+**Where:** [LearningProgressView.swift](../FullDeck/FullDeck/Views/LearningProgressView.swift),
+[FullDeckUITests.swift:197](../FullDeck/FullDeckUITests/FullDeckUITests.swift:197)
 
 ### C-5 · `UNNotificationScheduler` has no automated test — deliberate
 Every method is a direct passthrough to `UNUserNotificationCenter`. A unit test

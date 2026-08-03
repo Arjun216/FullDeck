@@ -12,17 +12,31 @@ design), Opus earns its cost.
 
 ## Right now
 
-**Task:** N-block **part B** — FR-17 (learning-over-time trend), FR-18 (hardest
-words), `StatsService`. Brainstorm it first: there is no spec yet, and part A's
-([spec](superpowers/specs/2026-08-02-settings-and-about-design.md)) is the shape
-to follow. Phase 13 (`docs/test-plan.md`) comes after.
-**Model:** Opus 5 for the spec, Sonnet 5 for the plan's execution.
+**Task:** Phase 13 — QA and the edge-case matrix, [`docs/test-plan.md`](test-plan.md).
+Start from [`known-issues.md`](known-issues.md) and reference its IDs rather than
+re-deriving the list.
+**Model:** Sonnet 5.
 
-**Part A shipped 2026-08-02** on branch `feat/settings-and-about`, stacked on
-`fix/known-issues-defects`. The Settings screen exists, and with it **N-4 (the
-CC-BY-SA credits screen, the one release blocker), N-1 (the daily reminder), and
-FR-4's adjustable cap, which turned out never to have been implemented at all**.
-Nothing on `known-issues.md` blocks a release now.
+**The N-block is complete (2026-08-02).** Part B shipped on branch
+`feat/progress-trend-and-hardest-words`, stacked on `feat/settings-and-about`:
+FR-17's trend and FR-18's hardest words, both on `StatsService` — the type
+`architecture.md` §3 named in Phase 9 and nobody wrote until now. **Every
+requirement in `docs/requirements.md` now has an implementation**, and nothing on
+`known-issues.md` blocks a release.
+
+Three things from part B worth not rediscovering:
+
+- **`easeFactor` cannot tell you whether a word was ever failed.** `Scheduler`
+  adds +0.05 per pass, so one lapse plus four recalls lands back on exactly 2.50.
+  FR-18 ranks by it anyway and filters below `startingEase`; a recovered word
+  leaving the list is the behaviour we want.
+- **A `LineMark` with one x value draws nothing.** After a first session every
+  review shares a date, so the trend section rendered axis labels around an empty
+  plot. Hiding below *two* days, not below one. Only running it found this — the
+  ViewModel test asserted the series was right, and it was.
+- **The new chart is on an audited screen the audit cannot reach** (C-7). It
+  passed first time because the chart was not on screen. Needs the `#if DEBUG`
+  fixture trick C-3 used.
 
 Three things from part A worth not rediscovering:
 
@@ -61,8 +75,13 @@ is the cheapest high-value thing on the page to fix, and only you can do it.
   stated cause corrected: it claimed CI lands on iOS 26.5, which was never
   measured and is probably wrong. Cannot be closed until E-6 clears.
 
-Remaining: **N-1…N-4** (N-4 is the licence blocker), **C-2** (follows from N),
-and the **U** block, most of which needs you on a device rather than an agent.
+Then `feat/settings-and-about` (part A) is stacked on that, and
+`feat/progress-trend-and-hardest-words` (part B) on top of it. **Three unmerged
+branches, none through CI** — see E-6 above.
+
+Remaining: **C-2** and **C-7** (the trend chart is unaudited), and the **U**
+block, most of which needs you on a device rather than an agent. The N section
+is closed.
 
 **Start from [`docs/known-issues.md`](known-issues.md)** — every defect, gap and
 deliberate compromise in the project, with IDs. Phase 13's `test-plan.md` should
@@ -72,13 +91,11 @@ Apple's servers (U-1), the app has never been run on its own iOS 17 minimum
 (U-2), both performance NFRs are unmeasured (U-3, U-4), and 1000 Hindi sentences
 are unread (U-8).
 
-**Scope decided 2026-08-01: FR-13, FR-16, FR-17 and FR-18 all ship.** None has an
-implementation today. **FR-16 is the blocker** — the CC-BY-SA 4.0 credits screen
-is a licence obligation, not a feature, and the app has no view that shows
-attribution. FR-13 needs a settings surface that also does not exist; put it and
-FR-16 in the same container. FR-17 needs `StatsService`, which `architecture.md`
-§3 names and nobody wrote. This is closer to its own phase than a Phase 13 tail —
-plan it as one.
+**Scope decided 2026-08-01: FR-13, FR-16, FR-17 and FR-18 all ship. All four
+shipped 2026-08-02**, plus FR-4's adjustable cap, which the part A spec found had
+never been implemented either. It ran as two specs — a Settings container for
+FR-16/FR-13/FR-4, and `StatsService` for FR-17/FR-18 — rather than one, because
+they share no types and touch different layers.
 
 **Three things the bug session learned about this repo's tests**, all costly to
 rediscover:
