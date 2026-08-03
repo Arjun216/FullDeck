@@ -37,7 +37,6 @@ public protocol ReviewStore: Sendable {
     func save(_ state: ReviewState) async throws
     /// Ordering guarantee: sorted by `wordID.rawValue`, ascending.
     func allStates(_ languageCode: LanguageCode) async throws -> [ReviewState]
-    func progress(_ languageCode: LanguageCode) async throws -> ProgressSummary
 }
 
 /// Typed errors `PackStore` implementations throw — never a crash on bad or

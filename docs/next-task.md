@@ -12,12 +12,76 @@ design), Opus earns its cost.
 
 ## Right now
 
-**Task:** Phase 13 — QA and the edge-case matrix, `docs/test-plan.md`.
+**Task:** Phase 13 — QA and the edge-case matrix, [`docs/test-plan.md`](test-plan.md).
+Start from [`known-issues.md`](known-issues.md) and reference its IDs rather than
+re-deriving the list.
 **Model:** Sonnet 5.
 
-**Branch state:** Phase 11 is merged (PR #8, 2026-08-02). `main` is the place to
-branch from. The bug-fix session takes D-1, D-3 and D-4 from the list below;
-D-2 and the scheme-path bug (D-5) are already fixed.
+**The N-block is complete (2026-08-02).** Part B shipped on branch
+`feat/progress-trend-and-hardest-words`, stacked on `feat/settings-and-about`:
+FR-17's trend and FR-18's hardest words, both on `StatsService` — the type
+`architecture.md` §3 named in Phase 9 and nobody wrote until now. **Every
+requirement in `docs/requirements.md` now has an implementation**, and nothing on
+`known-issues.md` blocks a release.
+
+Three things from part B worth not rediscovering:
+
+- **`easeFactor` cannot tell you whether a word was ever failed.** `Scheduler`
+  adds +0.05 per pass, so one lapse plus four recalls lands back on exactly 2.50.
+  FR-18 ranks by it anyway and filters below `startingEase`; a recovered word
+  leaving the list is the behaviour we want.
+- **A `LineMark` with one x value draws nothing.** After a first session every
+  review shares a date, so the trend section rendered axis labels around an empty
+  plot. Hiding below *two* days, not below one. Only running it found this — the
+  ViewModel test asserted the series was right, and it was.
+- **The new chart is on an audited screen the audit cannot reach** (C-7). It
+  passed first time because the chart was not on screen. Needs the `#if DEBUG`
+  fixture trick C-3 used.
+
+Three things from part A worth not rediscovering:
+
+- **`.task` does not fire when the app returns from the background.** Revoking
+  notification permission means leaving for iOS Settings, so the reconciliation
+  needs `onChange(of: scenePhase)` as well. No ViewModel test can catch it — such
+  a test calls the method itself and cannot know whether anything else does.
+- **A simulator tap that misses looks exactly like a broken feature.** Two taps
+  on iOS Settings' own switch silently did nothing and produced a confident,
+  wrong bug report; a short `touch_path` drag worked. Confirm the *precondition*
+  changed before believing the app is at fault.
+- **Adding a screen to the accessibility audit found two shipping contrast
+  defects**, one of them on a link the audit still cannot reach. Second time a
+  first-ever audit has paid for itself — see C-3 and C-6.
+
+**CI has not run since 2026-08-01 — see E-6, and it needs you.** GitHub rejects
+every job three seconds in, before any step: *"recent account payments have
+failed or your spending limit needs to be increased."* The last green run was
+the Phase 12 merge, so **Phase 11 has never been through CI**, and neither has
+any of the work below. All of it is verified locally and by nothing else. This
+is the cheapest high-value thing on the page to fix, and only you can do it.
+
+**Branch state:** Phase 11 is merged (PR #8, 2026-08-02). Branch
+`fix/known-issues-defects` is off `main` and carries six commits, unmerged:
+
+- **D-1, D-3, D-4 fixed** (2026-08-02), joining D-2 and D-5. **The D section is
+  closed.** StoreKit suite is 7 of 7 on iOS 18.5.
+- **C-4** — the traceability matcher no longer counts a doc comment as a test,
+  reports evidence by layer, and warns on app requirements with pipeline-only
+  evidence. FR-16 is flagged, which is the shape that hid N-4. Self-test gated
+  in CI.
+- **C-3 closed, and it was hiding three real accessibility defects** on the
+  completion and caught-up screens — two clipped at large Dynamic Type, one
+  under the AA contrast floor. All shipping until now.
+- **C-1 wired** (per-push skip + a dispatch-only adapter workflow), and its
+  stated cause corrected: it claimed CI lands on iOS 26.5, which was never
+  measured and is probably wrong. Cannot be closed until E-6 clears.
+
+Then `feat/settings-and-about` (part A) is stacked on that, and
+`feat/progress-trend-and-hardest-words` (part B) on top of it. **Three unmerged
+branches, none through CI** — see E-6 above.
+
+Remaining: **C-2** and **C-7** (the trend chart is unaudited), and the **U**
+block, most of which needs you on a device rather than an agent. The N section
+is closed.
 
 **Start from [`docs/known-issues.md`](known-issues.md)** — every defect, gap and
 deliberate compromise in the project, with IDs. Phase 13's `test-plan.md` should
@@ -27,15 +91,25 @@ Apple's servers (U-1), the app has never been run on its own iOS 17 minimum
 (U-2), both performance NFRs are unmeasured (U-3, U-4), and 1000 Hindi sentences
 are unread (U-8).
 
-**Scope decided 2026-08-01: FR-13, FR-16, FR-17 and FR-18 all ship.** None has an
-implementation today. **FR-16 is the blocker** — the CC-BY-SA 4.0 credits screen
-is a licence obligation, not a feature, and the app has no view that shows
-attribution. FR-13 needs a settings surface that also does not exist; put it and
-FR-16 in the same container. FR-17 needs `StatsService`, which `architecture.md`
-§3 names and nobody wrote. This is closer to its own phase than a Phase 13 tail —
-plan it as one.
+**Scope decided 2026-08-01: FR-13, FR-16, FR-17 and FR-18 all ship. All four
+shipped 2026-08-02**, plus FR-4's adjustable cap, which the part A spec found had
+never been implemented either. It ran as two specs — a Settings container for
+FR-16/FR-13/FR-4, and `StatsService` for FR-17/FR-18 — rather than one, because
+they share no types and touch different layers.
 
-**The bugs are going to a separate session.** Don't start them here.
+**Three things the bug session learned about this repo's tests**, all costly to
+rediscover:
+
+- **`-only-testing:` needs the Swift Testing function's parentheses.** Without
+  them nothing matches and `xcodebuild` still prints `** TEST SUCCEEDED **`. A
+  green that arrives before the fix should be checked with
+  `xcrun xcresulttool get test-results tests --path <bundle>`.
+- **`Task.yield()` cannot hold a concurrency race open.** It let the whole
+  competing `load()` run to completion, and the test passed against the unfixed
+  code. Park the suspension explicitly on a continuation — `GatedPackStore` in
+  `LanguageSelectionViewModelTests.swift` is the pattern.
+- **In the StoreKit suite a timeout looks exactly like a deadlock.** E-5's
+  first-purchase cost is minutes; bound new tests there at 5 minutes, not 1.
 
 **Before shipping, someone has to do the App Store Connect work** —
 [`docs/app-store-connect-setup.md`](app-store-connect-setup.md) is the

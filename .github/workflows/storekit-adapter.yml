@@ -1,0 +1,64 @@
+name: StoreKit adapter
+
+# On demand only — no push trigger and no cron, deliberately.
+#
+# E-5: the first StoreKit purchase in a process costs 91-324 seconds, so this
+# suite cannot sit in a per-push gate without making every push wait minutes.
+# A nightly cron would be the usual answer, and known-issues.md C-1 suggests one,
+# but a schedule spends macOS runner minutes (billed 10x) every night whether or
+# not the adapter changed. Add `schedule:` here when that trade is worth it.
+#
+# E-1: this suite needs an iOS 18.x runtime. On iOS 26.x every SKTestSession call
+# fails with SKInternalErrorDomain Code=3 and the suite's `.enabled` trait skips
+# all of it — which reports GREEN. That silent skip is the whole reason the
+# adapter had no CI coverage (C-1), so this job refuses to run rather than
+# reproduce it: no iOS 18 destination means a hard failure, not a quiet pass.
+on:
+  workflow_dispatch:
+
+jobs:
+  storekit:
+    runs-on: macos-15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Toolchain versions
+        run: |
+          xcodebuild -version
+          xcrun simctl list runtimes | grep -i ios || true
+
+      - name: StoreKit adapter suite (iOS 18.x only)
+        run: |
+          # Warm CoreSimulator first — on a cold runner `-showdestinations` lists
+          # only placeholder destinations and no concrete simulators, with no
+          # error explaining their absence. Same trap as the main CI job.
+          xcrun simctl list devices available >/dev/null 2>&1 || true
+
+          out=$(mktemp); err=$(mktemp); status=0
+          xcodebuild -showdestinations \
+            -project FullDeck/FullDeck.xcodeproj -scheme FullDeck \
+            >"$out" 2>"$err" || status=$?
+          echo "showdestinations: exit=$status"
+
+          # An iOS 18 destination specifically. Read both streams: which one
+          # carries the list has varied by Xcode version.
+          LINE=$(cat "$out" "$err" | grep 'OS:18\.' | grep 'name:iPhone' | head -1)
+          if [ -z "$LINE" ]; then
+            echo "No iOS 18 simulator on this runner, so this suite could only skip."
+            echo "A skip here reports green and proves nothing — see E-1. Failing instead."
+            echo "--- showdestinations stdout ---"; cat "$out"
+            echo "--- showdestinations stderr ---"; cat "$err"
+            xcrun simctl list runtimes
+            exit 1
+          fi
+          DEVICE=$(echo "$LINE" | grep -oE 'name:iPhone [^,}]+' | sed 's/name://' | sed 's/ *$//')
+          OS=$(echo "$LINE" | grep -oE 'OS:18\.[0-9]+' | sed 's/OS://')
+          echo "Using: $DEVICE on iOS $OS"
+
+          xcodebuild test \
+            -project FullDeck/FullDeck.xcodeproj \
+            -scheme FullDeck \
+            -destination "platform=iOS Simulator,name=$DEVICE,OS=$OS" \
+            -only-testing:FullDeckTests/StoreKitPurchaseServiceTests \
+            CODE_SIGNING_ALLOWED=NO

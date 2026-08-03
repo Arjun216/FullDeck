@@ -141,3 +141,35 @@ final class FakePurchaseService: PurchaseService, EntitlementStore, @unchecked S
         unlocked.contains(languageCode.rawValue)
     }
 }
+
+/// Records what was asked of iOS and returns whatever the test set up. Same
+/// shape and same `@unchecked Sendable` justification as `FakePurchaseService`:
+/// mutated only from the main actor inside tests.
+final class FakeNotificationScheduler: NotificationScheduler, @unchecked Sendable {
+    var statusToReturn: ReminderAuthorization = .notDetermined
+    /// What the system prompt will answer. Granting also updates
+    /// `statusToReturn`, because iOS does.
+    var promptResult: ReminderAuthorization = .authorized
+    var requestError: Error?
+    var scheduleError: Error?
+
+    private(set) var promptCount = 0
+    private(set) var scheduled: [(hour: Int, minute: Int)] = []
+    private(set) var cancelCount = 0
+
+    func authorizationStatus() async -> ReminderAuthorization { statusToReturn }
+
+    func requestAuthorization() async throws -> ReminderAuthorization {
+        promptCount += 1
+        if let requestError { throw requestError }
+        statusToReturn = promptResult
+        return promptResult
+    }
+
+    func scheduleDailyReminder(hour: Int, minute: Int) async throws {
+        if let scheduleError { throw scheduleError }
+        scheduled.append((hour, minute))
+    }
+
+    func cancelDailyReminder() async { cancelCount += 1 }
+}

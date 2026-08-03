@@ -16,6 +16,8 @@ struct ContentView: View {
     let dependencies: AppDependencies
 
     @State private var selectionViewModel: LanguageSelectionViewModel
+    @State private var settingsViewModel: SettingsViewModel
+    @State private var creditsViewModel: CreditsViewModel
     @State private var selectedTab: Tab = .languages
     // Owned here rather than rebuilt inside the tab bodies: a ViewModel
     // constructed per body evaluation is a new object on every re-render, which
@@ -32,12 +34,19 @@ struct ContentView: View {
                 packStore: dependencies.packStore,
                 entitlements: dependencies.entitlements,
                 purchases: dependencies.purchases))
+        // Not rebuilt per body evaluation, for the same reason as the others:
+        // it owns preferences the learner is editing.
+        _settingsViewModel = State(
+            initialValue: SettingsViewModel(notifications: dependencies.notifications))
+        _creditsViewModel = State(
+            initialValue: CreditsViewModel(packStore: dependencies.packStore))
     }
 
     var body: some View {
         TabView(selection: $selectedTab) {
             LanguageSelectionView(
-                viewModel: selectionViewModel, purchases: dependencies.purchases
+                viewModel: selectionViewModel, purchases: dependencies.purchases,
+                settingsViewModel: settingsViewModel, creditsViewModel: creditsViewModel
             )
             .tabItem { Label("Languages", systemImage: "globe") }
             .tag(Tab.languages)
@@ -53,6 +62,13 @@ struct ContentView: View {
         .task(id: selectionViewModel.activeLanguage) {
             makeViewModels(for: selectionViewModel.activeLanguage)
         }
+        // Assign rather than rebuild. The `.task(id:)` above rebuilds
+        // StudyViewModel when the language changes, and doing that for a cap
+        // edit would throw away whatever session the learner is in the middle
+        // of (FR-4 takes effect from the next session, not mid-deck).
+        .onChange(of: settingsViewModel.newWordsPerDay) { _, cap in
+            studyViewModel?.newWordCap = cap
+        }
     }
 
     private func makeViewModels(for language: LanguageCode?) {
@@ -66,10 +82,11 @@ struct ContentView: View {
             reviewStore: dependencies.reviewStore,
             scheduler: dependencies.scheduler,
             sessionBuilder: dependencies.sessionBuilder,
-            speech: dependencies.speech, clock: dependencies.clock)
+            speech: dependencies.speech, clock: dependencies.clock,
+            newWordCap: settingsViewModel.newWordsPerDay)
         progressViewModel = ProgressViewModel(
             languageCode: language, packStore: dependencies.packStore,
-            reviewStore: dependencies.reviewStore)
+            reviewStore: dependencies.reviewStore, clock: dependencies.clock)
     }
 
     @ViewBuilder

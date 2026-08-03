@@ -28,6 +28,21 @@
       "productID" : "arjunpathak.FullDeck.language.hi",
       "referenceName" : "Hindi language unlock",
       "type" : "NonConsumable"
+    },
+    {
+      "displayPrice" : "1.99",
+      "familyShareable" : false,
+      "internalID" : "5B7E1A04",
+      "localizations" : [
+        {
+          "description" : "A product of ours that is not a language unlock. Exists only so a test can prove the adapter leaves transactions it does not handle unfinished (D-3).",
+          "displayName" : "Not A Language",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "arjunpathak.FullDeck.notALanguage",
+      "referenceName" : "Non-language product (test fixture)",
+      "type" : "NonConsumable"
     }
   ],
   "settings" : {

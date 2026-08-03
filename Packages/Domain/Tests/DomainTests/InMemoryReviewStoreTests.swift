@@ -38,20 +38,6 @@ func allStatesFiltersByLanguage() async throws {
     #expect(states.map(\.wordID) == [chat])
 }
 
-@Test("FR-10 InMemoryReviewStore progress counts learned, in-progress and total")
-func progressComputesFromMilestoneDates() async throws {
-    let store = InMemoryReviewStore()
-    let learned = ReviewState(
-        wordID: chat, firstReviewedDate: .distantPast, learnedDate: .distantPast)
-    let inProgress = ReviewState(wordID: noir, firstReviewedDate: .distantPast, learnedDate: nil)
-    try await store.save(learned)
-    try await store.save(inProgress)
-
-    let summary = try await store.progress(fr)
-
-    #expect(summary == ProgressSummary(wordsLearned: 1, wordsInProgress: 1, totalReviewed: 2))
-}
-
 struct FakeStoreError: Error, Equatable, Sendable {}
 
 @Test("NFR-10 an injected saveErrorOverride is thrown from save")

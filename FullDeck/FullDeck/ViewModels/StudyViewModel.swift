@@ -43,7 +43,11 @@ final class StudyViewModel {
     private let sessionBuilder: SessionBuilder
     private let speech: SpeechService
     private let clock: DayClock
-    private let newWordCap: Int
+    /// FR-4. A `var` so a settings change reaches an in-flight session's *next*
+    /// build without rebuilding the ViewModel — rebuilding would discard the
+    /// learner's place in the deck. `start()` reads it when assembling a queue,
+    /// so a change takes effect from the next session, never mid-deck.
+    var newWordCap: Int
 
     private var queue: [WordEntry] = []
     private var position = 0

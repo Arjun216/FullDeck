@@ -154,6 +154,16 @@ final class FullDeckUITests: XCTestCase {
         XCTAssertTrue(tabBar.buttons["Languages"].waitForExistence(timeout: 15))
         try performAudit(on: app)
 
+        // Settings — a whole screen the audit had never seen, carrying a
+        // Stepper, a Toggle and a Link, none of which any other screen uses.
+        let settings = app.buttons["Settings"]
+        XCTAssertTrue(settings.waitForExistence(timeout: 15))
+        settings.tap()
+        XCTAssertTrue(app.navigationBars["Settings"].waitForExistence(timeout: 10))
+        try performAudit(on: app)
+        app.navigationBars["Settings"].buttons.firstMatch.tap()
+        XCTAssertTrue(tabBar.buttons["Languages"].waitForExistence(timeout: 15))
+
         // The purchase sheet — a whole screen the audit had never seen, and the
         // one place the app asks for money. It reaches `unavailable` rather than
         // `ready` here: `xcodebuild test` from the command line gives the app no
@@ -192,6 +202,65 @@ final class FullDeckUITests: XCTestCase {
         try performAudit(on: app)
     }
 
+    /// NFR-4, NFR-5, NFR-6 on the two Study screens the audit had never seen
+    /// (C-3): the caught-up screen and the completion screen.
+    ///
+    /// They need opposite things. `caughtUp` is reachable organically — grade a
+    /// session to its end and nothing is due, because scheduling is day-granular
+    /// (L-1), so even a forgotten word returns tomorrow rather than in ten
+    /// minutes. That is what makes the loop below terminate.
+    @MainActor
+    func testNFR4NFR5NFR6AccessibilityAuditOnTheCaughtUpScreen() throws {
+        let app = XCUIApplication()
+        app.launch()
+
+        let french = frenchButton(in: app)
+        XCTAssertTrue(french.waitForExistence(timeout: 15))
+        french.tap()
+        app.tabBars.firstMatch.buttons["Study"].tap()
+
+        let caughtUp = app.staticTexts["You're caught up"]
+        let reveal = app.buttons["Reveal"]
+        // Bounded: the session is the day's due reviews plus at most N=10 new
+        // words, and other test methods in this run may have spent some of that
+        // cap already. 60 is far above any real session and still terminates.
+        for _ in 0..<60 where !caughtUp.exists {
+            guard reveal.waitForExistence(timeout: 15) else { break }
+            reveal.tap()
+            app.buttons["Knew it!"].tap()
+        }
+
+        XCTAssertTrue(
+            caughtUp.waitForExistence(timeout: 15),
+            "never reached the caught-up screen. Hierarchy:\n\(app.debugDescription)")
+        try performAudit(on: app)
+    }
+
+    /// The completion screen is the product's deliberate ending, and it was the
+    /// least-tested screen in the app. It cannot be reached by tapping: FR-11
+    /// needs every word in the pack to have met `L`, a 14-day interval, against
+    /// a 1000-word pack and a real clock. So this one launches the app with the
+    /// DEBUG-only fixture wiring in `AppDependencies`.
+    @MainActor
+    func testFR11AccessibilityAuditOnTheCompletionScreen() throws {
+        let app = XCUIApplication()
+        app.launchArguments = ["-uiTestAllWordsLearned"]
+        app.launch()
+
+        let french = frenchButton(in: app)
+        XCTAssertTrue(french.waitForExistence(timeout: 15))
+        french.tap()
+        app.tabBars.firstMatch.buttons["Study"].tap()
+
+        let ending = app.staticTexts["You've learned all the words in this language."]
+        XCTAssertTrue(
+            ending.waitForExistence(timeout: 15),
+            "the fixture did not produce the completion screen. Hierarchy:\n\(app.debugDescription)"
+        )
+        XCTAssertTrue(app.buttons["Add another language — $0.99"].exists)
+        try performAudit(on: app)
+    }
+
     /// NFR-12: the UI chrome resolves through the localization catalog — this
     /// is the "prove it, don't just wire it" step. Only the tab labels are
     /// checked; if the catalog resolves for these chrome strings it resolves
@@ -208,6 +277,37 @@ final class FullDeckUITests: XCTestCase {
             "Study tab did not render in Spanish. Hierarchy:\n\(app.debugDescription)")
         XCTAssertTrue(tabBar.buttons["Idiomas"].exists)
         XCTAssertTrue(tabBar.buttons["Progreso"].exists)
+    }
+
+    /// FR-16's acceptance is *reachability*, not content — a ViewModel test
+    /// cannot prove a screen can be got to. This is the half that was missing
+    /// as N-4, and the half a green traceability report claimed was covered.
+    @MainActor
+    func testFR16SettingsIsReachableFromLanguages() throws {
+        let app = XCUIApplication()
+        app.launch()
+
+        let tabBar = app.tabBars.firstMatch
+        XCTAssertTrue(tabBar.buttons["Languages"].waitForExistence(timeout: 15))
+
+        let settings = app.buttons["Settings"]
+        XCTAssertTrue(
+            settings.waitForExistence(timeout: 15),
+            "no Settings row on the Languages screen. Hierarchy:\n\(app.debugDescription)")
+        settings.tap()
+
+        XCTAssertTrue(
+            app.navigationBars["Settings"].waitForExistence(timeout: 10),
+            "Settings did not push its screen. Hierarchy:\n\(app.debugDescription)")
+
+        // The licence condition itself: the attribution has to be *visible*,
+        // not merely present in a pack file.
+        let attribution = app.staticTexts.containing(
+            NSPredicate(format: "label CONTAINS %@", "wordfreq")
+        ).firstMatch
+        XCTAssertTrue(
+            attribution.waitForExistence(timeout: 10),
+            "no wordfreq attribution on Settings. Hierarchy:\n\(app.debugDescription)")
     }
 }
 

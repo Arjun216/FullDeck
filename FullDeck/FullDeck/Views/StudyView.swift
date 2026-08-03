@@ -267,39 +267,66 @@ struct StudyView: View {
         ContentUnavailableView {
             Label("You're caught up", systemImage: "checkmark.circle")
         } description: {
-            if let nextDue {
-                Text("Next review \(nextDue.formatted(date: .abbreviated, time: .omitted)).")
-            } else {
-                Text("Nothing is due right now.")
+            Group {
+                if let nextDue {
+                    Text("Next review \(nextDue.formatted(date: .abbreviated, time: .omitted)).")
+                } else {
+                    Text("Nothing is due right now.")
+                }
             }
+            // NFR-6: `ContentUnavailableView` renders its description in
+            // `.secondary`, which falls under WCAG AA's 4.5:1 on the warm
+            // background — the identical finding `completionView` below already
+            // carries a fix for. It went unnoticed here because the system
+            // supplies the styling rather than this file, and because the audit
+            // could not reach this screen until C-3 was closed.
+            .foregroundStyle(Color.textPrimary)
         }
     }
 
     /// FR-11: the deliberate ending. The price is stated rather than hidden —
     /// concealing it would be the dark pattern. No summary statistics, no streak.
     private func completionView(_ nextDue: Date?) -> some View {
-        VStack(spacing: Spacing.md) {
-            Image(systemName: "checkmark.seal")
-                .font(.largeTitle)
-                .foregroundStyle(Color.textSecondary)
-            Text("You've learned all the words in this language.")
-                .font(.title2)
-                .multilineTextAlignment(.center)
-                .foregroundStyle(Color.textPrimary)
-            if let nextDue {
-                Text("Next review \(nextDue.formatted(date: .abbreviated, time: .omitted)).")
-                    .font(.body)
-                    // NFR-6: `.secondary` at normal (non-"large") text size
-                    // falls under WCAG AA's 4.5:1 threshold.
+        // NFR-5: same reason as `cardView` — at the largest Dynamic Type sizes
+        // this content exceeds the screen height and clips. The audit proved it
+        // as soon as the screen became reachable (C-3): with the fixed VStack it
+        // failed on the button first and on the next-review line after that.
+        ScrollView {
+            VStack(spacing: Spacing.md) {
+                Image(systemName: "checkmark.seal")
+                    .font(.largeTitle)
+                    .foregroundStyle(Color.textSecondary)
+                Text("You've learned all the words in this language.")
+                    .font(.title2)
+                    .multilineTextAlignment(.center)
                     .foregroundStyle(Color.textPrimary)
-            }
-            Button("Add another language — $0.99", action: onAddLanguage)
+                if let nextDue {
+                    Text("Next review \(nextDue.formatted(date: .abbreviated, time: .omitted)).")
+                        .font(.body)
+                        .multilineTextAlignment(.center)
+                        .fixedSize(horizontal: false, vertical: true)
+                        // NFR-6: `.secondary` at normal (non-"large") text size
+                        // falls under WCAG AA's 4.5:1 threshold.
+                        .foregroundStyle(Color.textPrimary)
+                }
+                Button(action: onAddLanguage) {
+                    // An explicit Text label rather than `Button("…")`: inside a
+                    // bordered button a string label stays on one line and gets
+                    // truncated, and this is the app's longest button label. A
+                    // ScrollView does not help — it gives vertical room, and
+                    // this clips horizontally. `fixedSize` vertically is what
+                    // lets it wrap to its ideal height instead.
+                    Text("Add another language — $0.99")
+                        .multilineTextAlignment(.center)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
                 .buttonStyle(.borderedProminent)
                 // NFR-6: same white-on-accent issue as the Reveal button.
                 .tint(Color.accentFill)
                 .accessibilityHint("Opens the languages list")
+            }
+            .padding()
+            .accessibilityElement(children: .contain)
         }
-        .padding()
-        .accessibilityElement(children: .contain)
     }
 }

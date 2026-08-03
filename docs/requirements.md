@@ -38,7 +38,20 @@ A session for the active language serves that language's due reviews plus new wo
 
 ### FR-4 — New-word daily cap (adjustable)
 At most `N` new words are introduced per calendar day for the active language. Due reviews are **never** capped. `N` is user-adjustable (default 10).
-**Acceptance:** With `N=k`, no more than `k` distinct new words appear across sessions in one day; due reviews beyond `k` still appear the same day. Changing `N` in settings takes effect for the next day's introductions.
+**Acceptance:** With `N=k`, no more than `k` distinct new words appear across sessions in one day; due reviews beyond `k` still appear the same day. Changing `N` takes effect from the next session; words already introduced today are never retracted.
+
+> **Amended 2026-08-02** (spec `2026-08-02-settings-and-about-design.md`,
+> Decision 7). Was "takes effect for the next day's introductions". Honouring
+> that literally needs a pending/active cap pair with an effective-from date,
+> to deliver worse behaviour: a learner who lowers the cap because today is too
+> much wants relief today. Consequence: lowering below what has already been
+> introduced today yields zero further new words today, since
+> `max(0, cap - introducedToday)` clamps at zero. Due reviews are never capped.
+>
+> The adjustability clause had no implementation at all until this date —
+> `SessionBuilder` and `StudyViewModel` both took `newWordCap`, and `ContentView`
+> never passed one. The cap-enforcement clause was well tested throughout, which
+> is why nothing caught it.
 
 ### FR-5 — Active recall
 A card does not reveal the answer until the learner has committed to an attempt; after reveal, the learner records a self-assessment (`G`) that feeds the scheduler. (Exact interaction — reveal-then-self-grade vs. selection/production — is chosen in Phase 8.)

@@ -124,10 +124,18 @@ nonisolated final class StoreKitPurchaseService: PurchaseService, EntitlementSto
     /// `revocationDate` is the *only* signal that removes one.
     private func record(_ transaction: StoreKit.Transaction) async {
         defer { publish() }
-        await transaction.finish()
+        // The guard comes before `finish()`, and must stay there. Finishing is a
+        // claim of responsibility — it tells StoreKit the transaction has been
+        // dealt with and stops it being re-delivered. Claiming that for a
+        // product we then ignore would, the day a second product type exists,
+        // consume its purchase in code that does nothing with it: money that
+        // vanishes. Leaving it unfinished is the honest answer — an unfinished
+        // transaction is one nobody has handled yet, and re-delivery is how a
+        // later version gets its chance.
         guard let code = ProductIdentifier.languageCode(from: transaction.productID) else {
-            return  // Someone else's product on the same account.
+            return  // Not a language unlock. Not ours to finish.
         }
+        await transaction.finish()
         unlocked.withLock {
             if transaction.revocationDate == nil {
                 _ = $0.insert(code)

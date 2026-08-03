@@ -42,6 +42,11 @@ public enum Grade: Sendable, CaseIterable {
 /// Everything the scheduler needs to know about one word, and everything it
 /// writes back. A value type: `schedule` returns a new state, never mutates.
 public struct ReviewState: Equatable, Sendable {
+    /// The ease every word starts at. `Scheduler` moves it by −0.20 on a lapse
+    /// and +0.05 on a pass, so a word *below* this value has been failed more
+    /// than it has since recovered — which is what FR-18 ranks by.
+    public static let startingEase = 2.5
+
     public let wordID: WordID
     /// SM-2 difficulty multiplier: higher = intervals grow faster.
     public var easeFactor: Double
@@ -61,7 +66,7 @@ public struct ReviewState: Equatable, Sendable {
     /// optional date and the branch that comes with it.
     public init(
         wordID: WordID,
-        easeFactor: Double = 2.5,
+        easeFactor: Double = ReviewState.startingEase,
         intervalDays: Int = 0,
         repetitions: Int = 0,
         nextReviewDate: Date = .distantPast,
