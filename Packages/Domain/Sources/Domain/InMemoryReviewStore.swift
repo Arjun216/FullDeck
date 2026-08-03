@@ -27,9 +27,4 @@ public actor InMemoryReviewStore: ReviewStore {
         statesByWord.values.filter { $0.wordID.languageCode == languageCode }
             .sorted { $0.wordID.rawValue < $1.wordID.rawValue }
     }
-
-    public func progress(_ languageCode: LanguageCode) async throws -> ProgressSummary {
-        let states = try await allStates(languageCode)
-        return ProgressSummary(states: states)
-    }
 }

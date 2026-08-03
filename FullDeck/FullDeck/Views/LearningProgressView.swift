@@ -23,12 +23,12 @@ struct LearningProgressView: View {
         switch viewModel.state {
         case .loading:
             ProgressView()
-        case .ready(let learned, let total):
+        case .ready(let snapshot):
             VStack(spacing: Spacing.sm) {
-                Text("\(learned)")
+                Text("\(snapshot.learned)")
                     .font(.system(size: countSize, weight: .semibold, design: .rounded))
                     .foregroundStyle(Color.textPrimary)
-                Text("of \(total) words learned")
+                Text("of \(snapshot.total) words learned")
                     .font(.title3)
                     .foregroundStyle(Color.textSecondary)
                 if viewModel.state.isComplete {
@@ -38,7 +38,7 @@ struct LearningProgressView: View {
                 }
             }
             .accessibilityElement(children: .combine)
-            .accessibilityLabel("\(learned) of \(total) words learned")
+            .accessibilityLabel("\(snapshot.learned) of \(snapshot.total) words learned")
         case .failed(let message):
             ErrorStateView(message: message)
         }

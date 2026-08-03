@@ -119,13 +119,18 @@ func gradesPersistAcrossRelaunch() async throws {
     // "Relaunch": a brand-new ViewModel over the same store.
     let progress = ProgressViewModel(
         languageCode: LanguageCode("fr"), packStore: dependencies.packStore,
-        reviewStore: dependencies.reviewStore)
+        reviewStore: dependencies.reviewStore, clock: FixedDayClock(today: day0))
     await progress.load()
 
     let states = try await dependencies.reviewStore.allStates(LanguageCode("fr"))
     #expect(states.count == 3)
     #expect(states.allSatisfy { $0.firstReviewedDate == day0 })
-    #expect(progress.state == .ready(learned: 0, total: 5))
+    guard case .ready(let snapshot) = progress.state else {
+        Issue.record("expected a ready state, got \(progress.state)")
+        return
+    }
+    #expect(snapshot.learned == 0)
+    #expect(snapshot.total == 5)
 }
 
 @Test("FR-11 a pack studied to the learned threshold reaches the completion state")
@@ -148,9 +153,14 @@ func studyingToThresholdReachesCompletion() async throws {
 
     let progress = ProgressViewModel(
         languageCode: LanguageCode("fr"), packStore: dependencies.packStore,
-        reviewStore: dependencies.reviewStore)
+        reviewStore: dependencies.reviewStore, clock: FixedDayClock(today: day(7)))
     await progress.load()
-    #expect(progress.state == .ready(learned: 3, total: 3))
+    guard case .ready(let snapshot) = progress.state else {
+        Issue.record("expected a ready state, got \(progress.state)")
+        return
+    }
+    #expect(snapshot.learned == 3)
+    #expect(snapshot.total == 3)
     #expect(progress.state.isComplete)
 
     let afterwards = makeStudy(dependencies, today: day(8), newWordCap: 3)
@@ -182,7 +192,7 @@ func missingPackSurfacesFailedStateEndToEnd() async throws {
 
     let progress = ProgressViewModel(
         languageCode: LanguageCode("fr"), packStore: dependencies.packStore,
-        reviewStore: dependencies.reviewStore)
+        reviewStore: dependencies.reviewStore, clock: FixedDayClock(today: day0))
     await progress.load()
 
     #expect(

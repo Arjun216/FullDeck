@@ -86,7 +86,7 @@ struct ContentView: View {
             newWordCap: settingsViewModel.newWordsPerDay)
         progressViewModel = ProgressViewModel(
             languageCode: language, packStore: dependencies.packStore,
-            reviewStore: dependencies.reviewStore)
+            reviewStore: dependencies.reviewStore, clock: dependencies.clock)
     }
 
     @ViewBuilder

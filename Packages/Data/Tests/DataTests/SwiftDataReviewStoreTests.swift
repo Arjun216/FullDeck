@@ -57,28 +57,6 @@ func allStatesFiltersByLanguage() async throws {
     #expect(states.map(\.wordID) == [chat])
 }
 
-@Test("FR-10 progress counts learned and in-progress words from milestone dates")
-func progressComputesFromMilestoneDates() async throws {
-    let store = SwiftDataReviewStore(modelContainer: try makeContainer())
-    try await store.save(
-        ReviewState(wordID: chat, firstReviewedDate: .distantPast, learnedDate: .distantPast))
-    try await store.save(
-        ReviewState(wordID: noir, firstReviewedDate: .distantPast, learnedDate: nil))
-
-    let summary = try await store.progress(fr)
-
-    #expect(summary == ProgressSummary(wordsLearned: 1, wordsInProgress: 1, totalReviewed: 2))
-}
-
-@Test("NFR-10 progress for a language with no saved state is all zeros")
-func progressForEmptyLanguageIsZero() async throws {
-    let store = SwiftDataReviewStore(modelContainer: try makeContainer())
-
-    let summary = try await store.progress(fr)
-
-    #expect(summary == ProgressSummary(wordsLearned: 0, wordsInProgress: 0, totalReviewed: 0))
-}
-
 @Test("migration smoke test: the model container initializes cleanly for the current schema")
 func modelContainerInitializesCleanly() throws {
     _ = try makeContainer()

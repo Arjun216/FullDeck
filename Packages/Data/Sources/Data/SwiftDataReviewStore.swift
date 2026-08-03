@@ -36,11 +36,6 @@ public actor SwiftDataReviewStore: ReviewStore {
         return try modelContext.fetch(descriptor).map(Self.toDomain)
     }
 
-    public func progress(_ languageCode: LanguageCode) async throws -> ProgressSummary {
-        let states = try await allStates(languageCode)
-        return ProgressSummary(states: states)
-    }
-
     private static func toDomain(_ persisted: PersistentReviewState) -> ReviewState {
         ReviewState(
             wordID: WordID(persisted.wordID),
