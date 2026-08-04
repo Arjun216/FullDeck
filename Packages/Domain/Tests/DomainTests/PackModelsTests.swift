@@ -103,12 +103,3 @@ func packDescriptorRoundTrip() {
     #expect(descriptor.filename == "fr.pack.json")
     #expect(descriptor.unlockedByDefault)
 }
-
-@Test("ProgressSummary round-trips through its initializer")
-func progressSummaryRoundTrip() {
-    let summary = ProgressSummary(wordsLearned: 100, wordsInProgress: 50, totalReviewed: 150)
-
-    #expect(summary.wordsLearned == 100)
-    #expect(summary.wordsInProgress == 50)
-    #expect(summary.totalReviewed == 150)
-}

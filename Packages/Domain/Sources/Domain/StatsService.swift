@@ -94,6 +94,13 @@ public struct StatsService: Sendable {
     }
 }
 
+extension Array where Element == ReviewState {
+    /// FR-10's hero number and FR-11's completion verdict, derived from the
+    /// sticky `learnedDate` and nothing else — the same milestone the trend is
+    /// reconstructed from, so the count and the curve cannot disagree.
+    public var learnedCount: Int { lazy.filter { $0.learnedDate != nil }.count }
+}
+
 extension Array where Element == TrendPoint {
     /// FR-17's acceptance sentence, read off the series rather than recomputed
     /// from the states — one derivation, so the number and the curve cannot

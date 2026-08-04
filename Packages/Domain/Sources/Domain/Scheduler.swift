@@ -40,7 +40,15 @@ public struct Scheduler: Sendable {
             case .forgot: -0.20
             case .recalled: 0.05
             }
-        next.easeFactor = (state.easeFactor + easeDelta).clamped(to: Self.easeRange)
+        // Rounded to the two decimals the delta table is written in. Neither 0.05
+        // nor 0.20 is representable in binary, so an unrounded lapse plus four
+        // passes lands on 2.499999999999999 rather than back on `startingEase` —
+        // and every consumer comparing ease against a literal (FR-18 ranks the
+        // hardest words by exactly that) reads a recovered word as still failing.
+        // Rounded here, where the value is produced, rather than tolerated at
+        // each comparison.
+        let ease = (state.easeFactor + easeDelta).clamped(to: Self.easeRange)
+        next.easeFactor = (ease * 100).rounded() / 100
         // Reset-on-failure (FR-8): a lapse sends the word back to the bottom of
         // the ladder — tomorrow, and the fixed steps again from there.
         next.repetitions = grade == .forgot ? 0 : state.repetitions + 1

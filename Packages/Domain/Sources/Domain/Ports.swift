@@ -1,30 +1,5 @@
 import Foundation
 
-public struct ProgressSummary: Equatable, Sendable {
-    public let wordsLearned: Int
-    public let wordsInProgress: Int
-    public let totalReviewed: Int
-
-    public init(wordsLearned: Int, wordsInProgress: Int, totalReviewed: Int) {
-        self.wordsLearned = wordsLearned
-        self.wordsInProgress = wordsInProgress
-        self.totalReviewed = totalReviewed
-    }
-}
-
-extension ProgressSummary {
-    /// Classifies a set of review states into learned/in-progress/total, purely
-    /// from their milestone dates (`learnedDate`/`firstReviewedDate`).
-    public init(states: [ReviewState]) {
-        let learned = states.filter { $0.learnedDate != nil }.count
-        let inProgress = states.filter { $0.firstReviewedDate != nil && $0.learnedDate == nil }
-            .count
-        self.init(
-            wordsLearned: learned, wordsInProgress: inProgress,
-            totalReviewed: learned + inProgress)
-    }
-}
-
 /// Read-only bundled content. Adapter: `JSONPackStore` (Phase 7, JSON+Codable, ADR-004).
 public protocol PackStore: Sendable {
     func availablePacks() async throws -> [PackDescriptor]

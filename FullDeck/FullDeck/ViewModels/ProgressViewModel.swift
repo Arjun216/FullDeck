@@ -58,7 +58,7 @@ final class ProgressViewModel {
             let states = try await reviewStore.allStates(languageCode)
             state = .ready(
                 Snapshot(
-                    learned: ProgressSummary(states: states).wordsLearned,
+                    learned: states.learnedCount,
                     total: pack.wordCount,
                     trend: stats.trend(states: states, today: clock.today),
                     hardest: stats.hardestWords(

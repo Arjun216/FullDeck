@@ -164,7 +164,7 @@ final class StudyViewModel {
             // Only reachable with an empty queue — if a review is due, the card shows.
             let nextDue = nextDueDate()
             state =
-                wordCount > 0 && ProgressSummary(states: states).wordsLearned == wordCount
+                wordCount > 0 && states.learnedCount == wordCount
                 ? .complete(nextDue: nextDue)
                 : .caughtUp(nextDue: nextDue)
             return

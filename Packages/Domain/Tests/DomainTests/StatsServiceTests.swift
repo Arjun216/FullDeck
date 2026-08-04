@@ -61,6 +61,24 @@ func neverFailedWordIsNotSurfaced() {
     #expect(ranked.isEmpty)
 }
 
+@Test("FR-18 a word recovered through real Scheduler passes drops off the list")
+func recoveredWordDropsOffTheList() {
+    let recovered = word("chat", rank: 1)
+    let deck = pack([recovered])
+    let scheduler = Scheduler()
+    // Graded through `Scheduler` rather than written as an ease literal: the
+    // arithmetic *is* what is under test. One lapse (−0.20) plus four passes
+    // (+0.05) is the exact case the doc comment on `hardestWords` promises
+    // drops off, and the only case where binary rounding can break that promise.
+    var state = ReviewState(wordID: recovered.id)
+    state = scheduler.schedule(state, grade: .forgot, today: day(0))
+    for offset in 1...4 {
+        state = scheduler.schedule(state, grade: .recalled, today: day(offset))
+    }
+
+    #expect(StatsService().hardestWords(in: deck, states: [state], limit: 5).isEmpty)
+}
+
 @Test("FR-18 equal ease factors order by rank, deterministically")
 func equalEaseOrdersByRank() {
     let later = word("chien", rank: 9)
@@ -94,6 +112,18 @@ func hardestWordsHonoursTheLimit() {
     }
 
     #expect(StatsService().hardestWords(in: deck, states: states, limit: 5).count == 5)
+}
+
+@Test("FR-10 the learned count counts milestones, not words merely started")
+func learnedCountCountsMilestones() {
+    let states = [
+        ReviewState(
+            wordID: word("chat", rank: 1).id, firstReviewedDate: day(0), learnedDate: day(4)),
+        ReviewState(wordID: word("chien", rank: 2).id, firstReviewedDate: day(1), learnedDate: nil),
+        ReviewState(wordID: word("cheval", rank: 3).id),
+    ]
+
+    #expect(states.learnedCount == 1)
 }
 
 @Test("FR-17 cumulative counts at a past date match the milestones")
