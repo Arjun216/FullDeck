@@ -18,6 +18,42 @@ func startPresentsTheFirstCard() async {
                     entry: pack.words[0], isRevealed: false, index: 1, total: 2)))
 }
 
+@Test("FR-4 a changed new-word cap takes effect on the next session")
+@MainActor
+func changedCapTakesEffectOnTheNextSession() async {
+    let pack = frPack((1...6).map { entry("mot\($0)", rank: $0) })
+    let viewModel = makeStudyViewModel(pack: pack, newWordCap: 1)
+
+    await viewModel.start()
+    guard case .card(let firstSession) = viewModel.state else {
+        Issue.record("expected a card, got \(viewModel.state)")
+        return
+    }
+    #expect(firstSession.total == 1)
+
+    // Finish the session: `start()` deliberately no-ops while a card is
+    // showing, so a cap edit lands on the *next* session and never rebuilds the
+    // deck under the learner.
+    viewModel.reveal()
+    await viewModel.grade(.recalled)
+
+    // What the Settings screen does: the preference is written there and
+    // `ContentView` pushes it onto the live ViewModel. Every other cap test
+    // passes the value at construction — one layer below the wiring whose
+    // absence *was* FR-4's bug.
+    viewModel.newWordCap = 5
+    await viewModel.start()
+
+    guard case .card(let secondSession) = viewModel.state else {
+        Issue.record("expected a card, got \(viewModel.state)")
+        return
+    }
+    // Four, not five: the word graded above was introduced today and counts
+    // against the same day's cap (FR-4). The graded word itself is due
+    // tomorrow, so it is not back in this queue.
+    #expect(secondSession.total == 4)
+}
+
 @Test("FR-5 a freshly presented card hides its answer")
 @MainActor
 func freshCardHidesTheAnswer() async {
