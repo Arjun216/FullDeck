@@ -17,6 +17,16 @@ Start from [`known-issues.md`](known-issues.md) and reference its IDs rather tha
 re-deriving the list.
 **Model:** Sonnet 5.
 
+**Review fixes landed 2026-08-04** on `fix/n-block-review`: the six Important
+findings from the N-block code review. Two changed behaviour rather than tests —
+`Scheduler` now rounds ease to two decimals (a recovered word was staying on
+FR-18's list, off by 1e-15), and the reminder writes are ordered instead of one
+loose `Task` per `DatePicker` tick. `ProgressSummary` is gone in favour of
+`[ReviewState].learnedCount`. **The audit *does* reach the trend chart** once a
+machine has studied on two days, and found four real defects on it — C-7 is
+corrected in `known-issues.md`, and its `#if DEBUG` fixture is now about
+determinism, not reach.
+
 **The N-block is complete (2026-08-02).** Part B shipped on branch
 `feat/progress-trend-and-hardest-words`, stacked on `feat/settings-and-about`:
 FR-17's trend and FR-18's hardest words, both on `StatsService` — the type
