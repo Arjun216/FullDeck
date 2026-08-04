@@ -18,6 +18,11 @@ struct SettingsView: View {
     /// `refreshAuthorization()` itself and cannot know whether anything else does.
     @Environment(\.scenePhase) private var scenePhase
 
+    /// Hoisted out of the condition purely to keep the `if` on one line —
+    /// SwiftLint's `opening_brace` and `swift format` disagree about wrapped
+    /// conditions, and SwiftLint is the gate (CLAUDE.md).
+    private static let systemSettings = URL(string: UIApplication.openSettingsURLString)
+
     var body: some View {
         Form {
             Section {
@@ -42,7 +47,10 @@ struct SettingsView: View {
                 if let note = viewModel.permissionNote {
                     Text(note)
                         .foregroundStyle(Color.textSecondary)
-                    if let url = URL(string: UIApplication.openSettingsURLString) {
+                    // Only for a denial. A scheduling failure is retryable here,
+                    // and sending the learner to iOS Settings to fix nothing is
+                    // worse than saying nothing.
+                    if viewModel.noteCause == .permissionDenied, let url = Self.systemSettings {
                         // Same contrast substitution as the licence link. The
                         // audit never reached this one — it only renders once
                         // permission is denied — so it would have shipped

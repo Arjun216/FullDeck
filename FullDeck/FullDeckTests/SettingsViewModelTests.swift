@@ -12,7 +12,7 @@ private func emptyDefaults() -> UserDefaults {
 
 @MainActor
 private func makeSettingsViewModel(
-    notifications: FakeNotificationScheduler = FakeNotificationScheduler(),
+    notifications: NotificationScheduler = FakeNotificationScheduler(),
     defaults: UserDefaults = emptyDefaults()
 ) -> SettingsViewModel {
     SettingsViewModel(defaults: defaults, notifications: notifications)
@@ -75,7 +75,7 @@ func deniedPromptRevertsTheToggle() async {
     await viewModel.setReminder(on: true)
 
     #expect(!viewModel.isReminderOn)
-    #expect(viewModel.permissionNote != nil)
+    #expect(viewModel.noteCause == .permissionDenied)
     #expect(notifications.scheduled.isEmpty)
 }
 
@@ -90,7 +90,7 @@ func alreadyDeniedDoesNotPromptAgain() async {
 
     #expect(notifications.promptCount == 0)
     #expect(!viewModel.isReminderOn)
-    #expect(viewModel.permissionNote != nil)
+    #expect(viewModel.noteCause == .permissionDenied)
 }
 
 @Test("FR-13 disabling cancels the scheduled reminder")
@@ -121,6 +121,84 @@ func changingTimeReschedules() async {
     #expect(notifications.scheduled.last?.minute == 30)
 }
 
+/// Suspends inside `cancelDailyReminder()` until the test releases it, so a
+/// second write is guaranteed to arrive while the first is still in flight —
+/// the `GatedPackStore` trick from the language-selection suite, applied to the
+/// one hazard a `DatePicker` creates by writing continuously as the wheel turns.
+/// `@unchecked Sendable` for the same reason `FakeNotificationScheduler` is: the
+/// protocol is nonisolated, and every call here comes from the one ViewModel.
+private final class GatedNotificationScheduler: NotificationScheduler, @unchecked Sendable {
+    enum Operation: Equatable {
+        case cancel
+        case schedule(hour: Int)
+    }
+
+    private(set) var log: [Operation] = []
+    private var gateArmed = false
+    private var gateHit = false
+    private var gate: CheckedContinuation<Void, Never>?
+    private var arrival: CheckedContinuation<Void, Never>?
+
+    func armGate() { gateArmed = true }
+
+    /// Returns once the gated call has actually suspended. No sleeps, and it
+    /// works whichever of the two gets there first.
+    func waitUntilGated() async {
+        if gateHit { return }
+        await withCheckedContinuation { arrival = $0 }
+    }
+
+    func release() {
+        gate?.resume()
+        gate = nil
+    }
+
+    func authorizationStatus() async -> ReminderAuthorization { .authorized }
+    func requestAuthorization() async throws -> ReminderAuthorization { .authorized }
+
+    func scheduleDailyReminder(hour: Int, minute: Int) async throws {
+        log.append(.schedule(hour: hour))
+    }
+
+    func cancelDailyReminder() async {
+        log.append(.cancel)
+        guard gateArmed else { return }
+        gateArmed = false
+        await withCheckedContinuation { continuation in
+            gate = continuation
+            gateHit = true
+            arrival?.resume()
+            arrival = nil
+        }
+    }
+}
+
+@Test("FR-13 overlapping reminder writes are applied in order, never interleaved")
+@MainActor
+func overlappingRemindersAreSerialized() async {
+    let notifications = GatedNotificationScheduler()
+    let viewModel = makeSettingsViewModel(notifications: notifications)
+    await viewModel.setReminder(on: true)
+
+    notifications.armGate()
+    let first = Task { await viewModel.setReminderTime(hour: 7, minute: 0) }
+    await notifications.waitUntilGated()
+    let second = Task { await viewModel.setReminderTime(hour: 8, minute: 0) }
+    // Every chance to reach the scheduler while the first write is stuck:
+    // unordered, that is exactly what a spun wheel does, and the reminder ends
+    // up at 7 — the time the learner just scrolled past.
+    for _ in 0..<5 { await Task.yield() }
+    notifications.release()
+    _ = await first.result
+    _ = await second.result
+
+    #expect(
+        notifications.log == [
+            .schedule(hour: SettingsViewModel.defaultReminderHour),
+            .cancel, .schedule(hour: 7), .cancel, .schedule(hour: 8),
+        ])
+}
+
 @Test("FR-13 permission revoked outside the app turns the toggle off on next appearance")
 @MainActor
 func revokedPermissionReconcilesOnAppearance() async {
@@ -134,7 +212,7 @@ func revokedPermissionReconcilesOnAppearance() async {
     await viewModel.refreshAuthorization()
 
     #expect(!viewModel.isReminderOn)
-    #expect(viewModel.permissionNote != nil)
+    #expect(viewModel.noteCause == .permissionDenied)
     #expect(notifications.cancelCount == 1)
 }
 
@@ -148,5 +226,22 @@ func schedulingFailureIsReported() async {
     await viewModel.setReminder(on: true)
 
     #expect(!viewModel.isReminderOn)
+    // Not `!= nil`: the whole point of the cause is that a retryable failure and
+    // a permanent denial stay apart, and only a typed assertion can catch them
+    // collapsing back into one.
+    #expect(viewModel.noteCause == .temporaryFailure)
     #expect(viewModel.permissionNote != nil)
+}
+
+@Test("NFR-10 a failed permission request surfaces as retryable, not as a denial")
+@MainActor
+func failedRequestIsRetryable() async {
+    let notifications = FakeNotificationScheduler()
+    notifications.requestError = FakeStoreError()
+    let viewModel = makeSettingsViewModel(notifications: notifications)
+
+    await viewModel.setReminder(on: true)
+
+    #expect(!viewModel.isReminderOn)
+    #expect(viewModel.noteCause == .temporaryFailure)
 }
