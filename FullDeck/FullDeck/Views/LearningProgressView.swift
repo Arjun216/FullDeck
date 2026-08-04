@@ -91,20 +91,56 @@ struct LearningProgressView: View {
             // Axis labels are *text*, so they need 4.5:1, and SwiftUI's default
             // axis grey does not clear it on this background — the same defect
             // C-6 caught on the Settings section headers, one screen over.
+            // `.font(.caption)`, not the Charts default: the default is a fixed
+            // size that ignores Dynamic Type, which the audit reports as
+            // "Potentially inaccessible text" once the chart is actually on
+            // screen. A text style scales with the user's setting.
             .chartXAxis {
-                AxisMarks { AxisValueLabel().foregroundStyle(Color.textSecondary) }
+                AxisMarks {
+                    AxisValueLabel().font(.caption).foregroundStyle(Color.textSecondary)
+                }
             }
             .chartYAxis {
-                AxisMarks { AxisValueLabel().foregroundStyle(Color.textSecondary) }
+                AxisMarks {
+                    AxisValueLabel().font(.caption).foregroundStyle(Color.textSecondary)
+                }
             }
             .frame(height: chartHeight)
-            // One label, not hundreds of marks. VoiceOver reading a per-day
-            // series individually is worse than silence, and these numbers are
-            // FR-17's own acceptance sentence.
-            .accessibilityElement(children: .ignore)
-            .accessibilityLabel(
-                "\(series.learnedInLast(7)) words learned in the last 7 days, "
-                    + "\(series.learnedInLast(30)) in the last 30")
+            legend
+        }
+        // One label for the whole section, not hundreds of marks and not a
+        // separate node per legend swatch. VoiceOver reading a per-day series
+        // individually is worse than silence; a caption-height legend of its own
+        // is smaller than the audit's minimum hit area; and these numbers are
+        // FR-17's own acceptance sentence.
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(
+            "Over time. Two lines: words started, and words learned. "
+                + "\(series.learnedInLast(7)) words learned in the last 7 days, "
+                + "\(series.learnedInLast(30)) in the last 30")
+    }
+
+    /// Written by hand rather than left to `chartLegend`: two lines told apart
+    /// by colour alone fail WCAG 1.4.1, and Charts' own legend draws its labels
+    /// in a system grey that the audit reported as "Contrast nearly passed" on
+    /// this background — with no API to restyle it.
+    ///
+    /// Carries no accessibility modifiers of its own: it is folded into the
+    /// section's single element above, because `accessibilityHidden` leaves text
+    /// the accessibility API cannot see and a standalone element is smaller than
+    /// the minimum hit area — both of which the audit reports.
+    private var legend: some View {
+        HStack(spacing: Spacing.md) {
+            legendKey("Started", color: .textSecondary)
+            legendKey("Learned", color: .accentFill)
+        }
+        .font(.caption)
+    }
+
+    private func legendKey(_ label: LocalizedStringKey, color: Color) -> some View {
+        HStack(spacing: Spacing.xs) {
+            Capsule().fill(color).frame(width: 16, height: 3)
+            Text(label).foregroundStyle(Color.textSecondary)
         }
     }
 

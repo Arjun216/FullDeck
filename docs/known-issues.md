@@ -729,6 +729,17 @@ and the chart's colours were chosen against the audit's own thresholds up front
 (Decision 6) rather than corrected after a failure. Neither is a substitute for
 the audit having seen it.
 
+**Correction, 2026-08-04.** "The audit cannot reach it" was wrong on the second
+count. The UI tests share one on-disk store across methods *and across runs*, so
+once a machine's simulator has been studied on two calendar days the trend does
+render, and the hardest-word list fills from other methods' grading. Fixing the
+review findings on this screen produced four consecutive audit failures on the
+chart — legend contrast, non-Dynamic-Type axis labels, text hidden from the
+accessibility API, and a hit area under 44pt — all real, none of which any local
+green had shown. So the coverage is worse than absent: it is *incidental*, and it
+turned green or red depending on how much the machine had studied. The `#if DEBUG`
+fixture is still the fix, and now for the stated reason — determinism, not reach.
+
 **Where:** [LearningProgressView.swift](../FullDeck/FullDeck/Views/LearningProgressView.swift),
 [FullDeckUITests.swift:197](../FullDeck/FullDeckUITests/FullDeckUITests.swift:197)
 
