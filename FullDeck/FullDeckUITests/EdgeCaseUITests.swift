@@ -71,6 +71,11 @@ final class EdgeCaseUITests: XCTestCase {
     @MainActor
     func testFR9AStudySessionSurvivesBeingBackgrounded() throws {
         let app = XCUIApplication()
+        // C-8: without a fixture this asserts on the shared on-disk session,
+        // which whichever tests ran earlier may already have spent — and "no
+        // card on screen" then reads as a broken app rather than as an empty
+        // deck. In-memory, twenty words, full session on every launch.
+        app.launchArguments = ["-uiTestFreshSession"]
         app.launch()
 
         let french = frenchButton(in: app)
@@ -89,7 +94,11 @@ final class EdgeCaseUITests: XCTestCase {
         // the resumption path specifically.
         app.activate()
 
-        XCTAssertEqual(app.state, .runningForeground)
+        // No assertion on `app.state`. One was here and it flaked: `activate()`
+        // can return while the app is still `runningForegroundInactive`, so the
+        // equality was racing the scene transition rather than testing anything.
+        // The card query below is the real evidence — it cannot succeed unless
+        // the app came back *and* rendered.
         let after = app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH %@", "Card "))
             .firstMatch
         XCTAssertTrue(after.waitForExistence(timeout: 15))
@@ -111,6 +120,9 @@ final class EdgeCaseUITests: XCTestCase {
         app.launchArguments = [
             "-UIPreferredContentSizeCategoryName",
             "UICTContentSizeCategoryAccessibilityExtraExtraExtraLarge",
+            // C-8, same reason as the backgrounding test: this one needs a card
+            // on screen to audit, and the shared session may have none left.
+            "-uiTestFreshSession",
         ]
         app.launch()
 

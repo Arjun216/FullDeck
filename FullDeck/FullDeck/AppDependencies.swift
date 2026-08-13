@@ -64,6 +64,56 @@ struct AppDependencies {
         /// Selects `unreadablePackFixture()`. Same guarding as its sibling.
         static let unreadablePackFixtureArgument = "-uiTestUnreadablePack"
 
+        /// Selects `freshSessionFixture()`. Same guarding again.
+        static let freshSessionFixtureArgument = "-uiTestFreshSession"
+
+        /// A guaranteed full study session, in memory (C-8).
+        ///
+        /// The UI tests share one on-disk store — across methods *and across
+        /// runs on the same machine* — so "is there a card on the Study screen"
+        /// depends on how much that simulator has already been studied. Two
+        /// Phase 13 tests that assume a card failed for exactly that reason
+        /// after the performance suite had spent the day's session, and the
+        /// failure reads as a broken app rather than as an exhausted fixture.
+        ///
+        /// Twenty words and no review state, so every launch offers a full
+        /// session and nothing carries over. Any test whose subject is *the
+        /// card* rather than *persistence* should use this.
+        private static func freshSessionFixture() -> AppDependencies? {
+            guard ProcessInfo.processInfo.arguments.contains(freshSessionFixtureArgument)
+            else { return nil }
+
+            let code = LanguageCode("fr")
+            let words = (1...20).map { rank in
+                WordEntry(
+                    id: WordID("fr:mot\(rank):NOUN"), lemma: "mot\(rank)",
+                    display: "mot\(rank)", pos: .noun, rank: rank, register: .neutral,
+                    isFunctionWord: false, gloss: "word \(rank)",
+                    example: "Voici le mot\(rank).", aliases: [])
+            }
+            let pack = LanguagePack(
+                schemaVersion: 1, packVersion: "1.0.0", languageCode: code,
+                languageName: "Français", baseLanguage: "en", wordCount: words.count,
+                source: PackSource(
+                    name: "wordfreq", license: "CC-BY-SA 4.0",
+                    attribution: "wordfreq contributors"),
+                words: words)
+
+            return AppDependencies(
+                packStore: InMemoryPackStore(
+                    descriptors: [
+                        PackDescriptor(
+                            languageCode: code, displayName: "Français",
+                            filename: "fr.pack.json", unlockedByDefault: true)
+                    ],
+                    packs: [code: pack]),
+                // Empty, and in memory: nothing this test does outlives it.
+                reviewStore: InMemoryReviewStore(),
+                speech: AVSpeechService(), clock: SystemDayClock(),
+                entitlements: NoPurchasesEntitlementStore(), purchases: NoPurchasesService(),
+                notifications: NoNotificationScheduler())
+        }
+
         /// NFR-10's failure path, made reachable (Phase 13's edge-case matrix).
         ///
         /// The bundled packs are valid, so no sequence of taps reaches
@@ -155,6 +205,7 @@ struct AppDependencies {
         #if DEBUG
             if let fixture = allWordsLearnedFixture() { return fixture }
             if let fixture = unreadablePackFixture() { return fixture }
+            if let fixture = freshSessionFixture() { return fixture }
         #endif
         // One object behind both ports, so there is exactly one entitlement
         // cache rather than two that can disagree.
