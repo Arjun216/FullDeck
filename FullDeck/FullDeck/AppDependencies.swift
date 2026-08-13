@@ -61,6 +61,44 @@ struct AppDependencies {
         /// it; the app never sets it itself.
         static let allWordsLearnedFixtureArgument = "-uiTestAllWordsLearned"
 
+        /// Selects `unreadablePackFixture()`. Same guarding as its sibling.
+        static let unreadablePackFixtureArgument = "-uiTestUnreadablePack"
+
+        /// NFR-10's failure path, made reachable (Phase 13's edge-case matrix).
+        ///
+        /// The bundled packs are valid, so no sequence of taps reaches
+        /// `ErrorStateView` — the coverage review found it at **0%**, meaning the
+        /// screen the app shows when content is broken had never been rendered,
+        /// let alone audited. A corrupt file on a real device is not something a
+        /// test can arrange, so the store is arranged instead: the language is
+        /// listed, and loading it fails.
+        ///
+        /// `availablePacks()` deliberately still succeeds. An `errorOverride`
+        /// would fail that too, and then the learner never gets past "Choose a
+        /// language" — which exercises a different screen than the one this is
+        /// for.
+        private static func unreadablePackFixture() -> AppDependencies? {
+            guard ProcessInfo.processInfo.arguments.contains(unreadablePackFixtureArgument)
+            else { return nil }
+
+            let code = LanguageCode("fr")
+            return AppDependencies(
+                packStore: InMemoryPackStore(
+                    descriptors: [
+                        PackDescriptor(
+                            languageCode: code, displayName: "Français",
+                            filename: "fr.pack.json", unlockedByDefault: true)
+                    ],
+                    // No pack behind the descriptor, so `loadPack` throws
+                    // `.fileNotFound` — the same typed error a deleted or
+                    // unreadable file produces in `JSONPackStore`.
+                    packs: [:]),
+                reviewStore: InMemoryReviewStore(),
+                speech: AVSpeechService(), clock: SystemDayClock(),
+                entitlements: NoPurchasesEntitlementStore(), purchases: NoPurchasesService(),
+                notifications: NoNotificationScheduler())
+        }
+
         /// A UI-test-only wiring for a state the bundled packs cannot reach in a
         /// single run.
         ///
@@ -116,6 +154,7 @@ struct AppDependencies {
     static func live() throws -> AppDependencies {
         #if DEBUG
             if let fixture = allWordsLearnedFixture() { return fixture }
+            if let fixture = unreadablePackFixture() { return fixture }
         #endif
         // One object behind both ports, so there is exactly one entitlement
         // cache rather than two that can disagree.
