@@ -31,8 +31,14 @@ set -euo pipefail
 #   func testNFR4NFR5NFR6AccessibilityAudit()            XCTest, no hyphens
 names_in() {
   {
-    grep -ohE '@Test\("(FR|NFR)-[0-9]+' "$@" || true
-    grep -ohE '"""(FR|NFR)-[0-9]+' "$@" || true
+    # `((FR|NFR)-[0-9]+ ?)+` so a Swift Testing name can lead with more than one
+    # ID, which the XCTest spelling below has always allowed. One test really can
+    # be the evidence for two requirements — FR-9 "state is persisted" and
+    # NFR-11 "the grade made just before termination is not the one lost" are the
+    # same fact from two angles — and before this the second ID was silently
+    # invisible to the report.
+    grep -ohE '@Test\("((FR|NFR)-[0-9]+ ?)+' "$@" || true
+    grep -ohE '"""((FR|NFR)-[0-9]+ ?)+' "$@" || true
     # Every ID in the identifier, so one audit function can name three.
     grep -ohE 'func +test(FR|NFR)[0-9]+[A-Za-z0-9_]*' "$@" || true
   } 2>/dev/null |
@@ -50,6 +56,8 @@ self_test() {
 /// NFR-4, NFR-5, NFR-6: a doc comment must NOT count as naming anything.
 @Test("FR-8 failing grade resets the interval")
 func somethingElse() {}
+@Test("FR-9 NFR-11 two IDs at the front both count")
+func twoIDs() {}
 func testNFR4NFR5AccessibilityAudit() {}
 // FR-99 in a trailing comment must not count either.
 FIXTURE
@@ -60,7 +68,7 @@ FIXTURE
 
   local got want
   got=$(names_in "$dir/fixture.swift" "$dir/test_fixture.py" | tr '\n' ' ')
-  want="FR-16 FR-8 NFR-4 NFR-5 "
+  want="FR-16 FR-8 FR-9 NFR-11 NFR-4 NFR-5 "
   if [ "$got" != "$want" ]; then
     echo "x self-test: matcher returned [$got], expected [$want]"
     status=1
