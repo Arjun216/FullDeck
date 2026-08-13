@@ -112,6 +112,12 @@ jobs:
       # Reports which FR-/NFR- IDs still lack a naming test. Report only — never fails.
       - name: Requirements traceability (report only)
         run: scripts/trace-requirements.sh
+      # NFR-1 / NFR-7 / NFR-8 are claims about what the app cannot do, which no
+      # runtime test can establish — a run that made no network request has not
+      # shown that none is possible. A source and dependency audit can, and is
+      # what those requirements' acceptance criteria actually ask for.
+      - name: Privacy & offline audit
+        run: scripts/privacy-audit.sh
 
       # ---- Lint: SwiftLint in --strict mode (any violation fails) ----
       # Use the runner's preinstalled swiftlint if present, else install it.
@@ -167,13 +173,20 @@ jobs:
           echo "--- installed iOS runtimes ---"
           xcrun simctl list runtimes | grep -i ios || true
 
-          # The StoreKit adapter suite is excluded on purpose, not by accident:
-          # E-5 makes the first purchase in a process cost 91-324 s, which cannot
-          # sit in a per-push gate. It runs from .github/workflows/storekit-adapter.yml
-          # on demand instead.
+          # Two suites are excluded on purpose, not by accident:
+          #
+          # StoreKit adapter — E-5 makes the first purchase in a process cost
+          # 91-324 s, which cannot sit in a per-push gate. It runs from
+          # .github/workflows/storekit-adapter.yml on demand instead.
+          #
+          # PerformanceUITests — a shared runner is too noisy for NFR-3's 100 ms
+          # assertion, so gating it would produce flakes rather than signal
+          # (build-plan Phase 13 item 4 says so explicitly). Run it locally with
+          # scripts/measure-performance.sh; the numbers live in docs/test-plan.md.
           xcodebuild test \
             -project FullDeck/FullDeck.xcodeproj \
             -scheme FullDeck \
             -destination "platform=iOS Simulator,name=$DEVICE" \
             -skip-testing:FullDeckTests/StoreKitPurchaseServiceTests \
+            -skip-testing:FullDeckUITests/PerformanceUITests \
             CODE_SIGNING_ALLOWED=NO

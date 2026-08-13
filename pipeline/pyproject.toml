@@ -32,7 +32,7 @@ testpaths = ["tests"]
 # Coverage floor on the validator only (build-plan Phase 6.5): the checker is pure
 # logic and must not rot untested. No floor on the IO-heavy pipeline modules --
 # a % there would only invite tests written for the number.
-addopts = "--cov=packgen.validate --cov=packgen.rules --cov-report=term-missing --cov-fail-under=95"
+addopts = "--cov=packgen.validate --cov=packgen.rules --cov=packgen.review --cov-report=term-missing --cov-fail-under=95"
 
 [tool.ruff]
 line-length = 100

@@ -103,7 +103,11 @@ func bundledHindiPackIsLocked() async throws {
     #expect(viewModel.activeLanguage != LanguageCode("hi"))
 }
 
-@Test("FR-9 grades persist through the real store and survive a relaunch")
+// NFR-11 in the name as well as FR-9: the two say the same thing from different
+// angles — FR-9 that state is persisted, NFR-11 that a grade made immediately
+// before termination is not the one that gets lost — and this test is the
+// evidence for both. It was traceable to only one of them.
+@Test("FR-9 NFR-11 grades persist through the real store and survive a relaunch")
 @MainActor
 func gradesPersistAcrossRelaunch() async throws {
     let directory = try makeTempPacksDirectory(wordCount: 5)

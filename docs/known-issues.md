@@ -179,6 +179,36 @@ gained a cause assertion each rather than a new test appearing beside them.
 with the agreement, and should keep doing so — a log line only helps someone who
 thinks to look at the console.
 
+### D-6 · The error screen was unreadable, and nothing could reach it — FIXED 2026-08-04
+`ErrorStateView` is what all three top-level screens show when a pack fails to
+load. The bundled packs are valid, so **no sequence of taps could render it**: it
+sat at **0% coverage** and the accessibility audit had never seen it.
+
+Phase 13's coverage review found the 0%, a `-uiTestUnreadablePack` fixture made
+the screen reachable, and the audit then failed it **twice on the same node**:
+
+1. Its description rendered in the system `.secondary` — under 4.5:1 on the warm
+   `AppBackground`. This is the **fifth** appearance of a defect this codebase
+   has fixed four times (`caughtUpView`, the Settings headers via C-6, the
+   credits link, the completion screen via C-3), and the only one to reach
+   `main`.
+2. With the colour corrected it *still* reported "user will not be able to change
+   the font size of this SwiftUI.AccessibilityNode", and an explicit
+   `.font(.body)` did not move it.
+
+The screen is now four ordinary views rather than a `ContentUnavailableView`.
+`caughtUpView` uses the same component and passes, so this is not a verdict on
+the component — the difference appears to be a *runtime* `String` description
+rather than a literal. Chasing a system view's internals was the more expensive
+option.
+
+**Where:** [ErrorStateView.swift](../FullDeck/FullDeck/Views/ErrorStateView.swift)
+**Regression test:** `EdgeCaseUITests.testNFR5AccessibilityAuditOnTheErrorState`
+**What it teaches:** the same lesson as C-3 and C-6, for the third time. **A
+screen no test can reach is a screen with unknown defects, and the count so far
+is 3 screens, 6 defects, 0 found by reading.** The 0% line in a coverage table
+was the whole signal.
+
 ---
 
 ## U — Unverified
@@ -206,13 +236,28 @@ presentation) would not show up.
 **Phase 13:** add one CI destination on the oldest runtime available, or drop the
 claim to what is actually tested.
 
-### U-3 · NFR-2, cold launch ≤ 2.0 s — never measured
-Requirements name Phase 13 as the measurement point and an iPhone SE (3rd gen) /
-iPhone 12 class baseline. No number exists yet.
+### U-3 · NFR-2, cold launch ≤ 2.0 s — MEASURED 2026-08-04, and still unsettled
+**avg 2.07 s** (1.70–2.57, n=5) on an iPhone 17 simulator, Debug. Over the 2.0 s
+target on hardware faster than the baseline device, which is close enough to
+matter — but the instrument is not good enough to convict. A Release run
+produced *worse* numbers (avg 3.5 s) alongside a `CoreSimulator … server died`
+error, and the Debug spread alone is wider than the margin being measured.
 
-### U-4 · NFR-3, reveal and advance ≤ 100 ms, 60 fps — never measured
-Same as above. Note the swipe gesture and `@ScaledMetric` work landed after these
-targets were written, and neither has been profiled.
+**Unmeasured, not failed.** The acceptance measurement is a Release build on the
+device: `docs/test-plan.md` §6 step 11.
+
+### U-4 · NFR-3 — the logic half MEASURED 2026-08-04 and passing; frames still unmeasured
+**avg 1.87 ms** (0.61–8.46, n=10) for grade → persist → next card ready, against a
+100 ms target. Three orders of magnitude of headroom.
+`FullDeckTests/GradeLatencyTests`, in-process against a real on-disk store.
+
+Worth recording *why* it is not an XCUITest: one was, and reported 1.49 s, because
+`waitForExistence` polls on ~1 s intervals. **A 100 ms target is below XCUITest's
+resolution** — that test was measuring the runner.
+
+Still open: "no perceptible frame drops (target 60 fps)". That needs Instruments
+on a device (`docs/test-plan.md` §6 step 12), and the swipe gesture and
+`@ScaledMetric` work has never been profiled.
 
 ### U-5 · NFR-1 offline session — code-audited, not run
 The audit is genuinely strong: there is no networking code in the app target or
@@ -224,14 +269,33 @@ that could regress. The airplane-mode walkthrough still hasn't been done.
 The automated audit proves labels *exist*. It cannot judge whether they are
 *meaningful*, which is the actual requirement. Needs a device.
 
-### U-7 · NFR-5 at AX5 — automated only
-`performAccessibilityAudit()` catches clipping at large sizes on every push. The
-manual pass at the largest slider position hasn't happened.
+### U-7 · NFR-5 at AX5 — now audited *at* the size, 2026-08-04; the manual look is still owed
+Until Phase 13 the audits all ran at the default text size and relied on the
+"may be clipped at larger sizes" heuristic — a prediction, not an observation.
+`EdgeCaseUITests.testNFR5CoreScreensSurviveTheLargestAccessibilityTextSize`
+launches at `AccessibilityExtraExtraExtraLarge` and audits four screens for real.
+All four pass.
 
-### U-8 · The 1000 Hindi sentences have had a spot-check, not a read
-Spec decision D4 requires a human read before beta. French got one; Hindi has had
-sampling only. 1000 sentences.
-**This is a Phase 13 deliverable, and it is the largest single unit of human work left.**
+The manual pass at the largest slider position still hasn't happened, and the
+audit cannot judge whether a screen is *usable* at that size, only whether
+anything is clipped.
+
+### U-8 · Neither pack's sentences have had a human read — CORRECTED 2026-08-04
+This entry used to say "French got one; Hindi has had sampling only". **French had
+not.** Nothing in the repo recorded a French read, and `build-plan.md` schedules
+the ~100-sentence French spot-check *for Phase 13* — so the claim was wrong the
+day it was written. Left visible rather than quietly edited: an unverified
+assertion in the "unverified" section is exactly the thing this page exists to
+prevent.
+
+Spec decision D4 requires a human read before beta. Phase 13 built the tooling
+(`packgen sample` / `packgen review`, `docs/test-plan.md` §5) and drew the French
+sheet — `pipeline/work/fr/review/spot-check.csv`, **100 sentences, 0 verdicts
+recorded**. Hindi gets the same treatment from the same commands (`packgen sample
+hi`), and has not been drawn.
+
+**Still the largest single unit of human work left, and it needs a speaker of the
+language rather than an agent.**
 
 ### U-9 · The additive-only entitlement refresh cannot be tested before release
 `refreshEntitlements()` only ever adds; only an explicit `revocationDate` removes.
@@ -743,11 +807,22 @@ fixture is still the fix, and now for the stated reason — determinism, not rea
 **Where:** [LearningProgressView.swift](../FullDeck/FullDeck/Views/LearningProgressView.swift),
 [FullDeckUITests.swift:197](../FullDeck/FullDeckUITests/FullDeckUITests.swift:197)
 
-### C-5 · `UNNotificationScheduler` has no automated test — deliberate
+### C-5 · `UNNotificationScheduler` — the passthrough is still untested; the request is not, from 2026-08-04
 Every method is a direct passthrough to `UNUserNotificationCenter`. A unit test
 would assert that Apple's framework was called, which is not a fact about this
 app. The FR-13 state machine above it is covered against a fake; the adapter is
 covered by the manual device run recorded in N-1.
+
+**Amended by Phase 13.** The file was at 0% coverage, and "deliberate" was doing
+too much work: the *request* it builds is this app's contract, not Apple's. The
+constant identifier is the entire mechanism behind FR-13's "exactly one
+reminder", and `repeats: true` is what makes it daily — two fields, each one word
+away from a defect nobody would notice for a month. `reminderRequest(hour:minute:)`
+is now split out and has three tests (`FullDeckTests/ServiceAdapterTests`).
+
+Everything touching `UNUserNotificationCenter` remains untested, and the
+distinction is the point: not "this file is glue" but "these lines are glue, and
+those lines are ours".
 
 Same call as the thin half of `StoreKitPurchaseService`, and recorded here rather
 than left to look like coverage.
@@ -756,6 +831,28 @@ than left to look like coverage.
 reconciliation. Driving iOS Settings from XCUITest to revoke a permission is
 brittle enough that it would cost more reliability than it buys. Re-run it by
 hand when `SettingsView`'s lifecycle modifiers change.
+
+### C-8 · The UI tests share one on-disk store, and it makes timing tests order-dependent
+Not a new fact — C-7 already records that the shared store makes the Progress
+audit *incidental*. Phase 13 hit the same root cause from a different direction,
+so it is worth its own row.
+
+A card-advance performance test graded five cards per measured iteration. It
+passed when it ran early and **failed when it ran last**, because the earlier
+NFR-3 test had already spent the day's session and there were no cards left. The
+failure was "no Reveal button", which reads as a broken app rather than as an
+exhausted fixture.
+
+That test is gone for an unrelated and better reason (XCUITest cannot resolve
+100 ms at all — U-4), so nothing is broken today. The underlying hazard stands:
+**any XCUITest that consumes session state is coupled to every other method's
+grading, and to what previous runs on that machine left behind.** The fix is the
+same `#if DEBUG` fixture C-7 asks for.
+
+**Also closed here:** `ErrorStateView` was at 0% coverage and is now reachable
+via `-uiTestUnreadablePack`, which is what surfaced D-6. Three of the app's
+screens have now needed a launch-argument fixture to be testable at all
+(completion, error, and the trend chart still owes one).
 
 ---
 

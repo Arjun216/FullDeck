@@ -12,10 +12,34 @@ design), Opus earns its cost.
 
 ## Right now
 
-**Task:** Phase 13 — QA and the edge-case matrix, [`docs/test-plan.md`](test-plan.md).
-Start from [`known-issues.md`](known-issues.md) and reference its IDs rather than
-re-deriving the list.
-**Model:** Sonnet 5.
+**Task:** the six things in [`test-plan.md`](test-plan.md) §8 that need a person
+and a phone. **None of them is a code change**, and none can be done by an agent:
+a real purchase (U-1), a run on iOS 17.0 (U-2/NFR-9), the 100-sentence French
+read (D4 — the sheet is drawn and waiting at
+`pipeline/work/fr/review/spot-check.csv`), a VoiceOver walkthrough (NFR-4), the
+CI billing failure (E-6), and a cold-launch measurement on the device (NFR-2).
+
+After those: **Phase 14 — release engineering.**
+**Model:** Sonnet 5 for Phase 14; the six above are Arjun's.
+
+**Phase 13 landed 2026-08-04** on `qa/phase-13`. `docs/test-plan.md` is the
+artifact. Coverage: Domain 98.27%, Data 91.86%, pipeline 100%, app 87.60%.
+14 tests added, one real defect found and fixed (D-6 — the error screen was
+both unreadable *and* unreachable, and the second is why the first shipped).
+
+Four things from it worth not rediscovering:
+
+- **A 100 ms target is below XCUITest's resolution.** `waitForExistence` polls on
+  ~1 s intervals, so an XCUITest that times a UI transition reports ~1 s no
+  matter how fast the app is. NFR-3 is measured in-process instead
+  (`GradeLatencyTests`, 1.87 ms against a 100 ms target). Don't put it back.
+- **A 0% file in the coverage table is a screen nobody has looked at**, not a
+  number. That is now three screens, six defects, none found by reading.
+- **`packgen sample <lang>` / `packgen review <lang>`** do the D4 spot-check for
+  any language, seeded so the sample is reproducible. Hindi still needs its draw.
+- **NFR-2 is unmeasured, not failed.** 2.07 s on a simulator against a 2.0 s
+  target, with a spread wider than the margin — and a Release attempt that came
+  back worse alongside a `CoreSimulator … server died`. Only the device settles it.
 
 **Review fixes landed 2026-08-04** on `fix/n-block-review`: the six Important
 findings from the N-block code review. Two changed behaviour rather than tests —

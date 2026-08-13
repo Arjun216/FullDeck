@@ -30,7 +30,13 @@ nonisolated struct UNNotificationScheduler: NotificationScheduler {
         return granted ? .authorized : .denied
     }
 
-    func scheduleDailyReminder(hour: Int, minute: Int) async throws {
+    /// Split out of `scheduleDailyReminder` so it can be asserted on without a
+    /// notification centre. What it builds is *this app's* contract rather than
+    /// Apple's — the constant identifier is how FR-13's "exactly one reminder"
+    /// holds, and `repeats: true` is how it is daily rather than once. Both are
+    /// one word away from a defect that only shows up 24 hours later, on a real
+    /// device, which is the worst possible place to find it (Phase 13).
+    static func reminderRequest(hour: Int, minute: Int) -> UNNotificationRequest {
         let content = UNMutableNotificationContent()
         // Title only. A repeating local notification cannot know the due count
         // at fire time without background refresh (out of scope, §4), so any
@@ -39,10 +45,14 @@ nonisolated struct UNNotificationScheduler: NotificationScheduler {
         var components = DateComponents()
         components.hour = hour
         components.minute = minute
-        let request = UNNotificationRequest(
-            identifier: Self.reminderIdentifier, content: content,
+        return UNNotificationRequest(
+            identifier: reminderIdentifier, content: content,
             trigger: UNCalendarNotificationTrigger(dateMatching: components, repeats: true))
-        try await UNUserNotificationCenter.current().add(request)
+    }
+
+    func scheduleDailyReminder(hour: Int, minute: Int) async throws {
+        try await UNUserNotificationCenter.current()
+            .add(Self.reminderRequest(hour: hour, minute: minute))
     }
 
     func cancelDailyReminder() async {

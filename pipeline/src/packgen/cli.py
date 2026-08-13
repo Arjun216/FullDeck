@@ -29,9 +29,10 @@ import sys
 from datetime import date
 from pathlib import Path
 
+from packgen import review
 from packgen.analyze import UDPipeAnalyzer, download_model, make_analyzer
 from packgen.generate import assemble_pack, parse_response, render_prompt
-from packgen.validate import Profile, validate_pack
+from packgen.validate import Profile, Report, Violation, validate_pack
 from packgen.words import Candidate, build_candidates, suspicious_lemmas
 
 ROOT = Path(__file__).resolve().parents[2]  # pipeline/
@@ -85,6 +86,19 @@ def main(argv: list[str] | None = None) -> int:
         "--exceptions", type=Path, help=f"a {EXCEPTIONS} of documented §6 waivers"
     )
 
+    p_sample = sub.add_parser("sample", help="draw sentences for a human spot-check (spec D4)")
+    p_sample.add_argument("language")
+    p_sample.add_argument("--count", type=int, default=100)
+    p_sample.add_argument("--seed", type=int, default=13, help="same seed, same sample")
+    p_sample.add_argument(
+        "--force", action="store_true", help="overwrite a sheet that already has verdicts in it"
+    )
+
+    p_review = sub.add_parser("review", help="read back a filled-in spot-check sheet")
+    p_review.add_argument("language")
+    p_review.add_argument("--batch", type=int, default=50, help="must match `prompts --batch`")
+    p_review.add_argument("--sheet", type=Path, help="defaults to the sheet `sample` wrote")
+
     args = parser.parse_args(argv)
     return {
         "models": cmd_models,
@@ -93,6 +107,8 @@ def main(argv: list[str] | None = None) -> int:
         "generate": cmd_generate,
         "pack": cmd_pack,
         "validate": cmd_validate,
+        "sample": cmd_sample,
+        "review": cmd_review,
     }[args.command](args)
 
 
@@ -332,6 +348,101 @@ def cmd_pack(args) -> int:
     PACKS.mkdir(parents=True, exist_ok=True)
     _write_json(PACKS / f"{lang}.pack.json", pack)
     print(f"valid -> {PACKS / f'{lang}.pack.json'}")
+    return 0
+
+
+SHEET = "spot-check.csv"
+
+
+def _sheet_path(lang: str) -> Path:
+    return WORK / lang / "review" / SHEET
+
+
+def cmd_sample(args) -> int:
+    """Spec D4: draw sentences for a person to read.
+
+    Writes beside the pack rather than into it — the sheet is working material,
+    and the verdicts on it are the reason the seed is recorded in the file name
+    of nothing and in the header of this command instead: re-running with the
+    same `--seed` reproduces the same 100 sentences, which is what makes "we
+    checked these" a claim rather than a feeling.
+    """
+    lang = args.language
+    path = PACKS / f"{lang}.pack.json"
+    if not path.is_file():
+        sys.exit(f"{path} not found; run `packgen pack {lang}` first")
+    pack = json.loads(path.read_text(encoding="utf-8"))
+
+    sheet = _sheet_path(lang)
+    if sheet.is_file() and not args.force:
+        existing = review.read_verdicts(sheet.read_text(encoding="utf-8"))
+        # Overwriting a sheet someone has spent an hour on is not a thing to do
+        # because a flag was omitted.
+        sys.exit(
+            f"{sheet} already exists with {existing.reviewed} verdicts recorded. "
+            f"Pass --force to replace it, or move it aside first."
+        )
+
+    drawn = review.sample(pack["words"], count=args.count, seed=args.seed)
+    sheet.parent.mkdir(parents=True, exist_ok=True)
+    sheet.write_text(review.to_csv(drawn), encoding="utf-8")
+    print(f"{len(drawn)} of {pack['word_count']} sentences (seed {args.seed}) -> {sheet}")
+    print("Fill in the `verdict` column with ok or bad, and `note` for anything you reject.")
+    print(f"Then: uv run packgen review {lang}")
+    return 0
+
+
+def cmd_review(args) -> int:
+    """Read the filled-in sheet and queue the rejects for regeneration.
+
+    Rejections join the validator's own failures in `work/<lang>/retry/`, so the
+    existing `generate --retry` → `pack` loop handles them. A human saying "no
+    French speaker says that" and VR-10 saying "uses a word ranked below the
+    target" are the same kind of problem from the pipeline's point of view: this
+    sentence needs writing again, and here is why.
+    """
+    lang = args.language
+    sheet = args.sheet or _sheet_path(lang)
+    if not sheet.is_file():
+        sys.exit(f"{sheet} not found; run `packgen sample {lang}` first")
+
+    verdicts = review.read_verdicts(sheet.read_text(encoding="utf-8"))
+    print(
+        f"{verdicts.reviewed} reviewed: {verdicts.accepted} ok, "
+        f"{len(verdicts.rejected)} rejected, {verdicts.unreviewed} still blank"
+    )
+    if not verdicts.rejected:
+        print("nothing to regenerate")
+        return 0
+
+    candidates = _load_candidates(lang)
+    by_rank = {c.rank: c for c in candidates}
+    generated, errors = _ingest(
+        candidates, args.batch, WORK / lang / "responses", WORK / lang / "retry"
+    )
+    if errors:
+        print(f"{len(errors)} response problems -- fix and re-run:", file=sys.stderr)
+        for e in errors[:20]:
+            print(f"  {e}", file=sys.stderr)
+        return 1
+
+    report = Report(
+        violations=[
+            Violation(
+                rule="D4", entry_id=entry_id, message=note or "a human rejected this sentence"
+            )
+            for entry_id, note in sorted(verdicts.rejected.items())
+        ]
+    )
+    if not _write_retry_prompts(lang, candidates, by_rank, generated, report, args.batch):
+        print(
+            "no retry prompts written -- every rejected word has already been "
+            f"regenerated once. Edit work/{lang}/responses/ by hand.",
+            file=sys.stderr,
+        )
+        return 1
+    print(f"{len(verdicts.rejected)} rejections -> work/{lang}/retry/")
+    print(f"Then: uv run packgen generate {lang} --retry && uv run packgen pack {lang}")
     return 0
 
 
